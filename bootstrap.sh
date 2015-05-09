@@ -4,5 +4,5 @@
 
 autoconf
 aclocal
-automake
+automake --add-missing
 autoconf
