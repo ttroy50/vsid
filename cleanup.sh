@@ -12,4 +12,4 @@ aclocal.m4 \
 autom4te.cache \
 config.log \
 config.status
-#configure
+configure

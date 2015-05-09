@@ -3,7 +3,7 @@
 
 AC_PREREQ([2.69])
 AC_INIT(vsi, 0.1, https://bitbucket.org/matrim/vsi/issues)
-AM_INIT_AUTOMAKE(vsi, 0.1)
+AM_INIT_AUTOMAKE
 
 AC_CONFIG_SRCDIR([src/training/src/main.cpp])
 #AC_CONFIG_HEADERS([config.h])
