@@ -13,9 +13,7 @@ Thom Troy
 
 ## Related Projects
 
-* Original SPID algorithm
-  http://sourceforge.net/projects/spid/
+* [Original SPID algorithm](http://sourceforge.net/projects/spid/)
 
-* Alternative Implementation
-  https://github.com/cit/Spid
+* [Alternative Implementation](https://github.com/cit/Spid)
 
