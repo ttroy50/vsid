@@ -4,6 +4,13 @@ M.EEng Dublin City University
 
 Thom Troy
 
+## Building
+
+### Requirements
+
+* libpcap
+
+
 ## Related Projects
 
 * Original SPID algorithm
