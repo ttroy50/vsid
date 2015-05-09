@@ -141,7 +141,7 @@ Makefile
 /stamp-h1+
 /config.*
 /Makefile
-
+**/.deps
 
 #
 # VSI 
