@@ -126,6 +126,9 @@ sftp-config.json
 
 Makefile.in
 
+# may need to be more specific about this later
+Makefile
+
 # http://www.gnu.org/software/autoconf
 
 /autom4te.cache
@@ -138,3 +141,10 @@ Makefile.in
 /stamp-h1+
 /config.*
 /Makefile
+
+
+#
+# VSI 
+#
+
+src/training/src/vsi_training
