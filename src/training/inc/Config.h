@@ -1,3 +1,11 @@
+/**
+ * Configuration for the VSID Training program
+ *
+ * @author Thom Troy
+ *
+ * Copyright (C) 2015 Thom Troy
+ */
+
 #ifndef __VSID_TRAINING_CONFIG_H__
 #define __VSID_TRAINING_CONFIG_H__
 

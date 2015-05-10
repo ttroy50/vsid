@@ -1,3 +1,11 @@
+/**
+ * Config
+ * 
+ * @author Thom Troy
+ *
+ * Copyright (C) 2015 Thom Troy
+ */
+
 #include "Config.h"
 #include "Logger.h"
 
@@ -30,7 +38,7 @@ Config* Config::instance()
 
 bool Config::init(const string& config_file)
 {
-	LOG(INFO) << "init config from config file : " << config_file;
+	SLOG_INFO(<< "init config from config file : " << config_file);
 	_config_file = config_file;
 	return true;
 }

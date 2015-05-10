@@ -49,11 +49,11 @@ int main( int argc, char* argv[] )
 	    switch (c) 
 	    {
 	    	case 'd':
-	        	LOG(INFO) << "-d " << optarg;
+	        	SLOG_INFO(<< "-d " << optarg);
 	            spid_db = optarg;
 	            break;
 	        case 'c':
-	        	LOG(INFO) << "-c " << optarg;
+	        	SLOG_INFO(<< "-c " << optarg);
 	            config = optarg;
 	            break;
 	        case 'h':
@@ -75,11 +75,11 @@ int main( int argc, char* argv[] )
 	}
 
 	if (optind < argc) {
-        LOG(INFO) << (argc - optind) << " pcap file(s) : ";
+        SLOG_INFO(<< (argc - optind) << " pcap file(s) : ");
         while (optind < argc)
         {
         	pcap_files.push_back(argv[optind++]);
-        	LOG(INFO) << "\t" << pcap_files.back();
+        	SLOG_INFO(<< "\t" << pcap_files.back());
         }
     }
 
@@ -96,28 +96,28 @@ int main( int argc, char* argv[] )
     		std::ifstream tmp(pcap_files[i]);
     		if ( !tmp.good() )
     		{
-    			LOG(ERROR) << "Unable to find pcap file : " << pcap_files[i];
-    			cerr << "ERRO: Unable to find pcap file : " << pcap_files[i] << endl;
+    			LOG_ERROR(("Unable to find pcap file : %v", pcap_files[i]));
+    			cerr << "ERROR: Unable to find pcap file : " << pcap_files[i] << endl;
     			exit(1);
     		}
     	}
     }
 
-    LOG(INFO) << "config file : " << config;
+    SLOG_INFO(<< "config file : " << config);
 
 	if ( !Config::instance()->init(config) )
 	{
-		LOG(ERROR) << "Unable to initialise configuration";
+		SLOG_ERROR( << "Unable to initialise configuration");
 		cerr << "ERROR: Unable to initialise configuration" << endl;
 		exit(1);
 	}
 
 	if( !spid_db.empty() )
 	{
-		LOG(INFO) << "overriding spid_db from config : " << spid_db; 
+		SLOG_INFO( << "overriding spid_db from config : " << spid_db); 
 		Config::instance()->spidDatabase(spid_db);
 	}
 
-	LOG(INFO) << "spid database : " << Config::instance()->spidDatabase();
+	SLOG_INFO(<< "spid database : " << Config::instance()->spidDatabase());
 
 }
