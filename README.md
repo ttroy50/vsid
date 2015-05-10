@@ -14,14 +14,15 @@ Thom Troy
 
 The steps to build are
 
-  $ mkdir build
-  $ cd build
-  $ ../configure
-  $ make
+```
+ $ mkdir build
+ $ cd build
+ $ ../configure
+ $ make
+```
 
 ## Related Projects
 
 * [Original SPID algorithm](http://sourceforge.net/projects/spid/)
 
 * [Alternative Implementation](https://github.com/cit/Spid)
-
