@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT(vsi, 0.1, https://bitbucket.org/matrim/vsi/issues)
+AC_INIT(vsid, 0.1, https://bitbucket.org/matrim/vsi/issues)
 AM_INIT_AUTOMAKE
 
 AC_CONFIG_SRCDIR([src/training/src/main.cpp])

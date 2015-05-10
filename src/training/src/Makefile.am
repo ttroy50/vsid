@@ -5,15 +5,16 @@ AM_LDFLAGS =
 
 # this lists the binaries to produce, the (non-PHONY, binary) targets in
 # the previous manual Makefile
-bin_PROGRAMS = vsi_training
+bin_PROGRAMS = vsid_training
 
 
-vsi_training_INCS = \
+vsid_training_INCS = \
 				-I$(srcdir)/../inc \
 				-I$(top_srcdir)/contrib/easyloggingpp
 
-vsi_training_CXXFLAGS =  -std=c++11 $(vsi_training_INCS)
+vsid_training_CXXFLAGS =  -std=c++11 $(vsid_training_INCS)
 
-vsi_training_SOURCES = main.cpp
+vsid_training_SOURCES = main.cpp \
+						Config.cpp
 
 

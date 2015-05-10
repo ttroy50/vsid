@@ -144,8 +144,8 @@ Makefile
 **/.deps
 
 #
-# VSI 
+# VSID
 #
 
-src/training/src/vsi_training
+src/training/src/vsid_training
 /build
