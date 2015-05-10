@@ -2,7 +2,18 @@
 CFLAGS = --pedantic -Wall -O2
 AM_LDFLAGS =
 
+
 # this lists the binaries to produce, the (non-PHONY, binary) targets in
 # the previous manual Makefile
 bin_PROGRAMS = vsi_training
+
+
+vsi_training_INCS = \
+				-I$(srcdir)/../inc \
+				-I$(top_srcdir)/contrib/easyloggingpp
+
+vsi_training_CXXFLAGS =  -std=c++11 $(vsi_training_INCS)
+
 vsi_training_SOURCES = main.cpp
+
+

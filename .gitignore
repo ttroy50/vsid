@@ -148,3 +148,4 @@ Makefile
 #
 
 src/training/src/vsi_training
+/build

@@ -10,6 +10,14 @@ Thom Troy
 
 * libpcap
 
+### Steps
+
+The steps to build are
+
+  $ mkdir build
+  $ cd build
+  $ ../configure
+  $ make
 
 ## Related Projects
 
