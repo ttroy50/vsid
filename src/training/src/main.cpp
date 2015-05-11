@@ -15,7 +15,8 @@
 
 #include "Logger.h"
 #include "Config.h"
-
+#include "PcapReader.h"
+ 
 using namespace std;
 using namespace VSID_TRAINING;
 
@@ -119,5 +120,16 @@ int main( int argc, char* argv[] )
 	}
 
 	SLOG_INFO(<< "spid database : " << Config::instance()->spidDatabase());
+
+	PcapReader reader;
+
+	for(int i = 0; i < pcap_files.size(); i++)
+	{
+		if ( !reader.read(pcap_files[i]) )
+		{
+			SLOG_FATAL(<< "Unable to read pcap");
+			exit(1);
+		}
+	}
 
 }

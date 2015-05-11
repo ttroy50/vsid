@@ -14,7 +14,10 @@ vsid_training_INCS = \
 
 vsid_training_CXXFLAGS =  -std=c++11 $(vsid_training_INCS)
 
+vsid_training_LDADD = -lpcap
+
 vsid_training_SOURCES = main.cpp \
-						Config.cpp
+						Config.cpp \
+						PcapReader.cpp
 
 
