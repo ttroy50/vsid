@@ -28,10 +28,43 @@
 // wrappers around stream logger
 // call lile SLOG_INFO(<< "some variable " << varlaboe)
 #define SLOG_INFO(X) LOG(INFO) X;
-#define SLOG_WARN(X) LOG(INFO) X;
-#define SLOG_ERROR(X) LOG(INFO) X;
-#define SLOG_DEBUG(X) LOG(INFO) X;
-#define SLOG_FATAL(X) LOG(INFO) X;
-#define SLOG_TRACE(X) LOG(INFO) X;
+#define SLOG_WARN(X) LOG(WARN) X;
+#define SLOG_ERROR(X) LOG(ERROR) X;
+#define SLOG_DEBUG(X) LOG(DEBUG) X;
+#define SLOG_FATAL(X) LOG(FATAL) X;
+#define SLOG_TRACE(X) LOG(TRACE) X;
+
+
+/**
+ * Format a buffer to print it as hex. The resulting outbuf looks like
+ *
+ * 4C 60 DE D8 D8 FA 08 3E  8E 64 AE E0 08 00 45 00   L`.....>.d....E.
+ * 
+ * @param  buffer Max buffer size is 1000
+ * @param  size size of buffer
+ * @param  obuf
+ * @param  obuf_sz returned size of output buffer
+ * @return
+ */
+int format_hexdump(const u_char *buffer, int size, char *obuf, int obuf_sz);
+
+/**
+ * Log a buffer as HEX. 
+ * 
+ * Mainly for logging a packet 
+ *
+ * Use sparingly
+ * @param  MSG A msg to print in the first line
+ * @param  HEX The hex buffer
+ * @param  SZE Size of the hex buffer
+ * @return
+ */
+#define LOG_HEXDUMP(MSG, HEX, SZE) \
+ 	if( SZE < 2048) { \
+ 		char buf[4097]; 	\
+ 		buf[0] = '\0'; 		\
+ 		int len = format_hexdump (HEX, SZE, buf, sizeof buf); \
+ 		LOG(INFO) << MSG << endl << buf << endl; \
+ 	}
 
 #endif 

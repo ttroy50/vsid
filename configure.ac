@@ -8,9 +8,13 @@ AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/training/src/main.cpp])
 #AC_CONFIG_HEADERS([config.h])
 
+AC_LANG_CPLUSPLUS
+
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC
+
+AC_PROG_RANLIB
 
 # Checks for libraries.
 
@@ -28,5 +32,7 @@ AC_CHECK_FUNCS([gettimeofday localtime_r memset mkdir strerror strstr])
 
 #AC_OUTPUT
 AC_OUTPUT(Makefile \
+		contrib/Makefile \
+		contrib/hash/src/Makefile \
 		src/Makefile \
 		src/training/src/Makefile )

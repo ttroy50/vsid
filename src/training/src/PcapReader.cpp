@@ -1,6 +1,8 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <netinet/ip.h>
+#include <netinet/udp.h>
+#include <netinet/tcp.h>
 
 #include "pcap/pcap.h"
 
@@ -8,7 +10,7 @@
 #include "Logger.h"
 #include "Config.h"
 #include "Constants.h"
-
+#include "TcpIpv4.h"
 
 using namespace std;
 using namespace VSID_TRAINING;
@@ -17,19 +19,25 @@ void PcapReader::readPacket(u_char* userArg, const pcap_pkthdr* pkthdr, const u_
 {
 
     static int count = 1;
-    SLOG_INFO( << "count : " << count << endl
-   				<< "\tts.sec : " << pkthdr->ts.tv_sec << " ts.usec : " << pkthdr->ts.tv_usec << endl
-    			<< "\t\t\tcaplen : " << pkthdr->caplen << endl
-    			<< "\t\t\tlen : " << pkthdr->len << endl);
+    SLOG_INFO( << "Packet count : " << count);
+   	SLOG_INFO( << "ts.sec : " << pkthdr->ts.tv_sec << " ts.usec : " << pkthdr->ts.tv_usec);
+    SLOG_INFO( << "caplen : " << pkthdr->caplen);
+    SLOG_INFO( << "len : " << pkthdr->len);
+
+    LOG_HEXDUMP("Packet :", packet, pkthdr->len)
+
+    // Update count now after logging
+    count++;
 
     pcap_t* pcap = (pcap_t*)userArg;
     int linktype;
-    int linkhdrlen = 14;
+
+    uint32_t linkhdrlen = 14;
  
     // Determine the datalink layer type.
     if ((linktype = pcap_datalink(pcap)) < 0)
     {
-        printf("pcap_datalink(): %s\n", pcap_geterr(pcap));
+        LOG_ERROR(("pcap_datalink(): %v\n", pcap_geterr(pcap)));
         return;
     }
  
@@ -57,30 +65,110 @@ void PcapReader::readPacket(u_char* userArg, const pcap_pkthdr* pkthdr, const u_
  		SLOG_INFO(<< "LL_SLL_HDR_LEN");
  		break;
     default:
-        printf("Unsupported datalink (%d)\n", linktype);
+        LOG_ERROR(("Unsupported datalink (%v)\n", linktype));
         return;
     }
 
-	struct ip* p_ip_header = (struct ip*)(packet + linkhdrlen);
+    struct ip_vhl {
+		unsigned int ip_hl:4; // only in IPv4
+		unsigned int ip_v:4;
+    };	
 
-	// extract the source and the destination ip-adrress
-	in_addr* srcIp = (in_addr*) &p_ip_header->ip_src;
-    in_addr* dstIp = (in_addr*) &p_ip_header->ip_src;
+    // IP Header
+    const u_char* ip_hdr_start = packet + linkhdrlen;
 
-    // convert datagram network byte order to host byte order and calculate
-    // the header size
-    //uint16_t ipDatagramSize = ntohs(p_ip_header->ip_len);
-    //uint16_t headerSize     = IP_HL(p_ip_header) << 2;
+    ip_vhl* vhl = (struct ip_vhl*)(ip_hdr_start);
+    SLOG_INFO(<< "IP - HLen : " << vhl->ip_hl * 4 << " - Ver : " << vhl->ip_v);
 
-	char str[INET6_ADDRSTRLEN];
-	inet_ntop(AF_INET, &p_ip_header->ip_src, str, INET6_ADDRSTRLEN);
+    if(vhl->ip_v == IPv4)
+    {
+		struct ip* ip_hdr = (struct ip*)(ip_hdr_start);
+		const u_char* transport_hdr_start = ip_hdr_start + (vhl->ip_hl * 4);
 
-	char str2[INET6_ADDRSTRLEN];
-	inet_ntop(AF_INET, dstIp, str2, INET6_ADDRSTRLEN);
+		// extract the source and the destination ip-adrress
+		in_addr* srcIp = (in_addr*) &ip_hdr->ip_src;
+	    in_addr* dstIp = (in_addr*) &ip_hdr->ip_src;
 
-    SLOG_INFO( << "srcIP : " << str << endl
-    			<< "\t\t\tdstIp : " << str2 << endl);
-    count++;
+	    // convert datagram network byte order to host byte order and calculate
+	    // the header size
+	    //uint16_t ipDatagramSize = ntohs(ip_hdr->ip_len);
+	    //uint16_t headerSize     = IP_HL(ip_hdr) << 2;
+
+		char src[INET6_ADDRSTRLEN];
+		inet_ntop(AF_INET, &ip_hdr->ip_src, src, INET6_ADDRSTRLEN);
+
+		char dst[INET6_ADDRSTRLEN];
+		inet_ntop(AF_INET, dstIp, dst, INET6_ADDRSTRLEN);
+
+	    SLOG_INFO( << "src ip : " << src );
+	    SLOG_INFO( << "dst ip : " << dst );
+
+	    // Transport Layer Header
+	    switch(ip_hdr->ip_p)
+	    {
+	    	case IPPROTO_ICMP:
+	    	{
+	    		SLOG_INFO( << "IPPROTO_ICMP");
+	    		break;
+	    	}
+	    	case IPPROTO_TCP:
+	    	{
+	    		SLOG_INFO( << "IPPROTO_TCP");
+
+	    		struct tcphdr* tcp_h = (struct tcphdr*) transport_hdr_start;
+
+	    		SLOG_INFO( << "src port : " << ntohs(tcp_h->th_sport));
+	    		SLOG_INFO( << "dst port : " << ntohs(tcp_h->th_dport))
+
+	    		const u_char* data_start = transport_hdr_start + sizeof(tcphdr);
+	    		
+	    		TcpIPv4 test(packet, pkthdr->len, ip_hdr_start, transport_hdr_start, data_start);
+	    		
+	    		SLOG_INFO( << "src port : " << ntohs(test.tcphdr()->th_sport));
+	    		SLOG_INFO( << "dst port : " << ntohs(test.tcphdr()->th_dport));
+	    		if(transport_hdr_start != test.transport_hdr_start())
+	    		{
+	    			SLOG_INFO(<< "not equal")
+	    		}
+
+	    		SLOG_INFO( << "Flow Hash : " << test.flowHash() );
+	    		break;
+	    	}
+	    	case IPPROTO_UDP:
+	    	{
+	    		SLOG_INFO( << "IPPROTO_UDP");
+
+	    		struct udphdr* udp_h = (struct udphdr*) transport_hdr_start;
+
+	    		SLOG_INFO( << "src port : " << ntohs(udp_h->uh_sport));
+	    		SLOG_INFO( << "dst port : " << ntohs(udp_h->uh_dport))
+
+	    		const u_char* data_start = transport_hdr_start + sizeof(tcphdr);
+
+	    		break;
+	    	}
+	    	case IPPROTO_SCTP:
+	    	{
+	    		SLOG_INFO( << "IPPROTO_SCTP");
+	    		break;
+	    	}
+	    	default:
+	    	{
+	    		SLOG_INFO( << "UNKNOWN IPPROTO : " << ip_hdr->ip_p);
+	    	}
+
+	    }
+	}
+	else if(vhl->ip_v == IPv6)
+	{
+		SLOG_ERROR(<< "IP Version 6 not supported yet")
+		return;
+	}
+	else
+	{
+		SLOG_ERROR(<< "Invalid IP Version : " << vhl->ip_v)
+		return;
+	}
 }
 
 bool PcapReader::read(const string& fileName)
@@ -91,7 +179,7 @@ bool PcapReader::read(const string& fileName)
 	pcap_t * pcap = pcap_open_offline(fileName.c_str(), errbuff);
 
 	struct bpf_program  filter;
-	
+
 	 // compiles the filter expression into a BPF filter program.
     // ip and (tcp or udp) filters only ip version 4 packets with tcp or udp
     if (pcap_compile(pcap, &filter,

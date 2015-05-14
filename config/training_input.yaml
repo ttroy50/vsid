@@ -1,0 +1,38 @@
+# Example configuration for the training program input.
+# You can either specify each pcap manually if have one flow or a collection of flows
+# witht the same type
+# 
+# Alternatively if a pcap has multiple flows with different types, you can specify 
+# them in a config like this and add it using the -i switch
+# 
+# format is 
+
+---
+	-
+		file: ~/Downloads/test.pcap.pcapng
+		flows:
+			-
+				src_ip: 192.168.1.1
+				src_port: 5061
+				dst_ip: 192.168.1.2
+				dst_port: 5060
+				transport: UDP
+				protocol: SIP
+	-
+		file: ~/Downloads/test2.pcap
+		flows:
+			-
+				src_ip: 192.168.1.1
+				src_port: 34233
+				dst_ip: 192.168.1.2
+				dst_port: 443
+				transport: TCP
+				protocol: HTTPS
+
+			-
+				src_ip: 192.168.1.33
+				src_port: 55555
+				dst_ip: 192.168.1.2
+				dst_port: 80
+				transport: UDP
+				protocol: HTTP
