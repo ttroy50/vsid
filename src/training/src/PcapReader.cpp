@@ -173,12 +173,20 @@ void PcapReader::readPacket(u_char* userArg, const pcap_pkthdr* pkthdr, const u_
 
 bool PcapReader::read(const string& fileName)
 {
+	SLOG_INFO( << "opening pcap [" << fileName << "]");
 
 	char errbuff[PCAP_ERRBUF_SIZE];
 
 	pcap_t * pcap = pcap_open_offline(fileName.c_str(), errbuff);
 
+	if(pcap == NULL)
+	{
+		SLOG_ERROR(<< "ERROR opening pcap [" << fileName << "] : " << errbuff);
+		return false;
+	}
+
 	struct bpf_program  filter;
+
 
 	 // compiles the filter expression into a BPF filter program.
     // ip and (tcp or udp) filters only ip version 4 packets with tcp or udp
@@ -193,13 +201,6 @@ bool PcapReader::read(const string& fileName)
         cerr << "Error filter: " << pcap_geterr(pcap) << endl;
         exit(EXIT_FAILURE);
     }
-
-
-	if(pcap == NULL)
-	{
-		SLOG_ERROR(<< "ERROR opening pcap [" << fileName << "] : " << errbuff);
-		return false;
-	}
 
 	pcap_loop(pcap, 0, readPacket, (u_char*)pcap);
 

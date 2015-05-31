@@ -9,27 +9,32 @@
 #ifndef __VSID_TRAINING_TRAINING_INPUT_H__
 #define __VSID_TRAINING_TRAINING_INPUT_H__
 
+#include <string>
+#include <vector>
+
 namespace VSID_TRAINING
 {
 
 enum Protocol {
+	UNKNOWN,
 	HTTP,
 	HTTPS,
 	SIP
-}
+};
 
-struct IPv4Tuple {
+class IPv4Tuple {
+public:
 	/**
 	 * Default constructor. Sets all items to 0 and means match any flow.
 	 */
-	IPv4Tuple();
+	IPv4Tuple() {}
 
 
 	IPv4Tuple(uint32_t src_ip,
 				uint16_t src_port,
 				uint32_t dst_ip,
 				uint16_t dst_port,
-				uint8_t transport);
+				uint8_t transport) {}
 
 
 	uint32_t src_ip;
@@ -39,15 +44,23 @@ struct IPv4Tuple {
 	uint8_t transport;
 };
 
-struct TrainingFlow
+class TrainingFlow
 {
+public:
+	TrainingFlow() : processed(false) {}
+
 	IPv4Tuple tuple;
 	Protocol protocol;
+	bool processed;
 };
 
-struct TrainingFile {
-	std::string& filename;
+class TrainingFile {
+public:
+	TrainingFile() : exists(false) {}
+
+	std::string filename;
 	std::vector<TrainingFlow> flows;
+	bool exists;
 };
 
 class TrainingInput
@@ -56,8 +69,12 @@ public:
 	bool read(const std::string& filename);
 
 
+	static uint8_t strToTransport(const std::string& str);
+	static Protocol strToProtocol(const std::string& str);
+
+	std::vector<TrainingFile>& trainingFiles() { return _trainingFiles; }
 private:
-	std::vector<TrainingFile> pcapfiles;
+	std::vector<TrainingFile> _trainingFiles;
 };
 
 

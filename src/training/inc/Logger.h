@@ -10,11 +10,12 @@
 #ifndef __VSID_TRAINING_LOGGER_H__
 #define __VSID_TRAINING_LOGGER_H__
 
-
+#define ELPP_NO_DEFAULT_LOG_FILE
 
 #include "easylogging++.h"
 
-#define INIT_LOGGING INITIALIZE_EASYLOGGINGPP
+#define INIT_LOGGING INITIALIZE_EASYLOGGINGPP 
+
 
 // printf style wrappers
 // call like LOG_INFO(("some variable %v", variable))
