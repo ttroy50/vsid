@@ -11,20 +11,23 @@
 #include "Config.h"
 #include "Constants.h"
 #include "TcpIpv4.h"
+#include "UdpIpv4.h"
 
 using namespace std;
 using namespace VSID_TRAINING;
 
-void PcapReader::readPacket(u_char* userArg, const pcap_pkthdr* pkthdr, const u_char* packet)
+void PcapReader::readPacket(u_char* userArg, 
+							const pcap_pkthdr* pkthdr,
+							const u_char* packet)
 {
-
     static int count = 1;
+    LOG_HEXDUMP("Packet :", packet, pkthdr->len)
     SLOG_INFO( << "Packet count : " << count);
    	SLOG_INFO( << "ts.sec : " << pkthdr->ts.tv_sec << " ts.usec : " << pkthdr->ts.tv_usec);
     SLOG_INFO( << "caplen : " << pkthdr->caplen);
     SLOG_INFO( << "len : " << pkthdr->len);
 
-    LOG_HEXDUMP("Packet :", packet, pkthdr->len)
+    
 
     // Update count now after logging
     count++;
@@ -82,12 +85,12 @@ void PcapReader::readPacket(u_char* userArg, const pcap_pkthdr* pkthdr, const u_
 
     if(vhl->ip_v == IPv4)
     {
-		struct ip* ip_hdr = (struct ip*)(ip_hdr_start);
+		struct iphdr* ip_hdr = (struct iphdr*)(ip_hdr_start);
 		const u_char* transport_hdr_start = ip_hdr_start + (vhl->ip_hl * 4);
 
 		// extract the source and the destination ip-adrress
-		in_addr* srcIp = (in_addr*) &ip_hdr->ip_src;
-	    in_addr* dstIp = (in_addr*) &ip_hdr->ip_src;
+		in_addr* srcIp = (in_addr*) &ip_hdr->saddr;
+	    in_addr* dstIp = (in_addr*) &ip_hdr->daddr;
 
 	    // convert datagram network byte order to host byte order and calculate
 	    // the header size
@@ -95,7 +98,7 @@ void PcapReader::readPacket(u_char* userArg, const pcap_pkthdr* pkthdr, const u_
 	    //uint16_t headerSize     = IP_HL(ip_hdr) << 2;
 
 		char src[INET6_ADDRSTRLEN];
-		inet_ntop(AF_INET, &ip_hdr->ip_src, src, INET6_ADDRSTRLEN);
+		inet_ntop(AF_INET, srcIp, src, INET6_ADDRSTRLEN);
 
 		char dst[INET6_ADDRSTRLEN];
 		inet_ntop(AF_INET, dstIp, dst, INET6_ADDRSTRLEN);
@@ -104,7 +107,7 @@ void PcapReader::readPacket(u_char* userArg, const pcap_pkthdr* pkthdr, const u_
 	    SLOG_INFO( << "dst ip : " << dst );
 
 	    // Transport Layer Header
-	    switch(ip_hdr->ip_p)
+	    switch(ip_hdr->protocol)
 	    {
 	    	case IPPROTO_ICMP:
 	    	{
@@ -115,35 +118,39 @@ void PcapReader::readPacket(u_char* userArg, const pcap_pkthdr* pkthdr, const u_
 	    	{
 	    		SLOG_INFO( << "IPPROTO_TCP");
 
-	    		struct tcphdr* tcp_h = (struct tcphdr*) transport_hdr_start;
-
-	    		SLOG_INFO( << "src port : " << ntohs(tcp_h->th_sport));
-	    		SLOG_INFO( << "dst port : " << ntohs(tcp_h->th_dport))
-
 	    		const u_char* data_start = transport_hdr_start + sizeof(tcphdr);
 	    		
-	    		TcpIPv4 test(packet, pkthdr->len, ip_hdr_start, transport_hdr_start, data_start);
+	    		TcpIPv4 tcp(packet, pkthdr->len, ip_hdr_start, transport_hdr_start, data_start);
 	    		
-	    		SLOG_INFO( << "src port : " << ntohs(test.tcphdr()->th_sport));
-	    		SLOG_INFO( << "dst port : " << ntohs(test.tcphdr()->th_dport));
-	    		if(transport_hdr_start != test.transport_hdr_start())
+	    		SLOG_INFO( << "src port : " << tcp.srcPort());
+	    		SLOG_INFO( << "dst port : " << tcp.dstPort());
+
+	    		if(transport_hdr_start != tcp.transport_hdr_start())
 	    		{
 	    			SLOG_INFO(<< "not equal")
 	    		}
 
-	    		SLOG_INFO( << "Flow Hash : " << test.flowHash() );
+	    		SLOG_INFO( << "Flow Hash : " << tcp.flowHash() );
 	    		break;
 	    	}
 	    	case IPPROTO_UDP:
 	    	{
 	    		SLOG_INFO( << "IPPROTO_UDP");
 
-	    		struct udphdr* udp_h = (struct udphdr*) transport_hdr_start;
+	    		const u_char* data_start = transport_hdr_start + sizeof(udphdr);
 
-	    		SLOG_INFO( << "src port : " << ntohs(udp_h->uh_sport));
-	    		SLOG_INFO( << "dst port : " << ntohs(udp_h->uh_dport))
+	    		UdpIPv4 udp(packet, pkthdr->len, ip_hdr_start, transport_hdr_start, data_start);
 
-	    		const u_char* data_start = transport_hdr_start + sizeof(tcphdr);
+
+	    		SLOG_INFO( << "src port : " << udp.srcPort());
+	    		SLOG_INFO( << "dst port : " << udp.dstPort());
+
+	    		if(transport_hdr_start != udp.transport_hdr_start())
+	    		{
+	    			SLOG_INFO(<< "not equal")
+	    		}
+
+	    		SLOG_INFO( << "Flow Hash : " << udp.flowHash() );
 
 	    		break;
 	    	}
@@ -154,7 +161,7 @@ void PcapReader::readPacket(u_char* userArg, const pcap_pkthdr* pkthdr, const u_
 	    	}
 	    	default:
 	    	{
-	    		SLOG_INFO( << "UNKNOWN IPPROTO : " << ip_hdr->ip_p);
+	    		SLOG_INFO( << "UNKNOWN IPPROTO : " << ip_hdr->protocol);
 	    	}
 
 	    }
@@ -193,13 +200,13 @@ bool PcapReader::read(const string& fileName)
     if (pcap_compile(pcap, &filter,
                      "ip and (tcp or udp)", 1, 0) == -1) {
         cerr << "Error bpf: " << pcap_geterr(pcap) << endl;
-        exit(EXIT_FAILURE);
+        return false;
     }
 
     // load the filter program into the packet capture device.
     if (pcap_setfilter(pcap, &filter) == -1) {
         cerr << "Error filter: " << pcap_geterr(pcap) << endl;
-        exit(EXIT_FAILURE);
+        return false;
     }
 
 	pcap_loop(pcap, 0, readPacket, (u_char*)pcap);

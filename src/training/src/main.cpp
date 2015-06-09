@@ -43,7 +43,10 @@ int main( int argc, char* argv[] )
 	el::Configurations conf("../config/logging.conf"); 
 	el::Loggers::reconfigureAllLoggers(conf);
 
-	SLOG_INFO(<< "=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+");
+	SLOG_INFO(	<< endl 
+				<< "\t\t+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+" << endl
+	   			<< "\t\t+ Running " << argv[0] << endl
+				<< "\t\t+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+" << endl);
 
 	string spid_db;
 	bool spid_db_set = false;

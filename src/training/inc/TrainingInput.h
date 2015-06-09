@@ -11,7 +11,8 @@
 
 #include <string>
 #include <vector>
-
+#include "IPv4Tuple.h"
+ 
 namespace VSID_TRAINING
 {
 
@@ -22,32 +23,13 @@ enum Protocol {
 	SIP
 };
 
-class IPv4Tuple {
-public:
-	/**
-	 * Default constructor. Sets all items to 0 and means match any flow.
-	 */
-	IPv4Tuple() {}
-
-
-	IPv4Tuple(uint32_t src_ip,
-				uint16_t src_port,
-				uint32_t dst_ip,
-				uint16_t dst_port,
-				uint8_t transport) {}
-
-
-	uint32_t src_ip;
-	uint16_t src_port;
-	uint32_t dst_ip;
-	uint16_t dst_port;
-	uint8_t transport;
-};
-
 class TrainingFlow
 {
 public:
-	TrainingFlow() : processed(false) {}
+	TrainingFlow() : 
+		processed(false), 
+		protocol(UNKNOWN) 
+	{}
 
 	IPv4Tuple tuple;
 	Protocol protocol;

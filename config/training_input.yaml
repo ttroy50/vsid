@@ -2,16 +2,16 @@
 # 
 # format is 
 ---
-#-
-#    file: "/home/matrim/Downloads/401_Error.pcap"
-#    flows:
-#        -
-#            src_ip: 192.168.1.1
-#            src_port: 5061
-#            dst_ip: 192.168.1.2
-#            dst_port: 5060
-#            transport: UDP
-#            protocol: SIP
+-
+    file: "/home/matrim/Downloads/401_Error.pcap"
+    flows:
+        -
+            src_ip: 192.168.1.1
+            src_port: 5061
+            dst_ip: 192.168.1.2
+            dst_port: 5060
+            transport: UDP
+            protocol: SIP
 #-
 #    file: /home/matrim/Downloads/OCSP_CAPTURE.pcapng
 #    flows:

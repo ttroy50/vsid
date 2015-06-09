@@ -25,6 +25,8 @@ vsid_training_SOURCES = main.cpp \
 						PcapReader.cpp \
 						Logger.cpp \
 						IPv4.cpp \
-						TrainingInput.cpp
+						TrainingInput.cpp \
+						FlowManager.cpp \
+						Flow.cpp
 
 

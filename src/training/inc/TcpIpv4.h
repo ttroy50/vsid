@@ -12,17 +12,33 @@ namespace VSID_TRAINING
 class TcpIPv4 : public IPv4
 {
 public:
-	TcpIPv4(const u_char* pkt, int pkt_size, const u_char* ip_hdr_start, 
-					const u_char* transport_hdr_start, const u_char* data_start) :
-		IPv4(pkt, pkt_size, ip_hdr_start, transport_hdr_start, data_start)
-	{};
+	TcpIPv4(const u_char* pkt, 
+				int pkt_size, 
+				const u_char* ip_hdr_start, 
+				const u_char* transport_hdr_start, 
+				const u_char* data_start) :
+		IPv4(pkt, 
+			pkt_size, 
+			ip_hdr_start, 
+			transport_hdr_start, 
+			data_start)
+	{
+
+	};
+
 	virtual ~TcpIPv4() {};
 
 
-	const struct tcphdr* tcphdr() { return (const struct tcphdr*)_transport_hdr_start; }
+	const struct tcphdr* tcphdr() const { return (const struct tcphdr*)_transport_hdr_start; }
 
-	virtual uint16_t srcPort() { SLOG_INFO(<< "heres"); return  ntohs(tcphdr()->th_sport); }
-	virtual uint16_t dstPort() { SLOG_INFO(<< "hered"); return ntohs(tcphdr()->th_dport); }
+	virtual uint16_t srcPort() const { return  ntohs(tcphdr()->th_sport); }
+
+	virtual uint16_t dstPort() const { return ntohs(tcphdr()->th_dport); }
+
+	uint32_t seq() { return tcphdr()->th_seq; }
+	uint32_t ack() { return tcphdr()->th_ack; }
+
+	uint8_t flags() { return tcphdr()->th_flags; }
 
 protected:
 
