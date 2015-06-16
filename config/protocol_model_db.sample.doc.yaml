@@ -1,0 +1,46 @@
+---
+    # TODO keep here or move to config??
+    DefiningLimit: 10
+
+    # After CutoffLimit number of packets no more packets will be processed.
+    # This is for both protocol matching and algorithm training
+    CutoffLimit: 10000
+
+    # Ordered List of Protocols
+    # Once above the defining limit the list will use the port hints, then the order of this
+    # limit in it's search for a protocol.
+    # PortHints are also ordered by the order of this list
+    ProtocolModels:
+        - 
+            # Name for the Protocol. 
+            # Must be consistent and be the same used in training input
+            ProtocolName: HTTP-Video
+
+            # Number of flows used to generated this model
+            FlowCount: 0
+
+            # If it is enabled
+            enabled: true
+
+            # The port hints that can be used in the order of searching
+            PortHints:
+                - 80
+                - 8080
+
+            AttributeMeters:
+                -
+                    name: DirectionBytesCountMeter  
+
+                    enabled: true
+
+                    # Count of the number of flows in this meter
+                    count: 0
+
+                    # Ordered List representing the FingerPrint. 
+                    # Number in sequence should be of the same as number of fingerprints
+                    # e.g. 256 for byte frequencies
+                    # 2 for % packet changes
+                    FingerPrint: 
+                        [
+                            0,0
+                        ]

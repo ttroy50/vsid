@@ -11,6 +11,7 @@ bin_PROGRAMS = vsid_training
 vsid_training_INCS = \
 				-I/usr/local/include \
 				-I$(srcdir)/../inc \
+				-I$(srcdir)/../../common/inc \
 				-I$(top_srcdir)/contrib/easyloggingpp \
 				-I$(top_srcdir)/contrib/hash/inc
 
@@ -23,7 +24,6 @@ vsid_training_LDADD = 	-lpcap \
 vsid_training_SOURCES = main.cpp \
 						Config.cpp \
 						PcapReader.cpp \
-						Logger.cpp \
 						IPv4.cpp \
 						TrainingInput.cpp \
 						FlowManager.cpp \

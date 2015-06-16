@@ -1,3 +1,5 @@
+
+
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <netinet/ip.h>
@@ -12,6 +14,9 @@
 #include "Constants.h"
 #include "TcpIpv4.h"
 #include "UdpIpv4.h"
+
+
+#include "FlowManager.h"
 
 using namespace std;
 using namespace VSID_TRAINING;
@@ -90,12 +95,12 @@ void PcapReader::readPacket(u_char* userArg,
 
 		// extract the source and the destination ip-adrress
 		in_addr* srcIp = (in_addr*) &ip_hdr->saddr;
-	    in_addr* dstIp = (in_addr*) &ip_hdr->daddr;
+		in_addr* dstIp = (in_addr*) &ip_hdr->daddr;
 
-	    // convert datagram network byte order to host byte order and calculate
-	    // the header size
-	    //uint16_t ipDatagramSize = ntohs(ip_hdr->ip_len);
-	    //uint16_t headerSize     = IP_HL(ip_hdr) << 2;
+		// convert datagram network byte order to host byte order and calculate
+		// the header size
+		//uint16_t ipDatagramSize = ntohs(ip_hdr->ip_len);
+		//uint16_t headerSize     = IP_HL(ip_hdr) << 2;
 
 		char src[INET6_ADDRSTRLEN];
 		inet_ntop(AF_INET, srcIp, src, INET6_ADDRSTRLEN);
@@ -103,68 +108,69 @@ void PcapReader::readPacket(u_char* userArg,
 		char dst[INET6_ADDRSTRLEN];
 		inet_ntop(AF_INET, dstIp, dst, INET6_ADDRSTRLEN);
 
-	    SLOG_INFO( << "src ip : " << src );
-	    SLOG_INFO( << "dst ip : " << dst );
+		SLOG_INFO( << "src ip : " << src );
+		SLOG_INFO( << "dst ip : " << dst );
 
-	    // Transport Layer Header
-	    switch(ip_hdr->protocol)
-	    {
-	    	case IPPROTO_ICMP:
-	    	{
-	    		SLOG_INFO( << "IPPROTO_ICMP");
-	    		break;
-	    	}
-	    	case IPPROTO_TCP:
-	    	{
-	    		SLOG_INFO( << "IPPROTO_TCP");
+		// Transport Layer Header
+		switch(ip_hdr->protocol)
+		{
+			case IPPROTO_ICMP:
+			{
+				SLOG_INFO( << "IPPROTO_ICMP");
+				break;
+			}
+			case IPPROTO_TCP:
+			{
+				SLOG_INFO( << "IPPROTO_TCP");
 
-	    		const u_char* data_start = transport_hdr_start + sizeof(tcphdr);
-	    		
-	    		TcpIPv4 tcp(packet, pkthdr->len, ip_hdr_start, transport_hdr_start, data_start);
-	    		
-	    		SLOG_INFO( << "src port : " << tcp.srcPort());
-	    		SLOG_INFO( << "dst port : " << tcp.dstPort());
+				const u_char* data_start = transport_hdr_start + sizeof(tcphdr);
+				
+				TcpIPv4 tcp(packet, pkthdr->len, ip_hdr_start, transport_hdr_start, data_start);
+				
+				SLOG_INFO( << "src port : " << tcp.srcPort());
+				SLOG_INFO( << "dst port : " << tcp.dstPort());
 
-	    		if(transport_hdr_start != tcp.transport_hdr_start())
-	    		{
-	    			SLOG_INFO(<< "not equal")
-	    		}
+				if(transport_hdr_start != tcp.transport_hdr_start())
+				{
+					SLOG_INFO(<< "not equal")
+				}
 
-	    		SLOG_INFO( << "Flow Hash : " << tcp.flowHash() );
-	    		break;
-	    	}
-	    	case IPPROTO_UDP:
-	    	{
-	    		SLOG_INFO( << "IPPROTO_UDP");
+				FlowManager::getInstance()->addPacket(&tcp);
 
-	    		const u_char* data_start = transport_hdr_start + sizeof(udphdr);
+				break;
+			}
+			case IPPROTO_UDP:
+			{
+				SLOG_INFO( << "IPPROTO_UDP");
 
-	    		UdpIPv4 udp(packet, pkthdr->len, ip_hdr_start, transport_hdr_start, data_start);
+				const u_char* data_start = transport_hdr_start + sizeof(udphdr);
+
+				UdpIPv4 udp(packet, pkthdr->len, ip_hdr_start, transport_hdr_start, data_start);
 
 
-	    		SLOG_INFO( << "src port : " << udp.srcPort());
-	    		SLOG_INFO( << "dst port : " << udp.dstPort());
+				SLOG_INFO( << "src port : " << udp.srcPort());
+				SLOG_INFO( << "dst port : " << udp.dstPort());
 
-	    		if(transport_hdr_start != udp.transport_hdr_start())
-	    		{
-	    			SLOG_INFO(<< "not equal")
-	    		}
+				if(transport_hdr_start != udp.transport_hdr_start())
+				{
+					SLOG_INFO(<< "not equal")
+				}
 
-	    		SLOG_INFO( << "Flow Hash : " << udp.flowHash() );
+				FlowManager::getInstance()->addPacket(&udp);
 
-	    		break;
-	    	}
-	    	case IPPROTO_SCTP:
-	    	{
-	    		SLOG_INFO( << "IPPROTO_SCTP");
-	    		break;
-	    	}
-	    	default:
-	    	{
-	    		SLOG_INFO( << "UNKNOWN IPPROTO : " << ip_hdr->protocol);
-	    	}
+				break;
+			}
+			case IPPROTO_SCTP:
+			{
+				SLOG_INFO( << "IPPROTO_SCTP");
+				break;
+			}
+			default:
+			{
+				SLOG_INFO( << "UNKNOWN IPPROTO : " << ip_hdr->protocol);
+			}
 
-	    }
+		}
 	}
 	else if(vhl->ip_v == IPv6)
 	{

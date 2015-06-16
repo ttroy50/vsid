@@ -1,9 +1,14 @@
+/**
+ * @author Thom Troy
+ *
+ * Copyright (C) 2015 Thom Troy
+ */
+
 #ifndef _VSID_HASHER_H__
 #define _VSID_HASHER_H__
 
 #include "murmur3.h"
 #include <sys/types.h>
-
 
 	/**
 	 * http://stackoverflow.com/questions/3215232/hash-function-for-src-dest-ip-port
@@ -124,8 +129,15 @@ public:
 		MurmurHash3_x86_32(input, sizeof(input), gvMurmurSeed, &hash);
 		return hash;
 	}
+
+	template <typename T> 
+	uint32_t operator()(std::shared_ptr<T> t) const
+	{
+		return (*this)(t.get());
+	}
+
 };
 
-}
+} // end namespace
 
-#endif
+#endif // END HEADER GUARD

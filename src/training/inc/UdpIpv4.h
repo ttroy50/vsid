@@ -8,7 +8,7 @@ namespace VSID_TRAINING
 {
 
 
-class UdpIPv4 : public IPv4
+class UdpIPv4 : public IPv4Packet
 {
 public:
 	UdpIPv4(const u_char* pkt, 
@@ -16,7 +16,7 @@ public:
 				const u_char* ip_hdr_start, 
 				const u_char* transport_hdr_start, 
 				const u_char* data_start) :
-		IPv4(pkt, 
+		IPv4Packet(pkt, 
 			pkt_size, 
 			ip_hdr_start, 
 			transport_hdr_start, 
@@ -42,6 +42,6 @@ protected:
 
 
 
-}
+} // end namespace
 
-#endif
+#endif // END HEADER GUARD

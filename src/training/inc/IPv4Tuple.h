@@ -7,6 +7,8 @@
 #ifndef __VSID_TRAINING_IPV4_TUPLE_H__
 #define __VSID_TRAINING_IPV4_TUPLE_H__
 
+#include "Logger.h"
+ 
 namespace VSID_TRAINING
 {
 
@@ -55,5 +57,16 @@ public:
 
 };
 
+	// Make loggable
+	inline MAKE_LOGGABLE(IPv4Tuple, tuple, os)
+	{
+	    os << "transport : " << tuple.transport 
+	    	<< " | src : " << tuple.src_ip << ":" << tuple.src_port 
+	    	<< " | dst : " << tuple.dst_ip << ":" << tuple.dst_port;
+	}
+
+
+
 }
+
 #endif

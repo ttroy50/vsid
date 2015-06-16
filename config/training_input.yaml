@@ -12,24 +12,24 @@
             dst_port: 5060
             transport: UDP
             protocol: SIP
-#-
-#    file: /home/matrim/Downloads/OCSP_CAPTURE.pcapng
-#    flows:
-#        -
-#            src_ip: 192.168.1.1
-#            src_port: 34233
-#            dst_ip: 192.168.1.2
-#            dst_port: 443
-#            transport: TCP
-#            protocol: HTTPS
-#
-#        -
-#            src_ip: 192.168.1.33
-#            src_port: 55555
-#            dst_ip: 192.168.1.2
-#            dst_port: 80
-#            transport: UDP
-#            protocol: HTTP
+-
+    file: /home/matrim/Downloads/OCSP_CAPTURE.pcapng
+    flows:
+        -
+            src_ip: 192.168.1.1
+            src_port: 34233
+            dst_ip: 192.168.1.2
+            dst_port: 443
+            transport: TCP
+            protocol: HTTPS
+
+        -
+            src_ip: 192.168.1.33
+            src_port: 55555
+            dst_ip: 192.168.1.2
+            dst_port: 80
+            transport: UDP
+            protocol: HTTP
 #-
 #    file: "/matrim/Downloads/401_Error.pcap"
 #    flows:

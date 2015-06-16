@@ -1,6 +1,4 @@
 /**
- * Pcap Reader
- *
  * @author Thom Troy
  *
  * Copyright (C) 2015 Thom Troy
@@ -19,7 +17,8 @@ namespace VSID_TRAINING
 	// IP version numbers
 	static const int IPv4 = 4;
 	static const int IPv6 = 6;
-}
 
+	
+} // end namespace
 
-#endif
+#endif // END HEADER GUARD

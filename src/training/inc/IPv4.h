@@ -1,5 +1,11 @@
-#ifndef __VSID_IPV4_H__
-#define __VSID_IPV4_H__
+/**
+ * @author Thom Troy
+ *
+ * Copyright (C) 2015 Thom Troy
+ */
+
+#ifndef __VSID_IPV4__H__
+#define __VSID_IPV4__H__
 
 #include <stdio.h>
 #include <string.h>
@@ -10,11 +16,10 @@
 namespace VSID_TRAINING
 {
 
-
-class IPv4
+class IPv4Packet
 {
 public:
-	IPv4(const u_char* pkt, 
+	IPv4Packet(const u_char* pkt, 
 			int pkt_size, 
 			const u_char* ip_hdr_start,
 			const u_char* transport_hdr_start, 
@@ -29,7 +34,7 @@ public:
 		const u_char* _pkt;
 	}
 
-	IPv4(const u_char* pkt, 
+	IPv4Packet(const u_char* pkt, 
 			int pkt_size, 
 			const u_char* ip_hdr_start,
 			const u_char* transport_hdr_start, 
@@ -46,7 +51,7 @@ public:
 		_pkt = tmppkt;
 	}
 
-	virtual ~IPv4() 
+	virtual ~IPv4Packet() 
 	{
 		if(_copy_packet)
 			free((void*)_pkt);
@@ -76,7 +81,7 @@ public:
 
 	uint32_t flowHash();
 
-	bool sameFlow(IPv4& rhs);
+	bool sameFlow(IPv4Packet& rhs);
 
 
 protected:
@@ -89,6 +94,6 @@ protected:
 
 };
 
-}
+} // end namespace
 
-#endif
+#endif // END HEADER GUARD

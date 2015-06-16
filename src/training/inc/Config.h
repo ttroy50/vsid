@@ -49,6 +49,6 @@ private:
 };
 
 
-}
+} // end namespace
 
-#endif
+#endif // END HEADER GUARD
