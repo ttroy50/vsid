@@ -16,7 +16,11 @@ AM_CXXFLAGS =  -std=c++11 $(lib_vsid_protocol_model_a_INCS)
 
 lib_vsid_protocol_model_a_SOURCES = ProtocolModelDb.cpp \
 									ProtocolModel.cpp \
-									AttributeMeter.cpp
+									AttributeMeter.cpp \
+									AttributeMeterFactory.cpp \
+									ByteFrequency.cpp \
+									DirectionBytesCountMeter.cpp \
+									FirstPacketBytesMeter.cpp
 
 #lib_vsid_protocol_model_a_INCS = \
 #								-I/usr/local/include \

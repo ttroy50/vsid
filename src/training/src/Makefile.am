@@ -12,14 +12,16 @@ vsid_training_INCS = \
 				-I/usr/local/include \
 				-I$(srcdir)/../inc \
 				-I$(srcdir)/../../common/inc \
+				-I$(srcdir)/../../protocol_model/inc \
 				-I$(top_srcdir)/contrib/easyloggingpp \
 				-I$(top_srcdir)/contrib/hash/inc
 
 vsid_training_CXXFLAGS =  -std=c++11 $(vsid_training_INCS)
 
 vsid_training_LDADD = 	-lpcap \
-						-lyaml-cpp \
-						../../../contrib/hash/src/lib_vsid_hash.a
+						../../../contrib/hash/src/lib_vsid_hash.a \
+						../../protocol_model/src/lib_vsid_protocol_model.a \
+						-lyaml-cpp
 
 vsid_training_SOURCES = main.cpp \
 						Config.cpp \

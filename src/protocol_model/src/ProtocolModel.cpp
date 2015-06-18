@@ -14,14 +14,14 @@ ProtocolModel::ProtocolModel()
 
 std::shared_ptr<AttributeMeter> ProtocolModel::find(const std::string& name)
 {
-	for(AttributeMeterVector::iterator it = _attributeMeters.begin();
+	for(auto it = _attributeMeters.begin();
 			it != _attributeMeters.end(); ++it)
 	{
 		if((*it)->name() == name)
 			return (*it);
 	}
 
-	return std::shared_ptr<AttributeMeter>();
+	return nullptr;
 }
 
 
@@ -39,6 +39,6 @@ std::shared_ptr<AttributeMeter> ProtocolModel::at(size_t pos)
 	}
 	else
 	{
-		return std::shared_ptr<AttributeMeter>();
+		return nullptr;
 	}
 }

@@ -108,10 +108,10 @@ private:
 
 	
 	std::vector<std::shared_ptr<ProtocolModel> > _protocolModelOrder;
-	typedef std::map<std::string, std::shared_ptr<ProtocolModel> > ProtocolModelMap;
-	ProtocolModelMap _protocolModels;
-	typedef std::map<uint16_t, std::vector<std::shared_ptr<ProtocolModel> > > PortHintProtocolModelMap;
-	PortHintProtocolModelMap _portHintOrder;
+	//typedef std::map<std::string, std::shared_ptr<ProtocolModel> > ProtocolModelMap;
+	std::map<std::string, std::shared_ptr<ProtocolModel> > _protocolModels;
+	//typedef std::map<uint16_t, std::vector<std::shared_ptr<ProtocolModel> > > PortHintProtocolModelMap;
+	std::map<uint16_t, std::vector<std::shared_ptr<ProtocolModel> > > _portHintOrder;
 
 	/**
 	 * Read an attribute meter from the file

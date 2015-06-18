@@ -67,8 +67,8 @@ private:
 	bool _enabled;
 
 	std::vector<uint16_t> _portHints;
-	typedef std::vector<std::shared_ptr<AttributeMeter> > AttributeMeterVector;
-	AttributeMeterVector _attributeMeters;
+	//typedef std::vector<std::shared_ptr<AttributeMeter> > AttributeMeterVector;
+	std::vector<std::shared_ptr<AttributeMeter> > _attributeMeters;
 };
 
 

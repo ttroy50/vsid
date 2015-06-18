@@ -5,7 +5,8 @@
 #include <string>
 #include <iostream>
 #include <cstdio>
-
+#include "AttributeMeterFactory.h"
+#include "AttributeMeterRegistrar.h"
 
 #define BOOST_TEST_MODULE ProtocolModelDbTest
 #include <boost/test/unit_test.hpp>
@@ -79,6 +80,8 @@ bool checkFiles(string testFile)
 
 BOOST_AUTO_TEST_CASE( test_protocol_model )
 {	
+    init_attribute_meters();
+
 	string testDbFile = "/home/matrim/workspace/college/vsi/src/protocol_model/unit_test/test_db.yaml";
     removePrev(testDbFile);
     ProtocolModelDb testDb( testDbFile );

@@ -10,7 +10,7 @@
 
 #include <string>
 #include <vector>
- 
+
 namespace Vsid
 {
 
@@ -20,7 +20,13 @@ public:
 	AttributeMeter();
 	virtual ~AttributeMeter() {}; 
 
-	std::string name() const { return _name; }
+	/**
+	 * Unique name for the AttributeMeter
+	 *
+	 * @return
+	 */
+	virtual std::string name() const = 0;
+
 	bool enabled() const { return _enabled; }
 	uint32_t flowCount() const { return _flowCount; }
 
@@ -52,17 +58,16 @@ public:
 	// void update(std::shared_ptr<AttributeMeter> other)
 	// 
 	// 
-	
+
 	friend class ProtocolModel;
 	friend class ProtocolModelDb;
 
 protected:
 	uint32_t _flowCount;
 	std::vector<double> _fingerprint;
+	bool _enabled;
 
 private:
-	std::string _name;
-	bool _enabled;
 	
 };
 

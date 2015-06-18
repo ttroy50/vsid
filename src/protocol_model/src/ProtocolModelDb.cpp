@@ -3,7 +3,7 @@
 #include "ProtocolModel.h"
 #include "AttributeMeter.h"
 #include "Logger.h"
-
+#include "AttributeMeterFactory.h"
 #include "yaml-cpp/yaml.h"
 
 using namespace std;
@@ -13,7 +13,6 @@ ProtocolModelDb::ProtocolModelDb(string filename) :
 	_filename(filename),
 	_initialised(false)
 {
-
 }
 
 bool ProtocolModelDb::read()
@@ -115,7 +114,7 @@ std::shared_ptr<ProtocolModel> ProtocolModelDb::_readProtocolModel(const YAML::N
 	else
 	{
 		SLOG_ERROR(<< "ProtocolModel at [" << count << "] doesn't have a ProtocolName");
-		return std::shared_ptr<ProtocolModel>();
+		return nullptr;
 	}
 
 	if( node["FlowCount"] )
@@ -175,14 +174,14 @@ std::shared_ptr<ProtocolModel> ProtocolModelDb::_readProtocolModel(const YAML::N
 			else
 			{
 				SLOG_ERROR( << "Attribute Meter at [" << amCount << "] is not valid. Cannot add ProtocolModel to DB");
-				return std::shared_ptr<ProtocolModel>(); 
+				return nullptr; 
 			}
 		}
 	}
 	else
 	{
 		SLOG_WARN(<< "ProtocolModel at [" << count << "] doesn't have any AttributeMeters");
-		return std::shared_ptr<ProtocolModel>();
+		return nullptr;
 	}
 
 	return model;
@@ -190,17 +189,33 @@ std::shared_ptr<ProtocolModel> ProtocolModelDb::_readProtocolModel(const YAML::N
 
 std::shared_ptr<AttributeMeter> ProtocolModelDb::_readAttributeMeter(const YAML::Node& node, const int count)
 {
-	std::shared_ptr<AttributeMeter> attr(new AttributeMeter());
-
+	
+	string name;
 	if( node["AttributeName"] )
 	{
-		attr->_name = node["AttributeName"].as<string>();
-		SLOG_INFO(<< "AttributeName : " << attr->_name);
+		name = node["AttributeName"].as<string>();
+		SLOG_INFO(<< "AttributeName : " << name);
 	}
 	else
 	{
 		SLOG_ERROR(<< "AttributeMeter at [" << count << "] doesn't have a AttributeName");
-		return std::shared_ptr<AttributeMeter>();
+		return nullptr;
+	}
+
+	SLOG_INFO(<< "Trying to create attr");
+	//std::shared_ptr<AttributeMeter> attr(
+	//							AttributeMeterFactory::instance()->create(name) 
+	//						);
+	auto attr = AttributeMeterFactory::instance()->create(name);
+	//std::unique_ptr<AttributeMeter> uqp(new ByteFrequency());
+
+	//auto attr = std::shared_ptr<AttributeMeter> { uqp };
+	SLOG_INFO(<< "create attr");
+	
+	if( !attr )
+	{
+		SLOG_INFO(<< "Unable to create attribute meter from factory [" << name << "]");
+		return nullptr;
 	}
 
 	if( node["Enabled"] )
@@ -242,10 +257,11 @@ std::shared_ptr<AttributeMeter> ProtocolModelDb::_readAttributeMeter(const YAML:
 	else
 	{
 		SLOG_ERROR(<< "AttributeMeter at [" << count << "] doesn't have any FingerPrint");
-		return std::shared_ptr<AttributeMeter>();
+		return nullptr;
 	}
 
-	return attr;
+	std::shared_ptr<AttributeMeter> tmp { std::move(attr) };
+	return tmp;
 }
 
 
@@ -344,7 +360,7 @@ bool ProtocolModelDb::_writeProtocolModel(YAML::Node& ym, std::shared_ptr<Protoc
 
 bool ProtocolModelDb::_writeAttributeMeter(YAML::Node& ym, std::shared_ptr<AttributeMeter> model)
 {
-	ym["AttributeName"] = model->_name;
+	ym["AttributeName"] = model->name();
 	ym["FlowCount"] = model->_flowCount;
 	ym["Enabled"] = model->_enabled;
 
@@ -360,11 +376,11 @@ bool ProtocolModelDb::_writeAttributeMeter(YAML::Node& ym, std::shared_ptr<Attri
 
 std::shared_ptr<ProtocolModel> ProtocolModelDb::find(const std::string& name)
 {
-	ProtocolModelMap::iterator it = _protocolModels.find(name);
+	auto it = _protocolModels.find(name);
 	if(it != _protocolModels.end())
 		return it->second;
 	else
-		return std::shared_ptr<ProtocolModel>();
+		return nullptr;
 }
 
 
@@ -386,12 +402,12 @@ std::shared_ptr<ProtocolModel> ProtocolModelDb::at(size_t pos, uint16_t port /* 
 		else
 		{
 			SLOG_INFO(<< "didn't got amodel for " << port << ";" << pos);
-			return std::shared_ptr<ProtocolModel>();
+			return nullptr;
 		}
 	}
 	else
 	{
-		PortHintProtocolModelMap::iterator it = _portHintOrder.find(port);
+		auto it = _portHintOrder.find(port);
 		if(it != _portHintOrder.end())
 		{
 			if(it->second.size() <= pos)
@@ -400,7 +416,7 @@ std::shared_ptr<ProtocolModel> ProtocolModelDb::at(size_t pos, uint16_t port /* 
 			}
 			else
 			{
-				return std::shared_ptr<ProtocolModel>();
+				return nullptr;
 			}
 		}
 		else
@@ -411,7 +427,7 @@ std::shared_ptr<ProtocolModel> ProtocolModelDb::at(size_t pos, uint16_t port /* 
 			}
 			else
 			{
-				return std::shared_ptr<ProtocolModel>();
+				return nullptr;
 			}
 		}
 	}

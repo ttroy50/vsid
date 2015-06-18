@@ -17,9 +17,11 @@
 #include "Config.h"
 #include "PcapReader.h"
 #include "TrainingInput.h"
+#include "ProtocolModelDb.h"
 
 using namespace std;
 using namespace VSID_TRAINING;
+using namespace Vsid;
 
 static const char* const gvProgramName = "VSID - SPID Training Program";
 
@@ -135,10 +137,20 @@ int main( int argc, char* argv[] )
 		Config::instance()->spidDatabase(spid_db);
 	}
 
+	ProtocolModelDb protocolModelDb(Config::instance()->spidDatabase());
+	
+	if( !protocolModelDb.read() )
+	{
+		SLOG_ERROR(<< "Unable to read DB at [" << Config::instance()->spidDatabase() << "]")
+		cerr << "Unable to read DB at [" << Config::instance()->spidDatabase() << "]" << endl;
+		exit(1);
+	}
+
 	SLOG_INFO(<< "spid database : " << Config::instance()->spidDatabase());
 
 	PcapReader reader;
 
+	bool updated = false;
 	for(int i = 0; i < training_input.trainingFiles().size(); i++)
 	{
 		if(training_input.trainingFiles()[i].exists)
@@ -147,7 +159,16 @@ int main( int argc, char* argv[] )
 			{
 				SLOG_ERROR(<< "Unable to read pcap [" << training_input.trainingFiles()[i].filename << "]");
 			}
+			else
+			{
+				updated = true;
+			}
 		}
 	}
+
+	/*if(updated)
+	{
+		protocolModelDb.write();
+	}*/
 
 }
