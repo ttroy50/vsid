@@ -18,7 +18,8 @@
 #include "PcapReader.h"
 #include "TrainingInput.h"
 #include "ProtocolModelDb.h"
-
+#include "AttributeMeterRegistrar.h"
+ 
 using namespace std;
 using namespace VSID_TRAINING;
 using namespace Vsid;
@@ -33,6 +34,7 @@ void usage(const char* command)
 	cout << "Usage : " << command << " [-h] [-c <config_file>] [-d database_file] -t training_file";
 	cout << "Options :" << endl 
 		<< " -c \t Config file " << endl
+		<< " -l \t Logging Config " << endl
 		<< " -d \t VSI SPID database file. Overrides the one from config file" << endl
 		<< " -t \t Training file which lists the pcap files to read" << endl
 		<< " -h \t print this help and exit" << endl;
@@ -42,6 +44,7 @@ void usage(const char* command)
 
 int main( int argc, char* argv[] )
 {
+	// TODO read from argv	
 	el::Configurations conf("../config/logging.conf"); 
 	el::Loggers::reconfigureAllLoggers(conf);
 
@@ -89,6 +92,8 @@ int main( int argc, char* argv[] )
 	            break;
 	    }
 	}
+
+	init_attribute_meters();
 
     TrainingInput training_input;
     if ( !training_input.read(training) )
@@ -179,4 +184,5 @@ int main( int argc, char* argv[] )
 		protocolModelDb.write();
 	}*/
 
+	SLOG_INFO(<< "Finished program")
 }

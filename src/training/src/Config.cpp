@@ -8,6 +8,7 @@
 
 #include "Config.h"
 #include "Logger.h"
+#include "yaml-cpp/yaml.h"
 
 using namespace VSID_TRAINING;
 using namespace std;
@@ -41,15 +42,21 @@ bool Config::init(const string& config_file)
 	SLOG_INFO(<< "init config from config file : " << config_file);
 	_config_file = config_file;
 
+	if(_config_file.empty())
+	{
+		return false;
+		SLOG_ERROR(<< "No config file specified");
+	}
+
 	// parse the atom/yaml...
     YAML::Node config;
     try 
     {
-        config = YAML::LoadFile(fileName);
+        config = YAML::LoadFile(config_file);
     } 
     catch (YAML::Exception& e)
     {
-        LOG_ERROR(("Exception loading file [%v] into YAML [%v]", fileName, e.what()));
+        LOG_ERROR(("Exception loading file [%v] into YAML [%v]", config_file, e.what()));
         return false;
     }
 

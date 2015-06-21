@@ -169,7 +169,7 @@ private:
 		inet_ntop(AF_INET, &flow.fiveTuple().dst_ip , dst, INET6_ADDRSTRLEN);
 
 		os << "count : " << flow.pktCount() 
-			<< " | transport : " << flow.fiveTuple().transport 
+			<< " | transport : " << (uint32_t)flow.fiveTuple().transport 
 	    	<< " | src : " << src << ":" << flow.fiveTuple().src_port 
 	    	<< " | dst : " << dst << ":" << flow.fiveTuple().dst_port;
 	}

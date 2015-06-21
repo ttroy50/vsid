@@ -312,7 +312,7 @@ bool ProtocolModelDb::write()
 		else
 		{
 			SLOG_ERROR(<< "Unable to write new DB. See " << _backupfile << "for DB");
-			cerr < "Unable to write new DB. See " << _backupfile << "for DB" << std::endl;
+			std::cerr << "Unable to write new DB. See " << _backupfile << "for DB" << std::endl;
 			return false;
 		}
   	}
