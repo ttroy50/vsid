@@ -31,7 +31,13 @@ namespace Vsid
 class ProtocolModelDb
 {
 public:
-	ProtocolModelDb(std::string _filename);
+	/**
+	 * Constructor. 
+	 *
+	 * @param filename 	The filename to read the db from and write the new one to
+	 * @param backupfile The filename to backup the old DB to on write
+	 */
+	ProtocolModelDb(std::string filename, std::string backupfile);
 
 	/**
 	 * Read the protocol model from file into the database. 
@@ -101,6 +107,8 @@ public:
 
 private:
 	std::string _filename;
+	std::string _backupfile;
+
 	bool _initialised;
 
 	uint32_t _definingLimit;

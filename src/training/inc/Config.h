@@ -36,7 +36,8 @@ public:
 	void spidDatabase(const std::string& s) { _spid_database = s; }
 	std::string spidDatabase() { return _spid_database; }
 
-
+	void spidDatabaseBackup(const std::string& s) { _spid_database_backup = s; }
+	std::string spidDatabaseBackup() { return _spid_database_backup; }
 
 private:
 	Config();
@@ -46,6 +47,7 @@ private:
 
 	std::string _config_file;
 	std::string _spid_database;
+	std::string _spid_database_backup;
 };
 
 

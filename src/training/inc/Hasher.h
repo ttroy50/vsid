@@ -48,7 +48,36 @@ void __skb_get_rxhash(struct sk_buff *skb)
 namespace VSID_TRAINING
 {
 
-
+/**
+ * Generate a unique hash for a flow
+ * 
+ * I think this should work. The idea is that no matter what direction the packet is on the flow, 
+ * it will generated the same hash
+ * 
+ * take flow starting
+ * ORIGINATOR -> RESPONDER		192.168.1.1:3333			192.168.1.5:5060  TCP
+ * RESPONDER -> ORIGINATOR		192.168.1.5:5060			192.168.1.1:3333  TCP
+ * This will generate 	192.168.1.1 192.168.1.5 33335060 TCP 	for both directions
+ *
+ * Copared to the flow for
+ * ORIGINATOR -> RESPONDER		192.168.1.5:3333		192.168.1.1:5060	TCP
+ * RESPONDER -> ORIGINATOR		192.168.1.1:5060		192.168.1.5:3333		TCP
+ * Which will generated  	192.168.1.1	192.168.1.5	50603333 TCP	
+ * 
+ *
+ * When the IP is the same we fallback to ports
+ * take flow starting
+ * ORIGINATOR -> RESPONDER		192.168.1.1:3333			192.168.1.1:5060  TCP
+ * RESPONDER -> ORIGINATOR		192.168.1.1:5060			192.168.1.1:3333  TCP
+ * This will generate 	192.168.1.1 192.168.1.1 33335060 TCP 	for both directions
+ *
+ *
+ * The above is the same as the connection in the other direction, however because these
+ * are on the same IP it should be same to assume they are different connections
+ * ORIGINATOR -> RESPONDER		192.168.1.1:5060			192.168.1.1:3333  TCP
+ * RESPONDER -> ORIGINATOR		192.168.1.1:3333			192.168.1.1:5050  TCP
+ * This will generate 	192.168.1.1 192.168.1.1 33335060 TCP 	for both directions
+ */
 class Ipv4FlowHasher
 {
 public:
@@ -56,35 +85,6 @@ public:
 	uint32_t operator()(const T* t) const
 	{
 		uint32_t input[4];
-
-		/*
-		 * I think this should work. The idea is that no matter what direction the packet is on the flow, 
-		 * it will generated the same hash
-		 * 
-		 * take flow starting
-		 * ORIGINATOR -> RESPONDER		192.168.1.1:3333			192.168.1.5:5060  TCP
-		 * RESPONDER -> ORIGINATOR		192.168.1.5:5060			192.168.1.1:3333  TCP
-		 * This will generate 	192.168.1.1 192.168.1.5 33335060 TCP 	for both directions
-		 *
-		 * Copared to the flow for
-		 * ORIGINATOR -> RESPONDER		192.168.1.5:3333		192.168.1.1:5060	TCP
-		 * RESPONDER -> ORIGINATOR		192.168.1.1:5060		192.168.1.5:3333		TCP
-		 * Which will generated  	192.168.1.1	192.168.1.5	50603333 TCP	
-		 * 
-		 *
-		 * When the IP is the same we fallback to ports
-		 * take flow starting
-		 * ORIGINATOR -> RESPONDER		192.168.1.1:3333			192.168.1.1:5060  TCP
-		 * RESPONDER -> ORIGINATOR		192.168.1.1:5060			192.168.1.1:3333  TCP
-		 * This will generate 	192.168.1.1 192.168.1.1 33335060 TCP 	for both directions
-		 *
-		 *
-		 * The above is the same as the connection in the other direction, however because these
-		 * are on the same IP it should be same to assume they are different connections
-		 * ORIGINATOR -> RESPONDER		192.168.1.1:5060			192.168.1.1:3333  TCP
-		 * RESPONDER -> ORIGINATOR		192.168.1.1:3333			192.168.1.1:5050  TCP
-		 * This will generate 	192.168.1.1 192.168.1.1 33335060 TCP 	for both directions
-		 */
 
 		input[2] = 0;
 

@@ -1,0 +1,779 @@
+Found  [97] flows. YAML reprsentation below
+
+
+
+-   dst_ip: 10.10.10.143
+    dst_port: 39408
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 39408
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 58637
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 58637
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 49951
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 49951
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 43095
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 43095
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 43096
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 43096
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 43097
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 43097
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 43098
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 43098
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 43099
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 43099
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 38584
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 38584
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 37842
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 37842
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 53541
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 53541
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 35171
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 35171
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 42455
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 42455
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 33204
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 33204
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 58020
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 58020
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 42458
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 42458
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 42459
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 42459
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 42460
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 42460
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 36982
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 36982
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 58643
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 58643
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 58735
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 58735
+    transport: TCP
+
+-
+    dst_ip: 108.160.163.97
+    dst_port: 443
+    protocol: INSERT_PROTOCOL
+    src_ip: 108.160.163.97
+    src_port: 443
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 56828
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 56828
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 34110
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 34110
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 51539
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 51539
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 42467
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 42467
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 42468
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 42468
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 56320
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 56320
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 52293
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 52293
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 58434
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 58434
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 45986
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 45986
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 45987
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 45987
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 37921
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 37921
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 36864
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 36864
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 45990
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 45990
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 36454
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 36454
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 37587
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 37587
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 57545
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 57545
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 34696
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 34696
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 36457
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 36457
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 33889
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 33889
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 45900
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 45900
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 60893
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 60893
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 60894
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 60894
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 59530
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 59530
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 35742
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 35742
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 37329
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 37329
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 36695
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 36695
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 45907
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 45907
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 54307
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 54307
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 50504
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 50504
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 41075
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 41075
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 57561
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 57561
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 60475
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 60475
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 37884
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 37884
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 58313
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 58313
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 60478
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 60478
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 60479
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 60479
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 60480
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 60480
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 60481
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 60481
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 60482
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 60482
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 37022
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 37022
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 43277
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 43277
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 37342
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 37342
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 46790
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 46790
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 37344
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 37344
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 37345
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 37345
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 43486
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 43486
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 32843
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 32843
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 37348
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 37348
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 37349
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 37349
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 39364
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 39364
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 51310
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 51310
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 42390
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 42390
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 42391
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 42391
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 42392
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 42392
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 42393
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 42393
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 42394
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 42394
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 42395
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 42395
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 42396
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 42396
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 42397
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 42397
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 42398
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 42398
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 56473
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 56473
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 42400
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 42400
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 53612
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 53612
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 42402
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 42402
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 36916
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 36916
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 42404
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 42404
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 42405
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 42405
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 42406
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 42406
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 42407
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 42407
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 42408
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 42408
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 42409
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 42409
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 42410
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 42410
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 42411
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 42411
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 57604
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 57604
+    transport: TCP
+
+-
+    dst_ip: 10.10.10.143
+    dst_port: 43311
+    protocol: INSERT_PROTOCOL
+    src_ip: 10.10.10.143
+    src_port: 43311
+    transport: TCP
+

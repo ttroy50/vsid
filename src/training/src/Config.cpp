@@ -40,5 +40,36 @@ bool Config::init(const string& config_file)
 {
 	SLOG_INFO(<< "init config from config file : " << config_file);
 	_config_file = config_file;
+
+	// parse the atom/yaml...
+    YAML::Node config;
+    try 
+    {
+        config = YAML::LoadFile(fileName);
+    } 
+    catch (YAML::Exception& e)
+    {
+        LOG_ERROR(("Exception loading file [%v] into YAML [%v]", fileName, e.what()));
+        return false;
+    }
+
+    if(config["SpidDatabase"])
+    {
+    	_spid_database = config["SpidDatabase"].as<string>();
+    	SLOG_INFO(<< "SpidDatabase : " << _spid_database)
+    }
+
+    if(config["SpidDatabase"])
+    {
+    	_spid_database = config["SpidDatabase"].as<string>();
+    	SLOG_INFO(<< "SpidDatabase : " << _spid_database)
+    }
+
+    if(config["SpidDatabaseBackup"])
+    {
+    	_spid_database_backup = config["SpidDatabaseBackup"].as<string>();
+    	SLOG_INFO(<< "SpidDatabaseBackup : " << _spid_database_backup)
+    }
+
 	return true;
 }

@@ -5,14 +5,23 @@
 #include "Logger.h"
 #include "AttributeMeterFactory.h"
 #include "yaml-cpp/yaml.h"
+#include <iostream>
 
 using namespace std;
 using namespace Vsid;
 
-ProtocolModelDb::ProtocolModelDb(string filename) :
+ProtocolModelDb::ProtocolModelDb(string filename, string backupfile) :
 	_filename(filename),
 	_initialised(false)
 {
+	if(backupfile.empty())
+	{
+		_backupfile = _filename + ".prev";
+	}
+	else
+	{
+		_backupfile = backupfile;
+	}
 }
 
 bool ProtocolModelDb::read()
@@ -287,12 +296,9 @@ bool ProtocolModelDb::write()
 
   	SLOG_INFO(<< "New DB : " << endl << out.c_str() << endl);
 
-  	string _newfile = _filename;
-  	_newfile += ".prev";
+  	SLOG_INFO(<< "Backup file will be : " << _backupfile);
 
-  	SLOG_INFO(<< "New file will be : " << _newfile);
-
-  	if( std::rename(_filename.c_str(), _newfile.c_str()) == 0)
+  	if( std::rename(_filename.c_str(), _backupfile.c_str()) == 0)
   	{
   		SLOG_INFO(<< "Have moved file");
   		ofstream file;
@@ -305,7 +311,8 @@ bool ProtocolModelDb::write()
 		}
 		else
 		{
-			SLOG_ERROR(<< "Unable twrite new DB. See " << _newfile << "for DB");
+			SLOG_ERROR(<< "Unable to write new DB. See " << _backupfile << "for DB");
+			cerr < "Unable to write new DB. See " << _backupfile << "for DB" << std::endl;
 			return false;
 		}
   	}

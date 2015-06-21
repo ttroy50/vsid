@@ -137,7 +137,15 @@ int main( int argc, char* argv[] )
 		Config::instance()->spidDatabase(spid_db);
 	}
 
-	ProtocolModelDb protocolModelDb(Config::instance()->spidDatabase());
+	if(Config::instance()->spidDatabase().empty())
+	{
+		SLOG_ERROR(<< "No spid database configured")
+		cerr << "No spid database configured" << endl;
+		exit(1);
+	}
+
+	ProtocolModelDb protocolModelDb(Config::instance()->spidDatabase(), 
+										Config::instance()->spidDatabaseBackup() );
 	
 	if( !protocolModelDb.read() )
 	{
