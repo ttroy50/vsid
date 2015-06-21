@@ -53,8 +53,8 @@ int main( int argc, char* argv[] )
 	   			<< "\t\t+ Running " << argv[0] << endl
 				<< "\t\t+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+" << endl);
 
-	string spid_db;
-	bool spid_db_set = false;
+	string protocol_db;
+	bool protocol_db_set = false;
 	string config = "config.yaml";
 	string training;
 
@@ -65,7 +65,7 @@ int main( int argc, char* argv[] )
 	    {
 	    	case 'd':
 	        	SLOG_INFO(<< "-d " << optarg);
-	            spid_db = optarg;
+	            protocol_db = optarg;
 	            break;
 	        case 'c':
 	        	SLOG_INFO(<< "-c " << optarg);
@@ -136,30 +136,30 @@ int main( int argc, char* argv[] )
 		exit(1);
 	}
 
-	if( !spid_db.empty() )
+	if( !protocol_db.empty() )
 	{
-		SLOG_INFO( << "overriding spid_db from config : " << spid_db); 
-		Config::instance()->spidDatabase(spid_db);
+		SLOG_INFO( << "overriding protocol_db from config : " << protocol_db); 
+		Config::instance()->protocolDatabase(protocol_db);
 	}
 
-	if(Config::instance()->spidDatabase().empty())
+	if(Config::instance()->protocolDatabase().empty())
 	{
 		SLOG_ERROR(<< "No spid database configured")
 		cerr << "No spid database configured" << endl;
 		exit(1);
 	}
 
-	ProtocolModelDb protocolModelDb(Config::instance()->spidDatabase(), 
-										Config::instance()->spidDatabaseBackup() );
+	ProtocolModelDb protocolModelDb(Config::instance()->protocolDatabase(), 
+										Config::instance()->protocolDatabaseBackup() );
 	
 	if( !protocolModelDb.read() )
 	{
-		SLOG_ERROR(<< "Unable to read DB at [" << Config::instance()->spidDatabase() << "]")
-		cerr << "Unable to read DB at [" << Config::instance()->spidDatabase() << "]" << endl;
+		SLOG_ERROR(<< "Unable to read DB at [" << Config::instance()->protocolDatabase() << "]")
+		cerr << "Unable to read DB at [" << Config::instance()->protocolDatabase() << "]" << endl;
 		exit(1);
 	}
 
-	SLOG_INFO(<< "spid database : " << Config::instance()->spidDatabase());
+	SLOG_INFO(<< "spid database : " << Config::instance()->protocolDatabase());
 
 	PcapReader reader;
 

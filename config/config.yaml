@@ -1,2 +1,9 @@
 ---
-    SpidDatabase: "../config/protocol_model_db.yaml"
+    # Location of the Protocol Database
+    ProtocolDatabase: "../config/protocol_model_db.yaml"
+
+    # Location to put the database backup before making changes
+    ProtocolDatabaseBackup: "../config/protocol_model_db.yaml.prev"
+
+    # Timeout in seconds after which a UDP flow will be considered to have ended
+    UdpFlowTimeout: 120

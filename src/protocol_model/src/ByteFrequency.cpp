@@ -15,7 +15,8 @@ std::unique_ptr<AttributeMeter> create_byte_frequency()
 
 Vsid::Registrar ByteFrequency::registrar("ByteFrequency", &create_byte_frequency);
 
-ByteFrequency::ByteFrequency()
+ByteFrequency::ByteFrequency() :
+	AttributeMeter(255)
 {
 
 }

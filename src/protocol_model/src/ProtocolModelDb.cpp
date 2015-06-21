@@ -223,7 +223,8 @@ std::shared_ptr<AttributeMeter> ProtocolModelDb::_readAttributeMeter(const YAML:
 	
 	if( !attr )
 	{
-		SLOG_INFO(<< "Unable to create attribute meter from factory [" << name << "]");
+		SLOG_INFO(<< "Unable to create attribute meter from factory [" << name << "]" 
+						<< " at [" << count << "]");
 		return nullptr;
 	}
 
@@ -234,7 +235,7 @@ std::shared_ptr<AttributeMeter> ProtocolModelDb::_readAttributeMeter(const YAML:
 	}
 	else
 	{
-		SLOG_WARN(<< "AttributeMeter at [" << count << "] doesn't have an Enabled flag");
+		SLOG_WARN(<< "AttributeMeter " << name << " at [" << count << "] doesn't have an Enabled flag");
 		attr->_enabled = false;
 		SLOG_INFO(<< "FlowCount : " << attr->_enabled);
 	}
@@ -254,6 +255,15 @@ std::shared_ptr<AttributeMeter> ProtocolModelDb::_readAttributeMeter(const YAML:
 
 	if( node["FingerPrint"] )
 	{
+		if(node["FingerPrint"].size() != attr->_fingerprint_size)
+		{
+			SLOG_ERROR(<< "Error in " << name 
+						<< "Fingerprint size in DB [" << node["FingerPrint"].size() 
+						<< "] different to size in the code [" 
+						<< attr->_fingerprint_size << "]")
+			return nullptr;
+		}
+
 		for (YAML::const_iterator phit=node["FingerPrint"].begin(); 
 				phit!=node["FingerPrint"].end(); ++phit)
 		{
@@ -265,7 +275,7 @@ std::shared_ptr<AttributeMeter> ProtocolModelDb::_readAttributeMeter(const YAML:
 	}
 	else
 	{
-		SLOG_ERROR(<< "AttributeMeter at [" << count << "] doesn't have any FingerPrint");
+		SLOG_ERROR(<< "AttributeMeter " << name << "at [" << count << "] doesn't have any FingerPrint");
 		return nullptr;
 	}
 

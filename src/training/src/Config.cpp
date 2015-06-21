@@ -17,7 +17,8 @@ using namespace std;
 Config* Config::_instance = NULL;
 
 Config::Config() :
-	_spid_database("spid_db.yaml")
+	_protocol_database("protocol_model_db.yaml"),
+	_udp_flow_timeout(120)
 {
 
 }
@@ -60,22 +61,22 @@ bool Config::init(const string& config_file)
         return false;
     }
 
-    if(config["SpidDatabase"])
+    if(config["ProtocolDatabaase"])
     {
-    	_spid_database = config["SpidDatabase"].as<string>();
-    	SLOG_INFO(<< "SpidDatabase : " << _spid_database)
+    	_protocol_database = config["ProtocolDatabaase"].as<string>();
+    	SLOG_INFO(<< "ProtocolDatabaase : " << _protocol_database)
     }
 
-    if(config["SpidDatabase"])
+    if(config["ProtocolDatabaaseBackup"])
     {
-    	_spid_database = config["SpidDatabase"].as<string>();
-    	SLOG_INFO(<< "SpidDatabase : " << _spid_database)
+    	_protocol_database_backup = config["ProtocolDatabaaseBackup"].as<string>();
+    	SLOG_INFO(<< "ProtocolDatabaaseBackup : " << _protocol_database_backup)
     }
 
-    if(config["SpidDatabaseBackup"])
+    if(config["UdpFlowTimeout"])
     {
-    	_spid_database_backup = config["SpidDatabaseBackup"].as<string>();
-    	SLOG_INFO(<< "SpidDatabaseBackup : " << _spid_database_backup)
+    	_udp_flow_timeout = config["UdpFlowTimeout"].as<uint32_t>();
+    	SLOG_INFO(<< "UdpFlowTimeout : " << _udp_flow_timeout)
     }
 
 	return true;

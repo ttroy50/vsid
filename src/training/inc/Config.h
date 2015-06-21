@@ -33,12 +33,13 @@ public:
 	 */
 	bool init(const std::string& config_file);
 
-	void spidDatabase(const std::string& s) { _spid_database = s; }
-	std::string spidDatabase() { return _spid_database; }
+	void protocolDatabase(const std::string& s) { _protocol_database = s; }
+	std::string protocolDatabase() { return _protocol_database; }
 
-	void spidDatabaseBackup(const std::string& s) { _spid_database_backup = s; }
-	std::string spidDatabaseBackup() { return _spid_database_backup; }
+	const std::string& protocolDatabaseBackup() { return _protocol_database_backup; }
 
+	uint32_t udpFlowTimeout() { return _udp_flow_timeout; }
+	
 private:
 	Config();
 	~Config();
@@ -46,8 +47,9 @@ private:
 	static Config* _instance;
 
 	std::string _config_file;
-	std::string _spid_database;
-	std::string _spid_database_backup;
+	std::string _protocol_database;
+	std::string _protocol_database_backup;
+	uint32_t _udp_flow_timeout;
 };
 
 

@@ -17,7 +17,7 @@ namespace Vsid
 class AttributeMeter
 {
 public:
-	AttributeMeter();
+	AttributeMeter(size_t fingerprint_size);
 	virtual ~AttributeMeter() {}; 
 
 	/**
@@ -54,6 +54,7 @@ public:
 	 */
 	size_t size() const { return _fingerprint.size(); }
 
+
 	// TODO 
 	// void update(std::shared_ptr<AttributeMeter> other)
 	// 
@@ -66,6 +67,9 @@ protected:
 	uint32_t _flowCount;
 	std::vector<double> _fingerprint;
 	bool _enabled;
+
+	// used when reading from the DB to make sure that we have a correctly sized entry.
+	size_t _fingerprint_size;
 
 private:
 	

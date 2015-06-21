@@ -18,7 +18,8 @@ static std::unique_ptr<AttributeMeter> create_direction_byte_count_meter()
 Vsid::Registrar DirectionBytesCountMeter::registrar("DirectionBytesCountMeter", &create_direction_byte_count_meter);
 //REGISTER_ATTRIBUTE_METER(DirectionBytesCountMeter, &create_direction_byte_count_meter);
 
-DirectionBytesCountMeter::DirectionBytesCountMeter()
+DirectionBytesCountMeter::DirectionBytesCountMeter() :
+	AttributeMeter(2)
 {
 
 }

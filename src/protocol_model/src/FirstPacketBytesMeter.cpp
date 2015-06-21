@@ -15,7 +15,8 @@ std::unique_ptr<AttributeMeter> create_first_packet_byte_meter()
 
 Vsid::Registrar FirstPacketBytesMeter::registrar("FirstPacketBytesMeter", &create_first_packet_byte_meter);
 
-FirstPacketBytesMeter::FirstPacketBytesMeter()
+FirstPacketBytesMeter::FirstPacketBytesMeter() :
+	AttributeMeter(255)
 {
 
 }
