@@ -33,7 +33,6 @@ void PcapReader::readPacket(u_char* userArg,
     SLOG_INFO( << "len : " << pkthdr->len);
 
     
-
     // Update count now after logging
     count++;
 
@@ -125,7 +124,7 @@ void PcapReader::readPacket(u_char* userArg,
 
 				const u_char* data_start = transport_hdr_start + sizeof(tcphdr);
 				
-				TcpIPv4 tcp(packet, pkthdr->len, ip_hdr_start, transport_hdr_start, data_start);
+				TcpIPv4 tcp(packet, pkthdr->len, ip_hdr_start, transport_hdr_start, data_start, pkthdr->ts);
 				
 				SLOG_INFO( << "src port : " << tcp.srcPort());
 				SLOG_INFO( << "dst port : " << tcp.dstPort());
@@ -145,7 +144,7 @@ void PcapReader::readPacket(u_char* userArg,
 
 				const u_char* data_start = transport_hdr_start + sizeof(udphdr);
 
-				UdpIPv4 udp(packet, pkthdr->len, ip_hdr_start, transport_hdr_start, data_start);
+				UdpIPv4 udp(packet, pkthdr->len, ip_hdr_start, transport_hdr_start, data_start, pkthdr->ts);
 
 
 				SLOG_INFO( << "src port : " << udp.srcPort());

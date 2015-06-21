@@ -3,6 +3,7 @@
 #include "Logger.h"
 #include "Hasher.h"
 #include "IPv4.h"
+#include "Config.h"
 
 using namespace std;
 using namespace VSID_TRAINING;
@@ -30,7 +31,8 @@ FlowManager::~FlowManager()
 std::shared_ptr<Flow> FlowManager::addPacket(IPv4Packet* packet)
 {
 	std::shared_ptr<Flow> flow = getFlow(packet);
-	if(flow != NULL)
+
+	if( !flow )
 	{
 		flow->addPacket(packet);
 		SLOG_INFO(<< "Packet added to flow : " << *flow);	
@@ -71,6 +73,7 @@ bool FlowManager::flowExists(uint32_t hash)
 std::shared_ptr<Flow>  FlowManager::getFlow(IPv4Packet* packet)
 {
 	SLOG_INFO(<< _flows.size() << " flows in manager");
+
 	// temp created to lookup flow
 	std::shared_ptr<Flow>  f(new Flow(packet));
 	FlowSet::iterator it = _flows.find(f);
@@ -83,7 +86,26 @@ std::shared_ptr<Flow>  FlowManager::getFlow(IPv4Packet* packet)
 	}
 	else
 	{
+		if( packet->protocol() == IPPROTO_UDP )
+		{
+			std::shared_ptr<Flow> tmp = *(it);
+			if( (packet->timestamp().tv_sec - (*(it))->lastPacketTimestamp().tv_sec ) > Config::instance()->udpFlowTimeout())
+			{
+				SLOG_INFO(<< "Flow [" << *f << "] found but finished. Removing from list and adding new one")
+				_flows.erase(it);
+				_flows.insert(f);
+				return f;
+			}
+		}
+		else if( packet->protocol() == IPPROTO_TCP )
+		{
+			// TODO Check for RST or FIN flags
+		}
+
+
+
 		return *(it);
+
 	}
 }
 
@@ -98,7 +120,7 @@ std::shared_ptr<Flow> FlowManager::getFlow(uint32_t hash)
 	}
 	else
 	{
-		return NULL;
+		return nullptr;
 	}
 }
 

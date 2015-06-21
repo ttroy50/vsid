@@ -23,15 +23,17 @@ public:
 			int pkt_size, 
 			const u_char* ip_hdr_start,
 			const u_char* transport_hdr_start, 
-			const u_char* data_start) :
+			const u_char* data_start,
+			struct timeval ts) :
 		_pkt(pkt),
 		_pkt_size(pkt_size),
 		_ip_hdr_start(ip_hdr_start),
 		_transport_hdr_start(transport_hdr_start),
 		_data_start(data_start),
-		_copy_packet(false)
+		_copy_packet(false),
+		_timestamp(ts)
 	{
-		const u_char* _pkt;
+		//const u_char* _pkt;
 	}
 
 	IPv4Packet(const u_char* pkt, 
@@ -39,12 +41,14 @@ public:
 			const u_char* ip_hdr_start,
 			const u_char* transport_hdr_start, 
 			const u_char* data_start,
-			bool copy_packet) :
+			bool copy_packet,
+			struct timeval ts) :
 		_copy_packet(copy_packet),
 		_pkt_size(pkt_size),
 		_ip_hdr_start(ip_hdr_start),
 		_transport_hdr_start(transport_hdr_start),
-		_data_start(data_start)
+		_data_start(data_start),
+		_timestamp(ts)
 	{
 		u_char* tmppkt = (u_char*) malloc(pkt_size*sizeof(u_char));
 		memcpy(tmppkt, pkt, pkt_size*sizeof(u_char));
@@ -83,6 +87,7 @@ public:
 
 	bool sameFlow(IPv4Packet& rhs);
 
+	const struct timeval& timestamp() const { return _timestamp; }
 
 protected:
 	const u_char* _pkt;
@@ -91,7 +96,9 @@ protected:
 	const u_char* _transport_hdr_start;
 	const u_char* _data_start;
 	bool _copy_packet;
-
+	
+	// Timestamp for when the packet was created
+	struct timeval _timestamp;
 };
 
 } // end namespace

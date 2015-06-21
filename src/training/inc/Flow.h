@@ -7,6 +7,7 @@
 #ifndef __VSID_FLOW_H__
 #define __VSID_FLOW_H__
 
+#include <sys/time.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <netinet/ip.h>
@@ -68,8 +69,6 @@ public:
 	template <typename T>
 	bool sameFlow(const T* rhs) const
 	{
-		SLOG_INFO(<< "checking flow");
-
 		if(_firstPacketTuple.protocol() != rhs->protocol())
 		{
 			SLOG_INFO(<< "Not the same flow proto")
@@ -138,15 +137,21 @@ public:
 
 	uint32_t pktCount() const { return _pktCount; } 
 
+	const struct timeval& startTimestamp() const { return _startTimestamp; }
+
+	const struct timeval& lastPacketTimestamp() const { return _lastPacketTimestamp; }
+
 private:
 	IPv4Tuple _firstPacketTuple;
+	struct timeval _startTimestamp;
+	struct timeval _lastPacketTimestamp;
+
 	uint32_t _hash;
 	uint32_t _pktCount;
 };
 
 	inline bool operator==(const Flow& lhs, const Flow& rhs)
 	{
-		SLOG_INFO(<< "checking flow ==");
 		if(lhs._hash > 0)
 			return true;
 

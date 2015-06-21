@@ -16,12 +16,14 @@ public:
 				int pkt_size, 
 				const u_char* ip_hdr_start, 
 				const u_char* transport_hdr_start, 
-				const u_char* data_start) :
+				const u_char* data_start,
+				struct timeval ts) :
 		IPv4Packet(pkt, 
 			pkt_size, 
 			ip_hdr_start, 
 			transport_hdr_start, 
-			data_start)
+			data_start,
+			ts)
 	{
 
 	};

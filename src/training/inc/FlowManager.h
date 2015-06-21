@@ -99,6 +99,7 @@ private:
 
 	typedef std::unordered_set<std::shared_ptr<Flow>, Ipv4FlowHasher, FlowPtrEqualFn> FlowSet;
 	FlowSet _flows;
+
 };
 
 } // end namespace
