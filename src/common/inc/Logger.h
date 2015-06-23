@@ -129,10 +129,10 @@ inline int format_hexdump (const u_char *buffer, int size,
  */
 #define LOG_HEXDUMP(MSG, HEX, SZE) \
  	if( SZE < 2048) { \
- 		char buf[4097]; 	\
- 		buf[0] = '\0'; 		\
- 		int len = format_hexdump (HEX, SZE, buf, sizeof buf); \
- 		LOG(INFO) << MSG << endl << buf << endl; \
+ 		char LHD_buf[4097]; 	\
+ 		LHD_buf[0] = '\0'; 		\
+ 		int len = format_hexdump (HEX, SZE, LHD_buf, sizeof LHD_buf); \
+ 		LOG(INFO) << MSG << endl << LHD_buf << endl; \
  	}
 
 

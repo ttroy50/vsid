@@ -35,6 +35,7 @@ AC_OUTPUT(Makefile \
 		contrib/Makefile \
 		contrib/hash/src/Makefile \
 		src/Makefile \
-		src/training/src/Makefile
-		src/protocol_model/src/Makefile
-		src/protocol_model/unit_test/Makefile )
+		src/training/src/Makefile \
+		src/protocol_model/src/Makefile \
+		src/protocol_model/unit_test/Makefile \
+		src/netfilter/src/Makefile )

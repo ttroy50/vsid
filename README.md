@@ -10,7 +10,8 @@ Thom Troy
 
 * libpcap
 * [YAML-cpp])(https://github.com/jbeder/yaml-cpp)
-* boost
+* boost-dev
+* libnetfilter-queue
 
 ### Steps
 
