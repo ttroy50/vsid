@@ -16,7 +16,7 @@ vsid_netfilter_INCS = \
 				-I$(top_srcdir)/contrib/easyloggingpp \
 				-I$(top_srcdir)/contrib/hash/inc
 
-vsid_netfilter_CXXFLAGS =  -std=c++11 $(vsid_netfilter_INCS)
+vsid_netfilter_CXXFLAGS =  -std=c++11 -DELPP_THREAD_SAFE -pthread $(vsid_netfilter_INCS)
 
 vsid_netfilter_LDADD = 	\
 						../../../contrib/hash/src/lib_vsid_hash.a \
@@ -27,6 +27,8 @@ vsid_netfilter_LDADD = 	\
 
 vsid_netfilter_SOURCES = \ 
 						main.cpp \
+						Process.cpp \
+						Config.cpp \
 						PacketHandler.cpp
 
 
