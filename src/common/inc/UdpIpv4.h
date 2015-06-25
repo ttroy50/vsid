@@ -4,7 +4,9 @@
 #include "IPv4.h"
 #include <netinet/ip.h>
 #include <netinet/udp.h>
-namespace VSID_TRAINING
+
+
+namespace VsidCommon
 {
 
 

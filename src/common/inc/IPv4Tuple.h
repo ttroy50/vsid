@@ -4,12 +4,12 @@
  * Copyright (C) 2015 Thom Troy
  */
 
-#ifndef __VSID_TRAINING_IPV4_TUPLE_H__
-#define __VSID_TRAINING_IPV4_TUPLE_H__
+#ifndef __VSID_COMMON_IPV4_TUPLE_H__
+#define __VSID_COMMON_IPV4_TUPLE_H__
 
 #include "Logger.h"
  
-namespace VSID_TRAINING
+namespace VsidCommon
 {
 
 class IPv4Tuple 

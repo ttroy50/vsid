@@ -10,7 +10,7 @@
 #include "Logger.h"
 #include "yaml-cpp/yaml.h"
 
-using namespace VSID_TRAINING;
+using namespace VsidTraining;
 using namespace std;
 
 

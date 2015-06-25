@@ -2,8 +2,10 @@
 #include "Logger.h"
 #include "Hasher.h"
 #include "IPv4.h"
+
+
 using namespace std;
-using namespace VSID_TRAINING;
+using namespace VsidCommon;
 
 
 Flow::Flow(IPv4Packet* packet) :

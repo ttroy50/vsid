@@ -11,7 +11,7 @@
 
 #include <string>
 
-namespace VSID_TRAINING
+namespace VsidTraining
 {
 
 /**

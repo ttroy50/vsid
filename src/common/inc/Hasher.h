@@ -45,7 +45,7 @@ void __skb_get_rxhash(struct sk_buff *skb)
 
 	 */
 
-namespace VSID_TRAINING
+namespace VsidCommon
 {
 
 /**

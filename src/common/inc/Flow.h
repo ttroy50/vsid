@@ -18,7 +18,7 @@
 #include "IPv4Tuple.h"
 #include "Logger.h"
 
-namespace VSID_TRAINING
+namespace VsidCommon
 {
 
 class Flow

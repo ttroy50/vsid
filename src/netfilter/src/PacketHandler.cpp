@@ -147,10 +147,6 @@ void PacketHandler::run()
 				SLOG_ERROR(<< "errno [" << errno << "] res is [" << res << "]. Shutting down");
 				_shutdown = true;
 			}
-			else
-			{
-				SLOG_INFO(<< "EAGAIN . queue " << _queueNumber)
-			}
 		}
 	}
 }

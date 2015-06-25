@@ -21,8 +21,9 @@
 #include "AttributeMeterRegistrar.h"
  
 using namespace std;
-using namespace VSID_TRAINING;
+using namespace VsidTraining;
 using namespace Vsid;
+using namespace VsidCommon;
 
 static const char* const gvProgramName = "VSID - SPID Training Program";
 

@@ -13,7 +13,7 @@
 #include <vector>
 #include "IPv4Tuple.h"
  
-namespace VSID_TRAINING
+namespace VsidTraining
 {
 
 enum Protocol {
@@ -31,7 +31,7 @@ public:
 		protocol(UNKNOWN) 
 	{}
 
-	IPv4Tuple tuple;
+	VsidCommon::IPv4Tuple tuple;
 	Protocol protocol;
 	bool processed;
 };

@@ -13,7 +13,7 @@
 #include <sys/types.h>
 #include <netinet/ip.h>
 
-namespace VSID_TRAINING
+namespace VsidCommon
 {
 
 class IPv4Packet

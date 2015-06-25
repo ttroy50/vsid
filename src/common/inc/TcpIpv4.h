@@ -5,7 +5,9 @@
 #include <netinet/ip.h>
 #include <netinet/tcp.h>
 #include "Logger.h"
-namespace VSID_TRAINING
+
+
+namespace VsidCommon
 {
 
 

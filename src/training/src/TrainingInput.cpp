@@ -9,7 +9,8 @@
 #include "TrainingInput.h"
 #include "Logger.h"
 
-using namespace VSID_TRAINING;
+using namespace VsidTraining;
+using namespace VsidCommon;
 using namespace std;
 
 bool TrainingInput::read(const std::string& fileName)

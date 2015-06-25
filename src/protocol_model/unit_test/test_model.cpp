@@ -20,8 +20,6 @@ INIT_LOGGING
 void removePrev(string testFile)
 {
 
-	testFile += ".prev";
-
 	std::ifstream tmp(testFile);
 	if ( !tmp.good() )
 	{
@@ -83,8 +81,9 @@ BOOST_AUTO_TEST_CASE( test_protocol_model )
     init_attribute_meters();
 
 	string testDbFile = "/home/matrim/workspace/college/vsi/src/protocol_model/unit_test/test_db.yaml";
-    removePrev(testDbFile);
-    ProtocolModelDb testDb( testDbFile );
+    string testDbFilePrev = testDbFile + ".prev";
+    removePrev( testDbFilePrev);
+    ProtocolModelDb testDb( testDbFile, testDbFilePrev );
 
     // check we can read DB
     BOOST_REQUIRE( testDb.read() );

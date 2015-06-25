@@ -4,10 +4,10 @@
  * Copyright (C) 2015 Thom Troy
  */
 
-#ifndef __VSID_TRAINING_CONSTANTS_H__
-#define __VSID_TRAINING_CONSTANTS_H__
+#ifndef __VSID_COMMON_CONSTANTS_H__
+#define __VSID_COMMON_CONSTANTS_H__
 
-namespace VSID_TRAINING
+namespace VsidCommon
 {
 
 	// LINK LAYER HEADER SIZES

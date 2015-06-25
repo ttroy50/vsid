@@ -3,7 +3,7 @@
 #include "Hasher.h"
 
 using namespace std;
-using namespace VSID_TRAINING;
+using namespace VsidCommon;
 
 
 uint32_t IPv4Packet::flowHash()

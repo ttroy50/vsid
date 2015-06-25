@@ -16,19 +16,17 @@ vsid_training_INCS = \
 				-I$(top_srcdir)/contrib/easyloggingpp \
 				-I$(top_srcdir)/contrib/hash/inc
 
-vsid_training_CXXFLAGS =  -std=c++11 $(vsid_training_INCS)
+vsid_training_CXXFLAGS =  -std=c++11 -DELPP_THREAD_SAFE $(vsid_training_INCS)
 
 vsid_training_LDADD = 	-lpcap \
-						../../../contrib/hash/src/lib_vsid_hash.a \
+						../../common/src/lib_vsid_common.a \
 						../../protocol_model/src/lib_vsid_protocol_model.a \
+						../../../contrib/hash/src/lib_vsid_hash.a \
 						-lyaml-cpp
 
 vsid_training_SOURCES = main.cpp \
 						Config.cpp \
 						PcapReader.cpp \
-						IPv4.cpp \
-						TrainingInput.cpp \
-						FlowManager.cpp \
-						Flow.cpp
+						TrainingInput.cpp 
 
 

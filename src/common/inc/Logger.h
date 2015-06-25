@@ -7,8 +7,8 @@
  * Copyright (C) 2015 Thom Troy
  */
 
-#ifndef __VSID_TRAINING_LOGGER_H__
-#define __VSID_TRAINING_LOGGER_H__
+#ifndef __VSID_COMMON_LOGGER_H__
+#define __VSID_COMMON_LOGGER_H__
 
 #define ELPP_NO_DEFAULT_LOG_FILE
 

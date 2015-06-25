@@ -19,7 +19,8 @@
 #include "FlowManager.h"
 
 using namespace std;
-using namespace VSID_TRAINING;
+using namespace VsidTraining;
+using namespace VsidCommon;
 
 void PcapReader::readPacket(u_char* userArg, 
 							const pcap_pkthdr* pkthdr,

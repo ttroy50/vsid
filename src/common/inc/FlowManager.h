@@ -14,7 +14,7 @@
 #include "Flow.h"
 #include "Hasher.h"
 
-namespace VSID_TRAINING
+namespace VsidCommon
 {
 
 template <> 

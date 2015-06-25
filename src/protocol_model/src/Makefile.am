@@ -12,7 +12,7 @@ lib_vsid_protocol_model_a_INCS = \
 
 AM_CFLAGS = --pedantic -Wall -O2 $(lib_vsid_protocol_model_a_INCS)
 AM_LDFLAGS =
-AM_CXXFLAGS =  -std=c++11 $(lib_vsid_protocol_model_a_INCS)
+AM_CXXFLAGS =  -std=c++11 -DELPP_THREAD_SAFE $(lib_vsid_protocol_model_a_INCS)
 
 lib_vsid_protocol_model_a_SOURCES = ProtocolModelDb.cpp \
 									ProtocolModel.cpp \
