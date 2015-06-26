@@ -22,7 +22,22 @@ using namespace std;
 using namespace VsidTraining;
 using namespace VsidCommon;
 
-void PcapReader::readPacket(u_char* userArg, 
+struct CbData
+{
+	PcapReader* reader;
+	pcap_t* pcap;
+};
+
+void readPacket(u_char* userArg, 
+							const pcap_pkthdr* pkthdr,
+							const u_char* packet)
+{
+    CbData* cbData = reinterpret_cast<CbData*>(userArg);
+    cbData->reader->handlePacket(cbData->pcap, pkthdr, packet);
+}
+
+
+void PcapReader::handlePacket(pcap_t* pcap,
 							const pcap_pkthdr* pkthdr,
 							const u_char* packet)
 {
@@ -33,11 +48,9 @@ void PcapReader::readPacket(u_char* userArg,
     SLOG_INFO( << "caplen : " << pkthdr->caplen);
     SLOG_INFO( << "len : " << pkthdr->len);
 
-    
     // Update count now after logging
     count++;
 
-    pcap_t* pcap = (pcap_t*)userArg;
     int linktype;
 
     uint32_t linkhdrlen = 14;
@@ -137,7 +150,7 @@ void PcapReader::readPacket(u_char* userArg,
 					SLOG_INFO(<< "not equal")
 				}
 
-				FlowManager::getInstance()->addPacket(&tcp);
+				_flowManager->addPacket(&tcp);
 
 				break;
 			}
@@ -160,7 +173,7 @@ void PcapReader::readPacket(u_char* userArg,
 					SLOG_INFO(<< "not equal")
 				}
 
-				FlowManager::getInstance()->addPacket(&udp);
+				_flowManager->addPacket(&udp);
 
 				break;
 			}
@@ -219,9 +232,11 @@ bool PcapReader::read(const string& fileName)
         return false;
     }
 
-	pcap_loop(pcap, 0, readPacket, (u_char*)pcap);
+    std::shared_ptr<CbData> cbData (new CbData);
+    cbData->reader = this;
+    cbData->pcap = pcap;
 
-	pcap_close(pcap);
+	pcap_loop(pcap, 0, &readPacket, reinterpret_cast<u_char*>(cbData.get()));
 
 	return true;
 }

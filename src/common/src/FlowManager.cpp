@@ -7,16 +7,6 @@
 using namespace std;
 using namespace VsidCommon;
 
-FlowManager* FlowManager::_instance = NULL;
-
-FlowManager* FlowManager::getInstance()
-{
-	if(_instance == NULL)
-	{
-		_instance = new FlowManager();
-	}
-	return _instance;
-}
 
 FlowManager::FlowManager()
 {

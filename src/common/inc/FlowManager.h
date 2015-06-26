@@ -35,8 +35,9 @@ public:
 class FlowManager
 {
 public:
-	static FlowManager* getInstance();
-
+	FlowManager();
+	~FlowManager();
+	
 	/**
 	 * Add a new packet to a flow. This will create a new flow it it doesn't 
 	 * exist and will attempt to start the lookup
@@ -91,12 +92,6 @@ public:
 	size_t numFlows() { return _flows.size(); }
 
 private:
-	FlowManager();
-	~FlowManager();
-
-	// TODO remove singleton
-	static FlowManager* _instance;
-
 	typedef std::unordered_set<std::shared_ptr<Flow>, Ipv4FlowHasher, FlowPtrEqualFn> FlowSet;
 	FlowSet _flows;
 

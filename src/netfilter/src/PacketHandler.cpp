@@ -1,4 +1,8 @@
 #include <netinet/in.h>
+#include <arpa/inet.h>
+#include <netinet/ip.h>
+#include <netinet/udp.h>
+#include <netinet/tcp.h>
 
 extern "C" {
   #include <linux/netfilter.h>  /* Defines verdicts (NF_ACCEPT, etc) */
@@ -13,11 +17,14 @@ extern "C" {
 
 
 #include "PacketHandler.h"
-
+#include "Constants.h"
+#include "TcpIpv4.h"
+#include "UdpIpv4.h"
 #include "Logger.h"
 
 using namespace std;
 using namespace VsidNetfilter;
+using namespace VsidCommon;
 
 /* Definition of callback function */
 static int nfqPacketHandlerCb(struct nfq_q_handle* nfQueue, 

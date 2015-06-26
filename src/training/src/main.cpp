@@ -162,7 +162,11 @@ int main( int argc, char* argv[] )
 
 	SLOG_INFO(<< "spid database : " << Config::instance()->protocolDatabase());
 
-	PcapReader reader;
+	
+	FlowManager flowManager;
+
+
+	PcapReader reader(&flowManager);
 
 	bool updated = false;
 	for(int i = 0; i < training_input.trainingFiles().size(); i++)

@@ -13,13 +13,17 @@
 
 #include <string>
 
+#include "FlowManager.h"
+
 namespace VsidTraining
 {
 
 class PcapReader
 {
 public:
-	PcapReader() {};
+	PcapReader(VsidCommon::FlowManager* flowManager) :
+		_flowManager(flowManager)
+	{};
 	~PcapReader() {};
 
 	/**
@@ -30,16 +34,17 @@ public:
 	bool read(const std::string& fileName);
 
 	/**
-	 * read a packet coming from the pcap_loop callback.
+	 * Handle a packet
 	 *
-	 *
-	 * @param userArg cast of the pcap* pointer
+	 * @param pcap   
 	 * @param header 
 	 * @param packet 
 	 */
-	static void readPacket(u_char* userArg, const pcap_pkthdr* header, const u_char* packet);
-
+	void handlePacket(pcap_t* pcap, const pcap_pkthdr* header, const u_char* packet);
 private:
+
+	VsidCommon::FlowManager* _flowManager;
+
 };
 
 }
