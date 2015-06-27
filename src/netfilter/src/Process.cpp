@@ -202,6 +202,8 @@ bool Process::run()
 		}
 	}
 
+	// TODO listen for thread state
+	
 	//Join the threads with the main thread
 	for(auto &t : _handlerThreads){
 		t.join();

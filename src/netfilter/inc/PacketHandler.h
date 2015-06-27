@@ -15,6 +15,8 @@ extern "C" {
   #include <libnetfilter_queue/libnetfilter_queue.h>
 }
 
+#include "FlowManager.h"
+
 namespace VsidNetfilter
 {
 
@@ -46,11 +48,16 @@ public:
 private:
 	int _queueNumber;
 	bool _shutdown;
-	int _numPackets;
+	uint64_t _numPackets;
 
 	struct nfq_handle* _nfqHandle;
 	struct nfq_q_handle* _nfQueue;
 	struct nfnl_handle* _netlinkHandle;
+
+	size_t _queueSize;
+	size_t _bufSize;
+
+	VsidCommon::FlowManager _flowManager;
 };
 
 }

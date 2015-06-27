@@ -20,7 +20,9 @@ Config::Config() :
 	_protocol_database("protocol_model_db.yaml"),
 	_udp_flow_timeout(120),
     _num_queues(1),
-    _queue_offset(0)
+    _queue_offset(0),
+    _nf_queue_size(2048),
+    _nf_buf_size(2048)
 {
 
 }
@@ -89,5 +91,17 @@ bool Config::init(const string& config_file)
         SLOG_INFO(<< "QueueOffset : " << _queue_offset)
     }
 
+    if(config["NfQueueSize"])
+    {
+        _udp_flow_timeout = config["NfQueueSize"].as<size_t>();
+        SLOG_INFO(<< "NfQueueSize : " << _nf_queue_size)
+    }
+
+    if(config["NfBufSize"])
+    {
+        _nf_buf_size = config["NfBufSize"].as<size_t>();
+        SLOG_INFO(<< "NfBufSize : " << _nf_buf_size)
+    }
+    
 	return true;
 }

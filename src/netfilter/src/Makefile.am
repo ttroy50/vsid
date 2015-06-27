@@ -19,13 +19,14 @@ vsid_netfilter_INCS = \
 vsid_netfilter_CXXFLAGS =  -std=c++11 -DELPP_THREAD_SAFE -pthread $(vsid_netfilter_INCS)
 
 vsid_netfilter_LDADD = 	\
+						../../common/src/lib_vsid_common.a \
 						../../../contrib/hash/src/lib_vsid_hash.a \
 						../../protocol_model/src/lib_vsid_protocol_model.a \
 						-lyaml-cpp \
 						-lnfnetlink \
 						-lnetfilter_queue
 
-vsid_netfilter_SOURCES = \ 
+vsid_netfilter_SOURCES = \
 						main.cpp \
 						Process.cpp \
 						Config.cpp \

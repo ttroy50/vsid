@@ -12,3 +12,11 @@
     # The offset for the queue numbers. 
     # For example, 2 queues with an offset of 2000, would be queue 2000 and 2001
     QueueOffset: 0
+
+    # The size of the netfilter netlink userland queue
+    # Size is set using nfnl_rcvbufsiz and caluclated by NfQueueSize * NfBufSize
+    NfQueueSize: 2048
+
+    # The buffer size of to use for setting the Netfilter netlink queue
+    # This is also the size of packets set as expected to receive from nfqueue
+    NfBufSize: 2048

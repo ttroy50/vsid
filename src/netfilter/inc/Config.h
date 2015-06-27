@@ -40,6 +40,9 @@ public:
 	
 	uint32_t numQueues() { return _num_queues; }
 	uint32_t queueOffset() { return _queue_offset; }
+
+	size_t nfQueueSize() { return _nf_queue_size; }
+	size_t nfBufSize() { return _nf_buf_size; }
 	
 private:
 	Config();
@@ -54,6 +57,9 @@ private:
 
 	uint32_t _num_queues;
 	uint32_t _queue_offset;
+
+	size_t _nf_queue_size;
+	size_t _nf_buf_size;
 };
 
 

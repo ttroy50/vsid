@@ -22,6 +22,8 @@ extern "C" {
 #include "UdpIpv4.h"
 #include "Logger.h"
 
+#include "Config.h"
+
 using namespace std;
 using namespace VsidNetfilter;
 using namespace VsidCommon;
@@ -48,6 +50,8 @@ static int nfqPacketHandlerCb(struct nfq_q_handle* nfQueue,
     	return nfq_set_verdict(nfQueue, id, verdict, 0, NULL); /* Verdict packet */
     }
 
+    SLOG_ERROR(<< "handler for nfQUeue " << nfQueue);
+
     PacketHandler* handler = static_cast<PacketHandler*>(data);
     if ( !handler->handlePacket(nfQueue, msg, pkt) )
     {
@@ -57,10 +61,10 @@ static int nfqPacketHandlerCb(struct nfq_q_handle* nfQueue,
 }
 
 PacketHandler::PacketHandler(int queueNumber) :
-	_queueNumber(queueNumber),
 	_shutdown(false),
 	_numPackets(0)
 {
+	_queueNumber = queueNumber;
 	_nfqHandle = NULL;
 	_nfQueue = NULL;
 	_netlinkHandle = NULL;
@@ -95,20 +99,28 @@ PacketHandler::PacketHandler(int queueNumber) :
 	}
 
 	// Turn on packet copy mode
-	if (nfq_set_mode(_nfQueue, NFQNL_COPY_PACKET, 0xffff) < 0) 
+	if (nfq_set_mode(_nfQueue, NFQNL_COPY_PACKET, Config::instance()->nfBufSize()) < 0) 
 	{
 		SLOG_ERROR( << "Could not set packet copy mode" );
 		throw StringException("Error in nfq_set_mode()");
 	}
+
+	SLOG_INFO(<< "Queue setup for [" << _queueNumber << "]");
 }
 
 PacketHandler::~PacketHandler()
 {
 	if(_nfQueue)
+	{
 		nfq_destroy_queue(_nfQueue);
+	}
 
+	
 	if(_netlinkHandle)
+	{
 		nfq_close(_nfqHandle);
+		SLOG_INFO(<< "Queue close for [" << _queueNumber << "]");
+	}
 }
 
 
@@ -118,7 +130,7 @@ void PacketHandler::run()
 
 	if(!_nfqHandle || !_nfQueue )
 	{
-		SLOG_ERROR( << "Not setup correctly")
+		SLOG_ERROR( << "Not setup correctly [" << _queueNumber << "]");
 		throw StringException("PacketHandler not constructed correctly");
 	}
 
@@ -127,7 +139,13 @@ void PacketHandler::run()
 	char buf[4096];
 	
 	_netlinkHandle = nfq_nfnlh(_nfqHandle);
+
+	SLOG_INFO(<< "netlinkHandle : " << _netlinkHandle);
+	nfnl_rcvbufsiz(_netlinkHandle, Config::instance()->nfQueueSize() * Config::instance()->nfBufSize());
+
 	fd = nfnl_fd(_netlinkHandle);
+
+	SLOG_INFO(<< "fd [" << fd << "] on queue [" << _queueNumber << "]");
 
 	struct timeval timeout;
 	// TODO maybe make configurable
@@ -151,16 +169,31 @@ void PacketHandler::run()
 		{
 			if(errno != EAGAIN )
 			{
-				SLOG_ERROR(<< "errno [" << errno << "] res is [" << res << "]. Shutting down");
+				SLOG_ERROR(<< "errno [" << errno << "][" << strerror(errno) << "] res is [" << res << "]. Shutting down");
 				_shutdown = true;
+			}
+			else
+			{
+				SLOG_INFO(<< "EGAAIN on " << _queueNumber);
 			}
 		}
 	}
+
+	// Bind this handler to process IP packets...
+	// We only care about IPv4 in initial version
+	if (nfq_unbind_pf(_nfqHandle, AF_INET) < 0) 
+	{
+		SLOG_ERROR( << "Error in nfq_unbind_pf()" );
+	}
+
+	SLOG_INFO( << "finished with queue [" << _queueNumber << "] after [" 
+				<< _numPackets << "] packets");
 }
 
 
 int PacketHandler::setVerdict(int id, int verdict)
 {
+	SLOG_INFO(<< "set verdict : " << id);
 	return nfq_set_verdict(_nfQueue, id, verdict, 0, NULL);
 }
 
@@ -171,21 +204,13 @@ bool PacketHandler::handlePacket(struct nfq_q_handle* nfQueue,
 	_numPackets++;
     SLOG_INFO( << "Received packet : " << _numPackets );
 
-    if(nfQueue != _nfQueue)
-    {
-    	SLOG_ERROR(<< "received nfQueue different from stored one")
-    	return false;
-    }
-
 	uint32_t id = 0;
-	nfqnl_msg_packet_hdr *header = nfq_get_msg_packet_hdr(pkt);
 
+	nfqnl_msg_packet_hdr *header = nfq_get_msg_packet_hdr(pkt);
 	if (header) 
 	{
 		id = ntohl(header->packet_id);
-		SLOG_INFO (<< "id : " << id 
-					<< " ; hw_protocol : " << ntohs(header->hw_protocol) 
-					<< "; hook " << ('0'+ header->hook) );
+		SLOG_INFO(<< "packet id : " << id << " | on queue : " << _queueNumber);
 	}
 
 	timeval timestamp;
@@ -206,12 +231,108 @@ bool PacketHandler::handlePacket(struct nfq_q_handle* nfQueue,
 	SLOG_INFO( << "; mark " << nfq_get_nfmark(pkt) );
 
 	u_char *pktData;
-	int len = nfq_get_payload(pkt, &pktData);
-	SLOG_INFO( << "Packet len is " << len );
-	if(len > 0)
+	int pktLen = nfq_get_payload(pkt, &pktData);
+
+	SLOG_INFO( << "Packet len is " << pktLen );
+	/*if(pktLen > 0)
 	{
-		LOG_HEXDUMP("data :", pktData, len);
-		SLOG_INFO( << pktData)
+		LOG_HEXDUMP("data :", pktData, pktLen);
+	}*/
+
+	struct ip_vhl {
+		unsigned int ip_hl:4; // only in IPv4
+		unsigned int ip_v:4;
+    };	
+
+    // IP Header
+    const u_char* ip_hdr_start = pktData;
+
+    ip_vhl* vhl = (struct ip_vhl*)(ip_hdr_start);
+    SLOG_INFO(<< "IP - HLen : " << vhl->ip_hl * 4 << " - Ver : " << vhl->ip_v);
+
+    if(vhl->ip_v == IPv4)
+    {
+		struct iphdr* ip_hdr = (struct iphdr*)(ip_hdr_start);
+		const u_char* transport_hdr_start = ip_hdr_start + (vhl->ip_hl * 4);
+
+		// extract the source and the destination ip-adrress
+		in_addr* srcIp = (in_addr*) &ip_hdr->saddr;
+		in_addr* dstIp = (in_addr*) &ip_hdr->daddr;
+
+		char src[INET6_ADDRSTRLEN];
+		inet_ntop(AF_INET, srcIp, src, INET6_ADDRSTRLEN);
+
+		char dst[INET6_ADDRSTRLEN];
+		inet_ntop(AF_INET, dstIp, dst, INET6_ADDRSTRLEN);
+
+		SLOG_INFO( << "src ip : " << src );
+		SLOG_INFO( << "dst ip : " << dst );
+
+		// Transport Layer Header
+		switch(ip_hdr->protocol)
+		{
+			case IPPROTO_ICMP:
+			{
+				SLOG_INFO( << "IPPROTO_ICMP");
+				return setVerdict(id, NF_ACCEPT);
+			}
+			case IPPROTO_TCP:
+			{
+				SLOG_INFO( << "IPPROTO_TCP");
+
+				const u_char* data_start = transport_hdr_start + sizeof(tcphdr);
+				
+				TcpIPv4 tcp(pktData, pktLen, ip_hdr_start, 
+							transport_hdr_start, data_start, 
+							timestamp);
+				
+				SLOG_INFO( << "src port : " << tcp.srcPort());
+				SLOG_INFO( << "dst port : " << tcp.dstPort());
+
+				_flowManager.addPacket(&tcp);
+
+				return setVerdict(id, NF_ACCEPT);
+			}
+			case IPPROTO_UDP:
+			{
+				SLOG_INFO( << "IPPROTO_UDP");
+
+				const u_char* data_start = transport_hdr_start + sizeof(udphdr);
+
+				UdpIPv4 udp(pktData, pktLen, ip_hdr_start, 
+							transport_hdr_start, data_start, 
+							timestamp);
+
+
+				SLOG_INFO( << "src port : " << udp.srcPort());
+				SLOG_INFO( << "dst port : " << udp.dstPort());
+
+				_flowManager.addPacket(&udp);
+
+				return setVerdict(id, NF_ACCEPT);
+			}
+			case IPPROTO_SCTP:
+			{
+				SLOG_INFO( << "IPPROTO_SCTP");
+				return setVerdict(id, NF_ACCEPT);
+			}
+			default:
+			{
+				SLOG_INFO( << "UNKNOWN IPPROTO : " << ip_hdr->protocol);
+				return setVerdict(id, NF_ACCEPT);
+			}
+
+		}
+	}
+	else if(vhl->ip_v == IPv6)
+	{
+		SLOG_ERROR(<< "IP Version 6 not supported yet")
+		return setVerdict(id, NF_ACCEPT);
+	}
+	else
+	{
+		SLOG_ERROR(<< "Invalid IP Version : " << vhl->ip_v)
+		return setVerdict(id, NF_ACCEPT);
 	}
 
     return setVerdict(id, NF_ACCEPT); /* Verdict packet */

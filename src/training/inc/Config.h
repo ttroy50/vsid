@@ -39,7 +39,7 @@ public:
 	const std::string& protocolDatabaseBackup() { return _protocol_database_backup; }
 
 	uint32_t udpFlowTimeout() { return _udp_flow_timeout; }
-	
+
 private:
 	Config();
 	~Config();
@@ -50,6 +50,7 @@ private:
 	std::string _protocol_database;
 	std::string _protocol_database_backup;
 	uint32_t _udp_flow_timeout;
+
 };
 
 

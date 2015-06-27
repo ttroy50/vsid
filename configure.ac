@@ -36,6 +36,7 @@ AC_OUTPUT(Makefile \
 		contrib/hash/src/Makefile \
 		src/Makefile \
 		src/common/src/Makefile \
+		src/common/unit_test/Makefile \
 		src/training/src/Makefile \
 		src/protocol_model/src/Makefile \
 		src/protocol_model/unit_test/Makefile \
