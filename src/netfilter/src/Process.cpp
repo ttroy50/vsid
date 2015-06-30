@@ -12,14 +12,20 @@
 #include <thread>
 #include <iostream>
 #include <vector>
+#include <chrono>
+#include <iostream>
+#include <iomanip>
+#include <ctime>
 
 #include "Process.h"
 #include "Logger.h"
 #include "PacketHandler.h"
 #include "Config.h"
+#include "StringException.h"
 
 using namespace std;
 using namespace VsidNetfilter;
+using namespace VsidCommon;
 
 
 std::unique_ptr<Process> Process::_instance;
@@ -201,9 +207,26 @@ bool Process::run()
 			exit(1);
 		}
 	}
-
-	// TODO listen for thread state
 	
+	std::time_t last = std::time(nullptr);
+	std::time_t now = std::time(nullptr);
+
+	while (!_shutdown)
+	{
+		std::this_thread::sleep_for(std::chrono::seconds(1));
+		now = std::time(nullptr);
+		if(now - last > 30)
+		{
+		    std::cout << "stats at: " << std::ctime(&now) << '\n';
+			for(auto t : _packetHandlers){
+				cout << "Queue [" << t->queueNumber() << "] received [" << t->numPackets() << "]" << endl;
+				// TODO print verdict sttats
+			}
+			cout << "--------------------------" << endl;
+			last = now;
+		}
+	}
+
 	//Join the threads with the main thread
 	for(auto &t : _handlerThreads){
 		t.join();
@@ -215,6 +238,7 @@ bool Process::run()
 void Process::shutdown()
 {
 	SLOG_INFO(<< "Received shutdown command. Signal Received [" << _sigReceived << "]");
+	_shutdown = true;
 
 	for(auto &t : _packetHandlers){
 		t->shutdown();

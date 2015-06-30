@@ -21,13 +21,19 @@ std::shared_ptr<Flow> FlowManager::addPacket(IPv4Packet* packet)
 {
 	std::shared_ptr<Flow> flow = getFlow(packet);
 
-	if( !flow )
+	if( flow )
 	{
 		flow->addPacket(packet);
 		SLOG_INFO(<< "Packet added to flow : " << *flow);	
+
+		if(flow->flowState() == Flow::State::FINISHED)
+		{
+			deleteFlow(flow);
+			SLOG_INFO(<< "Flow in finished state. Removing")
+			return nullptr;
+		}
 	}
 
-	
 	return flow;
 }
 

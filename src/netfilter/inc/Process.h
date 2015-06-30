@@ -74,8 +74,15 @@ private:
 	static std::unique_ptr<Process> _instance;
 	static std::once_flag _onceFlag;
 
-	Process() {}
-	Process(const Process& other) {}
+	std::atomic<bool> _shutdown;
+
+	Process() : _shutdown(false)
+	{}
+	
+	Process(const Process& other) :
+	_shutdown(false)
+	{}
+	
 	Process& operator=(const Process& rhs) {}
 
 

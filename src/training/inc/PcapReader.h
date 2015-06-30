@@ -22,7 +22,8 @@ class PcapReader
 {
 public:
 	PcapReader(VsidCommon::FlowManager* flowManager) :
-		_flowManager(flowManager)
+		_flowManager(flowManager),
+		_numPackets(0)
 	{};
 	~PcapReader() {};
 
@@ -43,6 +44,8 @@ public:
 	void handlePacket(pcap_t* pcap, const pcap_pkthdr* header, const u_char* packet);
 private:
 
+	uint64_t _numPackets;
+	
 	VsidCommon::FlowManager* _flowManager;
 
 };

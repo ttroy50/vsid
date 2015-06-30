@@ -18,17 +18,28 @@
 #include "IPv4Tuple.h"
 #include "Logger.h"
 
+#define PACKET_MAX_BUFFER_SIZE 2048
+
 namespace VsidCommon
 {
 
 class Flow
 {
 public:
-	enum Direction 
+	enum class Direction 
 	{
 		ORIG_TO_DEST,
 		DEST_TO_ORIG,
 		UNKNOWN
+	};
+
+	enum class State
+	{
+		NEW,
+		ESTABLISHING, // For TCP really means in establishment
+		ESTABLISHED,
+		FINISHING,
+		FINISHED
 	};
 
 	Flow(IPv4Packet* packet);
@@ -110,7 +121,7 @@ public:
 	Direction packetDirection(const T* rhs) const
 	{
 		if(_firstPacketTuple.protocol() != rhs->protocol())
-			return UNKNOWN;
+			return Direction::UNKNOWN;
 
 		if(_firstPacketTuple.srcIp() == rhs->srcIp() 
 				&& _firstPacketTuple.dstIp() == rhs->dstIp()
@@ -119,7 +130,7 @@ public:
 		{
 			// same flow and direction
 			
-			return ORIG_TO_DEST;
+			return Direction::ORIG_TO_DEST;
 		}
 		else if( _firstPacketTuple.srcIp() == rhs->dstIp() 
 				&& _firstPacketTuple.dstIp() == rhs->srcIp()
@@ -127,13 +138,15 @@ public:
 				&& _firstPacketTuple.dstPort() == rhs->srcPort())
 		{
 			// same flow different direction
-			return DEST_TO_ORIG;
+			return Direction::DEST_TO_ORIG;
 		}
 		else
 		{
-			return UNKNOWN;
+			return Direction::UNKNOWN;
 		}
 	}
+
+	State flowState() const { return _flowState; }
 
 	uint32_t pktCount() const { return _pktCount; } 
 
@@ -144,10 +157,17 @@ public:
 private:
 	IPv4Tuple _firstPacketTuple;
 	struct timeval _startTimestamp;
+
+	// for TCP this is first after SYN
+	u_char _firstOrigToDestData[PACKET_MAX_BUFFER_SIZE];
+	size_t _firstOrigToDestDataSize;
+
 	struct timeval _lastPacketTimestamp;
 
 	uint32_t _hash;
 	uint32_t _pktCount;
+
+	State _flowState;
 };
 
 	inline bool operator==(const Flow& lhs, const Flow& rhs)
@@ -162,8 +182,6 @@ private:
 	{
 		return !(lhs == rhs);
 	}
-
-
 	
 	inline MAKE_LOGGABLE(Flow, flow, os)
 	{
@@ -174,6 +192,7 @@ private:
 		inet_ntop(AF_INET, &flow.fiveTuple().dst_ip , dst, INET6_ADDRSTRLEN);
 
 		os << "count : " << flow.pktCount() 
+			<< " state : " << static_cast<std::underlying_type<Flow::State>::type>(flow.flowState())
 			<< " | transport : " << (uint32_t)flow.fiveTuple().transport 
 	    	<< " | src : " << src << ":" << flow.fiveTuple().src_port 
 	    	<< " | dst : " << dst << ":" << flow.fiveTuple().dst_port;

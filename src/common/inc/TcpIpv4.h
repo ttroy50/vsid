@@ -43,7 +43,7 @@ public:
 	uint32_t ack() { return tcphdr()->th_ack; }
 
 	uint8_t flags() { return tcphdr()->th_flags; }
-
+	
 protected:
 
 };

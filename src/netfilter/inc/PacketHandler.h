@@ -9,25 +9,21 @@
 #ifndef __VSID_NETFILTER_PACKET_HANDLER_H__
 #define __VSID_NETFILTER_PACKET_HANDLER_H__
 
-#include <string>
+#include <netinet/in.h>
 
 extern "C" {
-  #include <libnetfilter_queue/libnetfilter_queue.h>
+	#include <linux/netfilter.h>
+	#include <libnetfilter_queue/libnetfilter_queue.h>
 }
+
+#include <string>
+#include <atomic>
+#include <mutex>
 
 #include "FlowManager.h"
 
 namespace VsidNetfilter
 {
-
-class StringException : public std::exception
-{
-public:
-	StringException(std::string what) { _what = what; }
-	const char* what() const noexcept { return _what.c_str(); }
-private:
-	std::string _what;
-};
 
 class PacketHandler
 {
@@ -45,10 +41,17 @@ public:
 
 	int setVerdict(int id, int verdict);
 
+	int queueNumber() { return _queueNumber; }
+	uint64_t numPackets() { return _numPackets; }
+	std::vector<uint64_t> verdictStats();
+
 private:
 	int _queueNumber;
-	bool _shutdown;
-	uint64_t _numPackets;
+	std::atomic<bool> _shutdown;
+
+	std::atomic<uint64_t> _numPackets;
+	std::vector<uint64_t> _verdictStats;
+	std::mutex _statsMutex;
 
 	struct nfq_handle* _nfqHandle;
 	struct nfq_q_handle* _nfQueue;

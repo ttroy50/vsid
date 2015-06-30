@@ -82,6 +82,7 @@ public:
 
 
 	const u_char* data() { return _data_start; }
+	size_t dataSize() { return _pkt + _pkt_size - _data_start; }
 
 	uint32_t flowHash();
 

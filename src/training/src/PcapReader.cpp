@@ -41,15 +41,12 @@ void PcapReader::handlePacket(pcap_t* pcap,
 							const pcap_pkthdr* pkthdr,
 							const u_char* packet)
 {
-    static int count = 1;
+    _numPackets++;
+    SLOG_INFO( << "Packet count : " << _numPackets);
     LOG_HEXDUMP("Packet :", packet, pkthdr->len)
-    SLOG_INFO( << "Packet count : " << count);
    	SLOG_INFO( << "ts.sec : " << pkthdr->ts.tv_sec << " ts.usec : " << pkthdr->ts.tv_usec);
     SLOG_INFO( << "caplen : " << pkthdr->caplen);
     SLOG_INFO( << "len : " << pkthdr->len);
-
-    // Update count now after logging
-    count++;
 
     int linktype;
 

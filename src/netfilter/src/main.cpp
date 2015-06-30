@@ -23,6 +23,7 @@ INIT_LOGGING
 int main( int argc, char* argv[] )
 {
 	// TODO read from argv	
+	el::Loggers::addFlag(el::LoggingFlag::StrictLogFileSizeCheck);
 	el::Configurations conf("../config/logging_netfilter.conf"); 
 	el::Loggers::reconfigureAllLoggers(conf);
 

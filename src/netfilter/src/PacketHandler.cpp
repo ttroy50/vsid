@@ -4,15 +4,15 @@
 #include <netinet/udp.h>
 #include <netinet/tcp.h>
 
-extern "C" {
-  #include <linux/netfilter.h>  /* Defines verdicts (NF_ACCEPT, etc) */
-  #include <libnetfilter_queue/libnetfilter_queue.h>
+extern "C" 
+{
+	#include <linux/netfilter.h>  /* Defines verdicts (NF_ACCEPT, etc) */
+	#include <libnetfilter_queue/libnetfilter_queue.h>
 }
 
 #include <iostream>
 #include <iomanip>
 #include <exception>
-
 #include <time.h>
 
 
@@ -21,6 +21,7 @@ extern "C" {
 #include "TcpIpv4.h"
 #include "UdpIpv4.h"
 #include "Logger.h"
+#include "StringException.h"
 
 #include "Config.h"
 
@@ -56,13 +57,15 @@ static int nfqPacketHandlerCb(struct nfq_q_handle* nfQueue,
     if ( !handler->handlePacket(nfQueue, msg, pkt) )
     {
     	SLOG_INFO( << "Verdict not set in handlePacket")
-    	return nfq_set_verdict(nfQueue, id, verdict, 0, NULL); /* Verdict packet */
+    	// use handler setVerdict to increas stats
+    	return handler->setVerdict(id, verdict); 
     }
 }
 
 PacketHandler::PacketHandler(int queueNumber) :
 	_shutdown(false),
-	_numPackets(0)
+	_numPackets(0),
+	_verdictStats(NF_MAX_VERDICT, 0)
 {
 	_queueNumber = queueNumber;
 	_nfqHandle = NULL;
@@ -193,8 +196,22 @@ void PacketHandler::run()
 
 int PacketHandler::setVerdict(int id, int verdict)
 {
-	SLOG_INFO(<< "set verdict : " << id);
+	if(verdict > NF_MAX_VERDICT || verdict < NF_DROP)
+	{
+		SLOG_ERROR( << "Invalid verdict [" << verdict << "]");
+		return -1;
+	}
+
+	// increase stats
+	std::lock_guard<std::mutex> guard(_statsMutex);
+	_verdictStats[verdict]++;
 	return nfq_set_verdict(_nfQueue, id, verdict, 0, NULL);
+}
+
+std::vector<uint64_t> PacketHandler::verdictStats()
+{
+	std::lock_guard<std::mutex> guard(_statsMutex);
+	return _verdictStats;
 }
 
 bool PacketHandler::handlePacket(struct nfq_q_handle* nfQueue, 
@@ -202,7 +219,6 @@ bool PacketHandler::handlePacket(struct nfq_q_handle* nfQueue,
             	struct nfq_data *pkt)
 {
 	_numPackets++;
-    SLOG_INFO( << "Received packet : " << _numPackets );
 
 	uint32_t id = 0;
 
@@ -210,34 +226,25 @@ bool PacketHandler::handlePacket(struct nfq_q_handle* nfQueue,
 	if (header) 
 	{
 		id = ntohl(header->packet_id);
-		SLOG_INFO(<< "packet id : " << id << " | on queue : " << _queueNumber);
 	}
 
 	timeval timestamp;
-	if (nfq_get_timestamp(pkt, &timestamp) == 0) 
-	{
-		SLOG_INFO( << "; tstamp " << timestamp.tv_sec << "." << timestamp.tv_usec );
-	} 
-	else 
+	if (nfq_get_timestamp(pkt, &timestamp) != 0) 
 	{
 		// We can't guarentee a timestamp messages on the OUTPUT queue.
 		// For now just pop the current time into the timeval
 		// Should be ok because we onlu use time for UDP connection tracking ??
 		gettimeofday(&timestamp, NULL);
-
-		SLOG_INFO( << "no tstamp in msg. Setting to :" << timestamp.tv_sec << "." << timestamp.tv_usec);
 	}
-
-	SLOG_INFO( << "; mark " << nfq_get_nfmark(pkt) );
 
 	u_char *pktData;
 	int pktLen = nfq_get_payload(pkt, &pktData);
 
 	SLOG_INFO( << "Packet len is " << pktLen );
-	/*if(pktLen > 0)
+	if(pktLen > 0)
 	{
 		LOG_HEXDUMP("data :", pktData, pktLen);
-	}*/
+	}
 
 	struct ip_vhl {
 		unsigned int ip_hl:4; // only in IPv4
@@ -248,7 +255,6 @@ bool PacketHandler::handlePacket(struct nfq_q_handle* nfQueue,
     const u_char* ip_hdr_start = pktData;
 
     ip_vhl* vhl = (struct ip_vhl*)(ip_hdr_start);
-    SLOG_INFO(<< "IP - HLen : " << vhl->ip_hl * 4 << " - Ver : " << vhl->ip_v);
 
     if(vhl->ip_v == IPv4)
     {
@@ -265,9 +271,6 @@ bool PacketHandler::handlePacket(struct nfq_q_handle* nfQueue,
 		char dst[INET6_ADDRSTRLEN];
 		inet_ntop(AF_INET, dstIp, dst, INET6_ADDRSTRLEN);
 
-		SLOG_INFO( << "src ip : " << src );
-		SLOG_INFO( << "dst ip : " << dst );
-
 		// Transport Layer Header
 		switch(ip_hdr->protocol)
 		{
@@ -280,14 +283,13 @@ bool PacketHandler::handlePacket(struct nfq_q_handle* nfQueue,
 			{
 				SLOG_INFO( << "IPPROTO_TCP");
 
-				const u_char* data_start = transport_hdr_start + sizeof(tcphdr);
+				struct tcphdr* tcph = (struct tcphdr*)&transport_hdr_start;
+
+				const u_char* data_start = transport_hdr_start  + tcph->doff * 4;
 				
 				TcpIPv4 tcp(pktData, pktLen, ip_hdr_start, 
 							transport_hdr_start, data_start, 
 							timestamp);
-				
-				SLOG_INFO( << "src port : " << tcp.srcPort());
-				SLOG_INFO( << "dst port : " << tcp.dstPort());
 
 				_flowManager.addPacket(&tcp);
 
@@ -302,10 +304,6 @@ bool PacketHandler::handlePacket(struct nfq_q_handle* nfQueue,
 				UdpIPv4 udp(pktData, pktLen, ip_hdr_start, 
 							transport_hdr_start, data_start, 
 							timestamp);
-
-
-				SLOG_INFO( << "src port : " << udp.srcPort());
-				SLOG_INFO( << "dst port : " << udp.dstPort());
 
 				_flowManager.addPacket(&udp);
 
@@ -335,7 +333,7 @@ bool PacketHandler::handlePacket(struct nfq_q_handle* nfQueue,
 		return setVerdict(id, NF_ACCEPT);
 	}
 
-    return setVerdict(id, NF_ACCEPT); /* Verdict packet */
+    return setVerdict(id, NF_ACCEPT);
 }
 
 void PacketHandler::shutdown()
