@@ -283,7 +283,7 @@ bool PacketHandler::handlePacket(struct nfq_q_handle* nfQueue,
 			{
 				SLOG_INFO( << "IPPROTO_TCP");
 
-				struct tcphdr* tcph = (struct tcphdr*)&transport_hdr_start;
+				struct tcphdr* tcph = (struct tcphdr*)(transport_hdr_start);
 
 				const u_char* data_start = transport_hdr_start  + tcph->doff * 4;
 				

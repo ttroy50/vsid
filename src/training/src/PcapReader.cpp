@@ -133,7 +133,14 @@ void PcapReader::handlePacket(pcap_t* pcap,
 			{
 				SLOG_INFO( << "IPPROTO_TCP");
 
-				const u_char* data_start = transport_hdr_start + sizeof(tcphdr);
+				struct tcphdr* tcph = (struct tcphdr*)(transport_hdr_start);
+
+				SLOG_INFO(<< "tcph->doff : " << tcph->doff);
+				const u_char* data_start = transport_hdr_start  + tcph->doff * 4;
+
+				LOG_HEXDUMP("Packet :", data_start, (packet + pkthdr->len - data_start));
+
+				//const u_char* data_start = transport_hdr_start + sizeof(tcphdr);
 				
 				TcpIPv4 tcp(packet, pkthdr->len, ip_hdr_start, 
 							transport_hdr_start, data_start, 

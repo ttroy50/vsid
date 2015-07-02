@@ -61,16 +61,16 @@ bool Config::init(const string& config_file)
         return false;
     }
 
-    if(config["ProtocolDatabaase"])
+    if(config["ProtocolDatabase"])
     {
-    	_protocol_database = config["ProtocolDatabaase"].as<string>();
-    	SLOG_INFO(<< "ProtocolDatabaase : " << _protocol_database)
+    	_protocol_database = config["ProtocolDatabase"].as<string>();
+    	SLOG_INFO(<< "ProtocolDatabase : " << _protocol_database)
     }
 
-    if(config["ProtocolDatabaaseBackup"])
+    if(config["ProtocolDatabaseBackup"])
     {
-    	_protocol_database_backup = config["ProtocolDatabaaseBackup"].as<string>();
-    	SLOG_INFO(<< "ProtocolDatabaaseBackup : " << _protocol_database_backup)
+    	_protocol_database_backup = config["ProtocolDatabaseBackup"].as<string>();
+    	SLOG_INFO(<< "ProtocolDatabaseBackup : " << _protocol_database_backup)
     }
 
     if(config["UdpFlowTimeout"])

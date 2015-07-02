@@ -95,9 +95,22 @@ void Flow::addPacket(IPv4Packet* packet)
 	else if( stateUponArrival == Flow::State::ESTABLISHING)
 	{
 		// this is rather naive for TCP but will leave for now
-		if( packetDirection(packet) == Direction::DEST_TO_ORIG )
+		if( packet->protocol() == IPPROTO_UDP )
 		{
-			_flowState = Flow::State::ESTABLISHED;
+			if( packetDirection(packet) == Direction::DEST_TO_ORIG )
+			{
+				_flowState = Flow::State::ESTABLISHED;
+			}
+		}
+		else
+		{
+			TcpIPv4* tcpPacket = static_cast<TcpIPv4*>(packet);
+			uint8_t flags = tcpPacket->flags();
+
+			if( (flags & TH_FIN) || flags & TH_RST )
+			{
+				_flowState = Flow::State::FINISHED;
+			}
 		}
 	}
 	else if( stateUponArrival == Flow::State::ESTABLISHED )
