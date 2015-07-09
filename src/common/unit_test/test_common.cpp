@@ -227,8 +227,8 @@ BOOST_AUTO_TEST_CASE( flow_from_tuple )
 
     BOOST_CHECK( flow.sameFlow(&ip_tcp_opposite) );
 
-    BOOST_CHECK_EQUAL( flow.packetDirection(&ip_tcp), Flow::ORIG_TO_DEST );
-    BOOST_CHECK_EQUAL( flow.packetDirection(&ip_tcp_opposite), Flow::DEST_TO_ORIG );
+    BOOST_CHECK( flow.packetDirection(&ip_tcp) == Flow::Direction::ORIG_TO_DEST );
+    BOOST_CHECK( flow.packetDirection(&ip_tcp_opposite) == Flow::Direction::DEST_TO_ORIG );
 }   
 
 
@@ -262,7 +262,7 @@ BOOST_AUTO_TEST_CASE( flow_from_ip )
 
     //BOOST_CHECK( flow.sameFlow(&ip_tcp_opposite) );
 
-    BOOST_CHECK_EQUAL( flow.packetDirection(&tcpPacket), Flow::ORIG_TO_DEST );
+    BOOST_CHECK( flow.packetDirection(&tcpPacket) == Flow::Direction::ORIG_TO_DEST );
     // /BOOST_CHECK_EQUAL( flow.packetDirection(&ip_tcp_opposite), Flow::DEST_TO_ORIG );
 }  
 
