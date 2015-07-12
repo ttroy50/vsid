@@ -29,9 +29,33 @@ public:
 	static AttributeMeterFactory* instance();
 	~AttributeMeterFactory() {}
 
+	/**
+	 * Create an attribute meter for a particular name
+	 * 
+	 * @param The name of the meter
+	 * @return A unique ptr to the meter
+	 */
 	std::unique_ptr<AttributeMeter> create(const std::string& name);
 
+	/**
+	 * Register a creation function for an attribute meter
+	 * 
+	 * @param name
+	 * @param fn
+	 */
 	void registerFactory(const std::string& name, CreateFn fn);
+
+	/**
+	 * Get a vector containing a list of all registered attribute meters
+	 */
+	std::vector<std::shared_ptr<AttributeMeter> > getAllMeters();
+
+	/**
+	 * Enable an attribute so that it it returend from getAllMeters
+	 * 
+	 * @param name
+	 */
+	void enableAttribute(const std::string& name);
 
 private:
 	static std::unique_ptr<AttributeMeterFactory> _instance;
@@ -45,6 +69,8 @@ private:
 	
 	typedef std::map<std::string, std::unique_ptr<AttributeMeter> (*)()> FactoryMap;
 	FactoryMap _factories;
+
+	std::map<std::string, bool> _enabledAttributes;
 	
 };
 

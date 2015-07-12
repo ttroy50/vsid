@@ -31,6 +31,8 @@ public:
 	virtual std::string name() const { return "DirectionBytesCountMeter"; }
 
 	
+	virtual void calculateMeasurement(VsidCommon::Flow*  flow, 
+													VsidCommon::IPv4Packet* currentPacket );
 
 	// TODO 
 	// void update(std::shared_ptr<AttributeMeter> other)

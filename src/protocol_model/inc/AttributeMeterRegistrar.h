@@ -22,7 +22,7 @@ inline void init_attribute_meters()
 {
 	SLOG_INFO(<< "Initialising Attribute Meters");
 	Vsid::DirectionBytesCountMeter::registrar.doRegistration();
-	Vsid::ByteFrequency::registrar.doRegistration();
+	Vsid::ByteFrequencyMeter::registrar.doRegistration();
 	Vsid::FirstPacketBytesMeter::registrar.doRegistration();
 	SLOG_INFO(<< "Attribute Meters Initialised");
 } 

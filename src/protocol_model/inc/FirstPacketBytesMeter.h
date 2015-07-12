@@ -31,9 +31,11 @@ public:
 	virtual std::string name() const { return "FirstPacketBytesMeter"; }
 
 	
+	virtual void calculateMeasurement(VsidCommon::Flow* flow, 
+													VsidCommon::IPv4Packet* currentPacket );
 
 	// TODO 
-	// void update(std::shared_ptr<AttributeMeter> other)
+	// virtual void update(std::vector<double>)
 	// 
 	// 
 

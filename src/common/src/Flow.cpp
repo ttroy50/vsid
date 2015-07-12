@@ -9,14 +9,18 @@
 #include "IPv4.h"
 #include "TcpIpv4.h"
 
+#include "AttributeMeter.h"
+#include "AttributeMeterFactory.h"
+
 using namespace std;
 using namespace VsidCommon;
-
+using namespace Vsid;
 
 Flow::Flow(IPv4Packet* packet) :
 	_hash(0),
 	_pktCount(0),
-	_flowState(State::NEW)
+	_flowState(State::NEW),
+	_isFirstPacket(false)
 {
 	_firstPacketTuple.src_ip = packet->srcIp();
 	_firstPacketTuple.src_port = packet->srcPort();
@@ -26,6 +30,8 @@ Flow::Flow(IPv4Packet* packet) :
 	_startTimestamp = packet->timestamp();
 	_lastPacketTimestamp = packet->timestamp();
 	_firstOrigToDestDataSize = 0;
+
+	_attributeMeters = Vsid::AttributeMeterFactory::instance()->getAllMeters();
 }
 
 
@@ -34,20 +40,26 @@ Flow::Flow(IPv4Tuple tuple) :
 	_hash(0),
 	_pktCount(0),
 	_firstOrigToDestDataSize(0),
-	_flowState(State::NEW)
+	_flowState(State::NEW),
+	_isFirstPacket(false)
 {
 	gettimeofday(&_startTimestamp, NULL);
 	_lastPacketTimestamp = _startTimestamp;
+
+	// Do we need a fingerprint for this one??
 }
 
 Flow::Flow(uint32_t hash) :
 	_hash(hash),
 	_pktCount(0),
 	_firstOrigToDestDataSize(0),
-	_flowState(State::NEW)
+	_flowState(State::NEW),
+	_isFirstPacket(false)
 {
 	gettimeofday(&_startTimestamp, NULL);
 	_lastPacketTimestamp = _startTimestamp;
+
+	// No need for fingerprint here because is only for searching
 }
 
 void Flow::addPacket(IPv4Packet* packet)
@@ -55,6 +67,8 @@ void Flow::addPacket(IPv4Packet* packet)
 	SLOG_INFO(<< "Packet added to flow");
 	_pktCount++;
 	State stateUponArrival = _flowState;
+	
+	_isFirstPacket = false;
 
 	if ( stateUponArrival == Flow::State::NEW )
 	{
@@ -64,6 +78,7 @@ void Flow::addPacket(IPv4Packet* packet)
 		{
 			_firstOrigToDestDataSize = (PACKET_MAX_BUFFER_SIZE < packet->dataSize()) ? PACKET_MAX_BUFFER_SIZE : packet->dataSize();
 			memcpy(_firstOrigToDestData, packet->data(), _firstOrigToDestDataSize);
+			_isFirstPacket = true;
 		}
 		else // TCP
 		{
@@ -88,6 +103,7 @@ void Flow::addPacket(IPv4Packet* packet)
 					// new flow where we didn't see SYN?
 					_firstOrigToDestDataSize = (PACKET_MAX_BUFFER_SIZE < packet->dataSize()) ? PACKET_MAX_BUFFER_SIZE : packet->dataSize();
 					memcpy(_firstOrigToDestData, packet->data(), _firstOrigToDestDataSize);
+					_isFirstPacket = true;
 				}
 			}
 		}
@@ -135,6 +151,7 @@ void Flow::addPacket(IPv4Packet* packet)
 					// First packet after SYN / ACK
 					_firstOrigToDestDataSize = (PACKET_MAX_BUFFER_SIZE < packet->dataSize()) ? PACKET_MAX_BUFFER_SIZE : packet->dataSize();
 					memcpy(_firstOrigToDestData, packet->data(), _firstOrigToDestDataSize);
+					_isFirstPacket = true;
 				}
 			}
 		}
@@ -159,9 +176,23 @@ void Flow::addPacket(IPv4Packet* packet)
 		return;
 	}
 
+	SLOG_INFO( << "Calculating packet ");
+	for(auto it = _attributeMeters.begin(); it != _attributeMeters.end(); ++it)
+	{
+		try
+		{
+			SLOG_INFO( << "Calculating " << (*it)->name());
+			(*it)->calculateMeasurement(this, packet);
+		}
+		catch(std::exception& ex)
+		{
+			SLOG_ERROR( << "Exception caught calculation [" << (*it)->name() << "] : ["
+							<< ex.what() << "]");
+		}
+	}
 
-	// TODO pass to analyser
-	
+	// TODO calculate K-L Divergence
+
 	_lastPacketTimestamp = packet->timestamp();
 }
 

@@ -18,6 +18,11 @@
 #include "IPv4Tuple.h"
 #include "Logger.h"
 
+namespace Vsid
+{
+	class AttributeMeter;
+}
+
 #define PACKET_MAX_BUFFER_SIZE 2048
 
 namespace VsidCommon
@@ -154,13 +159,20 @@ public:
 
 	const struct timeval& lastPacketTimestamp() const { return _lastPacketTimestamp; }
 
+	u_char* firstOrigToDestData() { return _firstOrigToDestData; }
+	size_t firstOrigToDestDataSize() { return _firstOrigToDestDataSize; }
+
+	bool isFirstPacket() { return _isFirstPacket; }
+
 private:
+
 	IPv4Tuple _firstPacketTuple;
 	struct timeval _startTimestamp;
 
 	// for TCP this is first after SYN
 	u_char _firstOrigToDestData[PACKET_MAX_BUFFER_SIZE];
 	size_t _firstOrigToDestDataSize;
+	bool _isFirstPacket;
 
 	struct timeval _lastPacketTimestamp;
 
@@ -168,6 +180,9 @@ private:
 	uint32_t _pktCount;
 
 	State _flowState;
+
+	std::vector<std::shared_ptr<Vsid::AttributeMeter> > _attributeMeters;
+
 };
 
 	inline bool operator==(const Flow& lhs, const Flow& rhs)

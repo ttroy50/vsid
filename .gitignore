@@ -149,4 +149,5 @@ Makefile
 
 src/training/src/vsid_training
 /build
-src/protocol_model/unit_test/test_db.yaml.prev
+*.prev
+*.totest

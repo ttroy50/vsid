@@ -14,6 +14,7 @@
 #include <thread>
 
 #include "PacketHandler.h"
+#include "ProtocolModelDb.h"
 
 namespace VsidNetfilter
 {
@@ -89,6 +90,7 @@ private:
 	std::vector<std::shared_ptr<PacketHandler> > _packetHandlers;
 	std::vector<std::thread> _handlerThreads;
 
+	std::shared_ptr<Vsid::ProtocolModelDb> _protocolModelDb;
 };
 
 

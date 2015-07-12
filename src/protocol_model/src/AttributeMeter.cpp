@@ -6,7 +6,9 @@ using namespace std;
 using namespace Vsid;
 
 AttributeMeter::AttributeMeter(size_t fingerprint_size) :
-	_fingerprint_size(fingerprint_size)
+	_fingerprint_size(fingerprint_size),
+	_fingerprint(fingerprint_size, 0.0),
+	_enabled(false)
 {
 
 }

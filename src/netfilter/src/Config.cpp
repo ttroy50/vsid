@@ -14,7 +14,20 @@ using namespace VsidNetfilter;
 using namespace std;
 
 
-Config* Config::_instance = NULL;
+std::unique_ptr<Config> Config::_instance;
+std::once_flag Config::_onceFlag;
+
+Config* Config::instance()
+{
+    std::call_once(_onceFlag,
+        [] {
+    if(!_instance) 
+            _instance.reset(new Config);
+        }
+    );
+
+    return _instance.get();
+}
 
 Config::Config() :
 	_protocol_database("protocol_model_db.yaml"),
@@ -25,22 +38,6 @@ Config::Config() :
     _nf_buf_size(2048)
 {
 
-}
-
-Config::~Config()
-{
-    if(_instance)
-	   delete _instance;
-	_instance = NULL;
-}
-
-Config* Config::instance()
-{
-	if(_instance == NULL)
-	{
-		_instance = new Config();
-	}
-	return _instance;
 }
 
 bool Config::init(const string& config_file)
@@ -66,10 +63,10 @@ bool Config::init(const string& config_file)
         return false;
     }
 
-    if(config["ProtocolDatabaase"])
+    if(config["ProtocolDatabase"])
     {
-    	_protocol_database = config["ProtocolDatabaase"].as<string>();
-    	SLOG_INFO(<< "ProtocolDatabaase : " << _protocol_database)
+    	_protocol_database = config["ProtocolDatabase"].as<string>();
+    	SLOG_INFO(<< "ProtocolDatabase : " << _protocol_database)
     }
 
 

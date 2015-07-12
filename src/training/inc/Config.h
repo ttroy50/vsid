@@ -10,6 +10,8 @@
 #define __VSID_TRAINING_CONFIG_H__
 
 #include <string>
+#include <memory>
+#include <mutex>
 
 namespace VsidTraining
 {
@@ -26,6 +28,7 @@ public:
 	 * @return
 	 */
 	static Config* instance();
+	~Config() {};
 
 	/**
 	 * Initialise the config 
@@ -41,10 +44,13 @@ public:
 	uint32_t udpFlowTimeout() { return _udp_flow_timeout; }
 
 private:
-	Config();
-	~Config();
+	static std::unique_ptr<Config> _instance;
+	static std::once_flag _onceFlag;
 
-	static Config* _instance;
+	Config();
+	Config(const Config& other) {}
+	Config& operator=(const Config& rhs) {}
+	
 
 	std::string _config_file;
 	std::string _protocol_database;

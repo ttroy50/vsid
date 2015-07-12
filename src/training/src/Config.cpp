@@ -13,8 +13,8 @@
 using namespace VsidTraining;
 using namespace std;
 
-
-Config* Config::_instance = NULL;
+std::unique_ptr<Config> Config::_instance;
+std::once_flag Config::_onceFlag;
 
 Config::Config() :
 	_protocol_database("protocol_model_db.yaml"),
@@ -23,19 +23,17 @@ Config::Config() :
 
 }
 
-Config::~Config()
-{
-	delete _instance;
-	_instance = NULL;
-}
 
 Config* Config::instance()
 {
-	if(_instance == NULL)
-	{
-		_instance = new Config();
-	}
-	return _instance;
+    std::call_once(_onceFlag,
+        [] {
+    if(!_instance) 
+            _instance.reset(new Config);
+        }
+    );
+
+    return _instance.get();
 }
 
 bool Config::init(const string& config_file)

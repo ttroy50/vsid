@@ -8,7 +8,8 @@ lib_vsid_common_a_INCS = \
 								-I/usr/local/include \
 								-I$(srcdir)/../inc \
 								-I$(top_srcdir)/contrib/easyloggingpp \
-								-I$(top_srcdir)/contrib/hash/inc
+								-I$(top_srcdir)/contrib/hash/inc \
+								-I$(srcdir)/../../protocol_model/inc
 
 AM_CFLAGS = --pedantic -Wall -O2 $(lib_vsid_common_a_INCS)
 AM_LDFLAGS =

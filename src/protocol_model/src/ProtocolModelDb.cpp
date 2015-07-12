@@ -39,7 +39,7 @@ bool ProtocolModelDb::read()
 		std::ifstream tmp(_filename);
 		if ( !tmp.good() )
 		{
-			LOG_ERROR(("Unable to find pcap file : %v", _filename));
+			SLOG_ERROR(<< "Unable to find vsid db file : " << _filename);
 			tmp.close();
 			return false;
 		}
@@ -240,6 +240,11 @@ std::shared_ptr<AttributeMeter> ProtocolModelDb::_readAttributeMeter(const YAML:
 		SLOG_INFO(<< "FlowCount : " << attr->_enabled);
 	}
 
+	// Used by at lease one protocol so globally enable the attribute meter 
+	if( attr->_enabled )
+	{
+		AttributeMeterFactory::instance()->enableAttribute(name);
+	}
 
 	if( node["FlowCount"] )
 	{
@@ -264,14 +269,16 @@ std::shared_ptr<AttributeMeter> ProtocolModelDb::_readAttributeMeter(const YAML:
 			return nullptr;
 		}
 
+		std::vector<double> fp;
 		for (YAML::const_iterator phit=node["FingerPrint"].begin(); 
 				phit!=node["FingerPrint"].end(); ++phit)
 		{
 			double print = (*phit).as<double>();
 
-			attr->_fingerprint.push_back(print);
+			fp.push_back(print);
 			//SLOG_INFO(<< "Added FingerPrint : " << print);
 		}
+		attr->_fingerprint = fp;
 	}
 	else
 	{

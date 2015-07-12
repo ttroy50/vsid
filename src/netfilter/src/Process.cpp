@@ -22,11 +22,12 @@
 #include "PacketHandler.h"
 #include "Config.h"
 #include "StringException.h"
-
+#include "AttributeMeterRegistrar.h"
+ 
 using namespace std;
 using namespace VsidNetfilter;
 using namespace VsidCommon;
-
+using namespace Vsid;
 
 std::unique_ptr<Process> Process::_instance;
 std::once_flag Process::_onceFlag;
@@ -111,6 +112,7 @@ bool Process::initialise(int argc, char* argv[])
 {
 	setUpSignals(&exitOnSignal);
 
+
 	string protocol_db;
 	bool protocol_db_set = false;
 	string config = "config.yaml";
@@ -147,6 +149,8 @@ bool Process::initialise(int argc, char* argv[])
 	    }
 	}
 
+	init_attribute_meters();
+
 	SLOG_INFO(<< "config file : " << config);
 
 	if ( !Config::instance()->init(config) )
@@ -156,7 +160,7 @@ bool Process::initialise(int argc, char* argv[])
 		exit(1);
 	}
 
-	/*
+	
 	if( !protocol_db.empty() )
 	{
 		SLOG_INFO( << "overriding protocol_db from config : " << protocol_db); 
@@ -170,10 +174,11 @@ bool Process::initialise(int argc, char* argv[])
 		exit(1);
 	}
 
-	ProtocolModelDb protocolModelDb(Config::instance()->protocolDatabase(), 
-										Config::instance()->protocolDatabaseBackup() );
+	_protocolModelDb = std::shared_ptr<ProtocolModelDb> ( 
+											new ProtocolModelDb(
+												Config::instance()->protocolDatabase(), "") );
 	
-	if( !protocolModelDb.read() )
+	if( !_protocolModelDb->read() )
 	{
 		SLOG_ERROR(<< "Unable to read DB at [" << Config::instance()->protocolDatabase() << "]")
 		cerr << "Unable to read DB at [" << Config::instance()->protocolDatabase() << "]" << endl;
@@ -181,7 +186,6 @@ bool Process::initialise(int argc, char* argv[])
 	}
 
 	SLOG_INFO(<< "spid database : " << Config::instance()->protocolDatabase());
-	*/
 
 	return true;
 }

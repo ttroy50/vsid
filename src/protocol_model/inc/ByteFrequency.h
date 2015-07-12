@@ -17,20 +17,22 @@
 namespace Vsid
 {
 
-class ByteFrequency : public AttributeMeter
+class ByteFrequencyMeter : public AttributeMeter
 {
 public:
-	ByteFrequency();
-	virtual ~ByteFrequency() {}; 
+	ByteFrequencyMeter();
+	virtual ~ByteFrequencyMeter() {}; 
 
 	/**
 	 * Unique name for the AttributeMeter
 	 *
 	 * @return
 	 */
-	virtual std::string name() const { return "ByteFrequency"; }
+	virtual std::string name() const { return "ByteFrequencyMeter"; }
 
 	
+	virtual void calculateMeasurement(VsidCommon::Flow* flow, 
+													VsidCommon::IPv4Packet* currentPacket );
 
 	// TODO 
 	// void update(std::shared_ptr<AttributeMeter> other)
@@ -44,6 +46,7 @@ public:
 protected:
 
 private:
+	uint64_t _overall_byte_size;
 
 };
 

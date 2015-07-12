@@ -11,6 +11,8 @@
 #include <string>
 #include <vector>
 
+#include "Flow.h"
+
 namespace Vsid
 {
 
@@ -31,6 +33,10 @@ public:
 	uint32_t flowCount() const { return _flowCount; }
 
 	const std::vector<double>& fingerprint() const { return _fingerprint; }
+
+	virtual void calculateMeasurement(VsidCommon::Flow*  flow, 
+													VsidCommon::IPv4Packet* currentPacket ) = 0;
+
 
 	/**
 	 * Get the first fingerprint

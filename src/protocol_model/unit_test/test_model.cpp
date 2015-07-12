@@ -74,16 +74,45 @@ bool checkFiles(string testFile)
     return equal;
 }
 
-
+void copyFile(string src, string dst)
+{
+    ifstream source(src, ios::binary);
+    ofstream dest(dst, ios::binary);
+    dest << source.rdbuf();
+    source.close();
+    dest.close();
+}
 
 BOOST_AUTO_TEST_CASE( test_protocol_model )
 {	
     init_attribute_meters();
 
-	string testDbFile = "/home/matrim/workspace/college/vsi/src/protocol_model/unit_test/test_db.yaml";
-    string testDbFilePrev = testDbFile + ".prev";
+    int argc = boost::unit_test::framework::master_test_suite().argc;
+    char ** argv = boost::unit_test::framework::master_test_suite().argv;
+    string testDbFile;
+    for(int i = 1; i < argc; i++)
+    {
+        if(argv[i][0] != '-')
+        {
+            testDbFile = argv[i];
+            break;
+        }
+    }
+
+    if( testDbFile.empty() )
+	   testDbFile = "/home/matrim/workspace/college/vsi/src/protocol_model/unit_test/test_db.yaml";
+    
+    string copyOfTestDbFile = testDbFile + ".totest";
+
+    // Copy the DB to a testable version because when we write we don't want to overwrite checked
+    // in version
+    removePrev( copyOfTestDbFile);
+    copyFile(testDbFile, copyOfTestDbFile);
+
+    string testDbFilePrev = copyOfTestDbFile + ".prev";
     removePrev( testDbFilePrev);
-    ProtocolModelDb testDb( testDbFile, testDbFilePrev );
+
+    ProtocolModelDb testDb( copyOfTestDbFile, testDbFilePrev );
 
     // check we can read DB
     BOOST_REQUIRE( testDb.read() );
@@ -157,6 +186,6 @@ BOOST_AUTO_TEST_CASE( test_protocol_model )
 
     BOOST_REQUIRE(testDb.write());
 
-    BOOST_CHECK(checkFiles(testDbFile));
+    BOOST_CHECK(checkFiles(copyOfTestDbFile));
 
 }

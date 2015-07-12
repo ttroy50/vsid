@@ -10,6 +10,8 @@
 #define __VSID_NETFILTER_CONFIG_H__
 
 #include <string>
+#include <memory>
+#include <mutex>
 
 namespace VsidNetfilter
 {
@@ -26,6 +28,7 @@ public:
 	 * @return
 	 */
 	static Config* instance();
+	~Config() {};
 
 	/**
 	 * Initialise the config 
@@ -45,10 +48,12 @@ public:
 	size_t nfBufSize() { return _nf_buf_size; }
 	
 private:
+	static std::unique_ptr<Config> _instance;
+	static std::once_flag _onceFlag;
+	
 	Config();
-	~Config();
-
-	static Config* _instance;
+	Config(const Config& other) {}
+	Config& operator=(const Config& rhs) {}
 
 	std::string _config_file;
 	std::string _protocol_database;
