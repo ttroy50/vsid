@@ -44,7 +44,7 @@ public:
 
 	static Vsid::Registrar registrar;
 protected:
-
+	uint64_t _overall_byte_size;
 private:
 
 };

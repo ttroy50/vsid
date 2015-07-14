@@ -20,7 +20,11 @@ lib_vsid_protocol_model_a_SOURCES = ProtocolModelDb.cpp \
 									AttributeMeterFactory.cpp \
 									ByteFrequency.cpp \
 									DirectionBytesCountMeter.cpp \
-									FirstPacketBytesMeter.cpp
+									FirstPacketBytesMeter.cpp \
+									FirstFourByteFrequencyMeter.cpp \
+									FirstSixteenByteFrequencyMeter.cpp \
+									DirectionChangesMeter.cpp \
+									FirstPacketDestToOrigBytesMeter.cpp
 
 #lib_vsid_protocol_model_a_INCS = \
 #								-I/usr/local/include \

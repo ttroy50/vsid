@@ -6,6 +6,7 @@ test_common_SOURCES = test_common.cpp
 test_common_INCS = \
 				-I/usr/local/include \
 				-I$(srcdir)/../inc \
+                -I$(srcdir)/../../protocol_model/inc \
 				-I$(top_srcdir)/contrib/easyloggingpp \
 				-I$(top_srcdir)/contrib/hash/inc
 

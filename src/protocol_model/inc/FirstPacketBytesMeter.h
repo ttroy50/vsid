@@ -17,6 +17,10 @@
 namespace Vsid
 {
 
+/**
+ * Byte Frequency for first ORIG to DEST packet
+ * 
+ */
 class FirstPacketBytesMeter : public AttributeMeter
 {
 public:

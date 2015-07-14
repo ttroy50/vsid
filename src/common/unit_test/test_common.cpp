@@ -3,6 +3,9 @@
 #include <cstdio>
 #include <netinet/in.h>
 
+#include "AttributeMeterFactory.h"
+#include "AttributeMeterRegistrar.h"
+
 #define BOOST_TEST_MODULE VsidCommonTest
 #include <boost/test/unit_test.hpp>
 
@@ -12,7 +15,10 @@
 #include "Flow.h"
 #include "TcpIpv4.h"
 
+
+
 using namespace VsidCommon;
+using namespace Vsid;
 using namespace std;
 
 INIT_LOGGING
@@ -95,6 +101,8 @@ BOOST_AUTO_TEST_SUITE( tuple )
 
 BOOST_AUTO_TEST_CASE( test_tuple_directions )
 {   
+    init_attribute_meters();
+
     IPv4Tuple ip_tcp(169411074, 5555, 1499754872, 80, IPPROTO_TCP);
     IPv4Tuple ip_tcp_opposite(1499754872, 80, 169411074, 5555, IPPROTO_TCP);
 
@@ -249,7 +257,7 @@ BOOST_AUTO_TEST_CASE( flow_from_ip )
     TcpIPv4 tcpPacket( packet, packetLen, packet, tph, data, tv);
 
     Flow flow(&tcpPacket);
-
+    
     Ipv4FlowHasher hasher;
 
     uint32_t ip_tcp_hash = hasher(&tcpPacket);

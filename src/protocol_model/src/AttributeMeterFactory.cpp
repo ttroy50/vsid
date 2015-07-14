@@ -8,12 +8,22 @@ std::once_flag AttributeMeterFactory::_onceFlag;
 
 AttributeMeterFactory* AttributeMeterFactory::instance()
 {
-	std::call_once(_onceFlag,
-        [] {
-    if(!_instance) 
-            _instance.reset(new AttributeMeterFactory);
-    	}
-    );
+	try
+	{
+		std::call_once(_onceFlag,
+	        [] {
+	    if(!_instance) 
+	            _instance.reset(new AttributeMeterFactory);
+	    	}
+	    );
+	}
+	catch(std::runtime_error& e)
+	{
+		// not thread safe but this should be initialised alread in main thread
+		// Not sure why I was sometimes seeing exception from call_once. Need time to investigate
+		if(!_instance)
+			_instance.reset(new AttributeMeterFactory);
+	}
 
     return _instance.get();
 }

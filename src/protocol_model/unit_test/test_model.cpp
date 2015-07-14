@@ -175,7 +175,7 @@ BOOST_AUTO_TEST_CASE( test_protocol_model )
                             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
                             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
                             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+                            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     BOOST_CHECK_EQUAL_COLLECTIONS(fpbm->fingerprint().begin(), fpbm->fingerprint().end(), 
                               		expected_fpbm_fp.begin(), expected_fpbm_fp.end());
 

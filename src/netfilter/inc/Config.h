@@ -46,11 +46,11 @@ public:
 
 	size_t nfQueueSize() { return _nf_queue_size; }
 	size_t nfBufSize() { return _nf_buf_size; }
-	
+
 private:
 	static std::unique_ptr<Config> _instance;
 	static std::once_flag _onceFlag;
-	
+
 	Config();
 	Config(const Config& other) {}
 	Config& operator=(const Config& rhs) {}

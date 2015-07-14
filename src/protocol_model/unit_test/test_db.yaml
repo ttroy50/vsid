@@ -270,6 +270,7 @@ ProtocolModels:
           - 0
           - 0
           - 0
+          - 0
         FlowCount: 10
     Enabled: true
     FlowCount: 55
@@ -290,6 +291,7 @@ ProtocolModels:
         AttributeName: FirstPacketBytesMeter
         Enabled: false
         FingerPrint: 
+          - 0
           - 0
           - 0
           - 0

@@ -17,7 +17,7 @@ std::unique_ptr<AttributeMeter> create_byte_frequency_meter()
 Vsid::Registrar ByteFrequencyMeter::registrar("ByteFrequencyMeter", &create_byte_frequency_meter);
 
 ByteFrequencyMeter::ByteFrequencyMeter() :
-	AttributeMeter(255),
+	AttributeMeter(256),
 	_overall_byte_size(0)
 {
 }

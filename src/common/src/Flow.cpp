@@ -30,6 +30,8 @@ Flow::Flow(IPv4Packet* packet) :
 	_startTimestamp = packet->timestamp();
 	_lastPacketTimestamp = packet->timestamp();
 	_firstOrigToDestDataSize = 0;
+	_lastPacketDirection = Direction::UNKNOWN;
+	_currentPacketDirection = Direction::UNKNOWN;
 
 	_attributeMeters = Vsid::AttributeMeterFactory::instance()->getAllMeters();
 }
@@ -41,7 +43,9 @@ Flow::Flow(IPv4Tuple tuple) :
 	_pktCount(0),
 	_firstOrigToDestDataSize(0),
 	_flowState(State::NEW),
-	_isFirstPacket(false)
+	_isFirstPacket(false),
+	_lastPacketDirection(Direction::UNKNOWN),
+	_currentPacketDirection(Direction::UNKNOWN)
 {
 	gettimeofday(&_startTimestamp, NULL);
 	_lastPacketTimestamp = _startTimestamp;
@@ -54,7 +58,9 @@ Flow::Flow(uint32_t hash) :
 	_pktCount(0),
 	_firstOrigToDestDataSize(0),
 	_flowState(State::NEW),
-	_isFirstPacket(false)
+	_isFirstPacket(false),
+	_lastPacketDirection(Direction::UNKNOWN),
+	_currentPacketDirection(Direction::UNKNOWN)
 {
 	gettimeofday(&_startTimestamp, NULL);
 	_lastPacketTimestamp = _startTimestamp;
@@ -69,6 +75,9 @@ void Flow::addPacket(IPv4Packet* packet)
 	State stateUponArrival = _flowState;
 	
 	_isFirstPacket = false;
+
+	_lastPacketDirection = _currentPacketDirection;
+	_currentPacketDirection = packetDirection(packet);
 
 	if ( stateUponArrival == Flow::State::NEW )
 	{

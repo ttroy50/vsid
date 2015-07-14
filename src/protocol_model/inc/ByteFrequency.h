@@ -17,6 +17,10 @@
 namespace Vsid
 {
 
+/**
+ * Byte Frequency for all packets.
+ * 
+ */
 class ByteFrequencyMeter : public AttributeMeter
 {
 public:

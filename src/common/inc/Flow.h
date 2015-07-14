@@ -158,11 +158,14 @@ public:
 	const struct timeval& startTimestamp() const { return _startTimestamp; }
 
 	const struct timeval& lastPacketTimestamp() const { return _lastPacketTimestamp; }
+	Direction lastPacketDirection() const { return _lastPacketDirection; }
 
 	u_char* firstOrigToDestData() { return _firstOrigToDestData; }
 	size_t firstOrigToDestDataSize() { return _firstOrigToDestDataSize; }
 
 	bool isFirstPacket() { return _isFirstPacket; }
+
+	Direction currentPacketDirection() const { return _currentPacketDirection; }
 
 private:
 
@@ -172,9 +175,12 @@ private:
 	// for TCP this is first after SYN
 	u_char _firstOrigToDestData[PACKET_MAX_BUFFER_SIZE];
 	size_t _firstOrigToDestDataSize;
+	
 	bool _isFirstPacket;
+	Direction _currentPacketDirection;
 
 	struct timeval _lastPacketTimestamp;
+	Direction _lastPacketDirection;
 
 	uint32_t _hash;
 	uint32_t _pktCount;
@@ -182,6 +188,11 @@ private:
 	State _flowState;
 
 	std::vector<std::shared_ptr<Vsid::AttributeMeter> > _attributeMeters;
+
+	
+
+	
+
 
 };
 
