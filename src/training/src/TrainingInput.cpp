@@ -8,10 +8,17 @@
 
 #include "TrainingInput.h"
 #include "Logger.h"
+#include "Hasher.h"
 
 using namespace VsidTraining;
 using namespace VsidCommon;
 using namespace std;
+
+uint32_t TrainingFlow::flowHash()
+{
+    Ipv4FlowHasher hasher;
+    return hasher(&tuple);
+}
 
 bool TrainingInput::read(const std::string& fileName)
 {
@@ -112,4 +119,19 @@ Protocol TrainingInput::strToProtocol(const std::string& str)
         return SIP;
     else
         return UNKNOWN;
+}
+
+std::string TrainingInput::protocolToStr(Protocol protocol)
+{
+    switch(protocol)
+    {
+        case HTTP:
+            return "HTTP";
+        case HTTPS:
+            return "HTTPS";
+        case SIP:
+            return "SIP";
+    }
+
+    return "";
 }

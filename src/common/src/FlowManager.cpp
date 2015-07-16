@@ -28,6 +28,7 @@ std::shared_ptr<Flow> FlowManager::addPacket(IPv4Packet* packet)
 
 		if(flow->flowState() == Flow::State::FINISHED)
 		{
+			notifyFlowFinished(flow);
 			deleteFlow(flow);
 			SLOG_INFO(<< "Flow in finished state. Removing")
 			return nullptr;
@@ -85,9 +86,10 @@ std::shared_ptr<Flow>  FlowManager::getFlow(IPv4Packet* packet)
 		{
 			std::shared_ptr<Flow> tmp = *(it);
 			// TODO pass in as config
-			if( (packet->timestamp().tv_sec - (*(it))->lastPacketTimestamp().tv_sec ) > 120)
+			if( (packet->timestamp().tv_sec - tmp->lastPacketTimestamp().tv_sec ) > 120)
 			{
 				SLOG_INFO(<< "Flow [" << *f << "] found but finished. Removing from list and adding new one")
+				notifyFlowFinished(tmp);
 				_flows.erase(it);
 				_flows.insert(f);
 				return f;
@@ -146,3 +148,48 @@ void FlowManager::deleteFlow(uint32_t hash)
 	SLOG_INFO(<< num << " flows deleted");
 }
 
+void FlowManager::addFlowFinishedObserver(FlowFinishedObserver* observer)
+{
+	_flow_finished_observers.push_back(observer);
+}
+
+void FlowManager::notifyFlowFinished(std::shared_ptr<Flow> flow)
+{
+	// If there is only 1 packet don't notify because it may just
+	// be a TCP with a second FIN
+	// TODO update to TCP only
+	if(flow->pktCount() == 1)
+	{
+		return;
+	}
+
+	for(auto it = _flow_finished_observers.begin(); it != _flow_finished_observers.end(); ++it)
+	{
+		(*it)->flowFinished(flow);
+	}
+}
+
+void FlowManager::addFlowClassifiedObserver(FlowClassifiedObserver* observer)
+{
+	_flow_classified_observers.push_back(observer);
+}
+
+void FlowManager::notifyFlowClassified(std::shared_ptr<Flow> flow)
+{
+	for(auto it = _flow_classified_observers.begin(); it != _flow_classified_observers.end(); ++it)
+	{
+		(*it)->flowClassified(flow);
+	}
+}
+
+void FlowManager::finished()
+{
+	for(auto it = _flows.begin(); it != _flows.end(); )
+	{
+		auto flow = (*it);
+		++it;
+
+		notifyFlowFinished(flow);
+		_flows.erase(it);
+	}
+}

@@ -19,7 +19,8 @@
 #include "TrainingInput.h"
 #include "ProtocolModelDb.h"
 #include "AttributeMeterRegistrar.h"
- 
+#include "ProtocolModelUpdater.h"
+
 using namespace std;
 using namespace VsidTraining;
 using namespace Vsid;
@@ -165,6 +166,7 @@ int main( int argc, char* argv[] )
 	
 	FlowManager flowManager;
 
+    ProtocolModelUpdater pmUpdated(&flowManager, &protocolModelDb);
 
 	PcapReader reader(&flowManager);
 
@@ -173,21 +175,28 @@ int main( int argc, char* argv[] )
 	{
 		if(training_input.trainingFiles()[i].exists)
 		{
+
+            pmUpdated.setCurrentFile(&training_input.trainingFiles()[i]);
+
 			if ( !reader.read(training_input.trainingFiles()[i].filename) )
 			{
 				SLOG_ERROR(<< "Unable to read pcap [" << training_input.trainingFiles()[i].filename << "]");
 			}
 			else
 			{
+                // Tell the flow manager that it can cleanup flows before the next round
+                // This will update the protocol model from a callback to ProtocolModelUpdater
+                flowManager.finished();
 				updated = true;
 			}
 		}
 	}
 
-	/*if(updated)
+
+	if(pmUpdated.updated())
 	{
 		protocolModelDb.write();
-	}*/
+	}
 
 	SLOG_INFO(<< "Finished program")
 }

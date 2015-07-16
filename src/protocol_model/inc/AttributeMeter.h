@@ -60,11 +60,9 @@ public:
 	 */
 	size_t size() const { return _fingerprint.size(); }
 
+ 
+	void merge(std::shared_ptr<AttributeMeter> other);
 
-	// TODO 
-	// void update(std::shared_ptr<AttributeMeter> other)
-	// 
-	// 
 
 	friend class ProtocolModel;
 	friend class ProtocolModelDb;

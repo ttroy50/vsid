@@ -13,6 +13,7 @@
 #include "IPv4.h"
 #include "Flow.h"
 #include "Hasher.h"
+#include "FlowObservers.h"
 
 namespace VsidCommon
 {
@@ -91,9 +92,35 @@ public:
 	 */
 	size_t numFlows() { return _flows.size(); }
 
+	/**
+	 * Add Observer that is called when a flow is finished.
+	 * 
+	 * @param observer
+	 */
+	void addFlowFinishedObserver(FlowFinishedObserver* observer);
+	
+	/**
+	 * Add Observer that is called when a flow is classified.
+	 * 
+	 * @param observer
+	 */
+	void addFlowClassifiedObserver(FlowClassifiedObserver* observer);
+	
+	/**
+	 * Let the FlowManager know that we are finished so it can cleanup any flows
+	 * And call the FlowFinishedObservers
+	 */
+	void finished();
+
 private:
 	typedef std::unordered_set<std::shared_ptr<Flow>, Ipv4FlowHasher, FlowPtrEqualFn> FlowSet;
 	FlowSet _flows;
+
+	std::vector<FlowFinishedObserver*> _flow_finished_observers;
+	std::vector<FlowClassifiedObserver*> _flow_classified_observers;
+
+	void notifyFlowFinished(std::shared_ptr<Flow> flow);
+	void notifyFlowClassified(std::shared_ptr<Flow> flow);
 
 };
 

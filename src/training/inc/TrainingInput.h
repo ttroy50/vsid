@@ -31,6 +31,8 @@ public:
 		protocol(UNKNOWN) 
 	{}
 
+	uint32_t flowHash(); 
+
 	VsidCommon::IPv4Tuple tuple;
 	Protocol protocol;
 	bool processed;
@@ -53,6 +55,7 @@ public:
 
 	static uint8_t strToTransport(const std::string& str);
 	static Protocol strToProtocol(const std::string& str);
+	static std::string protocolToStr(Protocol protocol);
 
 	std::vector<TrainingFile>& trainingFiles() { return _trainingFiles; }
 private:

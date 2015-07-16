@@ -167,6 +167,8 @@ public:
 
 	Direction currentPacketDirection() const { return _currentPacketDirection; }
 
+	const std::vector<std::shared_ptr<Vsid::AttributeMeter> >& attributeMeters() { return _attributeMeters; }
+	
 private:
 
 	IPv4Tuple _firstPacketTuple;

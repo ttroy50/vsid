@@ -27,6 +27,7 @@ vsid_training_LDADD = 	-lpcap \
 vsid_training_SOURCES = main.cpp \
 						Config.cpp \
 						PcapReader.cpp \
-						TrainingInput.cpp 
+						TrainingInput.cpp \
+						ProtocolModelUpdater.cpp
 
 

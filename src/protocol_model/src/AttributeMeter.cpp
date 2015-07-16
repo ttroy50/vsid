@@ -31,3 +31,21 @@ double AttributeMeter::at(size_t pos)
 		return -1;
 	}
 }
+
+void AttributeMeter::merge(std::shared_ptr<AttributeMeter> other)
+{
+	SLOG_INFO(<< "Merging meter " << other->name() << " into " << name());
+	if(other->name() != this->name())
+	{
+		SLOG_ERROR(<< "meters don't match");
+		return;
+	}
+
+	for(size_t i = 0; i < this->size(); i++)
+	{
+		SLOG_INFO(<< "[" << i << "] : this =" << this->at(i) << " other = " << other->at(i));
+		_fingerprint[i] = ((_fingerprint[i] * _flowCount) + other->at(i) ) / _flowCount+1; 
+	}
+
+	_flowCount++;
+}
