@@ -21,7 +21,9 @@ enum Protocol {
 	HTTP,
 	HTTPS,
 	HTTP_PROGRESSIVE,
-	SIP
+	RTMP,
+	SIP,
+	DNS
 };
 
 class TrainingFlow

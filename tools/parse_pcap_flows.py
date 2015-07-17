@@ -51,7 +51,7 @@ class IPv4Tuple():
         ret = {}
         ret["src_ip"] = self.src_ip
         ret["src_port"] = self.src_port
-        ret["dst_ip"] = self.src_ip
+        ret["dst_ip"] = self.dst_ip
         ret["dst_port"] = self.dst_port
         if self.protocol == 6:
             ret["transport"] = "TCP"
@@ -83,7 +83,8 @@ for packet in capfile.packets :
     ip_packet = packet.packet.payload
 
     # UDP or TCP
-    if ip_packet.p == 17 and ip_packet.p != 6:
+    if ip_packet.p != 17 and ip_packet.p != 6:
+        print "Not TCP or UDP"
         continue
 
     ip_tuple = IPv4Tuple(ip_packet.src, ip_packet.dst, ip_packet.p, ip_packet.payload)

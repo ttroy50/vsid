@@ -119,6 +119,10 @@ Protocol TrainingInput::strToProtocol(const std::string& str)
         return SIP;
     else if( str == "HTTP-Progressive")
         return HTTP_PROGRESSIVE;
+    else if (str == "DNS")
+        return DNS;
+    else if (str == "RTMP")
+        return RTMP;
     else
         return UNKNOWN;
 }
@@ -135,6 +139,10 @@ std::string TrainingInput::protocolToStr(Protocol protocol)
             return "SIP";
         case HTTP_PROGRESSIVE:
             return "HTTP-Progressive";
+        case RTMP:
+            return "RTMP";
+        case DNS:
+            return "DNS";
     }
 
     return "";
