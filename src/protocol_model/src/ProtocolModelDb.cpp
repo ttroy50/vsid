@@ -293,7 +293,7 @@ std::shared_ptr<AttributeMeter> ProtocolModelDb::_readAttributeMeter(const YAML:
 
 bool ProtocolModelDb::write()
 {
-	SLOG_INFO(<< "Write not implemented");
+	SLOG_INFO(<< "Writeing protocol model db to file");
 	YAML::Node root;
 	root["DefiningLimit"] = _definingLimit;
 	root["CutoffLimit"] = _cutoffLimit;

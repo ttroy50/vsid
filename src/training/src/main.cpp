@@ -47,6 +47,7 @@ void usage(const char* command)
 int main( int argc, char* argv[] )
 {
 	// TODO read from argv	
+	el::Loggers::addFlag(el::LoggingFlag::StrictLogFileSizeCheck);
 	el::Configurations conf("../config/logging.conf"); 
 	el::Loggers::reconfigureAllLoggers(conf);
 
@@ -196,6 +197,10 @@ int main( int argc, char* argv[] )
 	if(pmUpdated.updated())
 	{
 		protocolModelDb.write();
+	}
+	else
+	{
+		SLOG_INFO(<< "protocol model not updated");
 	}
 
 	SLOG_INFO(<< "Finished program")

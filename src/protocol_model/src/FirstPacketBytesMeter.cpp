@@ -24,6 +24,7 @@ FirstPacketBytesMeter::FirstPacketBytesMeter() :
 void FirstPacketBytesMeter::calculateMeasurement(Flow* flow, 
 									IPv4Packet* currentPacket )
 {
+	SLOG_INFO(<< "FirstPacket " << flow->isFirstPacket() << " size " << currentPacket->dataSize());
 	if( !flow->isFirstPacket() )
 		return;
 

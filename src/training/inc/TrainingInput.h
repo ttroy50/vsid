@@ -20,6 +20,7 @@ enum Protocol {
 	UNKNOWN,
 	HTTP,
 	HTTPS,
+	HTTP_PROGRESSIVE,
 	SIP
 };
 

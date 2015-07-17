@@ -60,7 +60,7 @@ Flow::Flow(uint32_t hash) :
 	_flowState(State::NEW),
 	_isFirstPacket(false),
 	_lastPacketDirection(Direction::UNKNOWN),
-	_currentPacketDirection(Direction::UNKNOWN)
+	_currentPacketDirection(Direction::ORIG_TO_DEST)
 {
 	gettimeofday(&_startTimestamp, NULL);
 	_lastPacketTimestamp = _startTimestamp;
@@ -136,6 +136,10 @@ void Flow::addPacket(IPv4Packet* packet)
 			{
 				_flowState = Flow::State::FINISHED;
 			}
+			else
+			{
+				_flowState = Flow::State::ESTABLISHED;
+			}
 		}
 	}
 	else if( stateUponArrival == Flow::State::ESTABLISHED )
@@ -155,9 +159,9 @@ void Flow::addPacket(IPv4Packet* packet)
 			}
 			else
 			{
-				if( _firstOrigToDestDataSize == 0)
+				if( _firstOrigToDestDataSize == 0 && _currentPacketDirection == Direction::ORIG_TO_DEST)
 				{
-					// First packet after SYN / ACK
+					// First data packet after SYN / ACK
 					_firstOrigToDestDataSize = (PACKET_MAX_BUFFER_SIZE < packet->dataSize()) ? PACKET_MAX_BUFFER_SIZE : packet->dataSize();
 					memcpy(_firstOrigToDestData, packet->data(), _firstOrigToDestDataSize);
 					_isFirstPacket = true;

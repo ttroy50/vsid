@@ -60,9 +60,15 @@ public:
 	// Make loggable
 	inline MAKE_LOGGABLE(IPv4Tuple, tuple, os)
 	{
-	    os << "transport : " << tuple.transport 
-	    	<< " | src : " << tuple.src_ip << ":" << tuple.src_port 
-	    	<< " | dst : " << tuple.dst_ip << ":" << tuple.dst_port;
+		char src[INET6_ADDRSTRLEN];
+		inet_ntop(AF_INET, &tuple.src_ip, src, INET6_ADDRSTRLEN);
+
+		char dst[INET6_ADDRSTRLEN];
+		inet_ntop(AF_INET, &tuple.dst_ip , dst, INET6_ADDRSTRLEN);
+
+	    os << "transport : " << (uint32_t)tuple.transport 
+	    	<< " | src : " << src << ":" << tuple.src_port 
+	    	<< " | dst : " << dst << ":" << tuple.dst_port;
 	}
 
 

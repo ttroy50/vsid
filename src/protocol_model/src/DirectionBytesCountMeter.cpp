@@ -49,6 +49,6 @@ void DirectionBytesCountMeter::calculateMeasurement(Flow* flow,
 
 	_overall_byte_size += currentPacket->dataSize();
 
-	_fingerprint[0] = OtoD_size / _overall_byte_size;
-	_fingerprint[1] = DtoO_size / _overall_byte_size;
+	_fingerprint[0] = (double)OtoD_size / _overall_byte_size;
+	_fingerprint[1] = (double)DtoO_size / _overall_byte_size;
 }

@@ -70,7 +70,7 @@ bool TrainingInput::read(const std::string& fileName)
             // transport
     	 	string transport = (*fls)["transport"].as<string>();
             flow.tuple.transport = strToTransport(transport);
-            if( flow.tuple.transport = 0 )
+            if( flow.tuple.transport == 0 )
             {
                 SLOG_ERROR( << "Error converting transport [" << transport << "]");
                 continue;
@@ -79,7 +79,7 @@ bool TrainingInput::read(const std::string& fileName)
             // protocol
     	 	string protocol = (*fls)["protocol"].as<string>();
             flow.protocol = strToProtocol(protocol);
-            if( flow.protocol = UNKNOWN )
+            if( flow.protocol == UNKNOWN )
             {
                 SLOG_ERROR( << "Error converting protocol [" << protocol << "]");
                 continue;
@@ -117,6 +117,8 @@ Protocol TrainingInput::strToProtocol(const std::string& str)
         return HTTPS;
     else if(str == "HTTPS")
         return SIP;
+    else if( str == "HTTP-Progressive")
+        return HTTP_PROGRESSIVE;
     else
         return UNKNOWN;
 }
@@ -131,6 +133,8 @@ std::string TrainingInput::protocolToStr(Protocol protocol)
             return "HTTPS";
         case SIP:
             return "SIP";
+        case HTTP_PROGRESSIVE:
+            return "HTTP-Progressive";
     }
 
     return "";

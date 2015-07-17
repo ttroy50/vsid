@@ -32,6 +32,7 @@ void ProtocolModelUpdater::flowFinished(std::shared_ptr<Flow> flow)
     {
         if(it->flowHash() == flow->flowHash())
         {
+            SLOG_INFO(<< "Found flow in training file " << it->tuple)
             flowFound = true;
             auto meters = flow->attributeMeters();
             std::shared_ptr<ProtocolModel> model = _database->find(TrainingInput::protocolToStr(it->protocol));
@@ -52,11 +53,16 @@ void ProtocolModelUpdater::flowFinished(std::shared_ptr<Flow> flow)
                 }
                 else
                 {
-                    //SLOG_ERROR(<< "Unable to find meter [" << (*meterIt)->name() 
-                    //                << "] in model [" << model->name() << "]");
+                    SLOG_ERROR(<< "Unable to find meter [" << (*meterIt)->name() 
+                                    << "] in model [" << model->name() << "]");
                 }
             }
             break;
+        }
+        else
+        {
+            SLOG_ERROR(<< "Don't match " << *flow << "\n" << it->tuple);
+            SLOG_ERROR(<< "Don't match : ffh : " << flow->flowHash() << " : itfh : " << it->flowHash());
         }
     }
 

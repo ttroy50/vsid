@@ -3,7 +3,7 @@
     CutoffLimit: 10000
     ProtocolModels:
         - 
-            ProtocolName: HTTP-Video
+            ProtocolName: HTTP-Progressive
             FlowCount: 0
             Enabled: true
             PortHints:
@@ -17,6 +17,14 @@
                     FingerPrint: 
                         [
                             0,0
+                        ]
+                -
+                    AttributeName: DirectionChangesMeter  
+                    Enabled: true
+                    FlowCount: 0
+                    FingerPrint: 
+                        [
+                            0
                         ]
                 -
                     AttributeName: FirstPacketBytesMeter 

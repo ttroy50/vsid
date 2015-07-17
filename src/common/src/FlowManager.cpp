@@ -160,11 +160,13 @@ void FlowManager::notifyFlowFinished(std::shared_ptr<Flow> flow)
 	// TODO update to TCP only
 	if(flow->pktCount() == 1)
 	{
+		SLOG_INFO(<< "Not notifying about finished becasue only 1 packet");
 		return;
 	}
 
 	for(auto it = _flow_finished_observers.begin(); it != _flow_finished_observers.end(); ++it)
 	{
+		SLOG_INFO(<< "Notifing observer about Flow finished");
 		(*it)->flowFinished(flow);
 	}
 }
