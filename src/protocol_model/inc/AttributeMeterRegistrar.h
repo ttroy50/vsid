@@ -18,7 +18,7 @@
 #include "FirstSixteenByteFrequencyMeter.h"
 #include "DirectionChangesMeter.h"
 #include "FirstPacketDestToOrigBytesMeter.h"
-
+#include "DirectionBytesCounFirstTenPacketMeter.h"
 /**
  * Make sure to call this at the start of your program
  */
@@ -32,6 +32,7 @@ inline void init_attribute_meters()
     Vsid::FirstSixteenByteFrequencyMeter::registrar.doRegistration();
     Vsid::DirectionChangesMeter::registrar.doRegistration();
     Vsid::FirstPacketDestToOrigBytesMeter::registrar.doRegistration();
+    Vsid::DirectionBytesCounFirstTenPacketMeter::registrar.doRegistration();
 	SLOG_INFO(<< "Attribute Meters Initialised");
 } 
 
