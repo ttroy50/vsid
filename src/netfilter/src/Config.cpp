@@ -9,8 +9,10 @@
 #include "Config.h"
 #include "Logger.h"
 #include "yaml-cpp/yaml.h"
+#include "CommonConfig.h"
 
 using namespace VsidNetfilter;
+using namespace VsidCommon;
 using namespace std;
 
 
@@ -31,7 +33,6 @@ Config* Config::instance()
 
 Config::Config() :
 	_protocol_database("protocol_model_db.yaml"),
-	_udp_flow_timeout(120),
     _num_queues(1),
     _queue_offset(0),
     _nf_queue_size(2048),
@@ -44,6 +45,8 @@ bool Config::init(const string& config_file)
 {
 	SLOG_INFO(<< "init config from config file : " << config_file);
 	_config_file = config_file;
+
+    CommonConfig::instance()->learningMode(false);
 
 	if(_config_file.empty())
 	{
@@ -72,8 +75,8 @@ bool Config::init(const string& config_file)
 
     if(config["UdpFlowTimeout"])
     {
-    	_udp_flow_timeout = config["UdpFlowTimeout"].as<uint32_t>();
-    	SLOG_INFO(<< "UdpFlowTimeout : " << _udp_flow_timeout)
+    	CommonConfig::instance()->udpFlowTimeout(config["UdpFlowTimeout"].as<uint32_t>());
+        SLOG_INFO(<< "UdpFlowTimeout : " << CommonConfig::instance()->udpFlowTimeout())
     }
 
     if(config["NumQueues"])
@@ -90,7 +93,7 @@ bool Config::init(const string& config_file)
 
     if(config["NfQueueSize"])
     {
-        _udp_flow_timeout = config["NfQueueSize"].as<size_t>();
+        _nf_queue_size = config["NfQueueSize"].as<size_t>();
         SLOG_INFO(<< "NfQueueSize : " << _nf_queue_size)
     }
 

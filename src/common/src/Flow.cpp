@@ -12,6 +12,8 @@
 #include "AttributeMeter.h"
 #include "AttributeMeterFactory.h"
 
+#include "CommonConfig.h"
+
 using namespace std;
 using namespace VsidCommon;
 using namespace Vsid;
@@ -20,7 +22,8 @@ Flow::Flow(IPv4Packet* packet) :
 	_hash(0),
 	_pktCount(0),
 	_flowState(State::NEW),
-	_isFirstPacket(false)
+	_isFirstPacket(false),
+	_flowClassified(false)
 {
 	_firstPacketTuple.src_ip = packet->srcIp();
 	_firstPacketTuple.src_port = packet->srcPort();
@@ -45,7 +48,8 @@ Flow::Flow(IPv4Tuple tuple) :
 	_flowState(State::NEW),
 	_isFirstPacket(false),
 	_lastPacketDirection(Direction::UNKNOWN),
-	_currentPacketDirection(Direction::UNKNOWN)
+	_currentPacketDirection(Direction::UNKNOWN),
+	_flowClassified(false)
 {
 	gettimeofday(&_startTimestamp, NULL);
 	_lastPacketTimestamp = _startTimestamp;
@@ -60,7 +64,8 @@ Flow::Flow(uint32_t hash) :
 	_flowState(State::NEW),
 	_isFirstPacket(false),
 	_lastPacketDirection(Direction::UNKNOWN),
-	_currentPacketDirection(Direction::ORIG_TO_DEST)
+	_currentPacketDirection(Direction::ORIG_TO_DEST),
+	_flowClassified(false)
 {
 	gettimeofday(&_startTimestamp, NULL);
 	_lastPacketTimestamp = _startTimestamp;
@@ -189,6 +194,12 @@ void Flow::addPacket(IPv4Packet* packet)
 		return;
 	}
 
+	if( _flowClassified )
+	{
+		// Already classified. Don't waste time updating calculations
+		return;
+	}
+
 	SLOG_INFO( << "Calculating packet ");
 	for(auto it = _attributeMeters.begin(); it != _attributeMeters.end(); ++it)
 	{
@@ -204,9 +215,13 @@ void Flow::addPacket(IPv4Packet* packet)
 		}
 	}
 
-	// TODO calculate K-L Divergence
-
 	_lastPacketTimestamp = packet->timestamp();
+
+	if( !CommonConfig::instance()->learningMode() && !_flowClassified )
+	{
+		// TODO Calculate K-L Divergence
+	}
+
 }
 
 uint32_t Flow::flowHash()

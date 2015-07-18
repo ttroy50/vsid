@@ -9,8 +9,10 @@
 #include "Config.h"
 #include "Logger.h"
 #include "yaml-cpp/yaml.h"
+#include "CommonConfig.h"
 
 using namespace VsidTraining;
+using namespace VsidCommon;
 using namespace std;
 
 std::unique_ptr<Config> Config::_instance;
@@ -39,8 +41,7 @@ Config* Config::instance()
 }
 
 Config::Config() :
-	_protocol_database("protocol_model_db.yaml"),
-	_udp_flow_timeout(120)
+	_protocol_database("protocol_model_db.yaml")
 {
 
 }
@@ -49,6 +50,8 @@ bool Config::init(const string& config_file)
 {
 	SLOG_INFO(<< "init config from config file : " << config_file);
 	_config_file = config_file;
+
+    CommonConfig::instance()->learningMode(true);
 
 	if(_config_file.empty())
 	{
@@ -82,8 +85,8 @@ bool Config::init(const string& config_file)
 
     if(config["UdpFlowTimeout"])
     {
-    	_udp_flow_timeout = config["UdpFlowTimeout"].as<uint32_t>();
-    	SLOG_INFO(<< "UdpFlowTimeout : " << _udp_flow_timeout)
+    	CommonConfig::instance()->udpFlowTimeout(config["UdpFlowTimeout"].as<uint32_t>());
+    	SLOG_INFO(<< "UdpFlowTimeout : " << CommonConfig::instance()->udpFlowTimeout())
     }
 
 	return true;

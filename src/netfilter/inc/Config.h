@@ -38,8 +38,6 @@ public:
 
 	void protocolDatabase(const std::string& s) { _protocol_database = s; }
 	std::string protocolDatabase() { return _protocol_database; }
-
-	uint32_t udpFlowTimeout() { return _udp_flow_timeout; }
 	
 	uint32_t numQueues() { return _num_queues; }
 	uint32_t queueOffset() { return _queue_offset; }
@@ -57,8 +55,6 @@ private:
 
 	std::string _config_file;
 	std::string _protocol_database;
-
-	uint32_t _udp_flow_timeout;
 
 	uint32_t _num_queues;
 	uint32_t _queue_offset;

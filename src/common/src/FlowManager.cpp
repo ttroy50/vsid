@@ -3,6 +3,7 @@
 #include "Logger.h"
 #include "Hasher.h"
 #include "IPv4.h"
+#include "CommonConfig.h"
 
 using namespace std;
 using namespace VsidCommon;
@@ -85,8 +86,8 @@ std::shared_ptr<Flow>  FlowManager::getFlow(IPv4Packet* packet)
 		if( packet->protocol() == IPPROTO_UDP )
 		{
 			std::shared_ptr<Flow> tmp = *(it);
-			// TODO pass in as config
-			if( (packet->timestamp().tv_sec - tmp->lastPacketTimestamp().tv_sec ) > 120)
+			
+			if( (packet->timestamp().tv_sec - tmp->lastPacketTimestamp().tv_sec ) > CommonConfig::instance()->udpFlowTimeout())
 			{
 				SLOG_INFO(<< "Flow [" << *f << "] found but finished. Removing from list and adding new one")
 				notifyFlowFinished(tmp);

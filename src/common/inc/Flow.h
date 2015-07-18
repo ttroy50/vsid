@@ -192,7 +192,7 @@ private:
 	std::vector<std::shared_ptr<Vsid::AttributeMeter> > _attributeMeters;
 
 	
-
+	bool _flowClassified;
 	
 
 
