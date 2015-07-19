@@ -35,7 +35,7 @@ void ProtocolModelUpdater::flowFinished(std::shared_ptr<Flow> flow)
             SLOG_INFO(<< "Found flow in training file " << it->tuple)
             flowFound = true;
             auto meters = flow->attributeMeters();
-            std::shared_ptr<ProtocolModel> model = _database->find(TrainingInput::protocolToStr(it->protocol));
+            std::shared_ptr<ProtocolModel> model = _database->find(it->protocol);
 
             if ( !model )
             {

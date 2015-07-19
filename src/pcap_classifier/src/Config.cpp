@@ -11,32 +11,37 @@
 #include "yaml-cpp/yaml.h"
 #include "CommonConfig.h"
 
-using namespace VsidNetfilter;
+using namespace VsidPcapClassifier;
 using namespace VsidCommon;
 using namespace std;
-
 
 std::unique_ptr<Config> Config::_instance;
 std::once_flag Config::_onceFlag;
 
 Config* Config::instance()
 {
-    std::call_once(_onceFlag,
-        [] {
-    if(!_instance) 
+    try
+    {
+        std::call_once(_onceFlag,
+            [] {
+        if(!_instance) 
+                _instance.reset(new Config);
+            }
+        );
+    }
+    catch(std::runtime_error& e)
+    {
+        // not thread safe but this should be initialised alread in main thread
+        // Not sure why I was sometimes seeing exception from call_once. Need time to investigate
+        if(!_instance)
             _instance.reset(new Config);
-        }
-    );
+    }
 
     return _instance.get();
 }
 
 Config::Config() :
-	_protocol_database("protocol_model_db.yaml"),
-    _num_queues(1),
-    _queue_offset(0),
-    _nf_queue_size(2048),
-    _nf_buf_size(2048)
+	_protocol_database("protocol_model_db.yaml")
 {
 
 }
@@ -72,35 +77,10 @@ bool Config::init(const string& config_file)
     	SLOG_INFO(<< "ProtocolDatabase : " << _protocol_database)
     }
 
-
     if(config["UdpFlowTimeout"])
     {
     	CommonConfig::instance()->udpFlowTimeout(config["UdpFlowTimeout"].as<uint32_t>());
-        SLOG_INFO(<< "UdpFlowTimeout : " << CommonConfig::instance()->udpFlowTimeout())
-    }
-
-    if(config["NumQueues"])
-    {
-        _num_queues = config["NumQueues"].as<uint32_t>();
-        SLOG_INFO(<< "NumQueues : " << _num_queues)
-    }
-
-    if(config["QueueOffset"])
-    {
-        _queue_offset = config["QueueOffset"].as<uint32_t>();
-        SLOG_INFO(<< "QueueOffset : " << _queue_offset)
-    }
-
-    if(config["NfQueueSize"])
-    {
-        _nf_queue_size = config["NfQueueSize"].as<size_t>();
-        SLOG_INFO(<< "NfQueueSize : " << _nf_queue_size)
-    }
-
-    if(config["NfBufSize"])
-    {
-        _nf_buf_size = config["NfBufSize"].as<size_t>();
-        SLOG_INFO(<< "NfBufSize : " << _nf_buf_size)
+    	SLOG_INFO(<< "UdpFlowTimeout : " << CommonConfig::instance()->udpFlowTimeout())
     }
 
     if(config["KLDivergenceThreshold"])
@@ -108,6 +88,6 @@ bool Config::init(const string& config_file)
         CommonConfig::instance()->divergenceThreshold(config["KLDivergenceThreshold"].as<double>());
         SLOG_INFO(<< "KLDivergenceThreshold : " << CommonConfig::instance()->divergenceThreshold())
     }
-    
+
 	return true;
 }

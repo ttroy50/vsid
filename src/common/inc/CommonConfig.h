@@ -36,6 +36,9 @@ public:
 	uint32_t udpFlowTimeout() { return _udp_flow_timeout; }
 	void udpFlowTimeout(uint32_t t) { _udp_flow_timeout = t; }
 
+	double divergenceThreshold() { return _divergenceThreshold; }
+	void divergenceThreshold(double d) { _divergenceThreshold = d; }
+
 private:
 	static std::unique_ptr<CommonConfig> _instance;
 	static std::once_flag _onceFlag;
@@ -46,6 +49,7 @@ private:
 
 	bool _learning_mode;
 	uint32_t _udp_flow_timeout;
+	double _divergenceThreshold;
 };
 
 

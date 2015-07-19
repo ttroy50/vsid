@@ -11,6 +11,7 @@
 
 #include "AttributeMeter.h"
 #include "AttributeMeterFactory.h"
+#include "ProtocolModelDb.h"
 
 #include "CommonConfig.h"
 
@@ -18,12 +19,15 @@ using namespace std;
 using namespace VsidCommon;
 using namespace Vsid;
 
-Flow::Flow(IPv4Packet* packet) :
+Flow::Flow(IPv4Packet* packet, ProtocolModelDb* database) :
 	_hash(0),
 	_pktCount(0),
 	_flowState(State::NEW),
 	_isFirstPacket(false),
-	_flowClassified(false)
+	_flowClassified(false),
+	_protocolModelDb(database),
+	_classifiedDivergence(0),
+	_bestMatchDivergence(100)
 {
 	_firstPacketTuple.src_ip = packet->srcIp();
 	_firstPacketTuple.src_port = packet->srcPort();
@@ -37,40 +41,10 @@ Flow::Flow(IPv4Packet* packet) :
 	_currentPacketDirection = Direction::UNKNOWN;
 
 	_attributeMeters = Vsid::AttributeMeterFactory::instance()->getAllMeters();
-}
-
-
-Flow::Flow(IPv4Tuple tuple) :
-	_firstPacketTuple(tuple),
-	_hash(0),
-	_pktCount(0),
-	_firstOrigToDestDataSize(0),
-	_flowState(State::NEW),
-	_isFirstPacket(false),
-	_lastPacketDirection(Direction::UNKNOWN),
-	_currentPacketDirection(Direction::UNKNOWN),
-	_flowClassified(false)
-{
-	gettimeofday(&_startTimestamp, NULL);
-	_lastPacketTimestamp = _startTimestamp;
-
-	// Do we need a fingerprint for this one??
-}
-
-Flow::Flow(uint32_t hash) :
-	_hash(hash),
-	_pktCount(0),
-	_firstOrigToDestDataSize(0),
-	_flowState(State::NEW),
-	_isFirstPacket(false),
-	_lastPacketDirection(Direction::UNKNOWN),
-	_currentPacketDirection(Direction::ORIG_TO_DEST),
-	_flowClassified(false)
-{
-	gettimeofday(&_startTimestamp, NULL);
-	_lastPacketTimestamp = _startTimestamp;
-
-	// No need for fingerprint here because is only for searching
+	for(auto it = _attributeMeters.begin(); it != _attributeMeters.end(); ++it)
+	{
+		_attributeMetersMap[(*it)->name()] = (*it);
+	}
 }
 
 void Flow::addPacket(IPv4Packet* packet)
@@ -184,18 +158,31 @@ void Flow::addPacket(IPv4Packet* packet)
 			if( (flags & TH_ACK) || (flags & TH_FIN) || flags & TH_RST )
 			{
 				_flowState = Flow::State::FINISHED;
+				SLOG_INFO(<< " Flow entering Finished state");
 				return;
 			}
 		}
 	}
 	else if ( stateUponArrival == Flow::State::FINISHED )
 	{
+		SLOG_INFO(<< " Flow already Finished");
 		// Flow already fisinhed ??
+		return;
+	}
+
+	if( _pktCount > _protocolModelDb->cutoffLimit() )
+	{
+		_lastPacketTimestamp = packet->timestamp();
+		SLOG_INFO(<< " Flow above cutoffLimit " << _protocolModelDb->cutoffLimit() 
+						<< " : " << _pktCount );
+		// Don't look at packet because it is over the limit
 		return;
 	}
 
 	if( _flowClassified )
 	{
+		_lastPacketTimestamp = packet->timestamp();
+		SLOG_INFO(<< " Flow classified");
 		// Already classified. Don't waste time updating calculations
 		return;
 	}
@@ -215,11 +202,72 @@ void Flow::addPacket(IPv4Packet* packet)
 		}
 	}
 
+	SLOG_INFO( << "Meters updated")
 	_lastPacketTimestamp = packet->timestamp();
 
 	if( !CommonConfig::instance()->learningMode() && !_flowClassified )
 	{
+		SLOG_INFO(<< "Calculating K-L Divergence")
 		// TODO Calculate K-L Divergence
+		for(size_t i = 0; i < _protocolModelDb->size(); i++)
+		{
+			double klDivergence = 0.0;
+
+			// get protocol model in order or dst port of flow
+			std::shared_ptr<ProtocolModel> pm = _protocolModelDb->at(i, 0);// _firstPacketTuple.dst_port);
+
+			if( !pm )
+			{
+				SLOG_ERROR(<< "Unable to get protocol model");
+				continue;
+			}
+			
+			SLOG_INFO(<< "Checking model " << pm->name());
+			for(size_t attr = 0; attr < pm->size(); attr++)
+			{
+				std::shared_ptr<AttributeMeter> pm_am = pm->at(attr);
+				std::shared_ptr<AttributeMeter> am = _attributeMetersMap[pm_am->name()];
+				double sum = 0.0;
+
+				for(size_t fp = 0; fp < pm_am->size(); ++fp)
+				{
+					if(am->at(fp) > 0 && pm_am->at(fp) > 0)
+					{
+						sum += am->at(fp) * log2(am->at(fp) / pm_am->at(fp));
+						SLOG_INFO(<<" K-L sum is " << sum);
+					}
+				}
+				klDivergence += sum;
+			}
+
+			if( klDivergence <= 0 )
+				continue;
+			
+			SLOG_DEBUG(<< "K-L Divergence for [" << pm->name() <<"] is [" << klDivergence <<"] on flow [" << *this << "]");
+			
+			// We will only do a full classification if we have more than the defining Limit worth
+			// of packets
+			if( klDivergence > 0 
+					&&_pktCount >= _protocolModelDb->definingLimit() 
+					&& klDivergence < CommonConfig::instance()->divergenceThreshold() )
+			{
+				// TODO callback notifiers here or from Manager??
+				_flowClassified = true;
+				_classifiedProtocol = pm->name();
+				_classifiedDivergence = klDivergence;
+				SLOG_TRACE(<< "Flow classified as [" << _classifiedProtocol 
+							<< "] with divergence [" << _classifiedDivergence 
+							<< "] : " << *this);
+				break;
+			}
+			else
+			{
+				if( klDivergence > 0 && klDivergence < _bestMatchDivergence )
+				{
+					_bestMatchProtocol = pm->name();
+				}
+			}
+		}
 	}
 
 }
@@ -230,5 +278,6 @@ uint32_t Flow::flowHash()
 		return _hash;
 
 	Ipv4FlowHasher hasher;
-	return hasher(&_firstPacketTuple);
+	_hash = hasher(&_firstPacketTuple);
+	return _hash;
 }

@@ -12,7 +12,8 @@
 #include <string>
 #include <vector>
 #include "IPv4Tuple.h"
- 
+#include "ProtocolModelDb.h"
+
 namespace VsidTraining
 {
 
@@ -30,14 +31,13 @@ class TrainingFlow
 {
 public:
 	TrainingFlow() : 
-		processed(false), 
-		protocol(UNKNOWN) 
+		processed(false)
 	{}
 
 	uint32_t flowHash(); 
 
 	VsidCommon::IPv4Tuple tuple;
-	Protocol protocol;
+	std::string protocol;
 	bool processed;
 };
 
@@ -53,7 +53,7 @@ public:
 class TrainingInput
 {
 public:
-	bool read(const std::string& filename);
+	bool read(const std::string& filename, Vsid::ProtocolModelDb* protocolModelDb);
 
 
 	static uint8_t strToTransport(const std::string& str);

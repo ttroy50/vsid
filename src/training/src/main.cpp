@@ -98,37 +98,7 @@ int main( int argc, char* argv[] )
 
 	init_attribute_meters();
 
-    TrainingInput training_input;
-    if ( !training_input.read(training) )
-    {
-    	SLOG_ERROR( << "ERROR: Unable to read training file" );
-    	exit(1);
-    }
-
-    if(training_input.trainingFiles().size() == 0)
-    {
-    	cerr << "ERROR: Need a pcap file to analyse" << endl;
-    	usage(argv[0]);
-    	exit(1);
-    }
-    else
-    {
-    	for(int i = 0; i < training_input.trainingFiles().size(); i++)
-    	{
-    		std::ifstream tmp(training_input.trainingFiles()[i].filename);
-    		if ( !tmp.good() )
-    		{
-
-    			LOG_ERROR(("Unable to find pcap file : %v", training_input.trainingFiles()[i].filename));
-    			cerr << "ERROR: Unable to find pcap file : " << training_input.trainingFiles()[i].filename << endl;
-    			continue;
-    		}
-    		else
-    		{
-    			training_input.trainingFiles()[i].exists = true;
-    		}
-    	}
-    }
+    
 
     SLOG_INFO(<< "config file : " << config);
 
@@ -165,7 +135,39 @@ int main( int argc, char* argv[] )
 	SLOG_INFO(<< "spid database : " << Config::instance()->protocolDatabase());
 
 	
-	FlowManager flowManager;
+    TrainingInput training_input;
+    if ( !training_input.read(training, &protocolModelDb) )
+    {
+        SLOG_ERROR( << "ERROR: Unable to read training file" );
+        exit(1);
+    }
+
+    if(training_input.trainingFiles().size() == 0)
+    {
+        cerr << "ERROR: Need a pcap file to analyse" << endl;
+        usage(argv[0]);
+        exit(1);
+    }
+    else
+    {
+        for(int i = 0; i < training_input.trainingFiles().size(); i++)
+        {
+            std::ifstream tmp(training_input.trainingFiles()[i].filename);
+            if ( !tmp.good() )
+            {
+
+                LOG_ERROR(("Unable to find pcap file : %v", training_input.trainingFiles()[i].filename));
+                cerr << "ERROR: Unable to find pcap file : " << training_input.trainingFiles()[i].filename << endl;
+                continue;
+            }
+            else
+            {
+                training_input.trainingFiles()[i].exists = true;
+            }
+        }
+    }
+
+	FlowManager flowManager(&protocolModelDb);
 
     ProtocolModelUpdater pmUpdated(&flowManager, &protocolModelDb);
 

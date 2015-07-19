@@ -12,7 +12,9 @@ using namespace Vsid;
 
 ProtocolModelDb::ProtocolModelDb(string filename, string backupfile) :
 	_filename(filename),
-	_initialised(false)
+	_initialised(false),
+	_cutoffLimit(10000),
+	_definingLimit(10)
 {
 	if(backupfile.empty())
 	{
@@ -420,12 +422,10 @@ std::shared_ptr<ProtocolModel> ProtocolModelDb::at(size_t pos, uint16_t port /* 
 	{
 		if(pos < _protocolModelOrder.size() )
 		{
-			SLOG_INFO(<< "got amodel for " << port << ";" << pos);
 			return _protocolModelOrder[pos];
 		}
 		else
 		{
-			SLOG_INFO(<< "didn't got amodel for " << port << ";" << pos);
 			return nullptr;
 		}
 	}
@@ -434,7 +434,7 @@ std::shared_ptr<ProtocolModel> ProtocolModelDb::at(size_t pos, uint16_t port /* 
 		auto it = _portHintOrder.find(port);
 		if(it != _portHintOrder.end())
 		{
-			if(it->second.size() <= pos)
+			if( pos < it->second.size() )
 			{
 				return it->second[pos];
 			}
@@ -445,7 +445,7 @@ std::shared_ptr<ProtocolModel> ProtocolModelDb::at(size_t pos, uint16_t port /* 
 		}
 		else
 		{
-			if(_protocolModelOrder.size() <= pos)
+			if( pos < _protocolModelOrder.size() )
 			{
 				return _protocolModelOrder[pos];
 			}

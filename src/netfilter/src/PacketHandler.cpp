@@ -22,10 +22,12 @@ extern "C"
 #include "UdpIpv4.h"
 #include "Logger.h"
 #include "StringException.h"
+#include "ProtocolModelDb.h"
 
 #include "Config.h"
 
 using namespace std;
+using namespace Vsid;
 using namespace VsidNetfilter;
 using namespace VsidCommon;
 
@@ -62,10 +64,12 @@ static int nfqPacketHandlerCb(struct nfq_q_handle* nfQueue,
     }
 }
 
-PacketHandler::PacketHandler(int queueNumber) :
+PacketHandler::PacketHandler(int queueNumber, ProtocolModelDb* database) :
 	_shutdown(false),
 	_numPackets(0),
-	_verdictStats(NF_MAX_VERDICT, 0)
+	_verdictStats(NF_MAX_VERDICT, 0),
+	_prococolModelDb(database),
+	_flowManager(database)
 {
 	_queueNumber = queueNumber;
 	_nfqHandle = NULL;

@@ -40,4 +40,5 @@ AC_OUTPUT(Makefile \
 		src/training/src/Makefile \
 		src/protocol_model/src/Makefile \
 		src/protocol_model/unit_test/Makefile \
-		src/netfilter/src/Makefile )
+		src/netfilter/src/Makefile 
+        src/pcap_classifier/src/Makefile )

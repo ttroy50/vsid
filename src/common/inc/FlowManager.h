@@ -8,12 +8,17 @@
 #define __VSID_FLOW_MANAGER_H__
 
 #include <memory>
-#include <unordered_set>
+#include <unordered_map>
 
 #include "IPv4.h"
 #include "Flow.h"
 #include "Hasher.h"
 #include "FlowObservers.h"
+
+namespace Vsid
+{
+	class ProtocolModelDb;
+}
 
 namespace VsidCommon
 {
@@ -36,7 +41,7 @@ public:
 class FlowManager
 {
 public:
-	FlowManager();
+	FlowManager(Vsid::ProtocolModelDb* datbase);
 	~FlowManager();
 	
 	/**
@@ -113,8 +118,7 @@ public:
 	void finished();
 
 private:
-	typedef std::unordered_set<std::shared_ptr<Flow>, Ipv4FlowHasher, FlowPtrEqualFn> FlowSet;
-	FlowSet _flows;
+	std::unordered_map<uint32_t, std::shared_ptr<Flow> > _flows;
 
 	std::vector<FlowFinishedObserver*> _flow_finished_observers;
 	std::vector<FlowClassifiedObserver*> _flow_classified_observers;
@@ -122,6 +126,7 @@ private:
 	void notifyFlowFinished(std::shared_ptr<Flow> flow);
 	void notifyFlowClassified(std::shared_ptr<Flow> flow);
 
+	Vsid::ProtocolModelDb* _protocolModelDb;
 };
 
 } // end namespace

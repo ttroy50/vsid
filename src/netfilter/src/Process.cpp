@@ -199,7 +199,7 @@ bool Process::run()
 		try
 		{
 			int offset = Config::instance()->queueOffset() + i;
-			std::shared_ptr<PacketHandler> handler(new PacketHandler(offset));
+			std::shared_ptr<PacketHandler> handler(new PacketHandler(offset, _protocolModelDb.get()));
 			_packetHandlers.push_back(handler);
 
 			_handlerThreads.push_back( std::thread(&PacketHandler::run, handler) );

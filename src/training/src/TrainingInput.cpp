@@ -9,10 +9,12 @@
 #include "TrainingInput.h"
 #include "Logger.h"
 #include "Hasher.h"
+#include "ProtocolModelDb.h"
 
 using namespace VsidTraining;
 using namespace VsidCommon;
 using namespace std;
+using namespace Vsid;
 
 uint32_t TrainingFlow::flowHash()
 {
@@ -20,7 +22,7 @@ uint32_t TrainingFlow::flowHash()
     return hasher(&tuple);
 }
 
-bool TrainingInput::read(const std::string& fileName)
+bool TrainingInput::read(const std::string& fileName, ProtocolModelDb* protocolModelDb)
 {
 
 	// parse the atom/yaml...
@@ -78,10 +80,10 @@ bool TrainingInput::read(const std::string& fileName)
 
             // protocol
     	 	string protocol = (*fls)["protocol"].as<string>();
-            flow.protocol = strToProtocol(protocol);
-            if( flow.protocol == UNKNOWN )
+            flow.protocol = protocol; //strToProtocol(protocol);
+            if( !protocolModelDb->find(protocol) )
             {
-                SLOG_ERROR( << "Error converting protocol [" << protocol << "]");
+                SLOG_ERROR( << "Cannot find protocol in protocol DB [" << protocol << "]");
                 continue;
             }
 

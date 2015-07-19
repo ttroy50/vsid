@@ -21,6 +21,7 @@
 namespace Vsid
 {
 	class AttributeMeter;
+	class ProtocolModelDb;
 }
 
 #define PACKET_MAX_BUFFER_SIZE 2048
@@ -47,16 +48,7 @@ public:
 		FINISHED
 	};
 
-	Flow(IPv4Packet* packet);
-
-	Flow(IPv4Tuple tuple);
-
-	/** 
-	 * Special construct to create empty flow for lookup of the unorded_set / map
-	 * If set will return the hash in the hash function and always true 
-	 * in equality function
-	 */
-	Flow(uint32_t hash);
+	Flow(IPv4Packet* packet, Vsid::ProtocolModelDb* database);
 
 	void addPacket(IPv4Packet* packet);
 
@@ -169,6 +161,13 @@ public:
 
 	const std::vector<std::shared_ptr<Vsid::AttributeMeter> >& attributeMeters() { return _attributeMeters; }
 	
+	bool flowClassified() { return _flowClassified; }
+	double classifiedDivergence() { return _classifiedDivergence; }
+	std::string classifiedProtocol() { return _classifiedProtocol; }
+
+	double bestMatchDivergence() { return _bestMatchDivergence; }
+	std::string bestMatchProtocol() { return _bestMatchProtocol; }
+	
 private:
 
 	IPv4Tuple _firstPacketTuple;
@@ -190,19 +189,24 @@ private:
 	State _flowState;
 
 	std::vector<std::shared_ptr<Vsid::AttributeMeter> > _attributeMeters;
-
+	std::map<std::string, std::shared_ptr<Vsid::AttributeMeter> > _attributeMetersMap;
 	
+	// Have we classified the protocol
 	bool _flowClassified;
-	
+	std::string _classifiedProtocol;
+	double _classifiedDivergence;
+
+
+	double _bestMatchDivergence;
+	std::string _bestMatchProtocol;
+
+	Vsid::ProtocolModelDb* _protocolModelDb;
 
 
 };
 
 	inline bool operator==(const Flow& lhs, const Flow& rhs)
 	{
-		if(lhs._hash > 0)
-			return true;
-
 		return lhs.sameFlow(&rhs.fiveTuple());
 	}
 
@@ -219,11 +223,13 @@ private:
 		char dst[INET6_ADDRSTRLEN];
 		inet_ntop(AF_INET, &flow.fiveTuple().dst_ip , dst, INET6_ADDRSTRLEN);
 
-		os << "count : " << flow.pktCount() 
-			<< " state : " << static_cast<std::underlying_type<Flow::State>::type>(flow.flowState())
-			<< " | transport : " << (uint32_t)flow.fiveTuple().transport 
-	    	<< " | src : " << src << ":" << flow.fiveTuple().src_port 
-	    	<< " | dst : " << dst << ":" << flow.fiveTuple().dst_port;
+		os  << "{"
+			<< "count: " << flow.pktCount() 
+			<< ", state: " << static_cast<std::underlying_type<Flow::State>::type>(flow.flowState())
+			<< ", transport: " << (uint32_t)flow.fiveTuple().transport 
+	    	<< ", src: '" << src << ":" << flow.fiveTuple().src_port << "'" 
+	    	<< ", dst: '" << dst << ":" << flow.fiveTuple().dst_port << "'" 
+	    	<< "}";
 	}
 
 } // end namespace

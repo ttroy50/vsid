@@ -1,0 +1,9 @@
+---
+    # Location of the Protocol Database
+    ProtocolDatabase: "../config/protocol_model_db.yaml"
+
+    # Timeout in seconds after which a UDP flow will be considered to have ended
+    UdpFlowTimeout: 120
+
+    # The KL Divergence Threshold. Any threshold below this will be considered that protocol
+    KLDivergenceThreshold : 0.5

@@ -22,13 +22,18 @@ extern "C" {
 
 #include "FlowManager.h"
 
+namespace Vsid
+{
+	class ProtocolModelDb;
+}
+
 namespace VsidNetfilter
 {
 
 class PacketHandler
 {
 public:
-	PacketHandler(int queueNumber);
+	PacketHandler(int queueNumber, Vsid::ProtocolModelDb* database);
 	~PacketHandler();
 
 	void run();
@@ -61,6 +66,7 @@ private:
 	size_t _bufSize;
 
 	VsidCommon::FlowManager _flowManager;
+	Vsid::ProtocolModelDb* _prococolModelDb;
 };
 
 }

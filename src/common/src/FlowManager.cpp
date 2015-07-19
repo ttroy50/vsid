@@ -5,11 +5,14 @@
 #include "IPv4.h"
 #include "CommonConfig.h"
 
+#include "ProtocolModelDb.h"
+
 using namespace std;
 using namespace VsidCommon;
+using namespace Vsid;
 
-
-FlowManager::FlowManager()
+FlowManager::FlowManager(ProtocolModelDb* database) :
+	_protocolModelDb(database)
 {
 }
 
@@ -41,9 +44,7 @@ std::shared_ptr<Flow> FlowManager::addPacket(IPv4Packet* packet)
 
 bool FlowManager::flowExists(IPv4Packet* packet)
 {
-	// temp created to lookup flow
-	std::shared_ptr<Flow> f (new Flow(packet));
-	FlowSet::iterator it = _flows.find(f);
+	auto it = _flows.find(packet->flowHash());
 
 	if(it == _flows.end())
 	{
@@ -55,9 +56,7 @@ bool FlowManager::flowExists(IPv4Packet* packet)
 
 bool FlowManager::flowExists(uint32_t hash)
 {
-	// temp created to lookup flow
-	std::shared_ptr<Flow> f (new Flow(hash));
-	FlowSet::iterator it = _flows.find(f);
+	auto it = _flows.find(hash);
 
 	if(it == _flows.end())
 	{
@@ -71,13 +70,12 @@ std::shared_ptr<Flow>  FlowManager::getFlow(IPv4Packet* packet)
 {
 	SLOG_INFO(<< _flows.size() << " flows in manager");
 
-	// temp created to lookup flow
-	std::shared_ptr<Flow>  f(new Flow(packet));
-	FlowSet::iterator it = _flows.find(f);
+	auto it = _flows.find(packet->flowHash());
 
 	if(it == _flows.end())
 	{
-		_flows.insert(f);
+		std::shared_ptr<Flow>  f(new Flow(packet, _protocolModelDb));
+		_flows.insert(std::make_pair(f->flowHash(), f));
 		SLOG_INFO(<< "New Flow added : " << *f);
 		return f;
 	}
@@ -85,14 +83,15 @@ std::shared_ptr<Flow>  FlowManager::getFlow(IPv4Packet* packet)
 	{
 		if( packet->protocol() == IPPROTO_UDP )
 		{
-			std::shared_ptr<Flow> tmp = *(it);
+			std::shared_ptr<Flow> tmp = it->second;
 			
 			if( (packet->timestamp().tv_sec - tmp->lastPacketTimestamp().tv_sec ) > CommonConfig::instance()->udpFlowTimeout())
 			{
-				SLOG_INFO(<< "Flow [" << *f << "] found but finished. Removing from list and adding new one")
+				SLOG_INFO(<< "Flow [" << *tmp << "] found but finished. Removing from list and adding new one")
 				notifyFlowFinished(tmp);
 				_flows.erase(it);
-				_flows.insert(f);
+				std::shared_ptr<Flow>  f(new Flow(packet, _protocolModelDb));
+				_flows.insert(std::make_pair(f->flowHash(), f));
 				return f;
 			}
 		}
@@ -103,19 +102,18 @@ std::shared_ptr<Flow>  FlowManager::getFlow(IPv4Packet* packet)
 
 
 
-		return *(it);
+		return it->second;
 
 	}
 }
 
 std::shared_ptr<Flow> FlowManager::getFlow(uint32_t hash)
 {
-	std::shared_ptr<Flow> f (new Flow(hash));
-	FlowSet::iterator it = _flows.find(f);
+	auto it = _flows.find(hash);
 
 	if(it != _flows.end())
 	{
-		return *(it);
+		return it->second;
 	}
 	else
 	{
@@ -126,25 +124,21 @@ std::shared_ptr<Flow> FlowManager::getFlow(uint32_t hash)
 
 void FlowManager::deleteFlow(IPv4Packet* packet)
 {
-	// temp created to lookup flow
-	std::shared_ptr<Flow> f (new Flow(packet));
-	size_t num = _flows.erase(f);
+	size_t num = _flows.erase(packet->flowHash());
 
 	SLOG_INFO(<< num << " flows deleted");
 }
 
 void FlowManager::deleteFlow(std::shared_ptr<Flow> flow)
 {
-	size_t num = _flows.erase(flow);
+	size_t num = _flows.erase(flow->flowHash());
 
 	SLOG_INFO(<< num << " flows deleted");
 }
 
 void FlowManager::deleteFlow(uint32_t hash)
 {
-	// temp created to lookup flow
-	std::shared_ptr<Flow> f (new Flow(hash));
-	size_t num = _flows.erase(f);
+	size_t num = _flows.erase(hash);
 
 	SLOG_INFO(<< num << " flows deleted");
 }
@@ -189,7 +183,7 @@ void FlowManager::finished()
 {
 	for(auto it = _flows.begin(); it != _flows.end(); )
 	{
-		auto flow = (*it);
+		auto flow = it->second;
 		++it;
 
 		notifyFlowFinished(flow);
