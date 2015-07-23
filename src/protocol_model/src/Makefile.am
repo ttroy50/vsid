@@ -28,7 +28,8 @@ lib_vsid_protocol_model_a_SOURCES = ProtocolModelDb.cpp \
 									DirectionBytesCounFirstTenPacketMeter.cpp \
 									ByteFrequencyFirstEightPacketsMeter.cpp \
 									DirectionChangesFirstEightPacketsMeter.cpp \
-									RtmpRegexMatchMeter.cpp
+									RtmpRegexMatchMeter.cpp \
+									DataDirectionChangesFirstEightPacketsMeter.cpp
  
 #lib_vsid_protocol_model_a_INCS = \
 #								-I/usr/local/include \

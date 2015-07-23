@@ -178,7 +178,7 @@ std::shared_ptr<ProtocolModel> ProtocolModelDb::_readProtocolModel(const YAML::N
 	{
 		SLOG_WARN(<< "ProtocolModel at [" << count << "] doesn't have an Enabled flag");
 		model->_enabled = false;
-		SLOG_INFO(<< "FlowCount : " << model->_enabled);
+		SLOG_INFO(<< "Enabled : " << model->_enabled);
 	}
 
 

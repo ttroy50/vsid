@@ -22,4 +22,4 @@
     NfBufSize: 2048
 
     # The KL Divergence Threshold. Any threshold below this will be considered that protocol
-    KLDivergenceThreshold : 0.5
+    KLDivergenceThreshold : 1

@@ -224,6 +224,9 @@ void Flow::addPacket(IPv4Packet* packet)
 				SLOG_ERROR(<< "Unable to get protocol model");
 				continue;
 			}
+
+			if( !pm->enabled() )
+				continue;
 			
 			SLOG_INFO(<< "Checking model " << pm->name());
 			for(size_t attr = 0; attr < pm->size(); attr++)
@@ -250,10 +253,9 @@ void Flow::addPacket(IPv4Packet* packet)
 			// We will only do a full classification if we have more than the defining Limit worth
 			// of packets
 			if( klDivergence > 0 
-					&&_pktCount >= _protocolModelDb->definingLimit() 
+					&&_pktCount > _protocolModelDb->definingLimit() 
 					&& klDivergence < CommonConfig::instance()->divergenceThreshold() )
 			{
-				// TODO callback notifiers here or from Manager??
 				_flowClassified = true;
 				_classifiedProtocol = pm->name();
 				_classifiedDivergence = klDivergence;
@@ -262,15 +264,37 @@ void Flow::addPacket(IPv4Packet* packet)
 							<< "] : " << *this);
 				break;
 			}
-			else
+			if( _pktCount == _protocolModelDb->definingLimit()  )
 			{
-				if( klDivergence > 0 
-					&&_pktCount >= _protocolModelDb->definingLimit()
-					&& klDivergence < _bestMatchDivergence )
+				if( klDivergence < CommonConfig::instance()->divergenceThreshold() )
 				{
-					_bestMatchDivergence = klDivergence;
-					_bestMatchProtocol = pm->name();
+					_flowClassified = true;
+					_classifiedProtocol = pm->name();
+					_classifiedDivergence = klDivergence;
+					SLOG_DEBUG(<< "Flow classified as [" << _classifiedProtocol 
+								<< "] with divergence [" << _classifiedDivergence 
+								<< "] : " << *this);
+					break;
 				}
+				else if( _bestMatchDivergence < CommonConfig::instance()->divergenceThreshold() )
+				{
+					_flowClassified = true;
+					_classifiedProtocol = _bestMatchProtocol;
+					_classifiedDivergence = _bestMatchDivergence;
+					SLOG_DEBUG(<< "Flow classified as [" << _classifiedProtocol 
+								<< "] with divergence [" << _classifiedDivergence 
+								<< "] : " << *this);
+					break;
+				}
+				
+			}
+
+			if( klDivergence > 0 
+				//&&_pktCount >= _protocolModelDb->definingLimit()
+				&& klDivergence < _bestMatchDivergence )
+			{
+				_bestMatchDivergence = klDivergence;
+				_bestMatchProtocol = pm->name();
 			}
 
 			SLOG_DEBUG(<< "K-L Divergence for [" << pm->name() <<"] is [" << klDivergence <<"] on flow [" << *this << "]");
