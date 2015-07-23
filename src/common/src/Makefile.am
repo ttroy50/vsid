@@ -18,6 +18,7 @@ AM_CXXFLAGS =  -std=c++11 -DELPP_THREAD_SAFE $(lib_vsid_common_a_INCS)
 lib_vsid_common_a_SOURCES = Flow.cpp \
 							FlowManager.cpp \
 							IPv4.cpp \
-							CommonConfig.cpp
+							CommonConfig.cpp \
+							FlowClassificationLogger.cpp
 							
 													

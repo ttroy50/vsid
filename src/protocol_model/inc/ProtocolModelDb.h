@@ -17,7 +17,7 @@
  
 
 #include "yaml-cpp/yaml.h"
-
+#include "boost/date_time/posix_time/posix_time.hpp"
 
 namespace Vsid
 {
@@ -105,6 +105,20 @@ public:
 	 */
 	uint32_t cutoffLimit() const { return _cutoffLimit; }
 
+	/**
+	 * Filename of the database
+	 * @return
+	 */
+	std::string filename() const { return _filename; }
+
+	/**
+	 * Time the DB was last modified / updated
+	 * @return
+	 */
+	boost::posix_time::ptime lastModifiedTime() const;
+	
+	std::string lastModifiedTimeAsString() const;
+
 private:
 	std::string _filename;
 	std::string _backupfile;
@@ -113,7 +127,7 @@ private:
 
 	uint32_t _definingLimit;
 	uint32_t _cutoffLimit;
-
+	std::vector<boost::posix_time::ptime> _modifiedTimes;
 	
 	std::vector<std::shared_ptr<ProtocolModel> > _protocolModelOrder;
 	//typedef std::map<std::string, std::shared_ptr<ProtocolModel> > ProtocolModelMap;

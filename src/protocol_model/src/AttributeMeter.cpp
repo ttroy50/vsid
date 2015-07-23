@@ -46,6 +46,6 @@ void AttributeMeter::merge(std::shared_ptr<AttributeMeter> other)
 		SLOG_INFO(<< "[" << i << "] : this =" << this->at(i) << " other = " << other->at(i) << " flowCount = " << _flowCount);
 		_fingerprint[i] = ((_fingerprint[i] * _flowCount) + other->at(i) ) / (_flowCount+1); 
 	}
-
+	SLOG_INFO(<< "Meters Merged :" << name())
 	_flowCount++;
 }

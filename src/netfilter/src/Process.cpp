@@ -187,6 +187,18 @@ bool Process::initialise(int argc, char* argv[])
 
 	SLOG_INFO(<< "spid database : " << Config::instance()->protocolDatabase());
 
+    // Start the trace file for classification
+    SLOG_TRACE( << "---"
+                << std::endl
+                << "ProtocolDatabase: {" 
+                << "FileName: " << _protocolModelDb->filename() 
+                << ", LastModifiedTime: " << _protocolModelDb->lastModifiedTimeAsString()
+                << ", CutoffLimit: " << _protocolModelDb->cutoffLimit()
+                << ", DefiningLimit: " << _protocolModelDb->definingLimit()
+                << "}"
+                << std::endl
+                << "Results: ");
+
 	return true;
 }
 

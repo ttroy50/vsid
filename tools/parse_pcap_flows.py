@@ -20,12 +20,13 @@ class IPv4Tuple():
     Basic representation of an IPv4 ip_tuple
     """
 
-    def __init__(self, src_ip, dst_ip, protocol, payload ):
+    def __init__(self, src_ip, dst_ip, protocol, payload, l7protocol ):
         self.src_ip = src_ip
         self.src_port = struct.unpack("!H", ip_packet.payload[0:4].decode('hex'))[0]
         self.dst_ip = dst_ip
         self.dst_port = struct.unpack("!H", ip_packet.payload[4:8].decode('hex'))[0]
         self.protocol = protocol
+        self.l7protocol = l7protocol
 
     def dict_repr(self):
         """
@@ -57,7 +58,7 @@ class IPv4Tuple():
             ret["transport"] = "TCP"
         else:
             ret["transport"] = "UDP"
-        ret["protocol"] = "INSERT_PROTOCOL"
+        ret["protocol"] = self.l7protocol
 
         return ret
 
@@ -65,6 +66,8 @@ class IPv4Tuple():
 parser = OptionParser()
 parser.add_option("-f", "--file", dest="filename",
                   help="pcap file to parse", metavar="FILE")
+parser.add_option("-p", "--protocol", dest="protocol",
+                  help="protocol to add", metavar="PROTOCOL", default="INSERT_PROTOCOL")
 
 (options, args) = parser.parse_args()
 
@@ -87,7 +90,7 @@ for packet in capfile.packets :
         print "Not TCP or UDP"
         continue
 
-    ip_tuple = IPv4Tuple(ip_packet.src, ip_packet.dst, ip_packet.p, ip_packet.payload)
+    ip_tuple = IPv4Tuple(ip_packet.src, ip_packet.dst, ip_packet.p, ip_packet.payload, options.protocol)
     
     if ip_tuple.dict_repr() in flows:
         pass
@@ -99,7 +102,18 @@ print "Found  [%s] flows. YAML reprsentation below" %len(flows)
 print ""
 print ""
 print ""
-output = yaml.dump(flowsList, indent=4, default_flow_style=False)
+
+# Overall YAML output
+outputYaml = []
+
+# Output for this file
+outputYamlFile = {}
+outputYamlFile["file"] = options.filename
+outputYamlFile["flows"] = flowsList
+
+outputYaml.append(outputYamlFile)
+
+output = yaml.dump(outputYaml, indent=4, default_flow_style=False)
 print (output.replace('\n-', '\n\n-\n '))
 
 

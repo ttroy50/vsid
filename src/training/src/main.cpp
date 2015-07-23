@@ -48,36 +48,29 @@ int main( int argc, char* argv[] )
 {
 	// TODO read from argv	
 	el::Loggers::addFlag(el::LoggingFlag::StrictLogFileSizeCheck);
-	el::Configurations conf("../config/logging.conf"); 
-	el::Loggers::reconfigureAllLoggers(conf);
-
-	SLOG_INFO(	<< endl 
-				<< "\t\t+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+" << endl
-	   			<< "\t\t+ Running " << argv[0] << endl
-				<< "\t\t+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+" << endl);
 
 	string protocol_db;
 	bool protocol_db_set = false;
 	string config = "config.yaml";
 	string training;
-
+    string log_config = "../config/logging.conf";
 	char c;
-	while ( (c = getopt(argc, argv, ":hc:d:t:") ) != -1) 
+	while ( (c = getopt(argc, argv, ":hc:d:t:l:") ) != -1) 
 	{
 	    switch (c) 
 	    {
 	    	case 'd':
-	        	SLOG_INFO(<< "-d " << optarg);
 	            protocol_db = optarg;
 	            break;
 	        case 'c':
-	        	SLOG_INFO(<< "-c " << optarg);
 	            config = optarg;
 	            break;
 	        case 't':
-	        	SLOG_INFO(<< "-t " << optarg);
 	            training = optarg;
 	            break;
+            case 'l':
+                log_config = optarg;
+                break;
 	        case 'h':
 	        	usage(argv[0]);
 	        	exit(0);
@@ -95,6 +88,15 @@ int main( int argc, char* argv[] )
 	            break;
 	    }
 	}
+
+    el::Configurations conf(log_config); 
+    el::Loggers::reconfigureAllLoggers(conf);
+
+    SLOG_INFO(  << endl 
+                << "\t\t+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+" << endl
+                << "\t\t+ Running " << argv[0] << endl
+                << "\t\t+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+" << endl);
+
 
 	init_attribute_meters();
 
@@ -194,7 +196,6 @@ int main( int argc, char* argv[] )
 			}
 		}
 	}
-
 
 	if(pmUpdated.updated())
 	{

@@ -18,6 +18,7 @@
 #include "PcapReader.h"
 #include "ProtocolModelDb.h"
 #include "AttributeMeterRegistrar.h"
+#include "FlowClassificationLogger.h"
 
 using namespace std;
 using namespace VsidPcapClassifier;
@@ -144,6 +145,19 @@ int main( int argc, char* argv[] )
 
 	PcapReader reader(&flowManager);
 
+	// Start the trace file for classification
+	SLOG_TRACE( << "---"
+				<< std::endl
+				<< "ProtocolDatabase: {" 
+				<< "FileName: " << protocolModelDb.filename() 
+				<< ", LastModifiedTime: " << protocolModelDb.lastModifiedTimeAsString()
+				<< ", CutoffLimit: " << protocolModelDb.cutoffLimit()
+				<< ", DefiningLimit: " << protocolModelDb.definingLimit()
+				<< "}"
+				<< std::endl
+				<< "Results: ");
+
+	FlowClassificationLogger fcLogger(&flowManager);
 
 	if ( !reader.read(pcap_file) )
 	{
@@ -153,7 +167,6 @@ int main( int argc, char* argv[] )
 	{
         flowManager.finished();
 	}
-
 
 	SLOG_INFO(<< "Finished program")
 }

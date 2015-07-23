@@ -21,6 +21,7 @@ extern "C" {
 #include <mutex>
 
 #include "FlowManager.h"
+#include "FlowClassificationLogger.h"
 
 namespace Vsid
 {
@@ -67,6 +68,7 @@ private:
 
 	VsidCommon::FlowManager _flowManager;
 	Vsid::ProtocolModelDb* _prococolModelDb;
+	VsidCommon::FlowClassificationLogger _fcLogger;
 };
 
 }

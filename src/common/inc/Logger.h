@@ -14,7 +14,11 @@
 
 #include "easylogging++.h"
 
-#define INIT_LOGGING INITIALIZE_EASYLOGGINGPP 
+#define INIT_LOGGING INITIALIZE_EASYLOGGINGPP
+
+#define ELPP_DISABLE_DEFAULT_CRASH_HANDLING
+//#define ELPP_STACKTRACE_ON_CRASH
+
 
 
 // printf style wrappers

@@ -42,7 +42,6 @@ std::unique_ptr<AttributeMeter> AttributeMeterFactory::create(const std::string&
 
 void AttributeMeterFactory::registerFactory(const std::string& name, CreateFn fn)
 {
-	std::cout << "register " << name << std::endl;
 	SLOG_INFO(<< "Registering class [" << name << "]");
 	_factories[name] = fn;
 

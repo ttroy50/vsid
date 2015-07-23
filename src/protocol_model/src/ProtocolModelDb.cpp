@@ -7,6 +7,7 @@
 #include "yaml-cpp/yaml.h"
 #include <iostream>
 
+
 using namespace std;
 using namespace Vsid;
 
@@ -65,6 +66,34 @@ bool ProtocolModelDb::read()
 		{
 			_cutoffLimit = _definingLimit + 1;
 			SLOG_INFO(<< "CutoffLimit less than DefiningLimit. Setting to : " << _cutoffLimit);
+		}
+
+		if( config["ModifiedTime"] )
+		{
+			for (YAML::const_iterator it=config["ModifiedTime"].begin(); 
+						it!=config["ModifiedTime"].end(); ++it)
+			{
+				try 
+				{
+					boost::posix_time::ptime tmp = boost::posix_time::from_iso_string(it->as<std::string>());
+					_modifiedTimes.push_back(tmp);
+				}
+				catch(const std::exception& ex)
+				{
+					SLOG_ERROR(<< "Caught exception processing date " << ex.what());
+				}
+				catch(...)
+				{
+					SLOG_ERROR( << "Caught unknown exception processing date" );
+				}
+			}
+		}
+		else
+		{
+			SLOG_INFO(<< "No modified time in DB");
+			boost::posix_time::ptime now = boost::posix_time::second_clock::universal_time();
+			_modifiedTimes.push_back(now);
+
 		}
 
 		int count = 0;
@@ -184,9 +213,10 @@ std::shared_ptr<ProtocolModel> ProtocolModelDb::_readProtocolModel(const YAML::N
 			}
 			else
 			{
-				SLOG_ERROR( << "Attribute Meter at [" << amCount << "] is not valid. Cannot add ProtocolModel to DB");
+				SLOG_ERROR( << "Attribute Meter at [" << amCount << "] is not valid. Cannot add ProtocolModel to DB : " <<model->_name);
 				return nullptr; 
 			}
+			amCount++;
 		}
 	}
 	else
@@ -284,7 +314,7 @@ std::shared_ptr<AttributeMeter> ProtocolModelDb::_readAttributeMeter(const YAML:
 	}
 	else
 	{
-		SLOG_ERROR(<< "AttributeMeter " << name << "at [" << count << "] doesn't have any FingerPrint");
+		SLOG_ERROR(<< "AttributeMeter " << name << " at [" << count << "] doesn't have any FingerPrint");
 		return nullptr;
 	}
 
@@ -299,6 +329,15 @@ bool ProtocolModelDb::write()
 	YAML::Node root;
 	root["DefiningLimit"] = _definingLimit;
 	root["CutoffLimit"] = _cutoffLimit;
+
+	boost::posix_time::ptime now = boost::posix_time::second_clock::universal_time();
+
+	_modifiedTimes.insert(_modifiedTimes.begin(), now);
+
+	for(int i = 0; i < _modifiedTimes.size(); i++)
+	{
+		root["ModifiedTime"].push_back(boost::posix_time::to_iso_string(_modifiedTimes[i]));
+	}
 
 	for(auto it = _protocolModelOrder.begin(); 
 				it != _protocolModelOrder.end(); ++it)
@@ -455,4 +494,22 @@ std::shared_ptr<ProtocolModel> ProtocolModelDb::at(size_t pos, uint16_t port /* 
 			}
 		}
 	}
+}
+
+
+boost::posix_time::ptime ProtocolModelDb::lastModifiedTime() const
+{
+	if(_modifiedTimes.size() > 0)
+	{
+		return _modifiedTimes[0];
+	}
+	else
+	{
+		return boost::posix_time::second_clock::universal_time();
+	}
+}
+	
+std::string ProtocolModelDb::lastModifiedTimeAsString() const
+{
+	return boost::posix_time::to_iso_string(lastModifiedTime());
 }

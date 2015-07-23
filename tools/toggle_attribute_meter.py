@@ -8,7 +8,7 @@ import yaml
 from optparse import OptionParser
 
 
-def add_attribute_meter(file, dest, name, size, protocols):
+def toggle_attribute_meter(file, dest, name, enabled=False, protocols=None):
 
     try:
         with open(file, 'r') as stream:
@@ -27,22 +27,9 @@ def add_attribute_meter(file, dest, name, size, protocols):
                 print "Skipping [%s]" %proto["ProtocolName"]
                 continue
 
-        am = {}
-        am["AttributeName"] = name
-        am["Enabled"] = True 
-        am["FlowCount"] = 0 
-        am["FingerPrint"] = []
-        for x in range(0, size):
-            am["FingerPrint"].append(0)
-
-        found = False
         for meter in proto["AttributeMeters"]:
             if meter["AttributeName"] == name:
-                found = True
-
-        # Don't add if it already exists
-        if found == False:
-            proto["AttributeMeters"].append(am)
+                meter["Enabled"] = enabled
 
 
     if dest is not None:
@@ -60,10 +47,9 @@ def main():
                       help="Database file to write to. If not supplied will write to stdout", metavar="FILE")
     parser.add_option("-n", "--name", dest="name",
                       help="Attribute Name", metavar="name")
-    parser.add_option("-s", "--size", dest="size", type="int", default=256,
-                      help="Attribute Fingerprint Size", metavar="size")
+    parser.add_option("-e", "--enable", dest="enabled", action="store_true", default=False, help="If set enable the meter. Otherwise disable")
     parser.add_option("-p", "--protocols", action="append", dest="protocols",
-                      help="Protocols to enable the Attribute to. Not adding this means all")
+                      help="Protocols to enable / disable the Attribute to. Not adding this means all")
 
     (options, args) = parser.parse_args()
 
@@ -77,7 +63,7 @@ def main():
         parser.print_help()
         sys.exit(1)
 
-    add_attribute_meter(options.filename, options.destfile, options.name, options.size, options.protocols)
+    toggle_attribute_meter(options.filename, options.destfile, options.name, options.enabled, options.protocols)
 
 
 if __name__ == "__main__":

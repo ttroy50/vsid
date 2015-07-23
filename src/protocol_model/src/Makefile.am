@@ -25,8 +25,11 @@ lib_vsid_protocol_model_a_SOURCES = ProtocolModelDb.cpp \
 									FirstSixteenByteFrequencyMeter.cpp \
 									DirectionChangesMeter.cpp \
 									FirstPacketDestToOrigBytesMeter.cpp \
-									DirectionBytesCounFirstTenPacketMeter.cpp
-
+									DirectionBytesCounFirstTenPacketMeter.cpp \
+									ByteFrequencyFirstEightPacketsMeter.cpp \
+									DirectionChangesFirstEightPacketsMeter.cpp \
+									RtmpRegexMatchMeter.cpp
+ 
 #lib_vsid_protocol_model_a_INCS = \
 #								-I/usr/local/include \
 #								-I$(srcdir)/../inc \

@@ -31,5 +31,5 @@ void DirectionChangesMeter::calculateMeasurement(Flow* flow,
         count++;
     }
 
-    _fingerprint[0] = count / flow->pktCount();
+    _fingerprint[0] = (double)count / flow->pktCount();
 }

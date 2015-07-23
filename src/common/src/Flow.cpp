@@ -45,6 +45,9 @@ Flow::Flow(IPv4Packet* packet, ProtocolModelDb* database) :
 	{
 		_attributeMetersMap[(*it)->name()] = (*it);
 	}
+
+	Ipv4FlowHasher hasher;
+	_hash = hasher(&_firstPacketTuple);
 }
 
 void Flow::addPacket(IPv4Packet* packet)
@@ -226,7 +229,11 @@ void Flow::addPacket(IPv4Packet* packet)
 			for(size_t attr = 0; attr < pm->size(); attr++)
 			{
 				std::shared_ptr<AttributeMeter> pm_am = pm->at(attr);
+				if( !pm_am->enabled() )
+					continue;
+
 				std::shared_ptr<AttributeMeter> am = _attributeMetersMap[pm_am->name()];
+
 				double sum = 0.0;
 
 				for(size_t fp = 0; fp < pm_am->size(); ++fp)
@@ -234,16 +241,11 @@ void Flow::addPacket(IPv4Packet* packet)
 					if(am->at(fp) > 0 && pm_am->at(fp) > 0)
 					{
 						sum += am->at(fp) * log2(am->at(fp) / pm_am->at(fp));
-						SLOG_INFO(<<" K-L sum is " << sum);
+						//SLOG_INFO(<<" K-L sum is " << sum);
 					}
 				}
 				klDivergence += sum;
 			}
-
-			if( klDivergence <= 0 )
-				continue;
-			
-			SLOG_DEBUG(<< "K-L Divergence for [" << pm->name() <<"] is [" << klDivergence <<"] on flow [" << *this << "]");
 			
 			// We will only do a full classification if we have more than the defining Limit worth
 			// of packets
@@ -255,29 +257,31 @@ void Flow::addPacket(IPv4Packet* packet)
 				_flowClassified = true;
 				_classifiedProtocol = pm->name();
 				_classifiedDivergence = klDivergence;
-				SLOG_TRACE(<< "Flow classified as [" << _classifiedProtocol 
+				SLOG_DEBUG(<< "Flow classified as [" << _classifiedProtocol 
 							<< "] with divergence [" << _classifiedDivergence 
 							<< "] : " << *this);
 				break;
 			}
 			else
 			{
-				if( klDivergence > 0 && klDivergence < _bestMatchDivergence )
+				if( klDivergence > 0 
+					&&_pktCount >= _protocolModelDb->definingLimit()
+					&& klDivergence < _bestMatchDivergence )
 				{
+					_bestMatchDivergence = klDivergence;
 					_bestMatchProtocol = pm->name();
 				}
 			}
+
+			SLOG_DEBUG(<< "K-L Divergence for [" << pm->name() <<"] is [" << klDivergence <<"] on flow [" << *this << "]");
+			
 		}
 	}
 
 }
 
+/*
 uint32_t Flow::flowHash()
 {
-	if(_hash > 0)
 		return _hash;
-
-	Ipv4FlowHasher hasher;
-	_hash = hasher(&_firstPacketTuple);
-	return _hash;
-}
+}*/

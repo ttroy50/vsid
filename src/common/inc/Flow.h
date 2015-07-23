@@ -63,7 +63,7 @@ public:
 	 * Get a hash to represent the flow
 	 * @return [description]
 	 */
-	uint32_t flowHash();
+	uint32_t flowHash() const { return _hash; }
 
 
 	friend bool operator==(const Flow& lhs, const Flow& rhs);
@@ -161,12 +161,12 @@ public:
 
 	const std::vector<std::shared_ptr<Vsid::AttributeMeter> >& attributeMeters() { return _attributeMeters; }
 	
-	bool flowClassified() { return _flowClassified; }
-	double classifiedDivergence() { return _classifiedDivergence; }
-	std::string classifiedProtocol() { return _classifiedProtocol; }
+	bool flowClassified() const { return _flowClassified; }
+	double classifiedDivergence() const { return _classifiedDivergence; }
+	std::string classifiedProtocol() const { return _classifiedProtocol; }
 
-	double bestMatchDivergence() { return _bestMatchDivergence; }
-	std::string bestMatchProtocol() { return _bestMatchProtocol; }
+	double bestMatchDivergence() const { return _bestMatchDivergence; }
+	std::string bestMatchProtocol() const { return _bestMatchProtocol; }
 	
 private:
 
@@ -224,11 +224,13 @@ private:
 		inet_ntop(AF_INET, &flow.fiveTuple().dst_ip , dst, INET6_ADDRSTRLEN);
 
 		os  << "{"
-			<< "count: " << flow.pktCount() 
+			<< "pkt_count: " << flow.pktCount() 
 			<< ", state: " << static_cast<std::underlying_type<Flow::State>::type>(flow.flowState())
+			<< ", hash: " << flow.flowHash()
 			<< ", transport: " << (uint32_t)flow.fiveTuple().transport 
 	    	<< ", src: '" << src << ":" << flow.fiveTuple().src_port << "'" 
 	    	<< ", dst: '" << dst << ":" << flow.fiveTuple().dst_port << "'" 
+	    	<< ", classified: " << (flow.flowClassified() ? "true" : "false")
 	    	<< "}";
 	}
 

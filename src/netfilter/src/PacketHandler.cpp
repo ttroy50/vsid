@@ -69,7 +69,8 @@ PacketHandler::PacketHandler(int queueNumber, ProtocolModelDb* database) :
 	_numPackets(0),
 	_verdictStats(NF_MAX_VERDICT, 0),
 	_prococolModelDb(database),
-	_flowManager(database)
+	_flowManager(database),
+	_fcLogger(&_flowManager)
 {
 	_queueNumber = queueNumber;
 	_nfqHandle = NULL;

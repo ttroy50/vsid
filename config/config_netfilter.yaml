@@ -20,3 +20,6 @@
     # The buffer size of to use for setting the Netfilter netlink queue
     # This is also the size of packets set as expected to receive from nfqueue
     NfBufSize: 2048
+
+    # The KL Divergence Threshold. Any threshold below this will be considered that protocol
+    KLDivergenceThreshold : 0.5

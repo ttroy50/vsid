@@ -27,8 +27,16 @@ std::shared_ptr<Flow> FlowManager::addPacket(IPv4Packet* packet)
 
 	if( flow )
 	{
+
+		bool classified = flow->flowClassified();
+
 		flow->addPacket(packet);
 		SLOG_INFO(<< "Packet added to flow : " << *flow);	
+
+		if( flow->flowClassified() != classified && flow->flowClassified() )
+		{
+			notifyFlowClassified(flow);
+		}
 
 		if(flow->flowState() == Flow::State::FINISHED)
 		{
@@ -150,15 +158,17 @@ void FlowManager::addFlowFinishedObserver(FlowFinishedObserver* observer)
 
 void FlowManager::notifyFlowFinished(std::shared_ptr<Flow> flow)
 {
-	// If there is only 1 packet don't notify because it may just
-	// be a TCP with a second FIN
-	// TODO update to TCP only
-	if(flow->pktCount() == 1)
+	if(flow->fiveTuple().transport == IPPROTO_TCP)
 	{
-		SLOG_INFO(<< "Not notifying about finished becasue only 1 packet");
-		return;
+		// If there is only 1 packet don't notify because it may just
+		// be a TCP with a second FIN
+		// TODO update to TCP only
+		if(flow->pktCount() < 3)
+		{
+			SLOG_INFO(<< "Not notifying about finished becasue only 1 packet");
+			return;
+		}
 	}
-
 	for(auto it = _flow_finished_observers.begin(); it != _flow_finished_observers.end(); ++it)
 	{
 		SLOG_INFO(<< "Notifing observer about Flow finished");
@@ -184,9 +194,10 @@ void FlowManager::finished()
 	for(auto it = _flows.begin(); it != _flows.end(); )
 	{
 		auto flow = it->second;
+		auto origIt = it;
 		++it;
 
 		notifyFlowFinished(flow);
-		_flows.erase(it);
+		_flows.erase(origIt);
 	}
 }

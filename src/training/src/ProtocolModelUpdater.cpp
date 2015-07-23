@@ -61,8 +61,8 @@ void ProtocolModelUpdater::flowFinished(std::shared_ptr<Flow> flow)
         }
         else
         {
-            SLOG_ERROR(<< "Don't match " << *flow << "\n" << it->tuple);
-            SLOG_ERROR(<< "Don't match : ffh : " << flow->flowHash() << " : itfh : " << it->flowHash());
+            //SLOG_ERROR(<< "Don't match " << *flow << "\n" << it->tuple);
+            //SLOG_ERROR(<< "Don't match : ffh : " << flow->flowHash() << " : itfh : " << it->flowHash());
         }
     }
 

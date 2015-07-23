@@ -15,6 +15,7 @@
 #include "Flow.h"
 #include "TcpIpv4.h"
 
+#include <regex>
 
 
 using namespace VsidCommon;
@@ -210,6 +211,30 @@ BOOST_AUTO_TEST_CASE( tcp )
     free(oppPacket);
 }
 
+BOOST_AUTO_TEST_CASE( regex )
+{
+    timeval tv;
+
+    // SYN packet
+    string packetAsHex = "030000000000ba1400000000020007636f6e6e656374003ff00000000000000300036170700200067669657773730005746355726c02002872746d703a2f2f644e41652e736d6f6f746873747265616d732e74763a333636352f7669657773730004667061640100000c6361706162696c697469657300402e000000000000000b617564696f436f64656373";
+    u_char* packet;
+    int packetLen = hexToData(packetAsHex.c_str(), &packet);
+
+    BOOST_REQUIRE( packetLen > 0 );
+
+    /*u_char* packet = (u_char*)"AAA";
+    int packetLen = strlen((const char*)packet);*/
+    LOG_HEXDUMP("Packet :", packet, packetLen)
+
+    BOOST_REQUIRE (std::regex_match ("subject", std::regex("(sub)(.*)") ));
+
+    BOOST_REQUIRE(std::regex_match(packet, packet+packetLen, std::regex("\x03.+\x14.+\x02.+\x07.*(connect){0,1}.+(app){0,1}.+")));//?.+(app)?") ));
+
+   
+
+   free(packet);
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 
@@ -217,7 +242,7 @@ BOOST_AUTO_TEST_SUITE_END()
 
 BOOST_AUTO_TEST_SUITE( flow )
 
-
+/*
 BOOST_AUTO_TEST_CASE( flow_from_tuple )
 {   
     IPv4Tuple ip_tcp(169411074, 5555, 1499754872, 80, IPPROTO_TCP);
@@ -238,7 +263,7 @@ BOOST_AUTO_TEST_CASE( flow_from_tuple )
     BOOST_CHECK( flow.packetDirection(&ip_tcp) == Flow::Direction::ORIG_TO_DEST );
     BOOST_CHECK( flow.packetDirection(&ip_tcp_opposite) == Flow::Direction::DEST_TO_ORIG );
 }   
-
+*/
 
 BOOST_AUTO_TEST_CASE( flow_from_ip )
 {   
@@ -256,7 +281,7 @@ BOOST_AUTO_TEST_CASE( flow_from_ip )
 
     TcpIPv4 tcpPacket( packet, packetLen, packet, tph, data, tv);
 
-    Flow flow(&tcpPacket);
+    Flow flow(&tcpPacket, NULL);
     
     Ipv4FlowHasher hasher;
 
