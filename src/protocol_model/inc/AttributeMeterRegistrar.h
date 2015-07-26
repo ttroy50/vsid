@@ -22,6 +22,7 @@
 #include "ByteFrequencyFirstEightPacketsMeter.h"
 #include "DirectionChangesFirstEightPacketsMeter.h"
 #include "RtmpRegexMatchMeter.h"
+#include "DataDirectionChangesFirstEightPacketsMeter.h"
 
 /**
  * Make sure to call this at the start of your program
@@ -40,6 +41,7 @@ inline void init_attribute_meters()
     Vsid::ByteFrequencyFirstEightPacketsMeter::registrar.doRegistration();
     Vsid::DirectionChangesFirstEightPacketsMeter::registrar.doRegistration();
     Vsid::RtmpRegexMatchMeter::registrar.doRegistration();
+    Vsid::DataDirectionChangesFirstEightPacketsMeter::registrar.doRegistration();
 	SLOG_INFO(<< "Attribute Meters Initialised");
 } 
 
