@@ -47,6 +47,11 @@ public:
 
 	int setVerdict(int id, int verdict);
 
+	/*
+	 * Should only be called from same thread, to release the received buffer
+	 */
+	int setVerdictLocal(int id, int verdict);
+
 	int queueNumber() { return _queueNumber; }
 	uint64_t numPackets() { return _numPackets; }
 	std::vector<uint64_t> verdictStats();
@@ -58,6 +63,7 @@ private:
 	std::atomic<uint64_t> _numPackets;
 	std::vector<uint64_t> _verdictStats;
 	std::mutex _statsMutex;
+	std::mutex _verdictMutex;
 
 	struct nfq_handle* _nfqHandle;
 	struct nfq_q_handle* _nfQueue;
@@ -69,6 +75,11 @@ private:
 	VsidCommon::FlowManager _flowManager;
 	Vsid::ProtocolModelDb* _prococolModelDb;
 	VsidCommon::FlowClassificationLogger _fcLogger;
+
+	/**
+	 * Buffer pointer used for every loop of the recv
+	 */
+	u_char* _buffer;
 };
 
 }

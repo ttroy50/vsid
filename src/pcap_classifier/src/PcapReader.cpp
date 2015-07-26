@@ -87,13 +87,17 @@ void PcapReader::handlePacket(pcap_t* pcap,
         return;
     }
 
+    u_char* myPacketCpy = new u_char[pkthdr->len];
+    memcpy(myPacketCpy, packet, pkthdr->len);
+
+
     struct ip_vhl {
 		unsigned int ip_hl:4; // only in IPv4
 		unsigned int ip_v:4;
     };	
 
     // IP Header
-    const u_char* ip_hdr_start = packet + linkhdrlen;
+    const u_char* ip_hdr_start = myPacketCpy + linkhdrlen;
 
     ip_vhl* vhl = (struct ip_vhl*)(ip_hdr_start);
     SLOG_INFO(<< "IP - HLen : " << vhl->ip_hl * 4 << " - Ver : " << vhl->ip_v);
@@ -138,19 +142,12 @@ void PcapReader::handlePacket(pcap_t* pcap,
 				SLOG_INFO(<< "tcph->doff : " << tcph->doff);
 				const u_char* data_start = transport_hdr_start  + tcph->doff * 4;
 				
-				TcpIPv4 tcp(packet, pkthdr->len, ip_hdr_start, 
-							transport_hdr_start, data_start, 
-							pkthdr->ts);
-				
-				SLOG_INFO( << "src port : " << tcp.srcPort());
-				SLOG_INFO( << "dst port : " << tcp.dstPort());
+				TcpIPv4* tcp = new TcpIPv4(myPacketCpy, pkthdr->len, ip_hdr_start, 
+                							transport_hdr_start, data_start, 
+                							pkthdr->ts,
+                                            myPacketCpy);
 
-				if(transport_hdr_start != tcp.transport_hdr_start())
-				{
-					SLOG_INFO(<< "not equal")
-				}
-
-				_flowManager->addPacket(&tcp);
+				_flowManager->addPacket(tcp);
 
 				break;
 			}
@@ -160,20 +157,12 @@ void PcapReader::handlePacket(pcap_t* pcap,
 
 				const u_char* data_start = transport_hdr_start + sizeof(udphdr);
 
-				UdpIPv4 udp(packet, pkthdr->len, ip_hdr_start, 
-							transport_hdr_start, data_start, 
-							pkthdr->ts);
+				UdpIPv4* udp = new UdpIPv4(myPacketCpy, pkthdr->len, ip_hdr_start, 
+            							transport_hdr_start, data_start, 
+            							pkthdr->ts,
+                                        myPacketCpy);
 
-
-				SLOG_INFO( << "src port : " << udp.srcPort());
-				SLOG_INFO( << "dst port : " << udp.dstPort());
-
-				if(transport_hdr_start != udp.transport_hdr_start())
-				{
-					SLOG_INFO(<< "not equal")
-				}
-
-				_flowManager->addPacket(&udp);
+				_flowManager->addPacket(udp);
 
 				break;
 			}
@@ -238,5 +227,7 @@ bool PcapReader::read(const string& fileName)
 
 	pcap_loop(pcap, 0, &readPacket, reinterpret_cast<u_char*>(cbData.get()));
 
+    pcap_freecode(&filter);
+    pcap_close(pcap);
 	return true;
 }

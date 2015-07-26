@@ -139,22 +139,12 @@ void PcapReader::handlePacket(pcap_t* pcap,
 				const u_char* data_start = transport_hdr_start  + tcph->doff * 4;
 
 				LOG_HEXDUMP("Packet :", data_start, (packet + pkthdr->len - data_start));
-
-				//const u_char* data_start = transport_hdr_start + sizeof(tcphdr);
 				
-				TcpIPv4 tcp(packet, pkthdr->len, ip_hdr_start, 
-							transport_hdr_start, data_start, 
-							pkthdr->ts);
-				
-				SLOG_INFO( << "src port : " << tcp.srcPort());
-				SLOG_INFO( << "dst port : " << tcp.dstPort());
+				TcpIPv4* tcp = new TcpIPv4(packet, pkthdr->len, ip_hdr_start, 
+                    							transport_hdr_start, data_start, 
+                    							pkthdr->ts);
 
-				if(transport_hdr_start != tcp.transport_hdr_start())
-				{
-					SLOG_INFO(<< "not equal")
-				}
-
-				_flowManager->addPacket(&tcp);
+				_flowManager->addPacket(tcp);
 
 				break;
 			}
@@ -164,20 +154,11 @@ void PcapReader::handlePacket(pcap_t* pcap,
 
 				const u_char* data_start = transport_hdr_start + sizeof(udphdr);
 
-				UdpIPv4 udp(packet, pkthdr->len, ip_hdr_start, 
-							transport_hdr_start, data_start, 
-							pkthdr->ts);
+				UdpIPv4* udp = new UdpIPv4(packet, pkthdr->len, ip_hdr_start, 
+                							transport_hdr_start, data_start, 
+                							pkthdr->ts);
 
-
-				SLOG_INFO( << "src port : " << udp.srcPort());
-				SLOG_INFO( << "dst port : " << udp.dstPort());
-
-				if(transport_hdr_start != udp.transport_hdr_start())
-				{
-					SLOG_INFO(<< "not equal")
-				}
-
-				_flowManager->addPacket(&udp);
+				_flowManager->addPacket(udp);
 
 				break;
 			}
@@ -242,5 +223,7 @@ bool PcapReader::read(const string& fileName)
 
 	pcap_loop(pcap, 0, &readPacket, reinterpret_cast<u_char*>(cbData.get()));
 
+    pcap_freecode(&filter);
+    pcap_close(pcap);
 	return true;
 }

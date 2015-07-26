@@ -9,7 +9,9 @@
 
 #include <memory>
 #include <unordered_map>
+#include <mutex>
 
+#include <boost/lockfree/queue.hpp>
 #include "IPv4.h"
 #include "Flow.h"
 #include "Hasher.h"
@@ -45,12 +47,31 @@ public:
 	~FlowManager();
 	
 	/**
+	 * Initialise the flow managers thread pool
+	 */
+	void init();
+
+	/**
 	 * Add a new packet to a flow. This will create a new flow it it doesn't 
-	 * exist and will attempt to start the lookup
+	 * exist 
+	 * If using threading will put the packet onto the packet thread queue
+	 * If not using theading will call process packet
 	 * @param  packet [description]
 	 * @return        The flow in use or NULL if one could not be created
 	 */
 	std::shared_ptr<Flow> addPacket(IPv4Packet* packet);
+
+	/**
+	 * Process Packets from a thread queue
+	 * @param queue_id Id of the thread queue
+	 */
+	void processPackets(int queue_id);
+
+	/**
+	 * Process a single packet
+	 * @param packet
+	 */
+	void processPacket(IPv4Packet* packet);
 
 	/**
 	 * Check if a flow exists
@@ -117,6 +138,8 @@ public:
 	 */
 	void finished();
 
+	void shutdown() { _shutdown = true; }
+	
 private:
 	std::unordered_map<uint32_t, std::shared_ptr<Flow> > _flows;
 
@@ -127,6 +150,12 @@ private:
 	void notifyFlowClassified(std::shared_ptr<Flow> flow);
 
 	Vsid::ProtocolModelDb* _protocolModelDb;
+
+	std::mutex _flowsMutex;
+	std::vector<std::thread> _workerThreads;
+	std::vector<boost::lockfree::queue<IPv4Packet*> *> _threadQueues;
+	int _currentQueue;
+	bool _shutdown;
 };
 
 } // end namespace

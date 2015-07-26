@@ -168,6 +168,12 @@ public:
 	double bestMatchDivergence() const { return _bestMatchDivergence; }
 	std::string bestMatchProtocol() const { return _bestMatchProtocol; }
 	
+	/**
+	 * ID of the thread queue that handles this 
+	 * @return
+	 */
+	int threadQueueId() const { return _threadQueueId; }
+	void threadQueueId(int id) { _threadQueueId = id; }
 private:
 
 	IPv4Tuple _firstPacketTuple;
@@ -202,7 +208,7 @@ private:
 
 	Vsid::ProtocolModelDb* _protocolModelDb;
 
-
+	int _threadQueueId;
 };
 
 	inline bool operator==(const Flow& lhs, const Flow& rhs)

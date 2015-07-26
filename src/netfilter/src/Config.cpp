@@ -97,6 +97,17 @@ bool Config::init(const string& config_file)
         SLOG_INFO(<< "NfQueueSize : " << _nf_queue_size)
     }
 
+    if(config["NumWorkerThreadsPerQueue"])
+    {
+        CommonConfig::instance()->workerThreadsPerQueue(config["NumWorkerThreadsPerQueue"].as<int>());
+        SLOG_INFO(<< "NumWorkerThreadsPerQueue : " << CommonConfig::instance()->workerThreadsPerQueue())
+    }
+    else
+    {
+        CommonConfig::instance()->workerThreadsPerQueue(2);
+        SLOG_INFO(<< "NumWorkerThreadsPerQueue : " << CommonConfig::instance()->workerThreadsPerQueue())
+    }
+
     if(config["NfBufSize"])
     {
         _nf_buf_size = config["NfBufSize"].as<size_t>();

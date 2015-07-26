@@ -22,6 +22,9 @@
 namespace Vsid
 {
 
+
+#define PROTOCOL_MODEL_VERSION "0.2"
+
 /**
  * The Protocol Model Database. 
  *
@@ -119,10 +122,11 @@ public:
 	
 	std::string lastModifiedTimeAsString() const;
 
+	std::string databaseVersion() const { return _version; }
 private:
 	std::string _filename;
 	std::string _backupfile;
-
+	std::string _version;
 	bool _initialised;
 
 	uint32_t _definingLimit;

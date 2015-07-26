@@ -21,6 +21,7 @@ RtmpRegexMatchMeter::RtmpRegexMatchMeter() :
     AttributeMeter(1),
     _overall_byte_size(0)
 {
+    _regex = std::regex("\x03.+\x14.+\x02.+\x07.*(connect){0,1}.+(app){0,1}.+");
 }
 
 void RtmpRegexMatchMeter::calculateMeasurement(Flow* flow, 
@@ -34,7 +35,7 @@ void RtmpRegexMatchMeter::calculateMeasurement(Flow* flow,
 
     // if we match this we mark it down and never try again
     if (std::regex_match (currentPacket->data(), currentPacket->data()+currentPacket->dataSize(), 
-                                        std::regex("\x03.+\x14.+\x02.+\x07.*(connect){0,1}.+(app){0,1}.+") ))
+                            _regex))
     {
         _fingerprint[0] = 1;
     }

@@ -16,7 +16,7 @@ vsid_training_INCS = \
 				-I$(top_srcdir)/contrib/easyloggingpp \
 				-I$(top_srcdir)/contrib/hash/inc
 
-vsid_training_CXXFLAGS =  -std=c++11 -DELPP_THREAD_SAFE $(vsid_training_INCS)
+vsid_training_CXXFLAGS =  -std=c++11 -DELPP_THREAD_SAFE -pthread  $(vsid_training_INCS)
 
 vsid_training_LDADD = 	-lpcap \
 						../../common/src/lib_vsid_common.a \

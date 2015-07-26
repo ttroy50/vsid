@@ -140,9 +140,9 @@ int main( int argc, char* argv[] )
 
 	SLOG_INFO(<< "spid database : " << Config::instance()->protocolDatabase());
 
-	
 	FlowManager flowManager(&protocolModelDb);
-
+	flowManager.init();
+	
 	PcapReader reader(&flowManager);
 
 	// Start the trace file for classification

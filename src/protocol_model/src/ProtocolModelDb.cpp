@@ -68,6 +68,24 @@ bool ProtocolModelDb::read()
 			SLOG_INFO(<< "CutoffLimit less than DefiningLimit. Setting to : " << _cutoffLimit);
 		}
 
+		if( config["Version"] )
+		{
+			_version = config["Version"].as<string>();
+		}
+		else
+		{
+			// v0.1 didn't include a version
+			_version = "0.1";
+		}
+		
+		SLOG_INFO(<< "Version : " << _version);
+		if(_version != PROTOCOL_MODEL_VERSION )
+		{
+			// For now just warn. In future may want to updated
+			SLOG_WARN(<< "Protocol Database versions don't match: Database [" 
+							<< _version << "] : Program [" << PROTOCOL_MODEL_VERSION << "]");
+		}
+
 		if( config["ModifiedTime"] )
 		{
 			for (YAML::const_iterator it=config["ModifiedTime"].begin(); 
@@ -325,10 +343,11 @@ std::shared_ptr<AttributeMeter> ProtocolModelDb::_readAttributeMeter(const YAML:
 
 bool ProtocolModelDb::write()
 {
-	SLOG_INFO(<< "Writeing protocol model db to file");
+	SLOG_INFO(<< "Writing protocol model db to file");
 	YAML::Node root;
 	root["DefiningLimit"] = _definingLimit;
 	root["CutoffLimit"] = _cutoffLimit;
+	root["Version"] = PROTOCOL_MODEL_VERSION;
 
 	boost::posix_time::ptime now = boost::posix_time::second_clock::universal_time();
 

@@ -23,3 +23,8 @@
 
     # The KL Divergence Threshold. Any threshold below this will be considered that protocol
     KLDivergenceThreshold : 0.5
+
+    # Number of worker threads to use in the Flow Manager. 
+    # Each flow is assigned to a thread and that thread is responsible for all packets in the flow
+    # The total number of threads used by the program will be NumQueues * NumWorkerThreadsPerQueue
+    NumWorkerThreadsPerQueue: 2

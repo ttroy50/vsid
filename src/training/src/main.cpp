@@ -170,7 +170,8 @@ int main( int argc, char* argv[] )
     }
 
 	FlowManager flowManager(&protocolModelDb);
-
+    flowManager.init();
+    
     ProtocolModelUpdater pmUpdated(&flowManager, &protocolModelDb);
 
 	PcapReader reader(&flowManager);

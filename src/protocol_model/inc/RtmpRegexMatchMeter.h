@@ -10,6 +10,7 @@
 
 #include <string>
 #include <vector>
+#include <regex>
  
 #include "AttributeMeter.h"
 #include "AttributeMeterFactory.h"
@@ -51,7 +52,7 @@ protected:
 
 private:
     uint64_t _overall_byte_size;
-
+    std::regex _regex;
 };
 
 

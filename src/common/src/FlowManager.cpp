@@ -1,3 +1,5 @@
+#include <chrono>
+
 #include "FlowManager.h"
 #include "Flow.h"
 #include "Logger.h"
@@ -12,13 +14,103 @@ using namespace VsidCommon;
 using namespace Vsid;
 
 FlowManager::FlowManager(ProtocolModelDb* database) :
-	_protocolModelDb(database)
+	_protocolModelDb(database),
+	_currentQueue(0),
+	_shutdown(false)
 {
+	
+}
+
+void FlowManager::init()
+{
+	for( int i = 0; i < CommonConfig::instance()->workerThreadsPerQueue(); i++ )
+	{
+		_threadQueues.push_back(new boost::lockfree::queue<IPv4Packet*>(1024));
+		_workerThreads.push_back( std::thread(&FlowManager::processPackets, this, i) );
+		
+	}
 }
 
 FlowManager::~FlowManager()
 {
+	_shutdown = true;
+	for( int i = 0; i < _workerThreads.size(); i++ )
+	{
+		_workerThreads[i].join();
+		IPv4Packet* packet = NULL;
+		while( _threadQueues[i]->pop(packet) )
+		{
+			if(packet != NULL)
+			{
+				delete packet;
+			}
+		}
 
+		boost::lockfree::queue<IPv4Packet*> * tmp = _threadQueues[i];
+		delete tmp;
+
+	}
+}
+
+void FlowManager::processPackets(int queue_id)
+{
+	while(!_shutdown)
+	{
+		IPv4Packet* packet = NULL;
+		if ( _threadQueues[queue_id]->pop(packet) )
+		{
+			if( packet == NULL )
+			{
+				SLOG_ERROR(<< "Packet is null from queue");
+			}
+			else
+			{
+				processPacket(packet);
+			}
+		}
+		else
+		{
+			std::this_thread::sleep_for( std::chrono::milliseconds(10) );
+		}
+	}
+}
+
+void FlowManager::processPacket(IPv4Packet* packet)
+{
+	try
+	{
+		std::shared_ptr<Flow> flow = getFlow(packet);
+
+		if( flow )
+		{
+			bool classified = flow->flowClassified();
+
+			flow->addPacket(packet);
+			SLOG_INFO(<< "Packet added to flow : " << *flow);	
+
+			if( flow->flowClassified() != classified && flow->flowClassified() )
+			{
+				notifyFlowClassified(flow);
+			}
+
+			if(flow->flowState() == Flow::State::FINISHED)
+			{
+				notifyFlowFinished(flow);
+				deleteFlow(flow);
+				SLOG_INFO(<< "Flow in finished state. Removing")
+			}
+		}
+		else
+		{
+			SLOG_ERROR(<< "Unable to find flow");
+			delete packet;
+		}
+	}
+	catch(const std::exception& e)
+	{
+		SLOG_ERROR(<< "Caught exception processing packet");
+	}
+	
 }
 
 std::shared_ptr<Flow> FlowManager::addPacket(IPv4Packet* packet)
@@ -27,31 +119,49 @@ std::shared_ptr<Flow> FlowManager::addPacket(IPv4Packet* packet)
 
 	if( flow )
 	{
-
-		bool classified = flow->flowClassified();
-
-		flow->addPacket(packet);
-		SLOG_INFO(<< "Packet added to flow : " << *flow);	
-
-		if( flow->flowClassified() != classified && flow->flowClassified() )
+		if( CommonConfig::instance()->workerThreadsPerQueue() >0 && _workerThreads.size() > 0)
 		{
-			notifyFlowClassified(flow);
+			if(flow->threadQueueId() == -1)
+			{
+				SLOG_INFO(<< "No queue in flow. Must be new")
+				
+				if(_currentQueue >= _workerThreads.size())
+				{
+					_currentQueue = 0;
+				}
+				flow->threadQueueId(_currentQueue);
+				_currentQueue++;
+			}
+
+			if (_threadQueues[flow->threadQueueId()]->push(packet) )
+			{
+				return flow;
+			}
+			else
+			{
+				SLOG_ERROR(<< "Unable to push packet onto queue");
+				delete packet;
+				return flow;
+			}
 		}
-
-		if(flow->flowState() == Flow::State::FINISHED)
+		else
 		{
-			notifyFlowFinished(flow);
-			deleteFlow(flow);
-			SLOG_INFO(<< "Flow in finished state. Removing")
-			return nullptr;
+			// Not in threaded mode
+			processPacket(packet);
+			return flow;
 		}
 	}
-
-	return flow;
+	else
+	{
+		delete packet;
+		return flow;
+	}
 }
 
 bool FlowManager::flowExists(IPv4Packet* packet)
 {
+	std::lock_guard<std::mutex> guard(_flowsMutex);
+
 	auto it = _flows.find(packet->flowHash());
 
 	if(it == _flows.end())
@@ -64,6 +174,8 @@ bool FlowManager::flowExists(IPv4Packet* packet)
 
 bool FlowManager::flowExists(uint32_t hash)
 {
+	std::lock_guard<std::mutex> guard(_flowsMutex);
+
 	auto it = _flows.find(hash);
 
 	if(it == _flows.end())
@@ -76,6 +188,8 @@ bool FlowManager::flowExists(uint32_t hash)
 
 std::shared_ptr<Flow>  FlowManager::getFlow(IPv4Packet* packet)
 {
+	std::lock_guard<std::mutex> guard(_flowsMutex);
+
 	SLOG_INFO(<< _flows.size() << " flows in manager");
 
 	auto it = _flows.find(packet->flowHash());
@@ -117,6 +231,7 @@ std::shared_ptr<Flow>  FlowManager::getFlow(IPv4Packet* packet)
 
 std::shared_ptr<Flow> FlowManager::getFlow(uint32_t hash)
 {
+	std::lock_guard<std::mutex> guard(_flowsMutex);
 	auto it = _flows.find(hash);
 
 	if(it != _flows.end())
@@ -132,6 +247,7 @@ std::shared_ptr<Flow> FlowManager::getFlow(uint32_t hash)
 
 void FlowManager::deleteFlow(IPv4Packet* packet)
 {
+	std::lock_guard<std::mutex> guard(_flowsMutex);
 	size_t num = _flows.erase(packet->flowHash());
 
 	SLOG_INFO(<< num << " flows deleted");
@@ -139,6 +255,7 @@ void FlowManager::deleteFlow(IPv4Packet* packet)
 
 void FlowManager::deleteFlow(std::shared_ptr<Flow> flow)
 {
+	std::lock_guard<std::mutex> guard(_flowsMutex);
 	size_t num = _flows.erase(flow->flowHash());
 
 	SLOG_INFO(<< num << " flows deleted");
@@ -146,6 +263,7 @@ void FlowManager::deleteFlow(std::shared_ptr<Flow> flow)
 
 void FlowManager::deleteFlow(uint32_t hash)
 {
+	std::lock_guard<std::mutex> guard(_flowsMutex);
 	size_t num = _flows.erase(hash);
 
 	SLOG_INFO(<< num << " flows deleted");
@@ -191,6 +309,17 @@ void FlowManager::notifyFlowClassified(std::shared_ptr<Flow> flow)
 
 void FlowManager::finished()
 {
+	
+	// Wait for all queues to be empty before deleting flows form the manager
+	for( int i = 0; i < _threadQueues.size(); i++ )
+	{
+		while( !_threadQueues[i]->empty() )
+		{
+			std::this_thread::sleep_for( std::chrono::milliseconds(10) );
+		}
+	}
+
+	std::lock_guard<std::mutex> guard(_flowsMutex);
 	for(auto it = _flows.begin(); it != _flows.end(); )
 	{
 		auto flow = it->second;

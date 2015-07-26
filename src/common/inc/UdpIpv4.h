@@ -29,6 +29,24 @@ public:
 
 	};
 
+	UdpIPv4(const u_char* pkt, 
+				int pkt_size, 
+				const u_char* ip_hdr_start, 
+				const u_char* transport_hdr_start, 
+				const u_char* data_start,
+				struct timeval ts,
+				u_char* buffer) :
+		IPv4Packet(pkt, 
+			pkt_size, 
+			ip_hdr_start, 
+			transport_hdr_start, 
+			data_start,
+			ts,
+			buffer)
+	{
+
+	};
+
 	virtual ~UdpIPv4() {};
 
 

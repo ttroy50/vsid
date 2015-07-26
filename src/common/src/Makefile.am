@@ -13,7 +13,7 @@ lib_vsid_common_a_INCS = \
 
 AM_CFLAGS = --pedantic -Wall -O2 $(lib_vsid_common_a_INCS)
 AM_LDFLAGS =
-AM_CXXFLAGS =  -std=c++11 -DELPP_THREAD_SAFE $(lib_vsid_common_a_INCS)
+AM_CXXFLAGS =  -std=c++11 -DELPP_THREAD_SAFE -pthread $(lib_vsid_common_a_INCS)
 
 lib_vsid_common_a_SOURCES = Flow.cpp \
 							FlowManager.cpp \

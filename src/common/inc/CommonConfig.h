@@ -39,6 +39,14 @@ public:
 	double divergenceThreshold() { return _divergenceThreshold; }
 	void divergenceThreshold(double d) { _divergenceThreshold = d; }
 
+	/**
+	 * Number of worker threads per queue.
+	 * The default is 0 which means it is all processed in the same thread it is read. 
+	 * If using threads make sure to copy the buffer before passing a packet to a flowManager
+	 * @return
+	 */
+	int workerThreadsPerQueue() { return _workerThreadsPerQueue; }
+	void workerThreadsPerQueue(int n) { _workerThreadsPerQueue = n; }
 private:
 	static std::unique_ptr<CommonConfig> _instance;
 	static std::once_flag _onceFlag;
@@ -50,6 +58,7 @@ private:
 	bool _learning_mode;
 	uint32_t _udp_flow_timeout;
 	double _divergenceThreshold;
+	int _workerThreadsPerQueue;
 };
 
 

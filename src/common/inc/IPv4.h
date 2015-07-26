@@ -12,6 +12,7 @@
 #include <stdlib.h>  
 #include <sys/types.h>
 #include <netinet/ip.h>
+#include "Logger.h"
 
 namespace VsidCommon
 {
@@ -19,6 +20,9 @@ namespace VsidCommon
 class IPv4Packet
 {
 public:
+	/**
+	 * Packet where the receiving buffer is owned by the caller.
+	 */
 	IPv4Packet(const u_char* pkt, 
 			int pkt_size, 
 			const u_char* ip_hdr_start,
@@ -30,35 +34,38 @@ public:
 		_ip_hdr_start(ip_hdr_start),
 		_transport_hdr_start(transport_hdr_start),
 		_data_start(data_start),
-		_copy_packet(false),
-		_timestamp(ts)
+		_timestamp(ts),
+		_buffer(NULL)
 	{
-		//const u_char* _pkt;
 	}
 
+	/**
+	 * Constructor that gives this packet ownership of the buffer it was received on
+	 */
 	IPv4Packet(const u_char* pkt, 
 			int pkt_size, 
 			const u_char* ip_hdr_start,
 			const u_char* transport_hdr_start, 
 			const u_char* data_start,
-			bool copy_packet,
-			struct timeval ts) :
-		_copy_packet(copy_packet),
+			struct timeval ts,
+			u_char* buffer) :
+		_pkt(pkt),
 		_pkt_size(pkt_size),
 		_ip_hdr_start(ip_hdr_start),
 		_transport_hdr_start(transport_hdr_start),
 		_data_start(data_start),
-		_timestamp(ts)
+		_timestamp(ts),
+		_buffer(buffer)
 	{
-		u_char* tmppkt = (u_char*) malloc(pkt_size*sizeof(u_char));
-		memcpy(tmppkt, pkt, pkt_size*sizeof(u_char));
-		_pkt = tmppkt;
+		SLOG_INFO(<< "Packet deleted");
 	}
 
 	virtual ~IPv4Packet() 
 	{
-		if(_copy_packet)
-			free((void*)_pkt);
+		if(_buffer)
+		{
+			delete[] _buffer;
+		}
 	}
 
 	const struct iphdr* iphdr() const { return (const struct iphdr*)_ip_hdr_start; }
@@ -96,7 +103,8 @@ protected:
 	const u_char* _ip_hdr_start;
 	const u_char* _transport_hdr_start;
 	const u_char* _data_start;
-	bool _copy_packet;
+	// The buffer we received the packet on (if we own it)
+	u_char* _buffer;
 	
 	// Timestamp for when the packet was created
 	struct timeval _timestamp;

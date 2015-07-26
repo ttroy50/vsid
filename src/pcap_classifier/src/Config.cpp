@@ -89,5 +89,16 @@ bool Config::init(const string& config_file)
         SLOG_INFO(<< "KLDivergenceThreshold : " << CommonConfig::instance()->divergenceThreshold())
     }
 
+    if(config["NumWorkerThreadsPerQueue"])
+    {
+        CommonConfig::instance()->workerThreadsPerQueue(config["NumWorkerThreadsPerQueue"].as<int>());
+        SLOG_INFO(<< "NumWorkerThreadsPerQueue : " << CommonConfig::instance()->workerThreadsPerQueue())
+    }
+    else
+    {
+        CommonConfig::instance()->workerThreadsPerQueue(0);
+        SLOG_INFO(<< "NumWorkerThreadsPerQueue : " << CommonConfig::instance()->workerThreadsPerQueue())
+    }
+
 	return true;
 }

@@ -27,7 +27,8 @@ Flow::Flow(IPv4Packet* packet, ProtocolModelDb* database) :
 	_flowClassified(false),
 	_protocolModelDb(database),
 	_classifiedDivergence(0),
-	_bestMatchDivergence(100)
+	_bestMatchDivergence(100),
+	_threadQueueId(-1)
 {
 	_firstPacketTuple.src_ip = packet->srcIp();
 	_firstPacketTuple.src_port = packet->srcPort();
@@ -53,6 +54,11 @@ Flow::Flow(IPv4Packet* packet, ProtocolModelDb* database) :
 void Flow::addPacket(IPv4Packet* packet)
 {
 	SLOG_INFO(<< "Packet added to flow");
+
+	// make sure the packet gets deleted.
+	// If we later want to keep the packet we will release it from the ptr
+	std::unique_ptr<IPv4Packet> packetPtr(packet);
+
 	_pktCount++;
 	State stateUponArrival = _flowState;
 	
@@ -61,6 +67,7 @@ void Flow::addPacket(IPv4Packet* packet)
 	_lastPacketDirection = _currentPacketDirection;
 	_currentPacketDirection = packetDirection(packet);
 
+	// TODO cleanup this to make it easier to understand and only do one cast
 	if ( stateUponArrival == Flow::State::NEW )
 	{
 		_flowState = Flow::State::ESTABLISHING;
@@ -172,6 +179,17 @@ void Flow::addPacket(IPv4Packet* packet)
 		// Flow already fisinhed ??
 		return;
 	}
+
+	if( packet->protocol() == IPPROTO_TCP )
+	{
+		TcpIPv4* tcpPacket = static_cast<TcpIPv4*>(packet);
+		// Don't bother to analyse an empty TCP ACK packets
+		if ( (tcpPacket->flags() & TH_ACK) && tcpPacket->dataSize() <= 0 )
+		{
+			_lastPacketTimestamp = packet->timestamp();
+			return;
+		}
+	} 
 
 	if( _pktCount > _protocolModelDb->cutoffLimit() )
 	{

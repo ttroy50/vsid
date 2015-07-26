@@ -38,6 +38,7 @@ static int nfqPacketHandlerCb(struct nfq_q_handle* nfQueue,
             	void *data)
 {
     int verdict = NF_ACCEPT;
+    PacketHandler* handler = static_cast<PacketHandler*>(data);
 
     uint32_t id = 0;
 	nfqnl_msg_packet_hdr *header = nfq_get_msg_packet_hdr(pkt);
@@ -50,17 +51,17 @@ static int nfqPacketHandlerCb(struct nfq_q_handle* nfQueue,
     if(data == NULL)
     {
     	SLOG_ERROR(<< "packet handler is NULL");
-    	return nfq_set_verdict(nfQueue, id, verdict, 0, NULL); /* Verdict packet */
+    	return handler->setVerdictLocal(id, verdict); 
     }
 
     SLOG_ERROR(<< "handler for nfQUeue " << nfQueue);
 
-    PacketHandler* handler = static_cast<PacketHandler*>(data);
+    
     if ( !handler->handlePacket(nfQueue, msg, pkt) )
     {
     	SLOG_INFO( << "Verdict not set in handlePacket")
     	// use handler setVerdict to increas stats
-    	return handler->setVerdict(id, verdict); 
+    	//return handler->setVerdict(id, verdict); 
     }
 }
 
@@ -72,6 +73,8 @@ PacketHandler::PacketHandler(int queueNumber, ProtocolModelDb* database) :
 	_flowManager(database),
 	_fcLogger(&_flowManager)
 {
+	_flowManager.init();
+
 	_queueNumber = queueNumber;
 	_nfqHandle = NULL;
 	_nfQueue = NULL;
@@ -144,7 +147,6 @@ void PacketHandler::run()
 
 	int fd; 
 	int res;
-	char buf[4096];
 	
 	_netlinkHandle = nfq_nfnlh(_nfqHandle);
 
@@ -157,7 +159,7 @@ void PacketHandler::run()
 
 	struct timeval timeout;
 	// TODO maybe make configurable
-	timeout.tv_sec = 5; 
+	timeout.tv_sec = 1; 
 	timeout.tv_usec = 0; 
 
 	// Set a timeout on the socket so we can shutdown the thread
@@ -167,14 +169,24 @@ void PacketHandler::run()
 
 	while (!_shutdown) 
 	{
-		res = recv(fd, buf, sizeof(buf), 0);
+		// TODO mempory pool to not do a malloc every packet
+		_buffer = new u_char[Config::instance()->nfBufSize()];
+		if(_buffer == NULL)
+		{
+			SLOG_ERROR(<< "Unable to allocate buffer for recv");
+			continue;
+		}
+
+		res = recv(fd, _buffer, Config::instance()->nfBufSize(), 0);
 
 		if(res >= 0)
 		{
-			nfq_handle_packet(_nfqHandle, buf, res);
+			nfq_handle_packet(_nfqHandle, (char*)_buffer, res);
 		}
 		else
 		{
+			delete _buffer;
+			_buffer = NULL;
 			if(errno != EAGAIN )
 			{
 				SLOG_ERROR(<< "errno [" << errno << "][" << strerror(errno) << "] res is [" << res << "]. Shutting down");
@@ -198,6 +210,27 @@ void PacketHandler::run()
 				<< _numPackets << "] packets");
 }
 
+int PacketHandler::setVerdictLocal(int id, int verdict)
+{
+	if(verdict > NF_MAX_VERDICT || verdict < NF_DROP)
+	{
+		SLOG_ERROR( << "Invalid verdict [" << verdict << "]");
+		return -1;
+	}
+
+	// increase stats
+	std::unique_lock<std::mutex> statsGuard(_statsMutex);
+	_verdictStats[verdict]++;
+	statsGuard.unlock();
+
+	std::lock_guard<std::mutex> verdictGuard(_verdictMutex);
+	return nfq_set_verdict(_nfQueue, id, verdict, 0, NULL);
+	if(_buffer)
+	{
+		delete _buffer;
+		_buffer = NULL;
+	}
+}
 
 int PacketHandler::setVerdict(int id, int verdict)
 {
@@ -208,8 +241,11 @@ int PacketHandler::setVerdict(int id, int verdict)
 	}
 
 	// increase stats
-	std::lock_guard<std::mutex> guard(_statsMutex);
+	std::unique_lock<std::mutex> statsGuard(_statsMutex);
 	_verdictStats[verdict]++;
+	statsGuard.unlock();
+
+	std::lock_guard<std::mutex> verdictGuard(_verdictMutex);
 	return nfq_set_verdict(_nfQueue, id, verdict, 0, NULL);
 }
 
@@ -282,7 +318,7 @@ bool PacketHandler::handlePacket(struct nfq_q_handle* nfQueue,
 			case IPPROTO_ICMP:
 			{
 				SLOG_INFO( << "IPPROTO_ICMP");
-				return setVerdict(id, NF_ACCEPT);
+				return setVerdictLocal(id, NF_ACCEPT);
 			}
 			case IPPROTO_TCP:
 			{
@@ -292,12 +328,18 @@ bool PacketHandler::handlePacket(struct nfq_q_handle* nfQueue,
 
 				const u_char* data_start = transport_hdr_start  + tcph->doff * 4;
 				
-				TcpIPv4 tcp(pktData, pktLen, ip_hdr_start, 
-							transport_hdr_start, data_start, 
-							timestamp);
+				TcpIPv4* tcp = new TcpIPv4(pktData, 
+										pktLen, 
+										ip_hdr_start, 
+										transport_hdr_start, 
+										data_start, 
+										timestamp, 
+										_buffer);
 
-				_flowManager.addPacket(&tcp);
+				_flowManager.addPacket(tcp);
 
+				// We don't care about the verdict so set it now.
+				// If we start to care we will have to provide the callback later
 				return setVerdict(id, NF_ACCEPT);
 			}
 			case IPPROTO_UDP:
@@ -306,23 +348,29 @@ bool PacketHandler::handlePacket(struct nfq_q_handle* nfQueue,
 
 				const u_char* data_start = transport_hdr_start + sizeof(udphdr);
 
-				UdpIPv4 udp(pktData, pktLen, ip_hdr_start, 
-							transport_hdr_start, data_start, 
-							timestamp);
+				UdpIPv4* udp = new UdpIPv4(pktData, 
+										pktLen, 
+										ip_hdr_start, 
+										transport_hdr_start, 
+										data_start, 
+										timestamp, 
+										_buffer);
 
-				_flowManager.addPacket(&udp);
+				_flowManager.addPacket(udp);
 
+				// We don't care about the verdict so set it now.
+				// If we start to care we will have to provide the callback later
 				return setVerdict(id, NF_ACCEPT);
 			}
 			case IPPROTO_SCTP:
 			{
 				SLOG_INFO( << "IPPROTO_SCTP");
-				return setVerdict(id, NF_ACCEPT);
+				return setVerdictLocal(id, NF_ACCEPT);
 			}
 			default:
 			{
 				SLOG_INFO( << "UNKNOWN IPPROTO : " << ip_hdr->protocol);
-				return setVerdict(id, NF_ACCEPT);
+				return setVerdictLocal(id, NF_ACCEPT);
 			}
 
 		}
@@ -330,19 +378,20 @@ bool PacketHandler::handlePacket(struct nfq_q_handle* nfQueue,
 	else if(vhl->ip_v == IPv6)
 	{
 		SLOG_ERROR(<< "IP Version 6 not supported yet")
-		return setVerdict(id, NF_ACCEPT);
+		return setVerdictLocal(id, NF_ACCEPT);
 	}
 	else
 	{
 		SLOG_ERROR(<< "Invalid IP Version : " << vhl->ip_v)
-		return setVerdict(id, NF_ACCEPT);
+		return setVerdictLocal(id, NF_ACCEPT);
 	}
 
-    return setVerdict(id, NF_ACCEPT);
+    return setVerdictLocal(id, NF_ACCEPT);
 }
 
 void PacketHandler::shutdown()
 {
 	_shutdown = true;
+	_flowManager.shutdown();
 	SLOG_INFO(<< "Shutdown called for queue [" << _queueNumber << "]");
 }
