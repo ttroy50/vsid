@@ -22,13 +22,15 @@ using namespace Vsid;
 Flow::Flow(IPv4Packet* packet, ProtocolModelDb* database) :
 	_hash(0),
 	_pktCount(0),
+	_overallPktCount(0),
 	_flowState(State::NEW),
 	_isFirstPacket(false),
 	_flowClassified(false),
 	_protocolModelDb(database),
 	_classifiedDivergence(0),
 	_bestMatchDivergence(100),
-	_threadQueueId(-1)
+	_threadQueueId(-1),
+	_pktsInQueue(0)
 {
 	_firstPacketTuple.src_ip = packet->srcIp();
 	_firstPacketTuple.src_port = packet->srcPort();
@@ -53,19 +55,15 @@ Flow::Flow(IPv4Packet* packet, ProtocolModelDb* database) :
 
 void Flow::addPacket(IPv4Packet* packet)
 {
-	SLOG_INFO(<< "Packet added to flow");
-
 	// make sure the packet gets deleted.
 	// If we later want to keep the packet we will release it from the ptr
 	std::unique_ptr<IPv4Packet> packetPtr(packet);
 
-	_pktCount++;
+	_overallPktCount++;
 	State stateUponArrival = _flowState;
-	
-	_isFirstPacket = false;
+	Direction tmpPktDirection = packetDirection(packet);
 
-	_lastPacketDirection = _currentPacketDirection;
-	_currentPacketDirection = packetDirection(packet);
+	_isFirstPacket = false;
 
 	// TODO cleanup this to make it easier to understand and only do one cast
 	if ( stateUponArrival == Flow::State::NEW )
@@ -77,6 +75,7 @@ void Flow::addPacket(IPv4Packet* packet)
 			_firstOrigToDestDataSize = (PACKET_MAX_BUFFER_SIZE < packet->dataSize()) ? PACKET_MAX_BUFFER_SIZE : packet->dataSize();
 			memcpy(_firstOrigToDestData, packet->data(), _firstOrigToDestDataSize);
 			_isFirstPacket = true;
+			SLOG_INFO(<< "Got first packet " << *this);
 		}
 		else // TCP
 		{
@@ -86,6 +85,8 @@ void Flow::addPacket(IPv4Packet* packet)
 			if( (flags & TH_FIN) || flags & TH_RST )
 			{
 				_flowState = Flow::State::FINISHED;
+				SLOG_INFO(<< "RST or FIN in NEW state returning")
+				return;
 			}
 			else if( (flags & TH_SYN) == false)
 			{
@@ -102,6 +103,7 @@ void Flow::addPacket(IPv4Packet* packet)
 					_firstOrigToDestDataSize = (PACKET_MAX_BUFFER_SIZE < packet->dataSize()) ? PACKET_MAX_BUFFER_SIZE : packet->dataSize();
 					memcpy(_firstOrigToDestData, packet->data(), _firstOrigToDestDataSize);
 					_isFirstPacket = true;
+					SLOG_INFO(<< "Got first packet " << *this);
 				}
 			}
 		}
@@ -111,7 +113,7 @@ void Flow::addPacket(IPv4Packet* packet)
 		// this is rather naive for TCP but will leave for now
 		if( packet->protocol() == IPPROTO_UDP )
 		{
-			if( packetDirection(packet) == Direction::DEST_TO_ORIG )
+			if( tmpPktDirection == Direction::DEST_TO_ORIG )
 			{
 				_flowState = Flow::State::ESTABLISHED;
 			}
@@ -124,8 +126,13 @@ void Flow::addPacket(IPv4Packet* packet)
 			if( (flags & TH_FIN) || flags & TH_RST )
 			{
 				_flowState = Flow::State::FINISHED;
+				SLOG_INFO(<< "RST or FIN in ESTABLISHING state returning")
 			}
-			else
+			else if ( flags & TH_SYN ) // TODO maybe make this a syn ack check
+			{
+				_flowState = Flow::State::ESTABLISHING;
+			}
+			else 
 			{
 				_flowState = Flow::State::ESTABLISHED;
 			}
@@ -148,12 +155,13 @@ void Flow::addPacket(IPv4Packet* packet)
 			}
 			else
 			{
-				if( _firstOrigToDestDataSize == 0 && _currentPacketDirection == Direction::ORIG_TO_DEST)
+				if( _firstOrigToDestDataSize == 0 && tmpPktDirection == Direction::ORIG_TO_DEST)
 				{
 					// First data packet after SYN / ACK
 					_firstOrigToDestDataSize = (PACKET_MAX_BUFFER_SIZE < packet->dataSize()) ? PACKET_MAX_BUFFER_SIZE : packet->dataSize();
 					memcpy(_firstOrigToDestData, packet->data(), _firstOrigToDestDataSize);
 					_isFirstPacket = true;
+					SLOG_INFO(<< "Got first packet " << *this);
 				}
 			}
 		}
@@ -180,16 +188,43 @@ void Flow::addPacket(IPv4Packet* packet)
 		return;
 	}
 
+
+
+
+	// Check if we consider it a "Data Packet"
 	if( packet->protocol() == IPPROTO_TCP )
 	{
 		TcpIPv4* tcpPacket = static_cast<TcpIPv4*>(packet);
+
+		// No need to analyse a SYN packet
+		if ( (tcpPacket->flags() & TH_SYN) && tcpPacket->dataSize() <= 0 )
+		{
+			SLOG_INFO(<< "TCP SYN with no data")
+			//_lastPacketTimestamp = packet->timestamp();
+			return;
+		}
+
 		// Don't bother to analyse an empty TCP ACK packets
 		if ( (tcpPacket->flags() & TH_ACK) && tcpPacket->dataSize() <= 0 )
 		{
-			_lastPacketTimestamp = packet->timestamp();
+			//_lastPacketTimestamp = packet->timestamp();
+			SLOG_INFO(<< "TCP Ack with no data")
 			return;
 		}
 	} 
+	
+	// Update these because we use these only for "Data" packets on a flow
+	_pktCount++;
+	_lastPacketDirection = _currentPacketDirection;
+	_currentPacketDirection = tmpPktDirection;
+
+	if( _flowClassified )
+	{
+		_lastPacketTimestamp = packet->timestamp();
+		SLOG_INFO(<< " Flow already classified");
+		// Already classified. Don't waste time updating calculations
+		return;
+	}
 
 	if( _pktCount > _protocolModelDb->cutoffLimit() )
 	{
@@ -197,14 +232,6 @@ void Flow::addPacket(IPv4Packet* packet)
 		SLOG_INFO(<< " Flow above cutoffLimit " << _protocolModelDb->cutoffLimit() 
 						<< " : " << _pktCount );
 		// Don't look at packet because it is over the limit
-		return;
-	}
-
-	if( _flowClassified )
-	{
-		_lastPacketTimestamp = packet->timestamp();
-		SLOG_INFO(<< " Flow classified");
-		// Already classified. Don't waste time updating calculations
 		return;
 	}
 
@@ -282,6 +309,7 @@ void Flow::addPacket(IPv4Packet* packet)
 							<< "] : " << *this);
 				break;
 			}
+			
 			if( _pktCount == _protocolModelDb->definingLimit()  )
 			{
 				if( klDivergence < CommonConfig::instance()->divergenceThreshold() )
@@ -304,8 +332,8 @@ void Flow::addPacket(IPv4Packet* packet)
 								<< "] : " << *this);
 					break;
 				}
-				
 			}
+			
 
 			if( klDivergence > 0 
 				//&&_pktCount >= _protocolModelDb->definingLimit()
@@ -313,6 +341,9 @@ void Flow::addPacket(IPv4Packet* packet)
 			{
 				_bestMatchDivergence = klDivergence;
 				_bestMatchProtocol = pm->name();
+				SLOG_INFO(<< "Updating best match as [" << _bestMatchDivergence 
+								<< "] with divergence [" << _bestMatchProtocol 
+								<< "] : " << *this);
 			}
 
 			SLOG_DEBUG(<< "K-L Divergence for [" << pm->name() <<"] is [" << klDivergence <<"] on flow [" << *this << "]");

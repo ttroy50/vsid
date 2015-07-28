@@ -190,6 +190,7 @@ int main( int argc, char* argv[] )
 			}
 			else
 			{
+                cout << i+1 << " of " << training_input.trainingFiles().size() << " files processed" << endl;
                 // Tell the flow manager that it can cleanup flows before the next round
                 // This will update the protocol model from a callback to ProtocolModelUpdater
                 flowManager.finished();

@@ -19,7 +19,8 @@
 #include "ProtocolModelDb.h"
 #include "AttributeMeterRegistrar.h"
 #include "FlowClassificationLogger.h"
-
+#include "CommonConfig.h"
+ 
 using namespace std;
 using namespace VsidPcapClassifier;
 using namespace Vsid;
@@ -142,7 +143,7 @@ int main( int argc, char* argv[] )
 
 	FlowManager flowManager(&protocolModelDb);
 	flowManager.init();
-	
+
 	PcapReader reader(&flowManager);
 
 	// Start the trace file for classification
@@ -153,8 +154,8 @@ int main( int argc, char* argv[] )
 				<< ", LastModifiedTime: " << protocolModelDb.lastModifiedTimeAsString()
 				<< ", CutoffLimit: " << protocolModelDb.cutoffLimit()
 				<< ", DefiningLimit: " << protocolModelDb.definingLimit()
-				<< "}"
-				<< std::endl
+				<< "}" << std::endl
+				<< "KLDivergenceThreshold: " << CommonConfig::instance()->divergenceThreshold() << std::endl
 				<< "Results: ");
 
 	FlowClassificationLogger fcLogger(&flowManager);

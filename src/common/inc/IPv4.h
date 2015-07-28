@@ -57,7 +57,6 @@ public:
 		_timestamp(ts),
 		_buffer(buffer)
 	{
-		SLOG_INFO(<< "Packet deleted");
 	}
 
 	virtual ~IPv4Packet() 

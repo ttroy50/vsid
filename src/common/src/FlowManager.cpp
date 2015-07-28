@@ -85,7 +85,9 @@ void FlowManager::processPacket(IPv4Packet* packet)
 		{
 			bool classified = flow->flowClassified();
 
+			flow->decPktsInQueue();
 			flow->addPacket(packet);
+
 			SLOG_INFO(<< "Packet added to flow : " << *flow);	
 
 			if( flow->flowClassified() != classified && flow->flowClassified() )
@@ -98,6 +100,11 @@ void FlowManager::processPacket(IPv4Packet* packet)
 				notifyFlowFinished(flow);
 				deleteFlow(flow);
 				SLOG_INFO(<< "Flow in finished state. Removing")
+			}
+			else if (flow->flowState() == Flow::State::FINISHED_NOTIFIED )
+			{
+				deleteFlow(flow);
+				SLOG_INFO(<< "Flow in finished & notified state. Removing")
 			}
 		}
 		else
@@ -133,12 +140,14 @@ std::shared_ptr<Flow> FlowManager::addPacket(IPv4Packet* packet)
 				_currentQueue++;
 			}
 
+			flow->incPktsInQueue();
 			if (_threadQueues[flow->threadQueueId()]->push(packet) )
 			{
 				return flow;
 			}
 			else
 			{
+				flow->decPktsInQueue();
 				SLOG_ERROR(<< "Unable to push packet onto queue");
 				delete packet;
 				return flow;
@@ -199,6 +208,33 @@ std::shared_ptr<Flow>  FlowManager::getFlow(IPv4Packet* packet)
 		std::shared_ptr<Flow>  f(new Flow(packet, _protocolModelDb));
 		_flows.insert(std::make_pair(f->flowHash(), f));
 		SLOG_INFO(<< "New Flow added : " << *f);
+
+		if( CommonConfig::instance()->workerThreadsPerQueue() >0 && _workerThreads.size() > 0)
+		{
+			// Will tell if flow is on thread
+			for(int i = 0; i < _workerThreads.size(); i++)
+			{
+				if(_workerThreads[i].get_id() == std::this_thread::get_id() )
+				{
+					f->threadQueueId(i);
+					break;
+				}
+			}
+
+			// if flow created on main thread
+			if(f->threadQueueId() == -1)
+			{
+				SLOG_INFO(<< "New flow so no queue in flow ")
+				
+				if(_currentQueue >= _workerThreads.size())
+				{
+					_currentQueue = 0;
+				}
+				f->threadQueueId(_currentQueue);
+				_currentQueue++;
+			}
+		}
+		
 		return f;
 	}
 	else
@@ -214,6 +250,33 @@ std::shared_ptr<Flow>  FlowManager::getFlow(IPv4Packet* packet)
 				_flows.erase(it);
 				std::shared_ptr<Flow>  f(new Flow(packet, _protocolModelDb));
 				_flows.insert(std::make_pair(f->flowHash(), f));
+
+				if( CommonConfig::instance()->workerThreadsPerQueue() >0 && _workerThreads.size() > 0)
+				{
+					// Will tell if flow is on thread
+					for(int i = 0; i < _workerThreads.size(); i++)
+					{
+						if(_workerThreads[i].get_id() == std::this_thread::get_id() )
+						{
+							f->threadQueueId(i);
+							break;
+						}
+					}
+
+					// if flow created on main thread
+					if(f->threadQueueId() == -1)
+					{
+						SLOG_INFO(<< "No queue in flow. Must be new")
+						
+						if(_currentQueue >= _workerThreads.size())
+						{
+							_currentQueue = 0;
+						}
+						f->threadQueueId(_currentQueue);
+						_currentQueue++;
+					}
+				}
+
 				return f;
 			}
 		}
@@ -256,6 +319,12 @@ void FlowManager::deleteFlow(IPv4Packet* packet)
 void FlowManager::deleteFlow(std::shared_ptr<Flow> flow)
 {
 	std::lock_guard<std::mutex> guard(_flowsMutex);
+	if(flow->havePktsInQueue())
+	{
+		SLOG_INFO(<< "Not deleting because still packets to process")
+		return;
+	}
+
 	size_t num = _flows.erase(flow->flowHash());
 
 	SLOG_INFO(<< num << " flows deleted");
@@ -276,22 +345,36 @@ void FlowManager::addFlowFinishedObserver(FlowFinishedObserver* observer)
 
 void FlowManager::notifyFlowFinished(std::shared_ptr<Flow> flow)
 {
+	if(flow->flowState() == Flow::State::FINISHED_NOTIFIED)
+	{
+		SLOG_INFO(<< "Not notifying because in FINISHED_NOTIFIED")
+		return;
+	}
+
 	if(flow->fiveTuple().transport == IPPROTO_TCP)
 	{
-		// If there is only 1 packet don't notify because it may just
+		// If there are only 3 packet overall don't notify because it may just
 		// be a TCP with a second FIN
-		// TODO update to TCP only
-		if(flow->pktCount() < 3)
+		if(flow->pktCount() == 0 || flow->overallPktCount() < 3)
 		{
-			SLOG_INFO(<< "Not notifying about finished becasue only 1 packet");
+			SLOG_INFO(<< "Not notifying about finished becasue no packets");
+			flow->setFinishedAndNotified();
 			return;
 		}
+
+		if ( flow->havePktsInQueue() )
+		{
+			flow->setFinishedAndNotified();
+			SLOG_INFO(<< "Not notifying because packets in flow")
+		}
 	}
+
 	for(auto it = _flow_finished_observers.begin(); it != _flow_finished_observers.end(); ++it)
 	{
 		SLOG_INFO(<< "Notifing observer about Flow finished");
 		(*it)->flowFinished(flow);
 	}
+	flow->setFinishedAndNotified();
 }
 
 void FlowManager::addFlowClassifiedObserver(FlowClassifiedObserver* observer)
@@ -315,7 +398,7 @@ void FlowManager::finished()
 	{
 		while( !_threadQueues[i]->empty() )
 		{
-			std::this_thread::sleep_for( std::chrono::milliseconds(10) );
+			std::this_thread::sleep_for( std::chrono::microseconds(10) );
 		}
 	}
 

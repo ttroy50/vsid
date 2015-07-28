@@ -1,14 +1,14 @@
 #!/usr/bin/python
 #
 """
-Enable or disable an Attribute Meter
+Reset an Protocol in the database to 0
 """
 import sys
 import yaml
 from optparse import OptionParser
 
 
-def toggle_attribute_meter(file, dest, name, enabled=False, protocols=None):
+def reset_protocol(file, dest, name, attributes=None):
 
     try:
         with open(file, 'r') as stream:
@@ -22,14 +22,17 @@ def toggle_attribute_meter(file, dest, name, enabled=False, protocols=None):
         sys.exit(1)
 
     for proto in database["ProtocolModels"]:
-        if protocols is not None:
-            if proto["ProtocolName"] not in protocols:
-                print "Skipping [%s]" %proto["ProtocolName"]
-                continue
+        if proto["ProtocolName"] == name:
+            print "resetting %s" % proto["ProtocolName"]
+            for meter in proto["AttributeMeters"]:
+                if attributes is not None:
+                    if meter["AttributeName"] not in attributes:
+                        continue
 
-        for meter in proto["AttributeMeters"]:
-            if meter["AttributeName"] == name:
-                meter["Enabled"] = enabled
+                print "resetting %s" % meter["AttributeName"]
+                num = len(meter["FingerPrint"])
+                for val in range(0, num):
+                    meter["FingerPrint"][val] = 0
 
 
     if dest is not None:
@@ -46,10 +49,9 @@ def main():
     parser.add_option("-d", "--dest", dest="destfile",
                       help="Database file to write to. If not supplied will write to stdout", metavar="FILE")
     parser.add_option("-n", "--name", dest="name",
-                      help="Attribute Name", metavar="name")
-    parser.add_option("-e", "--enable", dest="enabled", action="store_true", default=False, help="If set enable the meter. Otherwise disable")
-    parser.add_option("-p", "--protocols", action="append", dest="protocols",
-                      help="Protocols to enable / disable the Attribute to. Not adding this means all")
+                      help="Protocol Name", metavar="name")
+    parser.add_option("-a", "--attribute", action="append", dest="attributes",
+                      help="Attributes to reset. Not adding this means all")
 
     (options, args) = parser.parse_args()
 
@@ -63,7 +65,7 @@ def main():
         parser.print_help()
         sys.exit(1)
 
-    toggle_attribute_meter(options.filename, options.destfile, options.name, options.enabled, options.protocols)
+    reset_protocol(options.filename, options.destfile, options.name, options.attributes)
 
 
 if __name__ == "__main__":

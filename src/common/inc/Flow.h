@@ -13,6 +13,7 @@
 #include <netinet/ip.h>
 #include <netinet/udp.h>
 #include <netinet/tcp.h>
+#include <atomic>
 
 #include "IPv4.h"
 #include "IPv4Tuple.h"
@@ -45,7 +46,8 @@ public:
 		ESTABLISHING, // For TCP really means in establishment
 		ESTABLISHED,
 		FINISHING,
-		FINISHED
+		FINISHED,
+		FINISHED_NOTIFIED
 	};
 
 	Flow(IPv4Packet* packet, Vsid::ProtocolModelDb* database);
@@ -145,18 +147,50 @@ public:
 
 	State flowState() const { return _flowState; }
 
+	/**
+	 * Packet count for what are considerd data packets.
+	 * This doesn't consider TCP packets such as SYN, ACK (with no data)
+	 * @return
+	 */
 	uint32_t pktCount() const { return _pktCount; } 
 
+	/**
+	 * Packet count of all packets on a flow
+	 * @return
+	 */
+	uint32_t overallPktCount() const { return _overallPktCount; } 
+
+	/**
+	 * Start time of the flow
+	 * @return
+	 */
 	const struct timeval& startTimestamp() const { return _startTimestamp; }
 
+	/**
+	 * Timestamp of the last packet in the flow
+	 * @return
+	 */
 	const struct timeval& lastPacketTimestamp() const { return _lastPacketTimestamp; }
+
+	/**
+	 * Direction of the last packet in the flow
+	 * @return
+	 */
 	Direction lastPacketDirection() const { return _lastPacketDirection; }
 
+	/**
+	 * Data portion of the first packet in the flow
+	 * @return
+	 */
 	u_char* firstOrigToDestData() { return _firstOrigToDestData; }
 	size_t firstOrigToDestDataSize() { return _firstOrigToDestDataSize; }
 
 	bool isFirstPacket() { return _isFirstPacket; }
 
+	/**
+	 * Direction of the current packet in the flow
+	 * @return
+	 */
 	Direction currentPacketDirection() const { return _currentPacketDirection; }
 
 	const std::vector<std::shared_ptr<Vsid::AttributeMeter> >& attributeMeters() { return _attributeMeters; }
@@ -174,6 +208,12 @@ public:
 	 */
 	int threadQueueId() const { return _threadQueueId; }
 	void threadQueueId(int id) { _threadQueueId = id; }
+
+	void incPktsInQueue() { _pktsInQueue++; }
+	void decPktsInQueue() { _pktsInQueue--; }
+	bool havePktsInQueue() { return _pktsInQueue > 0; }
+	void setFinishedAndNotified() { _flowState =  Flow::State::FINISHED_NOTIFIED;}
+	
 private:
 
 	IPv4Tuple _firstPacketTuple;
@@ -191,6 +231,7 @@ private:
 
 	uint32_t _hash;
 	uint32_t _pktCount;
+	uint32_t _overallPktCount;
 
 	State _flowState;
 
@@ -209,6 +250,7 @@ private:
 	Vsid::ProtocolModelDb* _protocolModelDb;
 
 	int _threadQueueId;
+	std::atomic<uint64_t> _pktsInQueue;
 };
 
 	inline bool operator==(const Flow& lhs, const Flow& rhs)
@@ -231,6 +273,7 @@ private:
 
 		os  << "{"
 			<< "pkt_count: " << flow.pktCount() 
+			<< ", overall_pkt_count: " << flow.overallPktCount() 
 			<< ", state: " << static_cast<std::underlying_type<Flow::State>::type>(flow.flowState())
 			<< ", hash: " << flow.flowHash()
 			<< ", transport: " << (uint32_t)flow.fiveTuple().transport 
