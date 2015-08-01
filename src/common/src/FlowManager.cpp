@@ -321,8 +321,10 @@ std::shared_ptr<Flow>  FlowManager::getFlow(IPv4Packet* packet)
 
 				return f;
 			}
-			else if ( (tmp->flowState() == Flow::State::FINISHED_NOTIFIED || tmp->flowState() == Flow::State::FINISHED) 
-						&& packet->timestamp().tv_sec - tmp->lastPacketTimestamp().tv_sec ) > CommonConfig::instance()->tcpFlowCloseWaitTimeout())
+			else if ( (tmp->flowState() == Flow::State::FINISHED_NOTIFIED 
+								|| tmp->flowState() == Flow::State::FINISHED) 
+						&& ((packet->timestamp().tv_sec - tmp->lastPacketTimestamp().tv_sec ) 
+									> CommonConfig::instance()->tcpFlowCloseWaitTimeout()))
 			{
 				SLOG_INFO(<< "Flow [" << *tmp << "] found but finished. Removing from list and adding new one")
 				notifyFlowFinished(tmp);
