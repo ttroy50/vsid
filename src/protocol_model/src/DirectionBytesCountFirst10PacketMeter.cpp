@@ -1,5 +1,5 @@
 
-#include "DirectionBytesCounFirstTenPacketMeter.h"
+#include "DirectionBytesCountFirst10PacketMeter.h"
 #include "AttributeMeter.h"
 #include "Logger.h"
 #include "AttributeMeterFactory.h"
@@ -10,19 +10,19 @@ using namespace VsidCommon;
 
 std::unique_ptr<AttributeMeter> create_direction_changes_first_ten_meter()
 {
-    std::unique_ptr<AttributeMeter> tmp(new DirectionBytesCounFirstTenPacketMeter());
+    std::unique_ptr<AttributeMeter> tmp(new DirectionBytesCountFirst10PacketMeter());
     return tmp;
 }
 
-Vsid::Registrar DirectionBytesCounFirstTenPacketMeter::registrar("DirectionBytesCounFirstTenPacketMeter", &create_direction_changes_first_ten_meter);
+Vsid::Registrar DirectionBytesCountFirst10PacketMeter::registrar("DirectionBytesCountFirst10PacketMeter", &create_direction_changes_first_ten_meter);
 
-DirectionBytesCounFirstTenPacketMeter::DirectionBytesCounFirstTenPacketMeter() :
+DirectionBytesCountFirst10PacketMeter::DirectionBytesCountFirst10PacketMeter() :
     AttributeMeter(2),
     _overall_byte_size(0)
 {
 }
 
-void DirectionBytesCounFirstTenPacketMeter::calculateMeasurement(Flow* flow, 
+void DirectionBytesCountFirst10PacketMeter::calculateMeasurement(Flow* flow, 
                                                     IPv4Packet* currentPacket )
 {
     if(currentPacket->dataSize() <= 0 || flow->pktCount() > 10)

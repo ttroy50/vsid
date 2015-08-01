@@ -173,7 +173,7 @@ void Flow::addPacket(IPv4Packet* packet)
 			TcpIPv4* tcpPacket = static_cast<TcpIPv4*>(packet);
 			uint8_t flags = tcpPacket->flags();
 
-			if( (flags & TH_ACK) || (flags & TH_FIN) || flags & TH_RST )
+			if( (flags & TH_FIN) || flags & TH_RST )
 			{
 				_flowState = Flow::State::FINISHED;
 				SLOG_INFO(<< " Flow entering Finished state");
@@ -185,6 +185,11 @@ void Flow::addPacket(IPv4Packet* packet)
 	{
 		SLOG_INFO(<< " Flow already Finished");
 		// Flow already fisinhed ??
+		return;
+	}
+	else if ( stateUponArrival == Flow::State::FINISHED_NOTIFIED)
+	{
+		SLOG_INFO(<< "Flow already finisned and notified")
 		return;
 	}
 

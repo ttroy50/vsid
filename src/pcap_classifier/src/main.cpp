@@ -156,6 +156,7 @@ int main( int argc, char* argv[] )
 				<< ", DefiningLimit: " << protocolModelDb.definingLimit()
 				<< "}" << std::endl
 				<< "KLDivergenceThreshold: " << CommonConfig::instance()->divergenceThreshold() << std::endl
+				<< "Input: \"" << pcap_file << "\"" << std::endl
 				<< "Results: ");
 
 	FlowClassificationLogger fcLogger(&flowManager);

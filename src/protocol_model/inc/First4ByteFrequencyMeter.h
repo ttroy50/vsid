@@ -5,8 +5,8 @@
  * Copyright (C) 2015 Thom Troy
  */
 
-#ifndef __VSID_ATTRIBUTE_FIRST_SIXTEEN_BYTE_FREQUENCY_H__
-#define __VSID_ATTRIBUTE_FIRST_SIXTEEN_BYTE_FREQUENCY_H__
+#ifndef __VSID_ATTRIBUTE_FIRST_FOUR_BYTE_FREQUENCY_H__
+#define __VSID_ATTRIBUTE_FIRST_FOUR_BYTE_FREQUENCY_H__
 
 #include <string>
 #include <vector>
@@ -18,21 +18,21 @@ namespace Vsid
 {
 
 /**
- * Byte Frequency for first 16 bytes of all packets.
+ * Byte Frequency for first 4 bytes of all packets.
  * 
  */
-class FirstSixteenByteFrequencyMeter : public AttributeMeter
+class First4ByteFrequencyMeter : public AttributeMeter
 {
 public:
-    FirstSixteenByteFrequencyMeter();
-    virtual ~FirstSixteenByteFrequencyMeter() {}; 
+    First4ByteFrequencyMeter();
+    virtual ~First4ByteFrequencyMeter() {}; 
 
     /**
      * Unique name for the AttributeMeter
      *
      * @return
      */
-    virtual std::string name() const { return "FirstSixteenByteFrequencyMeter"; }
+    virtual std::string name() const { return "First4ByteFrequencyMeter"; }
 
     
     virtual void calculateMeasurement(VsidCommon::Flow* flow, 

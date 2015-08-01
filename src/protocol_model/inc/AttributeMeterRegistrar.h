@@ -13,17 +13,18 @@
 #include "AttributeMeter.h"
 #include "ByteFrequency.h"
 #include "DirectionBytesCountMeter.h"
-#include "FirstPacketBytesMeter.h"
-#include "FirstFourByteFrequencyMeter.h"
-#include "FirstSixteenByteFrequencyMeter.h"
+#include "ByteFrequencyFirstOrigToDestPacket.h"
+#include "First4ByteFrequencyMeter.h"
+#include "First16ByteFrequencyMeter.h"
 #include "DirectionChangesMeter.h"
-#include "FirstPacketDestToOrigBytesMeter.h"
-#include "DirectionBytesCounFirstTenPacketMeter.h"
-#include "ByteFrequencyFirstEightPacketsMeter.h"
-#include "DirectionChangesFirstEightPacketsMeter.h"
+#include "ByteFrequencyFirstDestToOrigPacket.h"
+#include "DirectionBytesCountFirst10PacketMeter.h"
+#include "ByteFrequencyFirst8PacketsMeter.h"
+#include "DirectionChangesFirst8PacketsMeter.h"
 #include "RtmpRegexMatchMeter.h"
-#include "DataDirectionChangesFirstEightPacketsMeter.h"
-
+#include "EntropyFirstOrigToDestPacket.h"
+#include "ActionReactionFirst3ByteHashMeter.h"
+ 
 /**
  * Make sure to call this at the start of your program
  */
@@ -32,16 +33,17 @@ inline void init_attribute_meters()
 	SLOG_INFO(<< "Initialising Attribute Meters");
 	Vsid::DirectionBytesCountMeter::registrar.doRegistration();
 	Vsid::ByteFrequencyMeter::registrar.doRegistration();
-	Vsid::FirstPacketBytesMeter::registrar.doRegistration();
-    Vsid::FirstFourByteFrequencyMeter::registrar.doRegistration();
-    Vsid::FirstSixteenByteFrequencyMeter::registrar.doRegistration();
+	Vsid::ByteFrequencyFirstOrigToDestPacket::registrar.doRegistration();
+    Vsid::First4ByteFrequencyMeter::registrar.doRegistration();
+    Vsid::First16ByteFrequencyMeter::registrar.doRegistration();
     Vsid::DirectionChangesMeter::registrar.doRegistration();
-    Vsid::FirstPacketDestToOrigBytesMeter::registrar.doRegistration();
-    Vsid::DirectionBytesCounFirstTenPacketMeter::registrar.doRegistration();
-    Vsid::ByteFrequencyFirstEightPacketsMeter::registrar.doRegistration();
-    Vsid::DirectionChangesFirstEightPacketsMeter::registrar.doRegistration();
+    Vsid::ByteFrequencyFirstDestToOrigPacket::registrar.doRegistration();
+    Vsid::DirectionBytesCountFirst10PacketMeter::registrar.doRegistration();
+    Vsid::ByteFrequencyFirst8PacketsMeter::registrar.doRegistration();
+    Vsid::DirectionChangesFirst8PacketsMeter::registrar.doRegistration();
     Vsid::RtmpRegexMatchMeter::registrar.doRegistration();
-    Vsid::DataDirectionChangesFirstEightPacketsMeter::registrar.doRegistration();
+    Vsid::EntropyFirstOrigToDestPacket::registrar.doRegistration();
+    Vsid::ActionReactionFirst3ByteHashMeter::registrar.doRegistration();
 	SLOG_INFO(<< "Attribute Meters Initialised");
 } 
 

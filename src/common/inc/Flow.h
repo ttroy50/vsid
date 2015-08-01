@@ -250,7 +250,7 @@ private:
 	Vsid::ProtocolModelDb* _protocolModelDb;
 
 	int _threadQueueId;
-	std::atomic<uint64_t> _pktsInQueue;
+	std::atomic<int64_t> _pktsInQueue;
 };
 
 	inline bool operator==(const Flow& lhs, const Flow& rhs)

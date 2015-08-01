@@ -21,18 +21,18 @@ namespace Vsid
  * Frequency of direction changes
  * 
  */
-class DirectionChangesFirstEightPacketsMeter : public AttributeMeter
+class DirectionChangesFirst8PacketsMeter : public AttributeMeter
 {
 public:
-    DirectionChangesFirstEightPacketsMeter();
-    virtual ~DirectionChangesFirstEightPacketsMeter() {}; 
+    DirectionChangesFirst8PacketsMeter();
+    virtual ~DirectionChangesFirst8PacketsMeter() {}; 
 
     /**
      * Unique name for the AttributeMeter
      *
      * @return
      */
-    virtual std::string name() const { return "DirectionChangesFirstEightPacketsMeter"; }
+    virtual std::string name() const { return "DirectionChangesFirst8PacketsMeter"; }
 
     
     virtual void calculateMeasurement(VsidCommon::Flow* flow, 

@@ -132,7 +132,37 @@ class Analyser:
 
         try:
             with open(file, 'r') as stream:
-                self.results = yaml.load(stream)
+                file_str = stream.read()
+                runs = file_str.split("---")
+
+                if len(runs) > 2:
+                    print "More than one result set in file"
+                    for run in runs:
+                        if len(run) == 0 or run is None:
+                            continue
+                        run =  "---" + run
+
+                        one_run = yaml.load(run)
+
+                        if one_run is None:
+                            print "Error: run is none "
+                            continue 
+
+                        if self.results is not None:
+                            if one_run["ProtocolDatabase"]["FileName"] != self.results["ProtocolDatabase"]["FileName"]:
+                                print "Warning: protocol databases different. [%s] [%s]" %(one_run["ProtocolDatabase"]["FileName"], self.results["ProtocolDatabase"]["FileName"])
+                            if one_run["ProtocolDatabase"]["DefiningLimit"] != self.results["ProtocolDatabase"]["DefiningLimit"]:
+                                print "Warning: protocol databases DefiningLimit different. [%s] [%s]" %(one_run["ProtocolDatabase"]["DefiningLimit"], self.results["ProtocolDatabase"]["DefiningLimit"])
+                    
+                            if one_run["Results"] is not None:
+                                self.results["Results"] = self.results["Results"] + one_run["Results"]
+                            else:
+                                print "Warning: results is none"
+                        else:
+                            self.results = one_run
+                else:
+                    if file_str is not None:
+                        self.results = yaml.load(file_str)
         except Exception, ex:
             print "Exception loading results file : %s" %ex
             sys.exit(1)
@@ -147,6 +177,9 @@ class Analyser:
         except Exception, ex:
             print "Exception loading results file : %s" %ex
             sys.exit(1)
+
+        if self.flows is None:
+            self.flows = {}
 
         for flow in yaml_flows["flows"]:
             ip_tuple = IPv4Tuple(flow["src_ip"], flow["src_port"],flow["dst_ip"],flow["dst_port"],flow["transport"], flow["protocol"])
@@ -171,6 +204,9 @@ class Analyser:
             print "ERROR: No protocol or flows to check against"
             sys.exit(1)
 
+        if self.default_protocol is not None and self.default_protocol not in self.protocol_results:
+                self.protocol_results[default_protocol] = ProtocolResult(self.default_protocol)
+
         for result in self.results["Results"]:
             flow = result["Flow"]
             src = flow["src"].split(":")
@@ -180,12 +216,15 @@ class Analyser:
             
             expected_l7protocol = self.default_protocol
             if self.flows is not None and ip_tuple.dict_repr() in self.flows:
-                expected_l7protocol = self.flows[ip_tuple.dict_repr()]["protocol"]
+                expected_l7protocol = self.flows[ip_tuple.dict_repr()].l7protocol
             else:
-                self.protocol_results[self.default_protocol].increase_expected()
+                if self.default_protocol is not None:
+                    self.protocol_results[self.default_protocol].increase_expected()
 
             if expected_l7protocol not in self.protocol_results:
                 self.protocol_results[expected_l7protocol] = ProtocolResult(expected_l7protocol)
+
+            #self.protocol_results[expected_l7protocol].increase_expected()
 
             if "Protocol" in result and result["Protocol"] not in self.protocol_results:
                 print "Warning [%s] in results but not in flows" %result["Protocol"]
@@ -240,6 +279,11 @@ class Analyser:
 
 
     def print_results(self):
+        if self.flows is not None:
+            print "Total flows in results file is %d" %len(self.flows)
+        if self.results is not None:
+            print "Total results is %d" %(len(self.results["Results"]))
+
         print yaml.dump(self.protocol_results, indent=4, default_flow_style=False) 
 
 

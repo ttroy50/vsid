@@ -27,18 +27,18 @@ namespace Vsid
  * handshake may only be a 3 or 4 way handshake
  * 
  */
-class DirectionBytesCounFirstTenPacketMeter : public AttributeMeter
+class DirectionBytesCountFirst10PacketMeter : public AttributeMeter
 {
 public:
-	DirectionBytesCounFirstTenPacketMeter();
-	virtual ~DirectionBytesCounFirstTenPacketMeter() {}; 
+	DirectionBytesCountFirst10PacketMeter();
+	virtual ~DirectionBytesCountFirst10PacketMeter() {}; 
 
 	/**
 	 * Unique name for the AttributeMeter
 	 *
 	 * @return
 	 */
-	virtual std::string name() const { return "DirectionBytesCounFirstTenPacketMeter"; }
+	virtual std::string name() const { return "DirectionBytesCountFirst10PacketMeter"; }
 
 	
 	virtual void calculateMeasurement(VsidCommon::Flow*  flow, 

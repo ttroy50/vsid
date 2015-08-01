@@ -23,6 +23,7 @@
 #include "Config.h"
 #include "StringException.h"
 #include "AttributeMeterRegistrar.h"
+#include "CommonConfig.h"
  
 using namespace std;
 using namespace VsidNetfilter;
@@ -195,8 +196,9 @@ bool Process::initialise(int argc, char* argv[])
                 << ", LastModifiedTime: " << _protocolModelDb->lastModifiedTimeAsString()
                 << ", CutoffLimit: " << _protocolModelDb->cutoffLimit()
                 << ", DefiningLimit: " << _protocolModelDb->definingLimit()
-                << "}"
-                << std::endl
+                << "}" << std::endl
+                << "KLDivergenceThreshold: " << CommonConfig::instance()->divergenceThreshold() << std::endl
+                << "Input: NfQueue" << std::endl
                 << "Results: ");
 
 	return true;

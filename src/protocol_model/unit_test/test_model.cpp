@@ -156,7 +156,7 @@ BOOST_AUTO_TEST_CASE( test_protocol_model )
     BOOST_CHECK_EQUAL( https_video->flowCount(), 99 );
     BOOST_CHECK_EQUAL( https_video->enabled(), false );
     BOOST_CHECK_EQUAL( https_video->portHints().size(), 0 );
-    std::shared_ptr<AttributeMeter> fpbm = https_video->find("FirstPacketBytesMeter");
+    std::shared_ptr<AttributeMeter> fpbm = https_video->find("ByteFrequencyFirstOrigToDestPacket");
     BOOST_CHECK_EQUAL( fpbm->enabled(), false );
     BOOST_CHECK_EQUAL( fpbm->flowCount(), 0 );
     std::vector<double> expected_fpbm_fp {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

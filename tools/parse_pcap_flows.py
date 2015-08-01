@@ -98,9 +98,7 @@ for packet in capfile.packets :
         flows[ip_tuple.dict_repr()] = ip_tuple
         flowsList.append(ip_tuple.as_dict())
 
-print "Found  [%s] flows. YAML reprsentation below" %len(flows)
-print ""
-print ""
+print "#Found  [%s] flows. YAML reprsentation below" %len(flows)
 print ""
 
 # Overall YAML output

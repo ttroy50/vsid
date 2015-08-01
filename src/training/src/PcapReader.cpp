@@ -138,7 +138,7 @@ void PcapReader::handlePacket(pcap_t* pcap,
 				SLOG_INFO(<< "tcph->doff : " << tcph->doff);
 				const u_char* data_start = transport_hdr_start  + tcph->doff * 4;
 
-				LOG_HEXDUMP("Packet :", data_start, (packet + pkthdr->len - data_start));
+				//LOG_HEXDUMP("Packet :", data_start, (packet + pkthdr->len - data_start));
 				
 				TcpIPv4* tcp = new TcpIPv4(packet, pkthdr->len, ip_hdr_start, 
                     							transport_hdr_start, data_start, 

@@ -20,16 +20,17 @@ lib_vsid_protocol_model_a_SOURCES = ProtocolModelDb.cpp \
 									AttributeMeterFactory.cpp \
 									ByteFrequency.cpp \
 									DirectionBytesCountMeter.cpp \
-									FirstPacketBytesMeter.cpp \
-									FirstFourByteFrequencyMeter.cpp \
-									FirstSixteenByteFrequencyMeter.cpp \
+									ByteFrequencyFirstOrigToDestPacket.cpp \
+									First4ByteFrequencyMeter.cpp \
+									First16ByteFrequencyMeter.cpp \
 									DirectionChangesMeter.cpp \
-									FirstPacketDestToOrigBytesMeter.cpp \
-									DirectionBytesCounFirstTenPacketMeter.cpp \
-									ByteFrequencyFirstEightPacketsMeter.cpp \
-									DirectionChangesFirstEightPacketsMeter.cpp \
+									ByteFrequencyFirstDestToOrigPacket.cpp \
+									DirectionBytesCountFirst10PacketMeter.cpp \
+									ByteFrequencyFirst8PacketsMeter.cpp \
+									DirectionChangesFirst8PacketsMeter.cpp \
 									RtmpRegexMatchMeter.cpp \
-									DataDirectionChangesFirstEightPacketsMeter.cpp
+									EntropyFirstOrigToDestPacket.cpp \
+									ActionReactionFirst3ByteHashMeter.cpp
  
 #lib_vsid_protocol_model_a_INCS = \
 #								-I/usr/local/include \

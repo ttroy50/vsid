@@ -36,6 +36,12 @@ public:
 	uint32_t udpFlowTimeout() { return _udp_flow_timeout; }
 	void udpFlowTimeout(uint32_t t) { _udp_flow_timeout = t; }
 
+	uint32_t tcpFlowTimeout() { return _tcp_flow_timeout; }
+	void tcpFlowTimeout(uint32_t t) { _tcp_flow_timeout = t; }
+
+	uint32_t tcpFlowCloseWaitTimeout() { return _tcp_flow_close_wait_timeout; }
+	void tcpFlowCloseWaitTimeout(uint32_t t) { _tcp_flow_close_wait_timeout = t; }
+
 	double divergenceThreshold() { return _divergenceThreshold; }
 	void divergenceThreshold(double d) { _divergenceThreshold = d; }
 
@@ -47,6 +53,7 @@ public:
 	 */
 	int workerThreadsPerQueue() { return _workerThreadsPerQueue; }
 	void workerThreadsPerQueue(int n) { _workerThreadsPerQueue = n; }
+
 private:
 	static std::unique_ptr<CommonConfig> _instance;
 	static std::once_flag _onceFlag;
@@ -57,6 +64,8 @@ private:
 
 	bool _learning_mode;
 	uint32_t _udp_flow_timeout;
+	uint32_t _tcp_flow_timeout;
+	uint32_t _tcp_flow_close_wait_timeout;
 	double _divergenceThreshold;
 	int _workerThreadsPerQueue;
 };

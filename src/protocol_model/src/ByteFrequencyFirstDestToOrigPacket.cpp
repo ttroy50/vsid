@@ -1,5 +1,5 @@
 
-#include "FirstPacketDestToOrigBytesMeter.h"
+#include "ByteFrequencyFirstDestToOrigPacket.h"
 #include "AttributeMeter.h"
 #include "Logger.h"
 #include "AttributeMeterFactory.h"
@@ -10,20 +10,20 @@ using namespace VsidCommon;
 
 std::unique_ptr<AttributeMeter> create_first_packet_dest_orig_byte_meter()
 {
-    std::unique_ptr<AttributeMeter> tmp(new FirstPacketDestToOrigBytesMeter());
+    std::unique_ptr<AttributeMeter> tmp(new ByteFrequencyFirstDestToOrigPacket());
     return tmp;
 }
 
-Vsid::Registrar FirstPacketDestToOrigBytesMeter::registrar("FirstPacketDestToOrigBytesMeter", &create_first_packet_dest_orig_byte_meter);
+Vsid::Registrar ByteFrequencyFirstDestToOrigPacket::registrar("ByteFrequencyFirstDestToOrigPacket", &create_first_packet_dest_orig_byte_meter);
 
-FirstPacketDestToOrigBytesMeter::FirstPacketDestToOrigBytesMeter() :
+ByteFrequencyFirstDestToOrigPacket::ByteFrequencyFirstDestToOrigPacket() :
     AttributeMeter(256),
     _done(false)
 {
 
 }
 
-void FirstPacketDestToOrigBytesMeter::calculateMeasurement(Flow* flow, 
+void ByteFrequencyFirstDestToOrigPacket::calculateMeasurement(Flow* flow, 
                                     IPv4Packet* currentPacket )
 {
     if( _done || currentPacket->dataSize() <= 0 )

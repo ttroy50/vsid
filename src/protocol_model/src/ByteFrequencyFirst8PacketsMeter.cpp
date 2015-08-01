@@ -1,5 +1,5 @@
 
-#include "FirstSixteenByteFrequencyMeter.h"
+#include "ByteFrequencyFirst8PacketsMeter.h"
 #include "AttributeMeter.h"
 #include "Logger.h"
 #include "AttributeMeterFactory.h"
@@ -8,33 +8,35 @@ using namespace std;
 using namespace Vsid;
 using namespace VsidCommon;
 
-std::unique_ptr<AttributeMeter> create_byte_first_sixteen_frequency_meter()
+std::unique_ptr<AttributeMeter> create_byte_frequency_first_8_packets_meter()
 {
-    std::unique_ptr<AttributeMeter> tmp(new FirstSixteenByteFrequencyMeter());
+    std::unique_ptr<AttributeMeter> tmp(new ByteFrequencyFirst8PacketsMeter());
     return tmp;
 }
 
-Vsid::Registrar FirstSixteenByteFrequencyMeter::registrar("FirstSixteenByteFrequencyMeter", &create_byte_first_sixteen_frequency_meter);
+Vsid::Registrar ByteFrequencyFirst8PacketsMeter::registrar("ByteFrequencyFirst8PacketsMeter", &create_byte_frequency_first_8_packets_meter);
 
-FirstSixteenByteFrequencyMeter::FirstSixteenByteFrequencyMeter() :
+ByteFrequencyFirst8PacketsMeter::ByteFrequencyFirst8PacketsMeter() :
     AttributeMeter(256),
     _overall_byte_size(0)
 {
 }
 
-void FirstSixteenByteFrequencyMeter::calculateMeasurement(Flow* flow, 
+void ByteFrequencyFirst8PacketsMeter::calculateMeasurement(Flow* flow, 
                                                     IPv4Packet* currentPacket )
-{   
+{
+
+    if(flow->pktCount() > 8)
+        return;
+
     if(currentPacket->dataSize() <= 0)
         return;
 
-
-    // TODO Limit how many packets this can run on
-        
+           
     std::vector<int> count(_fingerprint_size, 0);
 
     const u_char* data = currentPacket->data();
-    for(size_t i = 0; i < currentPacket->dataSize() || i < 16 ; i++ )
+    for(size_t i = 0; i < currentPacket->dataSize(); i++ )
     {
         count[*data]++;
         data++;

@@ -5,8 +5,8 @@
  * Copyright (C) 2015 Thom Troy
  */
 
-#ifndef __VSID_ATTRIBUTE_FIRST_PACKET_BYTE_DESTORIG_METER_H__
-#define __VSID_ATTRIBUTE_FIRST_PACKET_BYTE_DESTORIG_METER_H__
+#ifndef __VSID_ATTRIBUTE_ACTION_REACTION_FIRST_3_BYTE_METER_H__
+#define __VSID_ATTRIBUTE_ACTION_REACTION_FIRST_3_BYTE_METER_H__
 
 #include <string>
 #include <vector>
@@ -14,32 +14,35 @@
 #include "AttributeMeter.h"
 #include "AttributeMeterFactory.h"
 
+#define NUM_AR_BYTES 3
+#define MAX_AR_CS 114
+
 namespace Vsid
 {
 
 /**
- * Byte Frequency for first non empty DEST to ORIG packet
+ * Frequency of direction changes
  * 
  */
-class FirstPacketDestToOrigBytesMeter : public AttributeMeter
+class ActionReactionFirst3ByteHashMeter : public AttributeMeter
 {
 public:
-    FirstPacketDestToOrigBytesMeter();
-    virtual ~FirstPacketDestToOrigBytesMeter() {}; 
+    ActionReactionFirst3ByteHashMeter();
+    virtual ~ActionReactionFirst3ByteHashMeter() {}; 
 
     /**
      * Unique name for the AttributeMeter
      *
      * @return
      */
-    virtual std::string name() const { return "FirstPacketDestToOrigBytesMeter"; }
+    virtual std::string name() const { return "ActionReactionFirst3ByteHashMeter"; }
 
     
     virtual void calculateMeasurement(VsidCommon::Flow* flow, 
                                                     VsidCommon::IPv4Packet* currentPacket );
 
     // TODO 
-    // virtual void update(std::vector<double>)
+    // void update(std::shared_ptr<AttributeMeter> other)
     // 
     // 
 
@@ -48,9 +51,12 @@ public:
 
     static Vsid::Registrar registrar;
 protected:
+    u_char _lastPacket[NUM_AR_BYTES];
+    size_t _lastPacketSize;
+    size_t _overall_reaction_num;
 
 private:
-    bool _done;
+
 };
 
 

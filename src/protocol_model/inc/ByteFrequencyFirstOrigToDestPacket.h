@@ -21,18 +21,18 @@ namespace Vsid
  * Byte Frequency for first ORIG to DEST packet
  * 
  */
-class FirstPacketBytesMeter : public AttributeMeter
+class ByteFrequencyFirstOrigToDestPacket : public AttributeMeter
 {
 public:
-	FirstPacketBytesMeter();
-	virtual ~FirstPacketBytesMeter() {}; 
+	ByteFrequencyFirstOrigToDestPacket();
+	virtual ~ByteFrequencyFirstOrigToDestPacket() {}; 
 
 	/**
 	 * Unique name for the AttributeMeter
 	 *
 	 * @return
 	 */
-	virtual std::string name() const { return "FirstPacketBytesMeter"; }
+	virtual std::string name() const { return "ByteFrequencyFirstOrigToDestPacket"; }
 
 	
 	virtual void calculateMeasurement(VsidCommon::Flow* flow, 

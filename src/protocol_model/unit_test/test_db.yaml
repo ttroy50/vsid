@@ -12,7 +12,7 @@ ProtocolModels:
           - 0.66
         FlowCount: 55
       - 
-        AttributeName: FirstPacketBytesMeter
+        AttributeName: ByteFrequencyFirstOrigToDestPacket
         Enabled: true
         FingerPrint: 
           - 0.1
@@ -288,7 +288,7 @@ ProtocolModels:
           - 0.9
         FlowCount: 44
       - 
-        AttributeName: FirstPacketBytesMeter
+        AttributeName: ByteFrequencyFirstOrigToDestPacket
         Enabled: false
         FingerPrint: 
           - 0

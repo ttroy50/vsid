@@ -5,8 +5,8 @@
  * Copyright (C) 2015 Thom Troy
  */
 
-#ifndef __VSID_ATTRIBUTE_BYTE_FREQUENCY_FRIST_8_PACKETS_H__
-#define __VSID_ATTRIBUTE_BYTE_FREQUENCY_FRIST_8_PACKETS_H__
+#ifndef __VSID_ATTRIBUTE_FIRST_PACKET_BYTE_DESTORIG_METER_H__
+#define __VSID_ATTRIBUTE_FIRST_PACKET_BYTE_DESTORIG_METER_H__
 
 #include <string>
 #include <vector>
@@ -18,28 +18,28 @@ namespace Vsid
 {
 
 /**
- * Byte Frequency for all packets.
+ * Byte Frequency for first non empty DEST to ORIG packet
  * 
  */
-class ByteFrequencyFirstEightPacketsMeter : public AttributeMeter
+class ByteFrequencyFirstDestToOrigPacket : public AttributeMeter
 {
 public:
-    ByteFrequencyFirstEightPacketsMeter();
-    virtual ~ByteFrequencyFirstEightPacketsMeter() {}; 
+    ByteFrequencyFirstDestToOrigPacket();
+    virtual ~ByteFrequencyFirstDestToOrigPacket() {}; 
 
     /**
      * Unique name for the AttributeMeter
      *
      * @return
      */
-    virtual std::string name() const { return "ByteFrequencyFirstEightPacketsMeter"; }
+    virtual std::string name() const { return "ByteFrequencyFirstDestToOrigPacket"; }
 
     
     virtual void calculateMeasurement(VsidCommon::Flow* flow, 
                                                     VsidCommon::IPv4Packet* currentPacket );
 
     // TODO 
-    // void update(std::shared_ptr<AttributeMeter> other)
+    // virtual void update(std::vector<double>)
     // 
     // 
 
@@ -50,8 +50,7 @@ public:
 protected:
 
 private:
-    uint64_t _overall_byte_size;
-
+    bool _done;
 };
 
 

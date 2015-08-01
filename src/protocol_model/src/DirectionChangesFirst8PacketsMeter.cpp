@@ -1,5 +1,5 @@
 
-#include "DirectionChangesFirstEightPacketsMeter.h"
+#include "DirectionChangesFirst8PacketsMeter.h"
 #include "AttributeMeter.h"
 #include "Logger.h"
 #include "AttributeMeterFactory.h"
@@ -10,18 +10,18 @@ using namespace VsidCommon;
 
 std::unique_ptr<AttributeMeter> create_direction_changes_first_8_meter()
 {
-    std::unique_ptr<AttributeMeter> tmp(new DirectionChangesFirstEightPacketsMeter());
+    std::unique_ptr<AttributeMeter> tmp(new DirectionChangesFirst8PacketsMeter());
     return tmp;
 }
 
-Vsid::Registrar DirectionChangesFirstEightPacketsMeter::registrar("DirectionChangesFirstEightPacketsMeter", &create_direction_changes_first_8_meter);
+Vsid::Registrar DirectionChangesFirst8PacketsMeter::registrar("DirectionChangesFirst8PacketsMeter", &create_direction_changes_first_8_meter);
 
-DirectionChangesFirstEightPacketsMeter::DirectionChangesFirstEightPacketsMeter() :
+DirectionChangesFirst8PacketsMeter::DirectionChangesFirst8PacketsMeter() :
     AttributeMeter(1)
 {
 }
 
-void DirectionChangesFirstEightPacketsMeter::calculateMeasurement(Flow* flow, 
+void DirectionChangesFirst8PacketsMeter::calculateMeasurement(Flow* flow, 
                                                     IPv4Packet* currentPacket )
 {   
     if(flow->pktCount() > 8)

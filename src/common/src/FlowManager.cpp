@@ -126,6 +126,8 @@ std::shared_ptr<Flow> FlowManager::addPacket(IPv4Packet* packet)
 
 	if( flow )
 	{
+		flow->incPktsInQueue();
+		
 		if( CommonConfig::instance()->workerThreadsPerQueue() >0 && _workerThreads.size() > 0)
 		{
 			if(flow->threadQueueId() == -1)
@@ -140,7 +142,6 @@ std::shared_ptr<Flow> FlowManager::addPacket(IPv4Packet* packet)
 				_currentQueue++;
 			}
 
-			flow->incPktsInQueue();
 			if (_threadQueues[flow->threadQueueId()]->push(packet) )
 			{
 				return flow;
@@ -245,7 +246,7 @@ std::shared_ptr<Flow>  FlowManager::getFlow(IPv4Packet* packet)
 			
 			if( (packet->timestamp().tv_sec - tmp->lastPacketTimestamp().tv_sec ) > CommonConfig::instance()->udpFlowTimeout())
 			{
-				SLOG_INFO(<< "Flow [" << *tmp << "] found but finished. Removing from list and adding new one")
+				SLOG_INFO(<< "Flow [" << *tmp << "] found but past udp timeout. Removing from list and adding new one")
 				notifyFlowFinished(tmp);
 				_flows.erase(it);
 				std::shared_ptr<Flow>  f(new Flow(packet, _protocolModelDb));
@@ -282,7 +283,81 @@ std::shared_ptr<Flow>  FlowManager::getFlow(IPv4Packet* packet)
 		}
 		else if( packet->protocol() == IPPROTO_TCP )
 		{
-			// TODO Check for RST or FIN flags
+			std::shared_ptr<Flow> tmp = it->second;
+			
+			if( (packet->timestamp().tv_sec - tmp->lastPacketTimestamp().tv_sec ) > CommonConfig::instance()->tcpFlowTimeout())
+			{
+				SLOG_INFO(<< "Flow [" << *tmp << "] found but past tcp timeout. Removing from list and adding new one")
+				notifyFlowFinished(tmp);
+				_flows.erase(it);
+				std::shared_ptr<Flow>  f(new Flow(packet, _protocolModelDb));
+				_flows.insert(std::make_pair(f->flowHash(), f));
+
+				if( CommonConfig::instance()->workerThreadsPerQueue() >0 && _workerThreads.size() > 0)
+				{
+					// Will tell if flow is on thread
+					for(int i = 0; i < _workerThreads.size(); i++)
+					{
+						if(_workerThreads[i].get_id() == std::this_thread::get_id() )
+						{
+							f->threadQueueId(i);
+							break;
+						}
+					}
+
+					// if flow created on main thread
+					if(f->threadQueueId() == -1)
+					{
+						SLOG_INFO(<< "No queue in flow. Must be new")
+						
+						if(_currentQueue >= _workerThreads.size())
+						{
+							_currentQueue = 0;
+						}
+						f->threadQueueId(_currentQueue);
+						_currentQueue++;
+					}
+				}
+
+				return f;
+			}
+			else if ( (tmp->flowState() == Flow::State::FINISHED_NOTIFIED || tmp->flowState() == Flow::State::FINISHED) 
+						&& packet->timestamp().tv_sec - tmp->lastPacketTimestamp().tv_sec ) > CommonConfig::instance()->tcpFlowCloseWaitTimeout())
+			{
+				SLOG_INFO(<< "Flow [" << *tmp << "] found but finished. Removing from list and adding new one")
+				notifyFlowFinished(tmp);
+				_flows.erase(it);
+				std::shared_ptr<Flow>  f(new Flow(packet, _protocolModelDb));
+				_flows.insert(std::make_pair(f->flowHash(), f));
+
+				if( CommonConfig::instance()->workerThreadsPerQueue() >0 && _workerThreads.size() > 0)
+				{
+					// Will tell if flow is on thread
+					for(int i = 0; i < _workerThreads.size(); i++)
+					{
+						if(_workerThreads[i].get_id() == std::this_thread::get_id() )
+						{
+							f->threadQueueId(i);
+							break;
+						}
+					}
+
+					// if flow created on main thread
+					if(f->threadQueueId() == -1)
+					{
+						SLOG_INFO(<< "No queue in flow. Must be new")
+						
+						if(_currentQueue >= _workerThreads.size())
+						{
+							_currentQueue = 0;
+						}
+						f->threadQueueId(_currentQueue);
+						_currentQueue++;
+					}
+				}
+
+				return f;
+			}
 		}
 
 
@@ -364,8 +439,8 @@ void FlowManager::notifyFlowFinished(std::shared_ptr<Flow> flow)
 
 		if ( flow->havePktsInQueue() )
 		{
-			flow->setFinishedAndNotified();
 			SLOG_INFO(<< "Not notifying because packets in flow")
+			return;
 		}
 	}
 

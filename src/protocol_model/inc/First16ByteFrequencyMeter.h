@@ -5,8 +5,8 @@
  * Copyright (C) 2015 Thom Troy
  */
 
-#ifndef __VSID_ATTRIBUTE_DATA_DIRECTION_CHANGES__FIRST_8_METER_H__
-#define __VSID_ATTRIBUTE_DATA_DIRECTION_CHANGES__FIRST_8_METER_H__
+#ifndef __VSID_ATTRIBUTE_FIRST_SIXTEEN_BYTE_FREQUENCY_H__
+#define __VSID_ATTRIBUTE_FIRST_SIXTEEN_BYTE_FREQUENCY_H__
 
 #include <string>
 #include <vector>
@@ -18,21 +18,21 @@ namespace Vsid
 {
 
 /**
- * Frequency of direction changes
+ * Byte Frequency for first 16 bytes of all packets.
  * 
  */
-class DataDirectionChangesFirstEightPacketsMeter : public AttributeMeter
+class First16ByteFrequencyMeter : public AttributeMeter
 {
 public:
-    DataDirectionChangesFirstEightPacketsMeter();
-    virtual ~DataDirectionChangesFirstEightPacketsMeter() {}; 
+    First16ByteFrequencyMeter();
+    virtual ~First16ByteFrequencyMeter() {}; 
 
     /**
      * Unique name for the AttributeMeter
      *
      * @return
      */
-    virtual std::string name() const { return "DataDirectionChangesFirstEightPacketsMeter"; }
+    virtual std::string name() const { return "First16ByteFrequencyMeter"; }
 
     
     virtual void calculateMeasurement(VsidCommon::Flow* flow, 
@@ -50,6 +50,7 @@ public:
 protected:
 
 private:
+    uint64_t _overall_byte_size;
 
 };
 
