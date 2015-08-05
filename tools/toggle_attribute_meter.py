@@ -28,7 +28,7 @@ def toggle_attribute_meter(file, dest, name, enabled=False, protocols=None):
                 continue
 
         for meter in proto["AttributeMeters"]:
-            if meter["AttributeName"] == name:
+            if meter["AttributeName"] == name or name == "all":
                 meter["Enabled"] = enabled
 
 
@@ -46,7 +46,7 @@ def main():
     parser.add_option("-d", "--dest", dest="destfile",
                       help="Database file to write to. If not supplied will write to stdout", metavar="FILE")
     parser.add_option("-n", "--name", dest="name",
-                      help="Attribute Name", metavar="name")
+                      help="Attribute Name. If 'all' then all attributes will be changed", metavar="name")
     parser.add_option("-e", "--enable", dest="enabled", action="store_true", default=False, help="If set enable the meter. Otherwise disable")
     parser.add_option("-p", "--protocols", action="append", dest="protocols",
                       help="Protocols to enable / disable the Attribute to. Not adding this means all")

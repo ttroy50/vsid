@@ -16,7 +16,8 @@ using namespace Vsid;
 FlowManager::FlowManager(ProtocolModelDb* database) :
 	_protocolModelDb(database),
 	_currentQueue(0),
-	_shutdown(false)
+	_shutdown(false),
+	_finishing(false)
 {
 	
 }
@@ -110,6 +111,7 @@ void FlowManager::processPacket(IPv4Packet* packet)
 		else
 		{
 			SLOG_ERROR(<< "Unable to find flow");
+			packet->setVerdict();
 			delete packet;
 		}
 	}
@@ -150,6 +152,7 @@ std::shared_ptr<Flow> FlowManager::addPacket(IPv4Packet* packet)
 			{
 				flow->decPktsInQueue();
 				SLOG_ERROR(<< "Unable to push packet onto queue");
+				packet->dropPkt();
 				delete packet;
 				return flow;
 			}
@@ -163,6 +166,7 @@ std::shared_ptr<Flow> FlowManager::addPacket(IPv4Packet* packet)
 	}
 	else
 	{
+		packet->setVerdict();
 		delete packet;
 		return flow;
 	}
@@ -244,7 +248,8 @@ std::shared_ptr<Flow>  FlowManager::getFlow(IPv4Packet* packet)
 		{
 			std::shared_ptr<Flow> tmp = it->second;
 			
-			if( (packet->timestamp().tv_sec - tmp->lastPacketTimestamp().tv_sec ) > CommonConfig::instance()->udpFlowTimeout())
+			if( !tmp->havePktsInQueue() &&
+				(packet->timestamp().tv_sec - tmp->lastPacketTimestamp().tv_sec ) > CommonConfig::instance()->udpFlowTimeout())
 			{
 				SLOG_INFO(<< "Flow [" << *tmp << "] found but past udp timeout. Removing from list and adding new one")
 				notifyFlowFinished(tmp);
@@ -285,7 +290,8 @@ std::shared_ptr<Flow>  FlowManager::getFlow(IPv4Packet* packet)
 		{
 			std::shared_ptr<Flow> tmp = it->second;
 			
-			if( (packet->timestamp().tv_sec - tmp->lastPacketTimestamp().tv_sec ) > CommonConfig::instance()->tcpFlowTimeout())
+			if( (!tmp->havePktsInQueue() &&
+					packet->timestamp().tv_sec - tmp->lastPacketTimestamp().tv_sec ) > CommonConfig::instance()->tcpFlowTimeout())
 			{
 				SLOG_INFO(<< "Flow [" << *tmp << "] found but past tcp timeout. Removing from list and adding new one")
 				notifyFlowFinished(tmp);
@@ -323,6 +329,7 @@ std::shared_ptr<Flow>  FlowManager::getFlow(IPv4Packet* packet)
 			}
 			else if ( (tmp->flowState() == Flow::State::FINISHED_NOTIFIED 
 								|| tmp->flowState() == Flow::State::FINISHED) 
+						&& !tmp->havePktsInQueue()
 						&& ((packet->timestamp().tv_sec - tmp->lastPacketTimestamp().tv_sec ) 
 									> CommonConfig::instance()->tcpFlowCloseWaitTimeout()))
 			{
@@ -398,6 +405,8 @@ void FlowManager::deleteFlow(std::shared_ptr<Flow> flow)
 	std::lock_guard<std::mutex> guard(_flowsMutex);
 	if(flow->havePktsInQueue())
 	{
+		// if we're here it's safe to assume we've tried to notify
+		flow->setFinishedAndNotified();
 		SLOG_INFO(<< "Not deleting because still packets to process")
 		return;
 	}
@@ -439,11 +448,11 @@ void FlowManager::notifyFlowFinished(std::shared_ptr<Flow> flow)
 			return;
 		}
 
-		if ( flow->havePktsInQueue() )
+		/*if ( flow->havePktsInQueue() && !_finishing )
 		{
 			SLOG_INFO(<< "Not notifying because packets in flow")
 			return;
-		}
+		}*/
 	}
 
 	for(auto it = _flow_finished_observers.begin(); it != _flow_finished_observers.end(); ++it)
@@ -479,14 +488,23 @@ void FlowManager::finished()
 		}
 	}
 
+	_finishing = true;
 	std::lock_guard<std::mutex> guard(_flowsMutex);
 	for(auto it = _flows.begin(); it != _flows.end(); )
 	{
 		auto flow = it->second;
+		while(flow->havePktsInQueue())
+		{
+			std::this_thread::sleep_for( std::chrono::microseconds(10) );
+		}
+
+		
 		auto origIt = it;
 		++it;
 
 		notifyFlowFinished(flow);
 		_flows.erase(origIt);
 	}
+
+	_finishing = false;
 }

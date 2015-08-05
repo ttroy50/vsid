@@ -32,19 +32,23 @@ void First4ByteFrequencyMeter::calculateMeasurement(Flow* flow,
     // TODO Limit how many packets this can run on
         
     std::vector<int> count(_fingerprint_size, 0);
-
+    int bytesCount = 0;
     const u_char* data = currentPacket->data();
-    for(size_t i = 0; i < currentPacket->dataSize() || i < 4 ; i++ )
+    for(size_t i = 0; i < currentPacket->dataSize() && i < 4 ; i++ )
     {
         count[*data]++;
         data++;
+        bytesCount++;
     }
 
-    _overall_byte_size = currentPacket->dataSize();
+    _overall_byte_size += bytesCount;
+
+    if ( _overall_byte_size == 0 )
+        return; 
 
     for(size_t i = 0; i <_fingerprint_size; i++ )
     {
-        _fingerprint[i] = (double)((_fingerprint[i] * ( _overall_byte_size - currentPacket->dataSize() )) 
+        _fingerprint[i] = (double)((_fingerprint[i] * ( _overall_byte_size - bytesCount )) 
                                 + count[i]) / _overall_byte_size;
     }
 }

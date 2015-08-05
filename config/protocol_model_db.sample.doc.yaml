@@ -1,10 +1,12 @@
 ---
-    # TODO keep here or move to config??
+    # Before this limit a protocol will not be considered matched.
+    # This is used only in protocol matching and if set too high can stop protocols
+    # with short packet bursts from being matched
     DefiningLimit: 10
 
     # After CutoffLimit number of packets no more packets will be processed.
     # This is for both protocol matching and algorithm training
-    CutoffLimit: 10000
+    CutoffLimit: 500
 
     # Ordered List of Protocols
     # Once above the defining limit the list will use the port hints, then the order of this
@@ -20,21 +22,22 @@
             FlowCount: 0
 
             # If it is enabled
-            enabled: true
+            Enabled: true
 
             # The port hints that can be used in the order of searching
+            # Currently not implemented
             PortHints:
                 - 80
                 - 8080
 
             AttributeMeters:
                 -
-                    name: DirectionBytesCountMeter  
+                    AttributeName: DirectionBytesCountMeter  
 
-                    enabled: true
+                    Enabled: true
 
                     # Count of the number of flows in this meter
-                    count: 0
+                    FlowCount: 0
 
                     # Ordered List representing the FingerPrint. 
                     # Number in sequence should be of the same as number of fingerprints

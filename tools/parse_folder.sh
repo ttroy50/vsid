@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FILES=$1
+FILES=$1/*.pcap
 for f in $FILES
 do
 #echo "$f"

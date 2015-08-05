@@ -19,6 +19,13 @@ using namespace std;
 using namespace VsidCommon;
 using namespace Vsid;
 
+#include <limits>
+#include <cmath>
+inline bool absoluteToleranceCompare(double x, double y)
+{
+    return std::fabs(x - y) <= std::numeric_limits<double>::epsilon() ;
+}
+
 Flow::Flow(IPv4Packet* packet, ProtocolModelDb* database) :
 	_hash(0),
 	_pktCount(0),
@@ -86,12 +93,14 @@ void Flow::addPacket(IPv4Packet* packet)
 			{
 				_flowState = Flow::State::FINISHED;
 				SLOG_INFO(<< "RST or FIN in NEW state returning")
+				packet->setVerdict();
 				return;
 			}
 			else if( (flags & TH_SYN) == false)
 			{
 				SLOG_INFO(<< "not a syn : datasize " << packet->dataSize() );
 				
+				/*
 				if( (flags & TH_ACK) && packet->dataSize() == 0)
 				{	
 					// ACK and empty packet on NEW. Consider it finished
@@ -105,6 +114,11 @@ void Flow::addPacket(IPv4Packet* packet)
 					_isFirstPacket = true;
 					SLOG_INFO(<< "Got first packet " << *this);
 				}
+				*/
+			
+				// For now only support TCP flows where we have seen the SYN
+				// Once we have a better TCP state machine we can support partial flows
+				_flowState = Flow::State::FINISHED;
 			}
 		}
 	}
@@ -177,6 +191,7 @@ void Flow::addPacket(IPv4Packet* packet)
 			{
 				_flowState = Flow::State::FINISHED;
 				SLOG_INFO(<< " Flow entering Finished state");
+				packet->setVerdict();
 				return;
 			}
 		}
@@ -185,11 +200,13 @@ void Flow::addPacket(IPv4Packet* packet)
 	{
 		SLOG_INFO(<< " Flow already Finished");
 		// Flow already fisinhed ??
+		packet->setVerdict();
 		return;
 	}
 	else if ( stateUponArrival == Flow::State::FINISHED_NOTIFIED)
 	{
 		SLOG_INFO(<< "Flow already finisned and notified")
+		packet->setVerdict();
 		return;
 	}
 
@@ -205,6 +222,7 @@ void Flow::addPacket(IPv4Packet* packet)
 		if ( (tcpPacket->flags() & TH_SYN) && tcpPacket->dataSize() <= 0 )
 		{
 			SLOG_INFO(<< "TCP SYN with no data")
+			packet->setVerdict();
 			//_lastPacketTimestamp = packet->timestamp();
 			return;
 		}
@@ -214,6 +232,7 @@ void Flow::addPacket(IPv4Packet* packet)
 		{
 			//_lastPacketTimestamp = packet->timestamp();
 			SLOG_INFO(<< "TCP Ack with no data")
+			packet->setVerdict();
 			return;
 		}
 	} 
@@ -227,6 +246,7 @@ void Flow::addPacket(IPv4Packet* packet)
 	{
 		_lastPacketTimestamp = packet->timestamp();
 		SLOG_INFO(<< " Flow already classified");
+		packet->setVerdict();
 		// Already classified. Don't waste time updating calculations
 		return;
 	}
@@ -236,6 +256,7 @@ void Flow::addPacket(IPv4Packet* packet)
 		_lastPacketTimestamp = packet->timestamp();
 		SLOG_INFO(<< " Flow above cutoffLimit " << _protocolModelDb->cutoffLimit() 
 						<< " : " << _pktCount );
+		packet->setVerdict();
 		// Don't look at packet because it is over the limit
 		return;
 	}
@@ -260,14 +281,14 @@ void Flow::addPacket(IPv4Packet* packet)
 
 	if( !CommonConfig::instance()->learningMode() && !_flowClassified )
 	{
-		SLOG_INFO(<< "Calculating K-L Divergence")
+		SLOG_DEBUG(<< "Calculating K-L Divergence")
 		// TODO Calculate K-L Divergence
 		for(size_t i = 0; i < _protocolModelDb->size(); i++)
 		{
 			double klDivergence = 0.0;
 
 			// get protocol model in order or dst port of flow
-			std::shared_ptr<ProtocolModel> pm = _protocolModelDb->at(i, 0);// _firstPacketTuple.dst_port);
+			std::shared_ptr<ProtocolModel> pm = _protocolModelDb->at(i, _firstPacketTuple.dst_port);
 
 			if( !pm )
 			{
@@ -275,35 +296,97 @@ void Flow::addPacket(IPv4Packet* packet)
 				continue;
 			}
 
-			if( !pm->enabled() )
+			if( ! pm->enabled() )
+			{
+				SLOG_DEBUG(<< "PRotocol [" << pm->name() << "] disabled")
 				continue;
+			}
 			
-			SLOG_INFO(<< "Checking model " << pm->name());
+			SLOG_DEBUG(<< "Checking model " << pm->name());
+			int num_attributes = 0;
 			for(size_t attr = 0; attr < pm->size(); attr++)
 			{
 				std::shared_ptr<AttributeMeter> pm_am = pm->at(attr);
 				if( !pm_am->enabled() )
 					continue;
 
+				num_attributes++;
 				std::shared_ptr<AttributeMeter> am = _attributeMetersMap[pm_am->name()];
 
 				double sum = 0.0;
 
+				double pm_am_sum = 0;
+				double am_sum = 0;
+				stringstream pm_am_ss;
+				stringstream am_ss;
+
 				for(size_t fp = 0; fp < pm_am->size(); ++fp)
 				{
-					if(am->at(fp) > 0 && pm_am->at(fp) > 0)
-					{
-						sum += am->at(fp) * log2(am->at(fp) / pm_am->at(fp));
+					/**
+					 * Introduce some noise to make sure we treat all vectors
+					 * 
+					 * These are used to introduce noise into the K-L divergence to 
+					 * prevent divide by 0 issues
+					 *
+					 * The reason is that for a K-L divergence to be valid it must satisfy 2 things
+					 * Sum of all P(i) = 1
+					 * Sum of all Q(i) = 1
+					 * P(i) or Q(i) cannot be zero when the other has a value
+					 */
+					double am_fp = (am->at(fp) * am->klFixMultiplier()) + am->klFixIncrement();
+					double pm_am_fp = (pm_am->at(fp) * pm_am->klFixMultiplier()) + pm_am->klFixIncrement();
+
+					
+					am_ss << am_fp << " + ";
+					am_sum += am_fp;
+
+					pm_am_sum += pm_am_fp;
+					pm_am_ss << pm_am_fp << " + ";
+
+					if(pm_am_fp > (double)0)
+					{	
+						sum += am_fp * log2(am_fp / pm_am_fp);
 						//SLOG_INFO(<<" K-L sum is " << sum);
 					}
+					else
+					{
+						SLOG_ERROR(<< "pm_am_fp is 0")
+					}
+
+					
 				}
+				if( sum < (double)0.0 )
+				{
+					SLOG_ERROR(<< "Sum for divergence [" << pm_am->name() << "] is < 0 : " << sum)
+					sum *= -1;
+				}
+
+				//SLOG_DEBUG(<< pmamss.str())
+				//SLOG_DEBUG(<< amss.str())
+				SLOG_DEBUG(<< "Sum for " << pm_am->name() << " is " << sum);
 				klDivergence += sum;
+
+				// checks to make sure our divergence can be cauculated correctly
+				/*if(!absoluteToleranceCompare(pm_am_sum, 1.0))
+				{
+					SLOG_ERROR(<< "pm_am_sum for " << pm_am->name() << " in " 
+						<< pm->name() << " is not 1 : " << pm_am_sum);
+					SLOG_ERROR(<< "am_fp_ss : " << pm_am_ss.str())
+				}
+
+				if(!absoluteToleranceCompare(am_sum, 1.0))
+				{
+					SLOG_ERROR(<< "am_sum for " << pm_am->name() << " in "
+						<< pm->name() <<  "is not 1 : " << am_sum);
+					SLOG_ERROR(<< "am_ss : " << am_ss.str())
+				}*/
 			}
-			
+
+
 			// We will only do a full classification if we have more than the defining Limit worth
 			// of packets
 			if( klDivergence > 0 
-					&&_pktCount > _protocolModelDb->definingLimit() 
+					&&_pktCount >= _protocolModelDb->definingLimit() 
 					&& klDivergence < CommonConfig::instance()->divergenceThreshold() )
 			{
 				_flowClassified = true;
@@ -315,29 +398,20 @@ void Flow::addPacket(IPv4Packet* packet)
 				break;
 			}
 			
-			if( _pktCount == _protocolModelDb->definingLimit()  )
+			/*if( _pktCount == _protocolModelDb->definingLimit()  )
 			{
-				if( klDivergence < CommonConfig::instance()->divergenceThreshold() )
+				if( klDivergence > 0 
+					&& klDivergence < CommonConfig::instance()->divergenceThreshold() )
 				{
 					_flowClassified = true;
 					_classifiedProtocol = pm->name();
 					_classifiedDivergence = klDivergence;
-					SLOG_DEBUG(<< "Flow classified as [" << _classifiedProtocol 
+					SLOG_DEBUG(<< "Flow classified (DL) as [" << _classifiedProtocol 
 								<< "] with divergence [" << _classifiedDivergence 
 								<< "] : " << *this);
 					break;
 				}
-				else if( _bestMatchDivergence < CommonConfig::instance()->divergenceThreshold() )
-				{
-					_flowClassified = true;
-					_classifiedProtocol = _bestMatchProtocol;
-					_classifiedDivergence = _bestMatchDivergence;
-					SLOG_DEBUG(<< "Flow classified as [" << _classifiedProtocol 
-								<< "] with divergence [" << _classifiedDivergence 
-								<< "] : " << *this);
-					break;
-				}
-			}
+			}*/
 			
 
 			if( klDivergence > 0 
@@ -350,16 +424,27 @@ void Flow::addPacket(IPv4Packet* packet)
 								<< "] with divergence [" << _bestMatchProtocol 
 								<< "] : " << *this);
 			}
-
+ 
 			SLOG_DEBUG(<< "K-L Divergence for [" << pm->name() <<"] is [" << klDivergence <<"] on flow [" << *this << "]");
 			
 		}
+
+		if (CommonConfig::instance()->useBestMatch())
+		{
+			if( !_flowClassified 
+					&& _pktCount == _protocolModelDb->definingLimit() 
+					&& _bestMatchDivergence < CommonConfig::instance()->divergenceThreshold() )
+			{
+				_flowClassified = true;
+				_classifiedProtocol = _bestMatchProtocol;
+				_classifiedDivergence = _bestMatchDivergence;
+				SLOG_DEBUG(<< "Flow classified (BM) as [" << _classifiedProtocol 
+							<< "] with divergence [" << _classifiedDivergence 
+							<< "] : " << *this);
+			}
+		}
 	}
 
-}
+	packet->setVerdict();
 
-/*
-uint32_t Flow::flowHash()
-{
-		return _hash;
-}*/
+}

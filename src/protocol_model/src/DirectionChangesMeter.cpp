@@ -17,7 +17,7 @@ std::unique_ptr<AttributeMeter> create_direction_changes_meter()
 Vsid::Registrar DirectionChangesMeter::registrar("DirectionChangesMeter", &create_direction_changes_meter);
 
 DirectionChangesMeter::DirectionChangesMeter() :
-    AttributeMeter(1)
+    AttributeMeter(2)
 {
 }
 
@@ -32,4 +32,5 @@ void DirectionChangesMeter::calculateMeasurement(Flow* flow,
     }
 
     _fingerprint[0] = (double)count / flow->pktCount();
+    _fingerprint[1] = 1.0 - _fingerprint[0];
 }

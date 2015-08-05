@@ -17,7 +17,7 @@ std::unique_ptr<AttributeMeter> action_reaction_first_3_meter()
 Vsid::Registrar ActionReactionFirst3ByteHashMeter::registrar("ActionReactionFirst3ByteHashMeter", &action_reaction_first_3_meter);
 
 ActionReactionFirst3ByteHashMeter::ActionReactionFirst3ByteHashMeter() :
-    AttributeMeter(MAX_AR_CS),
+    AttributeMeter(115),
     _lastPacketSize(0),
     _overall_reaction_num(0)
 {
@@ -73,19 +73,35 @@ void ActionReactionFirst3ByteHashMeter::calculateMeasurement(Flow* flow,
 
         uint8_t mixed = crosssum_one + crosssum_two;
 
-        double prev = _overall_reaction_num * MAX_AR_CS;
+        /*double prev = _overall_reaction_num * 115;
         _overall_reaction_num++;
         for(int i = 0; i < _fingerprint_size; i++)
         {
             if( i == mixed)
             {
                 _fingerprint[i] = (double)((_fingerprint[i] *  prev )
-                                     + mixed) / ( prev + MAX_AR_CS);
+                                     + mixed) / ( prev + 115);
             }
             else
             {
                 _fingerprint[i] = (double)(_fingerprint[i] * prev ) 
-                            /  (prev + MAX_AR_CS);
+                            /  (prev + 115);
+            }
+        }*/
+
+        _overall_reaction_num++;
+
+        for(int i = 0; i < _fingerprint_size; i++)
+        {
+            if( i == mixed )
+            {
+                _fingerprint[i] = (double)((_fingerprint[i] *  (_overall_reaction_num-1.0) )
+                                     + 1.0) / _overall_reaction_num;
+            }
+            else
+            {
+                _fingerprint[i] = (double)((_fingerprint[i] *  (_overall_reaction_num-1.0) )
+                                        ) / _overall_reaction_num;
             }
         }
     }

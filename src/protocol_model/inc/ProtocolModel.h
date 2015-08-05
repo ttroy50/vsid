@@ -26,6 +26,12 @@ public:
 
 	const std::string& name() const { return _name; }
 	uint32_t flowCount() const { return _flowCount; }
+
+	/**
+	 * Add a flow to the flowCount
+	 */
+	void increaseFlowCount() { _flowCount++; }
+
 	bool enabled() const { return _enabled; }
 	const std::vector<uint16_t>& portHints() const { return _portHints; }
 

@@ -11,6 +11,12 @@ AttributeMeter::AttributeMeter(size_t fingerprint_size) :
 	_enabled(false)
 {
 
+	// These are the vlues when used for an observation.
+	// IF this is an attribute in the ProtocolModelDb, then these are overwritten during
+	// reading of config
+	// 1 is used because it assumes that an observation has a flowCount of 1
+	_klFixMultiplicator = (double) 1.0 / (fingerprint_size + 1.0);
+	_klFixIncrement = (1.0) / (fingerprint_size + 1.0);
 }
 
 double AttributeMeter::front()

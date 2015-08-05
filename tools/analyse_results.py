@@ -3,6 +3,9 @@
 """
 Analyse the classification results
 """
+# to have division result be a double
+from __future__ import division
+
 import sys
 import yaml
 from optparse import OptionParser
@@ -61,7 +64,10 @@ class ProtocolResult:
         self.true_negative = 0
         self.false_negative = 0
         self.not_classified = 0
+        self.under_defining_limit = 0
         self.expected = 0
+        self.false_positive_protocols = {}
+        self.false_negative_protocols = {}
 
     def increase_true_positive(self):
         self.true_positive = self.true_positive + 1
@@ -81,6 +87,78 @@ class ProtocolResult:
     def increase_expected(self):
         self.expected = self.expected + 1
 
+    def increase_under_defining_limit(self):
+        self.under_defining_limit = self.under_defining_limit + 1
+
+    def add_false_positive_protocol(self, protocol):
+        if protocol in self.false_positive_protocols:
+            self.false_positive_protocols[protocol] = self.false_positive_protocols[protocol] + 1
+        else:
+            self.false_positive_protocols[protocol] = 1
+
+    def add_false_negative_protocol(self, protocol):
+        if protocol in self.false_negative_protocols:
+            self.false_negative_protocols[protocol] = self.false_negative_protocols[protocol] + 1
+        else:
+            self.false_negative_protocols[protocol] = 1
+
+
+    def calculate_analysis(self):
+        if self.true_positive == 0 and self.false_negative == 0:
+            recall = 0
+        else:
+            recall = self.true_positive / (self.true_positive + self.false_negative)
+
+        if self.true_positive == 0 and self.false_positive == 0:
+            precision = 0
+        else:
+            precision = self.true_positive / (self.true_positive + self.false_positive)
+
+        if precision == 0 and recall == 0:
+            fmeasure = 0
+        else:
+            fmeasure = (2 * precision * recall) / ( precision + recall )
+        return (recall*100, precision*100, fmeasure*100)
+
+    def calculate_analysis_inc_not_classified(self):
+        
+        exp = self.expected - self.under_defining_limit
+        nc = self.not_classified - self.under_defining_limit 
+
+        fn = self.false_negative + nc
+        
+        if self.true_positive == 0 and fn == 0:
+            recall = 0
+        else:
+            recall = self.true_positive / (self.true_positive + fn)
+
+        if self.true_positive == 0 and self.false_positive == 0:
+            precision = 0
+        else:
+            precision = self.true_positive / (self.true_positive + self.false_positive)
+
+        if precision == 0 and recall == 0:
+            fmeasure = 0
+        else:
+            fmeasure = (2 * precision * recall) / ( precision + recall )
+        return (recall*100, precision*100, fmeasure*100)
+        
+
+    def calculate_not_classified(self):
+
+        exp = self.expected - self.under_defining_limit
+        nc = self.not_classified - self.under_defining_limit 
+
+        adjusted_nc_pc = 0
+        if exp != 0:
+            adjusted_nc_pc = (nc / exp) * 100
+
+        ul_pc = 0
+        if self.expected != 0:
+            ul_pc = (self.under_defining_limit / self.expected) * 100
+
+        return (adjusted_nc_pc, ul_pc)
+
     def dict_repr(self):
         return self.name
 
@@ -91,7 +169,10 @@ class ProtocolResult:
         ret["true_negative"] = self.true_negative
         ret["false_negative"] = self.false_negative
         ret["not_classified"] = self.not_classified
+        ret["under_defining_limit"] = self.under_defining_limit
         ret["expected"] = self.expected
+        ret["false_positive_protocols"] = self.false_positive_protocols
+        ret["false_negative_protocols"] = self.false_negative_protocols
         return ret
 
 class Analyser:
@@ -102,6 +183,8 @@ class Analyser:
         self.flows = None
         self.default_protocol = default_protocol
         self.protocol_database = protocol_database
+        self.defining_limit = 0
+        self.cutoff_limit = 0
 
     def read_database(self):
         """
@@ -140,7 +223,7 @@ class Analyser:
                     for run in runs:
                         if len(run) == 0 or run is None:
                             continue
-                        run =  "---" + run
+                        #run =  "---" + run
 
                         one_run = yaml.load(run)
 
@@ -154,6 +237,9 @@ class Analyser:
                             if one_run["ProtocolDatabase"]["DefiningLimit"] != self.results["ProtocolDatabase"]["DefiningLimit"]:
                                 print "Warning: protocol databases DefiningLimit different. [%s] [%s]" %(one_run["ProtocolDatabase"]["DefiningLimit"], self.results["ProtocolDatabase"]["DefiningLimit"])
                     
+                            self.defining_limit = one_run["ProtocolDatabase"]["DefiningLimit"]
+                            self.cutoff_limit = one_run["ProtocolDatabase"]["CutoffLimit"]
+
                             if one_run["Results"] is not None:
                                 self.results["Results"] = self.results["Results"] + one_run["Results"]
                             else:
@@ -194,8 +280,10 @@ class Analyser:
             self.protocol_results[flow["protocol"]].increase_expected()
 
 
-    def analyse_results(self):
-
+    def gather_results(self):
+        """
+        Calculate all the results into the results dictionary
+        """
         if self.results is None:
             print "ERROR: No results to analyse"
             sys.exit(1)
@@ -230,22 +318,22 @@ class Analyser:
                 print "Warning [%s] in results but not in flows" %result["Protocol"]
                 self.protocol_results[result["Protocol"]] = ProtocolResult(result["Protocol"])
 
-    #
-    # From : KISS: Stochastic Packet Inspection Classifier for UDP Traffic
-    #   Classification accuracy is often reported in terms of False
-    #   Positive {FP} and True Positive (TP), and the False Negative
-    #   (FN) and True Negative (TN). A test is said to be "True" if the
-    #   classification result and the oracle are in agreement. A test is
-    #   said "False" on the contrary. The result of a test is "Positive"
-    #   if the classifier accepts the sample as belonging to the specific
-    #   class. On the contrary, a test is "Negative" For example, con-
-    #   sider a flow. The oracle states that this flow is an eMule flow.
-    #   If the flow is classified as an eMule flow, then we have a True
-    #   Positive. If not, then we have a False Negative. Consider instead
-    #   a flow that is not an eMule flow according to the oracle. If the
-    #   flow is classified as an eMule flow, then we have a False Posi-
-    #   tive. If not, then we have a True Negative
-    #   
+            #
+            # From : KISS: Stochastic Packet Inspection Classifier for UDP Traffic
+            #   Classification accuracy is often reported in terms of False
+            #   Positive {FP} and True Positive (TP), and the False Negative
+            #   (FN) and True Negative (TN). A test is said to be "True" if the
+            #   classification result and the oracle are in agreement. A test is
+            #   said "False" on the contrary. The result of a test is "Positive"
+            #   if the classifier accepts the sample as belonging to the specific
+            #   class. On the contrary, a test is "Negative" For example, con-
+            #   sider a flow. The oracle states that this flow is an eMule flow.
+            #   If the flow is classified as an eMule flow, then we have a True
+            #   Positive. If not, then we have a False Negative. Consider instead
+            #   a flow that is not an eMule flow according to the oracle. If the
+            #   flow is classified as an eMule flow, then we have a False Posi-
+            #   tive. If not, then we have a True Negative
+            #   
             if flow["classified"]:
                 if result["Protocol"] == expected_l7protocol:
                     self.protocol_results[expected_l7protocol].increase_true_positive()
@@ -258,8 +346,11 @@ class Analyser:
 
                 else:
                     self.protocol_results[expected_l7protocol].increase_false_negative()  
+                    self.protocol_results[expected_l7protocol].add_false_negative_protocol(result["Protocol"])  
+
 
                     self.protocol_results[result["Protocol"]].increase_false_positive()
+                    self.protocol_results[result["Protocol"]].add_false_positive_protocol(expected_l7protocol)
 
                     for k, v in self.protocol_results.iteritems():
                         if k == expected_l7protocol or k == result["Protocol"]:
@@ -271,6 +362,10 @@ class Analyser:
 
             else:
                 self.protocol_results[expected_l7protocol].increase_not_classified()
+
+                if flow["pkt_count"] < self.defining_limit:
+                    self.protocol_results[expected_l7protocol].increase_under_defining_limit()
+
                 for k, v in self.protocol_results.iteritems():
                     if k == expected_l7protocol:
                         continue
@@ -278,7 +373,34 @@ class Analyser:
                         v.increase_true_negative()
 
 
+    def analyse_results(self):
+        """
+        Analyse the raw results into Recall / precision
+        """
+        analysis = {}
+        for k, pr in self.protocol_results.iteritems():
+            (recall, precision, fmeasure) = pr.calculate_analysis()
+            analysis[k] = {}
+            analysis[k]["recall"] = float("%.2f" %recall)
+            analysis[k]["precision"] = float("%.2f" %precision)
+            analysis[k]["fmeasure"] = float("%.2f" %fmeasure)
+
+            (recall_pc, precision_pc, fmeasure_pc) = pr.calculate_analysis_inc_not_classified()
+            analysis[k]["recall_pc"] = float("%.2f" %recall_pc)
+            analysis[k]["precision_pc"] = float("%.2f" %precision_pc)
+            analysis[k]["fmeasure_pc"] = float("%.2f" %fmeasure_pc)
+
+            (nc, ul) = pr.calculate_not_classified()
+            analysis[k]["unclassified"] = float("%.2f" %nc)
+            analysis[k]["under_limit"] = float("%.2f" %ul)
+
+        print yaml.dump(analysis,  indent=4, default_flow_style=False)
+
+
     def print_results(self):
+        """
+        Print the results
+        """
         if self.flows is not None:
             print "Total flows in results file is %d" %len(self.flows)
         if self.results is not None:
@@ -317,8 +439,14 @@ def main():
     analyser.read_flows(options.flowsfile)
 
 
-    analyser.analyse_results()
+    analyser.gather_results()
+
     analyser.print_results()
+
+
+    analyser.analyse_results()
+
+    
 
 if __name__ == "__main__":
     # execute only if run as a script

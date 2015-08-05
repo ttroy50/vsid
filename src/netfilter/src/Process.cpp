@@ -260,5 +260,18 @@ void Process::shutdown()
 
 	for(auto &t : _packetHandlers){
 		t->shutdown();
+    }
+
+    std::time_t now = std::time(nullptr);
+    std::cout << "stats at shutdown: " << std::ctime(&now) << '\n';
+    for(auto &t : _packetHandlers) {
+        cout << "Queue [" << t->queueNumber() << "] received [" << t->numPackets() << "]" << endl;
+        std::vector<uint64_t> vs = t->verdictStats();
+        cout << "verdicts: " << endl;
+        for(int i = 0; i < vs.size(); ++i)
+        {
+            cout << "\t" << i << " = " << vs[i] << endl;
+        }
+        cout << "--------------------------" << endl;
 	}
 }

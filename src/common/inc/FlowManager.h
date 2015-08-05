@@ -156,6 +156,7 @@ private:
 	std::vector<boost::lockfree::queue<IPv4Packet*> *> _threadQueues;
 	int _currentQueue;
 	bool _shutdown;
+	bool _finishing;
 };
 
 } // end namespace

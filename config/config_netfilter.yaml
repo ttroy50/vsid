@@ -22,10 +22,21 @@
     NfBufSize: 2048
 
     # The KL Divergence Threshold. Any threshold below this will be considered that protocol
-    KLDivergenceThreshold : 1
+    KLDivergenceThreshold : 2
 
     # Number of worker threads to use in the Flow Manager. 
     # Each flow is assigned to a thread and that thread is responsible for all packets in the flow
     # The total number of threads used by the program will be NumQueues * NumWorkerThreadsPerQueue
-    NumWorkerThreadsPerQueue: 2
+    NumWorkerThreadsPerQueue: 4
+
+    # This controls whether the NfQueue verdict is set by the flow manager or the packet handler.
+    # If true, the FlowManager / Flow will set the verdict. Which will be when it has processed the packet.
+    #   This can allow drop packets if it fails to put the packet into the processing queue
+    # If false, the packet is always set ot accept by the PacketHandler after the return from FlowManager::addPacket
+    #   The exact timing will depend on if you are using worker threads.
+    #   With no threads it will be after classificaton
+    #   With threads it will be after putting it into the thread queue
+    VerdictAfterClassification: false
+
+
 

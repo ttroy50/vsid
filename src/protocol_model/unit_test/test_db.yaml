@@ -1,6 +1,7 @@
 --- 
 CutoffLimit: 10000
 DefiningLimit: 10
+Version: 0.2
 ProtocolModels: 
   - 
     AttributeMeters: 
@@ -8,7 +9,7 @@ ProtocolModels:
         AttributeName: DirectionBytesCountMeter
         Enabled: true
         FingerPrint: 
-          - 0.2
+          - 0.34
           - 0.66
         FlowCount: 55
       - 
@@ -547,7 +548,7 @@ ProtocolModels:
           - 0
           - 0
           - 0
-        FlowCount: 0
+        FlowCount: 1
     Enabled: false
     FlowCount: 99
     PortHints: ~

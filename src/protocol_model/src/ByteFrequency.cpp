@@ -42,7 +42,7 @@ void ByteFrequencyMeter::calculateMeasurement(Flow* flow,
 		data++;
 	}
 
-	_overall_byte_size = currentPacket->dataSize();
+	_overall_byte_size += currentPacket->dataSize();
 
 	for(size_t i = 0; i <_fingerprint_size; i++ )
 	{

@@ -42,10 +42,11 @@ CommonConfig* CommonConfig::instance()
 CommonConfig::CommonConfig() :
 	_learning_mode(false),
     _udp_flow_timeout(120),
-    _divergenceThreshold(2),
-    _workerThreadsPerQueue(0),
+    _divergence_threshold(2),
+    _worker_threads_per_queue(0),
     _tcp_flow_close_wait_timeout(2),
-    _tcp_flow_timeout(86400)
+    _tcp_flow_timeout(86400),
+    _use_best_match(true)
 {
 
 }

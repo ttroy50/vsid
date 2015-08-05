@@ -146,7 +146,7 @@ BOOST_AUTO_TEST_CASE( test_protocol_model )
     BOOST_CHECK_EQUAL( dbcm->name(), "DirectionBytesCountMeter" );
     BOOST_CHECK_EQUAL( dbcm->enabled(), true );
     BOOST_CHECK_EQUAL( dbcm->flowCount(), 55 );
-    std::vector<double> expected_dbcm_fp {0.2,0.66};
+    std::vector<double> expected_dbcm_fp {0.34,0.66};
     BOOST_CHECK_EQUAL_COLLECTIONS(dbcm->fingerprint().begin(), dbcm->fingerprint().end(), 
                               		expected_dbcm_fp.begin(), expected_dbcm_fp.end());
 
@@ -158,7 +158,7 @@ BOOST_AUTO_TEST_CASE( test_protocol_model )
     BOOST_CHECK_EQUAL( https_video->portHints().size(), 0 );
     std::shared_ptr<AttributeMeter> fpbm = https_video->find("ByteFrequencyFirstOrigToDestPacket");
     BOOST_CHECK_EQUAL( fpbm->enabled(), false );
-    BOOST_CHECK_EQUAL( fpbm->flowCount(), 0 );
+    BOOST_CHECK_EQUAL( fpbm->flowCount(), 1 );
     std::vector<double> expected_fpbm_fp {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
                             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
                             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

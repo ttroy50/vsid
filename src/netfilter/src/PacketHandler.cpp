@@ -53,16 +53,14 @@ static int nfqPacketHandlerCb(struct nfq_q_handle* nfQueue,
     	SLOG_ERROR(<< "packet handler is NULL");
     	return handler->setVerdictLocal(id, verdict); 
     }
-
-    SLOG_ERROR(<< "handler for nfQUeue " << nfQueue);
-
     
     if ( !handler->handlePacket(nfQueue, msg, pkt) )
     {
-    	SLOG_INFO( << "Verdict not set in handlePacket")
+    	SLOG_ERROR( << "Verdict not set in handlePacket")
     	// use handler setVerdict to increas stats
     	//return handler->setVerdict(id, verdict); 
     }
+    return 1;
 }
 
 PacketHandler::PacketHandler(int queueNumber, ProtocolModelDb* database) :
@@ -102,10 +100,10 @@ PacketHandler::PacketHandler(int queueNumber, ProtocolModelDb* database) :
 		throw StringException("Error in nfq_bind_pf()");
 	}
 
-	// Install a callback on queue 0
-	if (!(_nfQueue = nfq_create_queue(_nfqHandle, _queueNumber, &nfqPacketHandlerCb, static_cast<void*>(this)))) 
+	_nfQueue = nfq_create_queue(_nfqHandle, _queueNumber, &nfqPacketHandlerCb, static_cast<void*>(this) );
+	if (_nfQueue == NULL) 
 	{
-		SLOG_ERROR( << "Error in nfq_create_queue()" );
+		SLOG_ERROR( << "Error in nfq_create_queue() : " << _queueNumber << " : err = " << nfq_errno);
 		throw StringException("Error in nfq_create_queue()");
 	}
 
@@ -192,10 +190,6 @@ void PacketHandler::run()
 				SLOG_ERROR(<< "errno [" << errno << "][" << strerror(errno) << "] res is [" << res << "]. Shutting down");
 				_shutdown = true;
 			}
-			else
-			{
-				SLOG_INFO(<< "EGAAIN on " << _queueNumber);
-			}
 		}
 	}
 
@@ -210,7 +204,7 @@ void PacketHandler::run()
 				<< _numPackets << "] packets");
 }
 
-int PacketHandler::setVerdictLocal(int id, int verdict)
+int PacketHandler::setVerdictLocal(uint32_t id, uint32_t verdict)
 {
 	if(verdict > NF_MAX_VERDICT || verdict < NF_DROP)
 	{
@@ -232,7 +226,7 @@ int PacketHandler::setVerdictLocal(int id, int verdict)
 	}
 }
 
-int PacketHandler::setVerdict(int id, int verdict)
+int PacketHandler::setVerdict(uint32_t id, uint32_t verdict)
 {
 	if(verdict > NF_MAX_VERDICT || verdict < NF_DROP)
 	{
@@ -240,11 +234,13 @@ int PacketHandler::setVerdict(int id, int verdict)
 		return -1;
 	}
 
+	
 	// increase stats
 	std::unique_lock<std::mutex> statsGuard(_statsMutex);
 	_verdictStats[verdict]++;
 	statsGuard.unlock();
 
+	SLOG_INFO(<< "Set Verdict pktid=[" << id << "] : " << verdict)
 	std::lock_guard<std::mutex> verdictGuard(_verdictMutex);
 	return nfq_set_verdict(_nfQueue, id, verdict, 0, NULL);
 }
@@ -281,11 +277,11 @@ bool PacketHandler::handlePacket(struct nfq_q_handle* nfQueue,
 	u_char *pktData;
 	int pktLen = nfq_get_payload(pkt, &pktData);
 
-	SLOG_INFO( << "Packet len is " << pktLen );
-	if(pktLen > 0)
-	{
-		LOG_HEXDUMP("data :", pktData, pktLen);
-	}
+	//SLOG_INFO( << "Packet len is " << pktLen );
+	//if(pktLen > 0)
+	//{
+	//		LOG_HEXDUMP("data :", pktData, pktLen);
+	//}
 
 	struct ip_vhl {
 		unsigned int ip_hl:4; // only in IPv4
@@ -322,7 +318,7 @@ bool PacketHandler::handlePacket(struct nfq_q_handle* nfQueue,
 			}
 			case IPPROTO_TCP:
 			{
-				SLOG_INFO( << "IPPROTO_TCP");
+				SLOG_INFO( << "IPPROTO_TCP : pktid=[" << id << "]");
 
 				struct tcphdr* tcph = (struct tcphdr*)(transport_hdr_start);
 
@@ -334,17 +330,22 @@ bool PacketHandler::handlePacket(struct nfq_q_handle* nfQueue,
 										transport_hdr_start, 
 										data_start, 
 										timestamp, 
-										_buffer);
+										_buffer,
+										id,
+										this);
 
 				_flowManager.addPacket(tcp);
 
-				// We don't care about the verdict so set it now.
-				// If we start to care we will have to provide the callback later
-				return setVerdict(id, NF_ACCEPT);
+				if( ! Config::instance()->verdictAfterClassification())
+				{
+					// We don't care about the verdict so set it now.
+					return setVerdict(id, NF_ACCEPT);
+				}
+				return true;
 			}
 			case IPPROTO_UDP:
 			{
-				SLOG_INFO( << "IPPROTO_UDP");
+				SLOG_INFO( << "IPPROTO_UDP : pktid=[" << id << "]");
 
 				const u_char* data_start = transport_hdr_start + sizeof(udphdr);
 
@@ -354,13 +355,18 @@ bool PacketHandler::handlePacket(struct nfq_q_handle* nfQueue,
 										transport_hdr_start, 
 										data_start, 
 										timestamp, 
-										_buffer);
+										_buffer,
+										id,
+										this);
 
 				_flowManager.addPacket(udp);
 
-				// We don't care about the verdict so set it now.
-				// If we start to care we will have to provide the callback later
-				return setVerdict(id, NF_ACCEPT);
+				if( !Config::instance()->verdictAfterClassification() )
+				{
+					// We don't care about the verdict so set it now.
+					return setVerdict(id, NF_ACCEPT);
+				}
+				return true;
 			}
 			case IPPROTO_SCTP:
 			{
@@ -394,4 +400,17 @@ void PacketHandler::shutdown()
 	_shutdown = true;
 	_flowManager.shutdown();
 	SLOG_INFO(<< "Shutdown called for queue [" << _queueNumber << "]");
+}
+
+
+void PacketHandler::setAccept(uint32_t id)
+{
+	if( Config::instance()->verdictAfterClassification() )
+		setVerdict(id, NF_ACCEPT);
+}
+
+void PacketHandler::setDrop(uint32_t id)
+{
+	if( Config::instance()->verdictAfterClassification() )
+		setVerdict(id, NF_DROP);
 }

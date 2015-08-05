@@ -43,6 +43,8 @@ void ProtocolModelUpdater::flowFinished(std::shared_ptr<Flow> flow)
                 break;
             }
 
+            model->increaseFlowCount();
+            
             for(auto meterIt = meters.begin(); meterIt != meters.end(); ++meterIt)
             {
                 auto modelMeter = model->find((*meterIt)->name());

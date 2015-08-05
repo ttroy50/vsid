@@ -30,7 +30,9 @@ lib_vsid_protocol_model_a_SOURCES = ProtocolModelDb.cpp \
 									DirectionChangesFirst8PacketsMeter.cpp \
 									RtmpRegexMatchMeter.cpp \
 									EntropyFirstOrigToDestPacket.cpp \
-									ActionReactionFirst3ByteHashMeter.cpp
+									ActionReactionFirst3ByteHashMeter.cpp \
+									PayloadSizeFirstPacketMeter.cpp \
+									FirstBitPositionsMeter.cpp
  
 #lib_vsid_protocol_model_a_INCS = \
 #								-I/usr/local/include \

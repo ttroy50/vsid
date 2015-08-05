@@ -16,7 +16,7 @@ std::unique_ptr<AttributeMeter> create_first_packet_entropy_orig_dest_meter()
 Vsid::Registrar EntropyFirstOrigToDestPacket::registrar("EntropyFirstOrigToDestPacket", &create_first_packet_entropy_orig_dest_meter);
 
 EntropyFirstOrigToDestPacket::EntropyFirstOrigToDestPacket() :
-    AttributeMeter(1)
+    AttributeMeter(2)
 {
 
 }
@@ -46,4 +46,5 @@ void EntropyFirstOrigToDestPacket::calculateMeasurement(Flow* flow,
             _fingerprint[0] -= probability*log2(probability);
     }
     _fingerprint[0] = _fingerprint[0]/8;
+    _fingerprint[1] = 1.0 - _fingerprint[0];
 }

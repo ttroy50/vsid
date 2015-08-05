@@ -6,8 +6,11 @@
     UdpFlowTimeoupt: 120
 
     # The KL Divergence Threshold. Any threshold below this will be considered that protocol
-    KLDivergenceThreshold : 2.04
+    KLDivergenceThreshold : 0.01
+
+    # If we are to use the best match from before the defining limit once we reach it
+    UseBestMatchDivergence: false
 
     # Number of worker threads to use in the Flow Manager. Each flow is assigned to a thread
     # And that thread is responsible for all packets in the flow
-    NumWorkerThreadsPerQueue: 2
+    NumWorkerThreadsPerQueue: 1

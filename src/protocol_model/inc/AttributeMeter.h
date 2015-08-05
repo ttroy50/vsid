@@ -63,6 +63,18 @@ public:
  
 	void merge(std::shared_ptr<AttributeMeter> other);
 
+	/**
+	 * These are used to introduce noise into the K-L divergence to 
+	 * prevent divide by 0 issues
+	 *
+	 * The reason is that for a K-L divergence to be valid it must satisfy 2 things
+	 * Sum of all P(i) = 1
+	 * Sum of all Q(i) = 1
+	 * P(i) or Q(i) cannot be zero when the other has a value
+	 * @return
+	 */
+	double klFixMultiplier() const { return _klFixMultiplicator; }
+	double klFixIncrement() const { return _klFixIncrement; }
 
 	friend class ProtocolModel;
 	friend class ProtocolModelDb;
@@ -75,6 +87,8 @@ protected:
 	// used when reading from the DB to make sure that we have a correctly sized entry.
 	size_t _fingerprint_size;
 
+	double _klFixMultiplicator;
+	double _klFixIncrement;
 private:
 	
 };

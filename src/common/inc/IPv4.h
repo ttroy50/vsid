@@ -13,6 +13,7 @@
 #include <sys/types.h>
 #include <netinet/ip.h>
 #include "Logger.h"
+#include "PacketCallbacks.h"
 
 namespace VsidCommon
 {
@@ -35,7 +36,9 @@ public:
 		_transport_hdr_start(transport_hdr_start),
 		_data_start(data_start),
 		_timestamp(ts),
-		_buffer(NULL)
+		_buffer(NULL),
+		_pktId(0),
+		_verdictSetter(NULL)
 	{
 	}
 
@@ -55,17 +58,39 @@ public:
 		_transport_hdr_start(transport_hdr_start),
 		_data_start(data_start),
 		_timestamp(ts),
-		_buffer(buffer)
+		_buffer(buffer),
+		_pktId(0),
+		_verdictSetter(NULL)
 	{
 	}
 
-	virtual ~IPv4Packet() 
+	/**
+	 * Constructor that gives this packet ownership of the buffer it was received on
+	 * Adds a Packet Id and verdict callback
+	 */
+	IPv4Packet(const u_char* pkt, 
+			int pkt_size, 
+			const u_char* ip_hdr_start,
+			const u_char* transport_hdr_start, 
+			const u_char* data_start,
+			struct timeval ts,
+			u_char* buffer,
+			uint32_t pktId,
+			PacketVerdict* verdictSetter) :
+		_pkt(pkt),
+		_pkt_size(pkt_size),
+		_ip_hdr_start(ip_hdr_start),
+		_transport_hdr_start(transport_hdr_start),
+		_data_start(data_start),
+		_timestamp(ts),
+		_buffer(buffer),
+		_pktId(pktId),
+		_verdictSetter(verdictSetter)
 	{
-		if(_buffer)
-		{
-			delete[] _buffer;
-		}
 	}
+
+	virtual ~IPv4Packet();
+	
 
 	const struct iphdr* iphdr() const { return (const struct iphdr*)_ip_hdr_start; }
 
@@ -96,6 +121,21 @@ public:
 
 	const struct timeval& timestamp() const { return _timestamp; }
 
+
+	/**
+	 * Use the default verdict. 
+	 */
+	void setVerdict();
+
+	/**
+	 * Accept a packet
+	 */
+	void acceptPkt();
+
+	/**
+	 * Drop a packet
+	 */
+	void dropPkt();
 protected:
 	const u_char* _pkt;
 	int _pkt_size;
@@ -107,6 +147,10 @@ protected:
 	
 	// Timestamp for when the packet was created
 	struct timeval _timestamp;
+
+	uint32_t _pktId;
+	// TODO: This may be better as a templated functor but this is quickest to implement for now
+	PacketVerdict* _verdictSetter;
 };
 
 } // end namespace

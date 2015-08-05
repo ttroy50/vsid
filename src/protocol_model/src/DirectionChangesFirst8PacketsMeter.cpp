@@ -17,7 +17,7 @@ std::unique_ptr<AttributeMeter> create_direction_changes_first_8_meter()
 Vsid::Registrar DirectionChangesFirst8PacketsMeter::registrar("DirectionChangesFirst8PacketsMeter", &create_direction_changes_first_8_meter);
 
 DirectionChangesFirst8PacketsMeter::DirectionChangesFirst8PacketsMeter() :
-    AttributeMeter(1)
+    AttributeMeter(2)
 {
 }
 
@@ -35,4 +35,5 @@ void DirectionChangesFirst8PacketsMeter::calculateMeasurement(Flow* flow,
     }
 
     _fingerprint[0] = (double)count / flow->pktCount();
+    _fingerprint[1] = 1.0 - _fingerprint[0];
 }

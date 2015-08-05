@@ -96,7 +96,7 @@ public:
 
 	/**
 	 * Get the defining limit
-	 *
+	 * Protocols will not be hard matched before this limit
 	 * @return
 	 */
 	uint32_t definingLimit() const { return _definingLimit; }
@@ -104,6 +104,9 @@ public:
 	/**
 	 * Get the cutoffLimit
 	 *
+	 * The cutoff limit is the maximum number of packets to look at 
+	 * in a flow. This is used for both classification and model creation
+	 * 
 	 * @return
 	 */
 	uint32_t cutoffLimit() const { return _cutoffLimit; }
@@ -123,6 +126,7 @@ public:
 	std::string lastModifiedTimeAsString() const;
 
 	std::string databaseVersion() const { return _version; }
+	
 private:
 	std::string _filename;
 	std::string _backupfile;

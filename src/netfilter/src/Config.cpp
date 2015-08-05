@@ -36,7 +36,8 @@ Config::Config() :
     _num_queues(1),
     _queue_offset(0),
     _nf_queue_size(2048),
-    _nf_buf_size(2048)
+    _nf_buf_size(2048),
+    _verdictAfterClassification(false)
 {
 
 }
@@ -69,33 +70,33 @@ bool Config::init(const string& config_file)
     if(config["ProtocolDatabase"])
     {
     	_protocol_database = config["ProtocolDatabase"].as<string>();
-    	SLOG_INFO(<< "ProtocolDatabase : " << _protocol_database)
     }
+    SLOG_INFO(<< "ProtocolDatabase : " << _protocol_database)
 
 
     if(config["UdpFlowTimeout"])
     {
     	CommonConfig::instance()->udpFlowTimeout(config["UdpFlowTimeout"].as<uint32_t>());
-        SLOG_INFO(<< "UdpFlowTimeout : " << CommonConfig::instance()->udpFlowTimeout())
     }
+    SLOG_INFO(<< "UdpFlowTimeout : " << CommonConfig::instance()->udpFlowTimeout())
 
     if(config["NumQueues"])
     {
         _num_queues = config["NumQueues"].as<uint32_t>();
-        SLOG_INFO(<< "NumQueues : " << _num_queues)
     }
+    SLOG_INFO(<< "NumQueues : " << _num_queues)
 
     if(config["QueueOffset"])
     {
         _queue_offset = config["QueueOffset"].as<uint32_t>();
-        SLOG_INFO(<< "QueueOffset : " << _queue_offset)
     }
+    SLOG_INFO(<< "QueueOffset : " << _queue_offset)
 
     if(config["NfQueueSize"])
     {
         _nf_queue_size = config["NfQueueSize"].as<size_t>();
-        SLOG_INFO(<< "NfQueueSize : " << _nf_queue_size)
     }
+    SLOG_INFO(<< "NfQueueSize : " << _nf_queue_size)
 
     if(config["NumWorkerThreadsPerQueue"])
     {
@@ -110,15 +111,33 @@ bool Config::init(const string& config_file)
 
     if(config["NfBufSize"])
     {
-        _nf_buf_size = config["NfBufSize"].as<size_t>();
-        SLOG_INFO(<< "NfBufSize : " << _nf_buf_size)
+        _nf_buf_size = config["NfBufSize"].as<size_t>();    
     }
+    SLOG_INFO(<< "NfBufSize : " << _nf_buf_size)
+
+
 
     if(config["KLDivergenceThreshold"])
     {
         CommonConfig::instance()->divergenceThreshold(config["KLDivergenceThreshold"].as<double>());
-        SLOG_INFO(<< "KLDivergenceThreshold : " << CommonConfig::instance()->divergenceThreshold())
     }
+    SLOG_INFO(<< "KLDivergenceThreshold : " << CommonConfig::instance()->divergenceThreshold())
     
+
+
+    if(config["UseBestMatchDivergence"])
+    {
+        CommonConfig::instance()->useBestMatch(config["UseBestMatchDivergence"].as<bool>());
+    }
+    SLOG_INFO(<< "UseBestMatchDivergence : " << CommonConfig::instance()->useBestMatch())
+
+
+
+    if(config["VerdictAfterClassification"])
+    {
+        _verdictAfterClassification = config["VerdictAfterClassification"].as<bool>();
+    }
+    SLOG_INFO(<< "VerdictAfterClassification : " << _verdictAfterClassification)
+
 	return true;
 }

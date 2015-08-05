@@ -86,8 +86,15 @@ bool Config::init(const string& config_file)
     if(config["KLDivergenceThreshold"])
     {
         CommonConfig::instance()->divergenceThreshold(config["KLDivergenceThreshold"].as<double>());
-        SLOG_INFO(<< "KLDivergenceThreshold : " << CommonConfig::instance()->divergenceThreshold())
     }
+    SLOG_INFO(<< "KLDivergenceThreshold : " << CommonConfig::instance()->divergenceThreshold())
+
+
+    if(config["UseBestMatchDivergence"])
+    {
+        CommonConfig::instance()->useBestMatch(config["UseBestMatchDivergence"].as<bool>());
+    }
+     SLOG_INFO(<< "UseBestMatchDivergence : " << CommonConfig::instance()->useBestMatch())
 
     if(config["NumWorkerThreadsPerQueue"])
     {

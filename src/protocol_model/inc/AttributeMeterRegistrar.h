@@ -24,7 +24,9 @@
 #include "RtmpRegexMatchMeter.h"
 #include "EntropyFirstOrigToDestPacket.h"
 #include "ActionReactionFirst3ByteHashMeter.h"
- 
+#include "PayloadSizeFirstPacketMeter.h"
+#include "FirstBitPositionsMeter.h"
+
 /**
  * Make sure to call this at the start of your program
  */
@@ -44,6 +46,8 @@ inline void init_attribute_meters()
     Vsid::RtmpRegexMatchMeter::registrar.doRegistration();
     Vsid::EntropyFirstOrigToDestPacket::registrar.doRegistration();
     Vsid::ActionReactionFirst3ByteHashMeter::registrar.doRegistration();
+    Vsid::PayloadSizeFirstPacketMeter::registrar.doRegistration();
+    Vsid::FirstBitPositionsMeter::registrar.doRegistration();
 	SLOG_INFO(<< "Attribute Meters Initialised");
 } 
 

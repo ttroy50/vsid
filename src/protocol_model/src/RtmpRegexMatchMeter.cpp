@@ -18,10 +18,12 @@ std::unique_ptr<AttributeMeter> create_rtmp_regex_match_meter()
 Vsid::Registrar RtmpRegexMatchMeter::registrar("RtmpRegexMatchMeter", &create_rtmp_regex_match_meter);
 
 RtmpRegexMatchMeter::RtmpRegexMatchMeter() :
-    AttributeMeter(1),
+    AttributeMeter(2),
     _overall_byte_size(0)
 {
     _regex = std::regex("\x03.+\x14.+\x02.+\x07.*(connect){0,1}.+(app){0,1}.+");
+    _fingerprint[0] = 0;
+    _fingerprint[1] = 1;
 }
 
 void RtmpRegexMatchMeter::calculateMeasurement(Flow* flow, 
@@ -38,5 +40,6 @@ void RtmpRegexMatchMeter::calculateMeasurement(Flow* flow,
                             _regex))
     {
         _fingerprint[0] = 1;
+        _fingerprint[1] = 0;
     }
 }

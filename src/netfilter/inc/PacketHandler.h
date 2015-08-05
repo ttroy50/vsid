@@ -22,6 +22,7 @@ extern "C" {
 
 #include "FlowManager.h"
 #include "FlowClassificationLogger.h"
+#include "PacketCallbacks.h"
 
 namespace Vsid
 {
@@ -31,7 +32,7 @@ namespace Vsid
 namespace VsidNetfilter
 {
 
-class PacketHandler
+class PacketHandler : public VsidCommon::PacketVerdict
 {
 public:
 	PacketHandler(int queueNumber, Vsid::ProtocolModelDb* database);
@@ -45,16 +46,31 @@ public:
 
 	void shutdown();
 
-	int setVerdict(int id, int verdict);
+	int setVerdict(uint32_t id, uint32_t verdict);
 
 	/*
 	 * Should only be called from same thread, to release the received buffer
 	 */
-	int setVerdictLocal(int id, int verdict);
+	int setVerdictLocal(uint32_t id, uint32_t verdict);
 
 	int queueNumber() { return _queueNumber; }
 	uint64_t numPackets() { return _numPackets; }
 	std::vector<uint64_t> verdictStats();
+
+
+	 /**
+     * Wrappers around set verdict.
+     * Should only be called from Flow Manager because it checks the config verdictAfterClassification
+     * @param id
+     */
+    virtual void setAccept(uint32_t id);
+
+    /**
+     * wrappers around set verdict
+     * Should only be called from Flow Manager because it checks the config verdictAfterClassification
+     * @param id
+     */
+    virtual void setDrop(uint32_t id);
 
 private:
 	int _queueNumber;

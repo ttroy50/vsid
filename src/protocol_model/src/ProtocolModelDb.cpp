@@ -1,3 +1,4 @@
+#include <iostream>
 
 #include "ProtocolModelDb.h"
 #include "ProtocolModel.h"
@@ -5,8 +6,7 @@
 #include "Logger.h"
 #include "AttributeMeterFactory.h"
 #include "yaml-cpp/yaml.h"
-#include <iostream>
-
+#include "CommonConfig.h"
 
 using namespace std;
 using namespace Vsid;
@@ -14,7 +14,7 @@ using namespace Vsid;
 ProtocolModelDb::ProtocolModelDb(string filename, string backupfile) :
 	_filename(filename),
 	_initialised(false),
-	_cutoffLimit(10000),
+	_cutoffLimit(1000),
 	_definingLimit(10)
 {
 	if(backupfile.empty())
@@ -139,7 +139,6 @@ bool ProtocolModelDb::read()
 				{
 					_portHintOrder[ model->portHints().at(i) ].push_back( model );
 				}
-			
 				SLOG_INFO( << "Model [" << model->name() << "] added to DB");
 			}
 		}
@@ -155,6 +154,39 @@ bool ProtocolModelDb::read()
 		SLOG_ERROR(<< "No protocol models in the DB")
 	}
 
+	// finish filling out the port order tables
+	for(auto pmIt = _protocolModelOrder.begin(); pmIt != _protocolModelOrder.end(); ++pmIt )
+	{
+
+		for( auto orderIt = _portHintOrder.begin(); orderIt != _portHintOrder.end(); ++orderIt)
+		{
+			bool found = false;
+			for(int i =0; i < orderIt->second.size(); i++)
+			{
+				if( (*pmIt)->name() == orderIt->second[i]->name() )
+				{
+					found = true;
+					break;
+				}
+			}
+			if ( !found )
+			{
+				orderIt->second.push_back((*pmIt));
+			}
+
+		}
+	}
+	
+	/*for( auto orderIt = _portHintOrder.begin(); orderIt != _portHintOrder.end(); ++orderIt)
+	{
+		std::cout << "Order for : " << orderIt->first << endl;
+
+		for(int i =0; i < orderIt->second.size(); i++)
+		{
+			cout << "\t" << orderIt->second[i]->name() << endl;
+		}
+	}*/
+			
 	SLOG_INFO( << "DB Initialised");
 	_initialised = true;
 	return true;
@@ -199,6 +231,11 @@ std::shared_ptr<ProtocolModel> ProtocolModelDb::_readProtocolModel(const YAML::N
 		SLOG_INFO(<< "Enabled : " << model->_enabled);
 	}
 
+	/*if( !model->_enabled )
+	{
+		SLOG_INFO(<< "ProtocolModel at [" << count << "] not enabled");
+		return nullptr;
+	}*/
 
 	if( node["PortHints"] )
 	{
@@ -303,10 +340,18 @@ std::shared_ptr<AttributeMeter> ProtocolModelDb::_readAttributeMeter(const YAML:
 	}
 	else
 	{
-		SLOG_WARN(<< "AttributeMeter at [" << count << "] doesn't have a FlowCount");
+		SLOG_WARN(<< "AttributeMeter at [" << count << "] doesn't have a FlowCount. Will be disabled");
 		attr->_flowCount = 0;
+		attr->_enabled = false;
 		SLOG_INFO(<< "FlowCount : " << attr->_flowCount);
 	}
+
+
+	/*if( attr->_flowCount > 0)
+	{
+		attr->_klFixMultiplicator = (double) attr->flowCount() / (attr->size() + attr->flowCount());
+		attr->_klFixIncrement = (1.0 / attr->flowCount()) / (attr->size() + attr->flowCount());
+	}*/
 
 	if( node["FingerPrint"] )
 	{
