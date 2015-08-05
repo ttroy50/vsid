@@ -288,7 +288,11 @@ void Flow::addPacket(IPv4Packet* packet)
 			double klDivergence = 0.0;
 
 			// get protocol model in order or dst port of flow
-			std::shared_ptr<ProtocolModel> pm = _protocolModelDb->at(i, _firstPacketTuple.dst_port);
+			uint16_t hintPort = 0;
+			if(CommonConfig::instance()->usePortHints())
+				hintPort = _firstPacketTuple.dst_port;
+
+			std::shared_ptr<ProtocolModel> pm = _protocolModelDb->at(i, hintPort);
 
 			if( !pm )
 			{

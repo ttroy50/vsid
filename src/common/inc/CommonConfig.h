@@ -79,6 +79,10 @@ public:
 	int workerThreadsPerQueue() { return _worker_threads_per_queue; }
 	void workerThreadsPerQueue(int n) { _worker_threads_per_queue = n; }
 
+
+	bool usePortHints() { return _use_port_hints; }
+	void usePortHints(bool b) { _use_port_hints = b; }
+
 private:
 	static std::unique_ptr<CommonConfig> _instance;
 	static std::once_flag _onceFlag;
@@ -94,6 +98,7 @@ private:
 	double _divergence_threshold;
 	bool _use_best_match;
 	int _worker_threads_per_queue;
+	bool _use_port_hints;
 };
 
 

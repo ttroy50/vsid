@@ -14,3 +14,8 @@
     # Number of worker threads to use in the Flow Manager. Each flow is assigned to a thread
     # And that thread is responsible for all packets in the flow
     NumWorkerThreadsPerQueue: 1
+
+    # If the classification algorithm will look at protocols in the order of their port hints
+    # when doing a classification. This may allow certain protocols to be preferred during
+    # classification because they will be analysed first
+    UsePortHints: true

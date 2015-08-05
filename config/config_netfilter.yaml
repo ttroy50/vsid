@@ -38,5 +38,7 @@
     #   With threads it will be after putting it into the thread queue
     VerdictAfterClassification: false
 
-
-
+    # If the classification algorithm will look at protocols in the order of their port hints
+    # when doing a classification. This may allow certain protocols to be preferred during
+    # classification because they will be analysed first
+    UsePortHints: true

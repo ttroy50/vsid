@@ -94,7 +94,13 @@ bool Config::init(const string& config_file)
     {
         CommonConfig::instance()->useBestMatch(config["UseBestMatchDivergence"].as<bool>());
     }
-     SLOG_INFO(<< "UseBestMatchDivergence : " << CommonConfig::instance()->useBestMatch())
+    SLOG_INFO(<< "UseBestMatchDivergence : " << CommonConfig::instance()->useBestMatch())
+
+    if(config["UsePortHints"])
+    {
+        CommonConfig::instance()->usePortHints(config["UsePortHints"].as<bool>());
+    }
+    SLOG_INFO(<< "UsePortHints : " << CommonConfig::instance()->usePortHints())
 
     if(config["NumWorkerThreadsPerQueue"])
     {
