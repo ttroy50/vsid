@@ -14,7 +14,7 @@ using namespace Vsid;
 ProtocolModelDb::ProtocolModelDb(string filename, string backupfile) :
 	_filename(filename),
 	_initialised(false),
-	_cutoffLimit(1000),
+	_cutoffLimit(100),
 	_definingLimit(10)
 {
 	if(backupfile.empty())
@@ -314,6 +314,8 @@ std::shared_ptr<AttributeMeter> ProtocolModelDb::_readAttributeMeter(const YAML:
 						<< " at [" << count << "]");
 		return nullptr;
 	}
+
+	attr->_fromDb = true;
 
 	if( node["Enabled"] )
 	{

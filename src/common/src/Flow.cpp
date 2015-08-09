@@ -70,6 +70,18 @@ void Flow::addPacket(IPv4Packet* packet)
 	State stateUponArrival = _flowState;
 	Direction tmpPktDirection = packetDirection(packet);
 
+	/*if ( _pktsInQueue > 1024 )
+	{
+		if( !_alarmedFlowSize )
+		{
+			SLOG_ERROR(<< "More than 1024 packets in flow queue [" << _pktsInQueue << "]")
+		}
+	}
+	else
+	{
+		_alarmedFlowSize = false;
+	}*/
+
 	_isFirstPacket = false;
 
 	// TODO cleanup this to make it easier to understand and only do one cast
@@ -141,6 +153,8 @@ void Flow::addPacket(IPv4Packet* packet)
 			{
 				_flowState = Flow::State::FINISHED;
 				SLOG_INFO(<< "RST or FIN in ESTABLISHING state returning")
+				packet->setVerdict();
+				return;
 			}
 			else if ( flags & TH_SYN ) // TODO maybe make this a syn ack check
 			{
@@ -161,11 +175,17 @@ void Flow::addPacket(IPv4Packet* packet)
 
 			if( (flags & TH_FIN) )
 			{
-				_flowState = Flow::State::FINISHING;
+				_flowState = Flow::State::FINISHED;
+				SLOG_INFO(<< " Flow entering Finished state");
+				packet->setVerdict();
+				return;
 			}
 			else if( flags & TH_RST )
 			{
-				_flowState = Flow::State::FINISHING;
+				_flowState = Flow::State::FINISHED;
+				SLOG_INFO(<< " Flow entering Finished state");
+				packet->setVerdict();
+				return;
 			}
 			else
 			{
@@ -305,24 +325,20 @@ void Flow::addPacket(IPv4Packet* packet)
 				SLOG_DEBUG(<< "PRotocol [" << pm->name() << "] disabled")
 				continue;
 			}
-			
+
 			SLOG_DEBUG(<< "Checking model " << pm->name());
-			int num_attributes = 0;
 			for(size_t attr = 0; attr < pm->size(); attr++)
 			{
 				std::shared_ptr<AttributeMeter> pm_am = pm->at(attr);
 				if( !pm_am->enabled() )
 					continue;
 
-				num_attributes++;
 				std::shared_ptr<AttributeMeter> am = _attributeMetersMap[pm_am->name()];
 
 				double sum = 0.0;
 
 				double pm_am_sum = 0;
 				double am_sum = 0;
-				stringstream pm_am_ss;
-				stringstream am_ss;
 
 				for(size_t fp = 0; fp < pm_am->size(); ++fp)
 				{
@@ -340,12 +356,8 @@ void Flow::addPacket(IPv4Packet* packet)
 					double am_fp = (am->at(fp) * am->klFixMultiplier()) + am->klFixIncrement();
 					double pm_am_fp = (pm_am->at(fp) * pm_am->klFixMultiplier()) + pm_am->klFixIncrement();
 
-					
-					am_ss << am_fp << " + ";
 					am_sum += am_fp;
-
 					pm_am_sum += pm_am_fp;
-					pm_am_ss << pm_am_fp << " + ";
 
 					if(pm_am_fp > (double)0)
 					{	
@@ -361,29 +373,11 @@ void Flow::addPacket(IPv4Packet* packet)
 				}
 				if( sum < (double)0.0 )
 				{
-					SLOG_ERROR(<< "Sum for divergence [" << pm_am->name() << "] is < 0 : " << sum)
 					sum *= -1;
 				}
 
-				//SLOG_DEBUG(<< pmamss.str())
-				//SLOG_DEBUG(<< amss.str())
 				SLOG_DEBUG(<< "Sum for " << pm_am->name() << " is " << sum);
 				klDivergence += sum;
-
-				// checks to make sure our divergence can be cauculated correctly
-				/*if(!absoluteToleranceCompare(pm_am_sum, 1.0))
-				{
-					SLOG_ERROR(<< "pm_am_sum for " << pm_am->name() << " in " 
-						<< pm->name() << " is not 1 : " << pm_am_sum);
-					SLOG_ERROR(<< "am_fp_ss : " << pm_am_ss.str())
-				}
-
-				if(!absoluteToleranceCompare(am_sum, 1.0))
-				{
-					SLOG_ERROR(<< "am_sum for " << pm_am->name() << " in "
-						<< pm->name() <<  "is not 1 : " << am_sum);
-					SLOG_ERROR(<< "am_ss : " << am_ss.str())
-				}*/
 			}
 
 
@@ -401,21 +395,6 @@ void Flow::addPacket(IPv4Packet* packet)
 							<< "] : " << *this);
 				break;
 			}
-			
-			/*if( _pktCount == _protocolModelDb->definingLimit()  )
-			{
-				if( klDivergence > 0 
-					&& klDivergence < CommonConfig::instance()->divergenceThreshold() )
-				{
-					_flowClassified = true;
-					_classifiedProtocol = pm->name();
-					_classifiedDivergence = klDivergence;
-					SLOG_DEBUG(<< "Flow classified (DL) as [" << _classifiedProtocol 
-								<< "] with divergence [" << _classifiedDivergence 
-								<< "] : " << *this);
-					break;
-				}
-			}*/
 			
 
 			if( klDivergence > 0 

@@ -92,11 +92,21 @@ bool Config::init(const string& config_file)
     }
     SLOG_INFO(<< "QueueOffset : " << _queue_offset)
 
+
     if(config["NfQueueSize"])
     {
         _nf_queue_size = config["NfQueueSize"].as<size_t>();
     }
     SLOG_INFO(<< "NfQueueSize : " << _nf_queue_size)
+
+
+
+    if(config["NfBufSize"])
+    {
+        _nf_buf_size = config["NfBufSize"].as<size_t>();    
+    }
+    SLOG_INFO(<< "NfBufSize : " << _nf_buf_size)
+
 
     if(config["NumWorkerThreadsPerQueue"])
     {
@@ -109,11 +119,13 @@ bool Config::init(const string& config_file)
         SLOG_INFO(<< "NumWorkerThreadsPerQueue : " << CommonConfig::instance()->workerThreadsPerQueue())
     }
 
-    if(config["NfBufSize"])
+
+     if(config["WorkerThreadQueueSize"])
     {
-        _nf_buf_size = config["NfBufSize"].as<size_t>();    
+        CommonConfig::instance()->workerThreadQueueSize(config["WorkerThreadQueueSize"].as<size_t>());    
     }
-    SLOG_INFO(<< "NfBufSize : " << _nf_buf_size)
+    SLOG_INFO(<< "WorkerThreadQueueSize : " << CommonConfig::instance()->workerThreadQueueSize())
+
 
 
 

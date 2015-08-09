@@ -47,7 +47,8 @@ CommonConfig::CommonConfig() :
     _tcp_flow_close_wait_timeout(2),
     _tcp_flow_timeout(86400),
     _use_best_match(true),
-    _use_port_hints(true)
+    _use_port_hints(true),
+    _worker_thread_queue_size(2048)
 {
 
 }

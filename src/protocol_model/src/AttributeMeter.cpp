@@ -8,7 +8,8 @@ using namespace Vsid;
 AttributeMeter::AttributeMeter(size_t fingerprint_size) :
 	_fingerprint_size(fingerprint_size),
 	_fingerprint(fingerprint_size, 0.0),
-	_enabled(false)
+	_enabled(false),
+	_fromDb(false)
 {
 
 	// These are the vlues when used for an observation.
@@ -47,6 +48,12 @@ void AttributeMeter::merge(std::shared_ptr<AttributeMeter> other)
 		return;
 	}
 
+	if( !_fromDb )
+	{
+		SLOG_ERROR(<< "Cannot merge because this meter is not from the DB")
+		return;
+	}
+	
 	for(size_t i = 0; i < this->size(); i++)
 	{
 		SLOG_INFO(<< "[" << i << "] : this =" << this->at(i) << " other = " << other->at(i) << " flowCount = " << _flowCount);

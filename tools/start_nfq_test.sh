@@ -15,5 +15,5 @@ iptables -A OUTPUT -p tcp -j NFQUEUE --queue-balance 0:1
 #
 echo "Starting $1 with config $2"
 #$1 -c $2 &
-nice -n -10 src/netfilter/src/vsid_netfilter -c ../config/config_netfilter.yaml &
+nice -n -10 src/nfqueue_test/src/vsid_nfqueue_test -c ../config/config_nfqueue_test.yaml &
 echo "Started"

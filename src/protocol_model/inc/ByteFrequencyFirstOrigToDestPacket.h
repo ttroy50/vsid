@@ -38,17 +38,15 @@ public:
 	virtual void calculateMeasurement(VsidCommon::Flow* flow, 
 													VsidCommon::IPv4Packet* currentPacket );
 
-	// TODO 
-	// virtual void update(std::vector<double>)
-	// 
-	// 
+	virtual double at(size_t pos);
+
 
 	friend class ProtocolModel;
 	friend class ProtocolModelDb;
 
 	static Vsid::Registrar registrar;
 protected:
-
+	uint64_t _overall_byte_size;
 private:
 
 };

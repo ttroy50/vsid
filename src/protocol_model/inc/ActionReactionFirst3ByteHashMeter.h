@@ -36,7 +36,8 @@ public:
      */
     virtual std::string name() const { return "ActionReactionFirst3ByteHashMeter"; }
 
-    
+    virtual double at(size_t pos);
+
     virtual void calculateMeasurement(VsidCommon::Flow* flow, 
                                                     VsidCommon::IPv4Packet* currentPacket );
 

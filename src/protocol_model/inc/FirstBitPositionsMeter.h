@@ -34,14 +34,10 @@ public:
      */
     virtual std::string name() const { return "FirstBitPositionsMeter"; }
 
-    
+    virtual double at(size_t pos);
+
     virtual void calculateMeasurement(VsidCommon::Flow* flow, 
                                                     VsidCommon::IPv4Packet* currentPacket );
-
-    // TODO 
-    // void update(std::shared_ptr<AttributeMeter> other)
-    // 
-    // 
 
     friend class ProtocolModel;
     friend class ProtocolModelDb;

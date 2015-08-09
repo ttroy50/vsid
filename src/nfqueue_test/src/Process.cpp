@@ -99,13 +99,11 @@ void Process::setUpSignals(void (*sig_fn)(int) )
 void Process::usage(const char* command)
 {
 	//cout << endl << gvProgramName <<  endl << endl;
-	cout << "Usage : " << command << " [-h] [-c <config_file>] [-d database_file]";
+	cout << "Usage : " << command << " [-h] [-c <config_file>]" << endl;
 	cout << "Options :" << endl 
 		<< " -c \t Config file " << endl
 		<< " -l \t Logging Config " << endl
-		<< " -d \t VSI SPID database file. Overrides the one from config file" << endl
 		<< " -h \t print this help and exit" << endl;
-
 }
 
 
@@ -124,10 +122,6 @@ bool Process::initialise(int argc, char* argv[])
 	{
 	    switch (c) 
 	    {
-	    	case 'd':
-	        	SLOG_INFO(<< "-d " << optarg);
-	            protocol_db = optarg;
-	            break;
 	        case 'c':
 	        	SLOG_INFO(<< "-c " << optarg);
 	            config = optarg;
@@ -150,8 +144,6 @@ bool Process::initialise(int argc, char* argv[])
 	    }
 	}
 
-	init_attribute_meters();
-
 	SLOG_INFO(<< "config file : " << config);
 
 	if ( !Config::instance()->init(config) )
@@ -160,46 +152,6 @@ bool Process::initialise(int argc, char* argv[])
 		cerr << "ERROR: Unable to initialise configuration" << endl;
 		exit(1);
 	}
-
-	
-	if( !protocol_db.empty() )
-	{
-		SLOG_INFO( << "overriding protocol_db from config : " << protocol_db); 
-		Config::instance()->protocolDatabase(protocol_db);
-	}
-
-	if(Config::instance()->protocolDatabase().empty())
-	{
-		SLOG_ERROR(<< "No spid database configured")
-		cerr << "No spid database configured" << endl;
-		exit(1);
-	}
-
-	_protocolModelDb = std::shared_ptr<ProtocolModelDb> ( 
-											new ProtocolModelDb(
-												Config::instance()->protocolDatabase(), "") );
-	
-	if( !_protocolModelDb->read() )
-	{
-		SLOG_ERROR(<< "Unable to read DB at [" << Config::instance()->protocolDatabase() << "]")
-		cerr << "Unable to read DB at [" << Config::instance()->protocolDatabase() << "]" << endl;
-		exit(1);
-	}
-
-	SLOG_INFO(<< "spid database : " << Config::instance()->protocolDatabase());
-
-    // Start the trace file for classification
-    SLOG_TRACE( << "---"
-                << std::endl
-                << "ProtocolDatabase: {" 
-                << "FileName: " << _protocolModelDb->filename() 
-                << ", LastModifiedTime: " << _protocolModelDb->lastModifiedTimeAsString()
-                << ", CutoffLimit: " << _protocolModelDb->cutoffLimit()
-                << ", DefiningLimit: " << _protocolModelDb->definingLimit()
-                << "}" << std::endl
-                << "KLDivergenceThreshold: " << CommonConfig::instance()->divergenceThreshold() << std::endl
-                << "Input: NfQueue" << std::endl
-                << "Results: ");
 
 	return true;
 }
@@ -213,7 +165,7 @@ bool Process::run()
 		try
 		{
 			int offset = Config::instance()->queueOffset() + i;
-			std::shared_ptr<PacketHandler> handler(new PacketHandler(offset, _protocolModelDb.get()));
+			std::shared_ptr<PacketHandler> handler(new PacketHandler(offset));
 			_packetHandlers.push_back(handler);
 
 			_handlerThreads.push_back( std::thread(&PacketHandler::run, handler) );
@@ -239,7 +191,6 @@ bool Process::run()
 			for(auto t : _packetHandlers){
 				cout << "Queue [" << t->queueNumber() << "] received [" << t->numPackets() << "]" << endl;
                 std::vector<uint64_t> vs = t->verdictStats();
-                cout << "Open Flows ["  << t->openFlows() << "]" << endl;
                 cout << "verdicts: " << endl;
                 for(int i = 0; i < vs.size(); ++i)
                 {
@@ -270,7 +221,6 @@ void Process::shutdown()
     for(auto &t : _packetHandlers) {
         cout << "Queue [" << t->queueNumber() << "] received [" << t->numPackets() << "]" << endl;
         std::vector<uint64_t> vs = t->verdictStats();
-        cout << "Open Flows ["  << t->openFlows() << "]" << endl;
         cout << "verdicts: " << endl;
         for(int i = 0; i < vs.size(); ++i)
         {
@@ -288,7 +238,6 @@ void Process::shutdown()
     for(auto &t : _packetHandlers) {
         cout << "Queue [" << t->queueNumber() << "] received [" << t->numPackets() << "]" << endl;
         std::vector<uint64_t> vs = t->verdictStats();
-        cout << "Open Flows ["  << t->openFlows() << "]" << endl;
         cout << "verdicts: " << endl;
         for(int i = 0; i < vs.size(); ++i)
         {

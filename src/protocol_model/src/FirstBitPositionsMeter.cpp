@@ -22,13 +22,37 @@ FirstBitPositionsMeter::FirstBitPositionsMeter() :
 {
 }
 
+double FirstBitPositionsMeter::at(size_t pos)
+{
+    // If the neter comes from the DB
+    if (_fromDb)
+    {
+        return AttributeMeter::at(pos);
+    }
+    else
+    {
+        if(pos < _fingerprint.size())
+        {
+            if(_overall_bit_size == 0)
+                return 0;
+
+            return (double)_fingerprint[pos] / _overall_bit_size;
+        }
+        else
+        {
+            //TODO return or throw??
+            return -1;
+        }
+    }
+}
+
+
 void FirstBitPositionsMeter::calculateMeasurement(Flow* flow, 
                                                     IPv4Packet* currentPacket )
 {   
     if(currentPacket->dataSize() <= 0)
         return;
 
-    std::vector<int> count(64, 0);
     int oneOffset = 0;
     int zeroOffset = 8;
 
@@ -42,11 +66,11 @@ void FirstBitPositionsMeter::calculateMeasurement(Flow* flow,
         {
             if (payload[i] & mask)
             {
-                count[posOffset + oneOffset]++;
+                _fingerprint[posOffset + oneOffset]++;
             }
             else
             {
-                count[posOffset + zeroOffset]++;
+                _fingerprint[posOffset + zeroOffset]++;
             }
             oneOffset++;
             zeroOffset++;
@@ -54,9 +78,4 @@ void FirstBitPositionsMeter::calculateMeasurement(Flow* flow,
     }
 
     _overall_bit_size += 32;
-    for(size_t i = 0; i <_fingerprint_size; i++ )
-    {
-        _fingerprint[i] = (double)((_fingerprint[i] * ( _overall_bit_size - 32 )) 
-                                + count[i]) / _overall_bit_size;
-    }
 }

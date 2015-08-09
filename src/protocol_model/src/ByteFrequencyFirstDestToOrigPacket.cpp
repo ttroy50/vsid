@@ -18,10 +18,36 @@ Vsid::Registrar ByteFrequencyFirstDestToOrigPacket::registrar("ByteFrequencyFirs
 
 ByteFrequencyFirstDestToOrigPacket::ByteFrequencyFirstDestToOrigPacket() :
     AttributeMeter(256),
-    _done(false)
+    _done(false),
+    _overall_byte_size(0)
 {
 
 }
+
+double ByteFrequencyFirstDestToOrigPacket::at(size_t pos)
+{
+    // If the neter comes from the DB
+    if (_fromDb)
+    {
+        return AttributeMeter::at(pos);
+    }
+    else
+    {
+        if(pos < _fingerprint.size())
+        {
+            if(_overall_byte_size == 0)
+                return 0;
+            
+            return (double)_fingerprint[pos] / _overall_byte_size;
+        }
+        else
+        {
+            //TODO return or throw??
+            return -1;
+        }
+    }
+}
+
 
 void ByteFrequencyFirstDestToOrigPacket::calculateMeasurement(Flow* flow, 
                                     IPv4Packet* currentPacket )
@@ -34,14 +60,11 @@ void ByteFrequencyFirstDestToOrigPacket::calculateMeasurement(Flow* flow,
     const u_char* data = currentPacket->data();
     for(size_t i = 0; i < currentPacket->dataSize(); i++ )
     {
-        count[*data]++;
+        _fingerprint[*data]++;
         data++;
     }
 
-    for(size_t i = 0; i <_fingerprint_size; i++ )
-    {
-        _fingerprint[i] = (double)count[i] / currentPacket->dataSize();
-    }
+    _overall_byte_size += currentPacket->dataSize();
 
     _done = true;
 }

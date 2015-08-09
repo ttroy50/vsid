@@ -6,7 +6,7 @@
     UdpFlowTimeoupt: 120
 
     # The KL Divergence Threshold. Any threshold below this will be considered that protocol
-    KLDivergenceThreshold : 0.01
+    KLDivergenceThreshold : 0.03
 
     # If we are to use the best match from before the defining limit once we reach it
     UseBestMatchDivergence: false

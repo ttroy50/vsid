@@ -5,4 +5,5 @@ SUBDIRS = 	common/src \
 			protocol_model/unit_test \
 			training/src \
 			netfilter/src \
-            pcap_classifier/src
+            pcap_classifier/src \
+            nfqueue_test/src

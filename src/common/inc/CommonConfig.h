@@ -79,6 +79,12 @@ public:
 	int workerThreadsPerQueue() { return _worker_threads_per_queue; }
 	void workerThreadsPerQueue(int n) { _worker_threads_per_queue = n; }
 
+	/**
+	 * Size of each worker threads lockfree queue
+	 * @return
+	 */
+	size_t workerThreadQueueSize() { return _worker_thread_queue_size; }
+	void workerThreadQueueSize(size_t s) { _worker_thread_queue_size = s; }
 
 	bool usePortHints() { return _use_port_hints; }
 	void usePortHints(bool b) { _use_port_hints = b; }
@@ -98,6 +104,7 @@ private:
 	double _divergence_threshold;
 	bool _use_best_match;
 	int _worker_threads_per_queue;
+	size_t _worker_thread_queue_size;
 	bool _use_port_hints;
 };
 

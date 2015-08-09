@@ -40,14 +40,9 @@ public:
 	 */
 	virtual std::string name() const { return "DirectionBytesCountFirst10PacketMeter"; }
 
-	
 	virtual void calculateMeasurement(VsidCommon::Flow*  flow, 
 													VsidCommon::IPv4Packet* currentPacket );
 
-	// TODO 
-	// void update(std::shared_ptr<AttributeMeter> other)
-	// 
-	// 
 
 	friend class ProtocolModel;
 	friend class ProtocolModelDb;

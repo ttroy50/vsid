@@ -153,7 +153,7 @@ private:
 
 	std::mutex _flowsMutex;
 	std::vector<std::thread> _workerThreads;
-	std::vector<boost::lockfree::queue<IPv4Packet*> *> _threadQueues;
+	std::vector<boost::lockfree::queue<IPv4Packet*, boost::lockfree::fixed_sized<true> > *> _threadQueues;
 	int _currentQueue;
 	bool _shutdown;
 	bool _finishing;

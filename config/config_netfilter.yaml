@@ -6,15 +6,14 @@
     UdpFlowTimeout: 120
 
     # Number of queues that are to be configured.
-    # There is one thread per queue
-    NumQueues: 3
+    # There will be between 1 and NumWorkerThreadsPerQueue threads per queue
+    NumQueues: 2
 
     # The offset for the queue numbers. 
     # For example, 2 queues with an offset of 2000, would be queue 2000 and 2001
     QueueOffset: 0
 
     # The size of the netfilter netlink userland queue
-    # Size is set using nfnl_rcvbufsiz and caluclated by NfQueueSize * NfBufSize
     NfQueueSize: 2048
 
     # The buffer size of to use for setting the Netfilter netlink queue
@@ -22,20 +21,21 @@
     NfBufSize: 2048
 
     # The KL Divergence Threshold. Any threshold below this will be considered that protocol
-    KLDivergenceThreshold : 2
+    KLDivergenceThreshold : 0.1
 
     # Number of worker threads to use in the Flow Manager. 
     # Each flow is assigned to a thread and that thread is responsible for all packets in the flow
     # The total number of threads used by the program will be NumQueues * NumWorkerThreadsPerQueue
-    NumWorkerThreadsPerQueue: 4
+    NumWorkerThreadsPerQueue: 10
+
+    # Size of the thread packet queue to use for worker threads
+    # If not using VerdictAfterClassification this should be larger than if using 
+    WorkerThreadQueueSize: 4096
 
     # This controls whether the NfQueue verdict is set by the flow manager or the packet handler.
     # If true, the FlowManager / Flow will set the verdict. Which will be when it has processed the packet.
     #   This can allow drop packets if it fails to put the packet into the processing queue
-    # If false, the packet is always set ot accept by the PacketHandler after the return from FlowManager::addPacket
-    #   The exact timing will depend on if you are using worker threads.
-    #   With no threads it will be after classificaton
-    #   With threads it will be after putting it into the thread queue
+    # If false, the packet is always set ot accept by the PacketHandler before passing control to the FlowManager
     VerdictAfterClassification: false
 
     # If the classification algorithm will look at protocols in the order of their port hints

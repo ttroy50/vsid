@@ -22,21 +22,42 @@ First4ByteFrequencyMeter::First4ByteFrequencyMeter() :
 {
 }
 
+double First4ByteFrequencyMeter::at(size_t pos)
+{
+    // If the neter comes from the DB
+    if (_fromDb)
+    {
+        return AttributeMeter::at(pos);
+    }
+    else
+    {
+        if(pos < _fingerprint.size())
+        {
+            if(_overall_byte_size == 0)
+                return 0;
+
+            return (double)_fingerprint[pos] / _overall_byte_size;
+        }
+        else
+        {
+            //TODO return or throw??
+            return -1;
+        }
+    }
+}
+
+
 void First4ByteFrequencyMeter::calculateMeasurement(Flow* flow, 
                                                     IPv4Packet* currentPacket )
 {   
     if(currentPacket->dataSize() <= 0)
         return;
 
-
-    // TODO Limit how many packets this can run on
-        
-    std::vector<int> count(_fingerprint_size, 0);
     int bytesCount = 0;
     const u_char* data = currentPacket->data();
     for(size_t i = 0; i < currentPacket->dataSize() && i < 4 ; i++ )
     {
-        count[*data]++;
+        _fingerprint[*data]++;
         data++;
         bytesCount++;
     }
@@ -45,10 +66,4 @@ void First4ByteFrequencyMeter::calculateMeasurement(Flow* flow,
 
     if ( _overall_byte_size == 0 )
         return; 
-
-    for(size_t i = 0; i <_fingerprint_size; i++ )
-    {
-        _fingerprint[i] = (double)((_fingerprint[i] * ( _overall_byte_size - bytesCount )) 
-                                + count[i]) / _overall_byte_size;
-    }
 }

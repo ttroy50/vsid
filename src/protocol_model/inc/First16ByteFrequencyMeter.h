@@ -34,6 +34,7 @@ public:
      */
     virtual std::string name() const { return "First16ByteFrequencyMeter"; }
 
+    virtual double at(size_t pos);
     
     virtual void calculateMeasurement(VsidCommon::Flow* flow, 
                                                     VsidCommon::IPv4Packet* currentPacket );

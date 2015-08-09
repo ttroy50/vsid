@@ -16,7 +16,7 @@
         - 
             # Name for the Protocol. 
             # Must be consistent and be the same used in training input
-            ProtocolName: HTTP-Video
+            ProtocolName: HTTP-Progressive
 
             # Number of flows used to generated this model
             FlowCount: 0
@@ -32,8 +32,10 @@
 
             AttributeMeters:
                 -
+                    # Name of the attribue meter. Must match those configured in program
                     AttributeName: DirectionBytesCountMeter  
 
+                    # If the attribue meter is enabled for this protocol
                     Enabled: true
 
                     # Count of the number of flows in this meter

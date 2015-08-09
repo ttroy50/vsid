@@ -32,10 +32,10 @@ namespace Vsid
 namespace VsidNetfilter
 {
 
-class PacketHandler : public VsidCommon::PacketVerdict
+class PacketHandler
 {
 public:
-	PacketHandler(int queueNumber, Vsid::ProtocolModelDb* database);
+	PacketHandler(int queueNumber );
 	~PacketHandler();
 
 	void run();
@@ -56,21 +56,6 @@ public:
 	int queueNumber() { return _queueNumber; }
 	uint64_t numPackets() { return _numPackets; }
 	std::vector<uint64_t> verdictStats();
-    size_t openFlows();
-
-	 /**
-     * Wrappers around set verdict.
-     * Should only be called from Flow Manager because it checks the config verdictAfterClassification
-     * @param id
-     */
-    virtual void setAccept(uint32_t id);
-
-    /**
-     * wrappers around set verdict
-     * Should only be called from Flow Manager because it checks the config verdictAfterClassification
-     * @param id
-     */
-    virtual void setDrop(uint32_t id);
 
 private:
 	int _queueNumber;
@@ -78,8 +63,6 @@ private:
 
 	std::atomic<uint64_t> _numPackets;
 	std::vector<uint64_t> _verdictStats;
-	std::mutex _statsMutex;
-	std::mutex _verdictMutex;
 
 	struct nfq_handle* _nfqHandle;
 	struct nfq_q_handle* _nfQueue;
@@ -88,14 +71,11 @@ private:
 	size_t _queueSize;
 	size_t _bufSize;
 
-	VsidCommon::FlowManager _flowManager;
-	Vsid::ProtocolModelDb* _prococolModelDb;
-	VsidCommon::FlowClassificationLogger _fcLogger;
-
 	/**
 	 * Buffer pointer used for every loop of the recv
 	 */
 	u_char* _buffer;
+    std::mutex _statsMutex;
 };
 
 }

@@ -23,6 +23,31 @@ ActionReactionFirst3ByteHashMeter::ActionReactionFirst3ByteHashMeter() :
 {
 }
 
+
+double ActionReactionFirst3ByteHashMeter::at(size_t pos)
+{
+    // If the neter comes from the DB
+    if (_fromDb)
+    {
+        return AttributeMeter::at(pos);
+    }
+    else
+    {
+        if(pos < _fingerprint.size())
+        {
+            if(_overall_reaction_num == 0)
+                return 0;
+            return (double)_fingerprint[pos] / _overall_reaction_num;
+        }
+        else
+        {
+            //TODO return or throw??
+            return -1;
+        }
+    }
+}
+
+
 void ActionReactionFirst3ByteHashMeter::calculateMeasurement(Flow* flow, 
                                                     IPv4Packet* currentPacket )
 {   
@@ -73,37 +98,8 @@ void ActionReactionFirst3ByteHashMeter::calculateMeasurement(Flow* flow,
 
         uint8_t mixed = crosssum_one + crosssum_two;
 
-        /*double prev = _overall_reaction_num * 115;
+        _fingerprint[mixed]++;
         _overall_reaction_num++;
-        for(int i = 0; i < _fingerprint_size; i++)
-        {
-            if( i == mixed)
-            {
-                _fingerprint[i] = (double)((_fingerprint[i] *  prev )
-                                     + mixed) / ( prev + 115);
-            }
-            else
-            {
-                _fingerprint[i] = (double)(_fingerprint[i] * prev ) 
-                            /  (prev + 115);
-            }
-        }*/
-
-        _overall_reaction_num++;
-
-        for(int i = 0; i < _fingerprint_size; i++)
-        {
-            if( i == mixed )
-            {
-                _fingerprint[i] = (double)((_fingerprint[i] *  (_overall_reaction_num-1.0) )
-                                     + 1.0) / _overall_reaction_num;
-            }
-            else
-            {
-                _fingerprint[i] = (double)((_fingerprint[i] *  (_overall_reaction_num-1.0) )
-                                        ) / _overall_reaction_num;
-            }
-        }
     }
 
     memcpy(_lastPacket, currentData, NUM_AR_BYTES);

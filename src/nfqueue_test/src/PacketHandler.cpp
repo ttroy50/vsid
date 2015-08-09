@@ -22,7 +22,6 @@ extern "C"
 #include "UdpIpv4.h"
 #include "Logger.h"
 #include "StringException.h"
-#include "ProtocolModelDb.h"
 
 #include "Config.h"
 
@@ -63,16 +62,11 @@ static int nfqPacketHandlerCb(struct nfq_q_handle* nfQueue,
     return 1;
 }
 
-PacketHandler::PacketHandler(int queueNumber, ProtocolModelDb* database) :
+PacketHandler::PacketHandler(int queueNumber ) :
 	_shutdown(false),
 	_numPackets(0),
-	_verdictStats(NF_MAX_VERDICT, 0),
-	_prococolModelDb(database),
-	_flowManager(database),
-	_fcLogger(&_flowManager)
+	_verdictStats(NF_MAX_VERDICT, 0)
 {
-	_flowManager.init();
-
 	_queueNumber = queueNumber;
 	_nfqHandle = NULL;
 	_nfQueue = NULL;
@@ -219,13 +213,12 @@ int PacketHandler::setVerdictLocal(uint32_t id, uint32_t verdict)
 		return -1;
 	}
 
-	// increase stats
 	std::unique_lock<std::mutex> statsGuard(_statsMutex);
 	_verdictStats[verdict]++;
 	statsGuard.unlock();
 
-	std::lock_guard<std::mutex> verdictGuard(_verdictMutex);
 	int ret = nfq_set_verdict(_nfQueue, id, verdict, 0, NULL);
+
 	if(_buffer)
 	{
 		delete _buffer;
@@ -236,21 +229,7 @@ int PacketHandler::setVerdictLocal(uint32_t id, uint32_t verdict)
 
 int PacketHandler::setVerdict(uint32_t id, uint32_t verdict)
 {
-	if(verdict > NF_MAX_VERDICT || verdict < NF_DROP)
-	{
-		SLOG_ERROR( << "Invalid verdict [" << verdict << "]");
-		return -1;
-	}
-
-	
-	// increase stats
-	std::unique_lock<std::mutex> statsGuard(_statsMutex);
-	_verdictStats[verdict]++;
-	statsGuard.unlock();
-
-	SLOG_INFO(<< "Set Verdict pktid=[" << id << "] : " << verdict)
-	std::lock_guard<std::mutex> verdictGuard(_verdictMutex);
-	return nfq_set_verdict(_nfQueue, id, verdict, 0, NULL);
+	return setVerdictLocal(id, verdict);
 }
 
 std::vector<uint64_t> PacketHandler::verdictStats()
@@ -332,26 +311,8 @@ bool PacketHandler::handlePacket(struct nfq_q_handle* nfQueue,
 
 				const u_char* data_start = transport_hdr_start  + tcph->doff * 4;
 				
-				TcpIPv4* tcp = new TcpIPv4(pktData, 
-										pktLen, 
-										ip_hdr_start, 
-										transport_hdr_start, 
-										data_start, 
-										timestamp, 
-										_buffer,
-										id,
-										this);
-
-				if( !Config::instance()->verdictAfterClassification() )
-				{
-					// We don't care about the verdict so set it now.
-					setVerdict(id, NF_ACCEPT);
-				}
-
-				_flowManager.addPacket(tcp);
-
-				
-				return true;
+				// We don't care about the verdict so set it now.
+				return setVerdict(id, NF_ACCEPT);
 			}
 			case IPPROTO_UDP:
 			{
@@ -359,26 +320,7 @@ bool PacketHandler::handlePacket(struct nfq_q_handle* nfQueue,
 
 				const u_char* data_start = transport_hdr_start + sizeof(udphdr);
 
-				UdpIPv4* udp = new UdpIPv4(pktData, 
-										pktLen, 
-										ip_hdr_start, 
-										transport_hdr_start, 
-										data_start, 
-										timestamp, 
-										_buffer,
-										id,
-										this);
-
-
-				if( !Config::instance()->verdictAfterClassification() )
-				{
-					// We don't care about the verdict so set it now.
-					setVerdict(id, NF_ACCEPT);
-				}
-
-				_flowManager.addPacket(udp);
-
-				return true;
+				return setVerdict(id, NF_ACCEPT);
 			}
 			case IPPROTO_SCTP:
 			{
@@ -410,24 +352,5 @@ bool PacketHandler::handlePacket(struct nfq_q_handle* nfQueue,
 void PacketHandler::shutdown()
 {
 	_shutdown = true;
-	_flowManager.shutdown();
 	SLOG_INFO(<< "Shutdown called for queue [" << _queueNumber << "]");
-}
-
-
-void PacketHandler::setAccept(uint32_t id)
-{
-	if( Config::instance()->verdictAfterClassification() )
-		setVerdict(id, NF_ACCEPT);
-}
-
-void PacketHandler::setDrop(uint32_t id)
-{
-	if( Config::instance()->verdictAfterClassification() )
-		setVerdict(id, NF_DROP);
-}
-
-size_t PacketHandler::openFlows()
-{
-	return _flowManager.numFlows();
 }

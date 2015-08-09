@@ -33,7 +33,7 @@ INIT_LOGGING
 void usage(const char* command)
 {
 	cout << endl << gvProgramName <<  endl << endl;
-	cout << "Usage : " << command << " [-h] [-c <config_file>] [-d database_file] -t training_file";
+	cout << "Usage : " << command << " [-h] [-c <config_file>] [-d <database_file>] [-l <logging_config>] -t <training_file>" << endl;
 	cout << "Options :" << endl 
 		<< " -c \t Config file " << endl
 		<< " -l \t Logging Config " << endl

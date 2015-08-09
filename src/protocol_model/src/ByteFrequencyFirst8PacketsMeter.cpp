@@ -22,6 +22,29 @@ ByteFrequencyFirst8PacketsMeter::ByteFrequencyFirst8PacketsMeter() :
 {
 }
 
+double ByteFrequencyFirst8PacketsMeter::at(size_t pos)
+{
+    // If the neter comes from the DB
+    if (_fromDb)
+    {
+        return AttributeMeter::at(pos);
+    }
+    else
+    {
+        if(pos < _fingerprint.size())
+        {
+            if(_overall_byte_size == 0)
+                return 0;
+            return (double)_fingerprint[pos] / _overall_byte_size;
+        }
+        else
+        {
+            //TODO return or throw??
+            return -1;
+        }
+    }
+}
+
 void ByteFrequencyFirst8PacketsMeter::calculateMeasurement(Flow* flow, 
                                                     IPv4Packet* currentPacket )
 {
@@ -32,21 +55,12 @@ void ByteFrequencyFirst8PacketsMeter::calculateMeasurement(Flow* flow,
     if(currentPacket->dataSize() <= 0)
         return;
 
-           
-    std::vector<int> count(_fingerprint_size, 0);
-
     const u_char* data = currentPacket->data();
     for(size_t i = 0; i < currentPacket->dataSize(); i++ )
     {
-        count[*data]++;
+        _fingerprint[*data]++;
         data++;
     }
 
     _overall_byte_size = currentPacket->dataSize();
-
-    for(size_t i = 0; i <_fingerprint_size; i++ )
-    {
-        _fingerprint[i] = (double)((_fingerprint[i] * ( _overall_byte_size - currentPacket->dataSize() )) 
-                                + count[i]) / _overall_byte_size;
-    }
 }

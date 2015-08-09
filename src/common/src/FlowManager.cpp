@@ -26,9 +26,8 @@ void FlowManager::init()
 {
 	for( int i = 0; i < CommonConfig::instance()->workerThreadsPerQueue(); i++ )
 	{
-		_threadQueues.push_back(new boost::lockfree::queue<IPv4Packet*>(1024));
+		_threadQueues.push_back(new boost::lockfree::queue<IPv4Packet*, boost::lockfree::fixed_sized<true> >(CommonConfig::instance()->workerThreadQueueSize()));
 		_workerThreads.push_back( std::thread(&FlowManager::processPackets, this, i) );
-		
 	}
 }
 
@@ -47,7 +46,7 @@ FlowManager::~FlowManager()
 			}
 		}
 
-		boost::lockfree::queue<IPv4Packet*> * tmp = _threadQueues[i];
+		boost::lockfree::queue<IPv4Packet*, boost::lockfree::fixed_sized<true> > * tmp = _threadQueues[i];
 		delete tmp;
 
 	}
@@ -150,8 +149,8 @@ std::shared_ptr<Flow> FlowManager::addPacket(IPv4Packet* packet)
 			}
 			else
 			{
+				SLOG_ERROR(<< "Unable to push packet onto queue : " << flow->threadQueueId());
 				flow->decPktsInQueue();
-				SLOG_ERROR(<< "Unable to push packet onto queue");
 				packet->dropPkt();
 				delete packet;
 				return flow;

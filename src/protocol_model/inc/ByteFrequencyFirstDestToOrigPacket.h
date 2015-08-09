@@ -34,7 +34,8 @@ public:
      */
     virtual std::string name() const { return "ByteFrequencyFirstDestToOrigPacket"; }
 
-    
+    virtual double at(size_t pos);
+
     virtual void calculateMeasurement(VsidCommon::Flow* flow, 
                                                     VsidCommon::IPv4Packet* currentPacket );
 
@@ -51,6 +52,7 @@ protected:
 
 private:
     bool _done;
+    uint64_t _overall_byte_size;
 };
 
 

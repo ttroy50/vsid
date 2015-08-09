@@ -251,6 +251,7 @@ private:
 
 	int _threadQueueId;
 	std::atomic<int64_t> _pktsInQueue;
+	bool _alarmedFlowSize;
 };
 
 	inline bool operator==(const Flow& lhs, const Flow& rhs)
