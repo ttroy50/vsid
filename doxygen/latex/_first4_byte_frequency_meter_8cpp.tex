@@ -1,0 +1,41 @@
+\hypertarget{_first4_byte_frequency_meter_8cpp}{\section{src/protocol\-\_\-model/src/\-First4\-Byte\-Frequency\-Meter.cpp File Reference}
+\label{_first4_byte_frequency_meter_8cpp}\index{src/protocol\-\_\-model/src/\-First4\-Byte\-Frequency\-Meter.\-cpp@{src/protocol\-\_\-model/src/\-First4\-Byte\-Frequency\-Meter.\-cpp}}
+}
+{\ttfamily \#include \char`\"{}First4\-Byte\-Frequency\-Meter.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Attribute\-Meter.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Logger.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Attribute\-Meter\-Factory.\-h\char`\"{}}\\*
+Include dependency graph for First4\-Byte\-Frequency\-Meter.\-cpp\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_first4_byte_frequency_meter_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\-::unique\-\_\-ptr$<$ \hyperlink{class_vsid_1_1_attribute_meter}{Attribute\-Meter} $>$ \hyperlink{_first4_byte_frequency_meter_8cpp_a757d4c8097a49bfd986cc7d08d20a19e}{create\-\_\-byte\-\_\-first\-\_\-four\-\_\-frequency\-\_\-meter} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{_first4_byte_frequency_meter_8cpp_a757d4c8097a49bfd986cc7d08d20a19e}{\index{First4\-Byte\-Frequency\-Meter.\-cpp@{First4\-Byte\-Frequency\-Meter.\-cpp}!create\-\_\-byte\-\_\-first\-\_\-four\-\_\-frequency\-\_\-meter@{create\-\_\-byte\-\_\-first\-\_\-four\-\_\-frequency\-\_\-meter}}
+\index{create\-\_\-byte\-\_\-first\-\_\-four\-\_\-frequency\-\_\-meter@{create\-\_\-byte\-\_\-first\-\_\-four\-\_\-frequency\-\_\-meter}!First4ByteFrequencyMeter.cpp@{First4\-Byte\-Frequency\-Meter.\-cpp}}
+\subsubsection[{create\-\_\-byte\-\_\-first\-\_\-four\-\_\-frequency\-\_\-meter}]{\setlength{\rightskip}{0pt plus 5cm}std\-::unique\-\_\-ptr$<${\bf Attribute\-Meter}$>$ create\-\_\-byte\-\_\-first\-\_\-four\-\_\-frequency\-\_\-meter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{_first4_byte_frequency_meter_8cpp_a757d4c8097a49bfd986cc7d08d20a19e}
+
+
+Definition at line 11 of file First4\-Byte\-Frequency\-Meter.\-cpp.
+
+
+\begin{DoxyCode}
+12 \{
+13     std::unique\_ptr<AttributeMeter> tmp(\textcolor{keyword}{new} \hyperlink{class_vsid_1_1_first4_byte_frequency_meter}{First4ByteFrequencyMeter}());
+14     \textcolor{keywordflow}{return} tmp;
+15 \}
+\end{DoxyCode}

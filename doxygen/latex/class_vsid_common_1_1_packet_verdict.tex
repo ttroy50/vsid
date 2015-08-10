@@ -1,0 +1,71 @@
+\hypertarget{class_vsid_common_1_1_packet_verdict}{\section{Vsid\-Common\-:\-:Packet\-Verdict Class Reference}
+\label{class_vsid_common_1_1_packet_verdict}\index{Vsid\-Common\-::\-Packet\-Verdict@{Vsid\-Common\-::\-Packet\-Verdict}}
+}
+
+
+{\ttfamily \#include $<$Packet\-Callbacks.\-h$>$}
+
+
+
+Inheritance diagram for Vsid\-Common\-:\-:Packet\-Verdict\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{class_vsid_common_1_1_packet_verdict__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{class_vsid_common_1_1_packet_verdict_a65a14cfba9da80f91e06feb1e12bde0d}{set\-Accept} (uint32\-\_\-t id)=0
+\item 
+virtual void \hyperlink{class_vsid_common_1_1_packet_verdict_ad695769962d16d5e76c95f8e569c8b6b}{set\-Drop} (uint32\-\_\-t id)=0
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Called when a flow has finished and is being deleted 
+
+Definition at line 18 of file Packet\-Callbacks.\-h.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_vsid_common_1_1_packet_verdict_a65a14cfba9da80f91e06feb1e12bde0d}{\index{Vsid\-Common\-::\-Packet\-Verdict@{Vsid\-Common\-::\-Packet\-Verdict}!set\-Accept@{set\-Accept}}
+\index{set\-Accept@{set\-Accept}!VsidCommon::PacketVerdict@{Vsid\-Common\-::\-Packet\-Verdict}}
+\subsubsection[{set\-Accept}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Vsid\-Common\-::\-Packet\-Verdict\-::set\-Accept (
+\begin{DoxyParamCaption}
+\item[{uint32\-\_\-t}]{id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}}\label{class_vsid_common_1_1_packet_verdict_a65a14cfba9da80f91e06feb1e12bde0d}
+Set an accept verdict on a packet 
+\begin{DoxyParams}{Parameters}
+{\em id} & \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \hyperlink{class_vsid_netfilter_1_1_packet_handler_a40ff7c9f8bdbfa5bfe6b1ca94edd2f04}{Vsid\-Netfilter\-::\-Packet\-Handler}.
+
+\hypertarget{class_vsid_common_1_1_packet_verdict_ad695769962d16d5e76c95f8e569c8b6b}{\index{Vsid\-Common\-::\-Packet\-Verdict@{Vsid\-Common\-::\-Packet\-Verdict}!set\-Drop@{set\-Drop}}
+\index{set\-Drop@{set\-Drop}!VsidCommon::PacketVerdict@{Vsid\-Common\-::\-Packet\-Verdict}}
+\subsubsection[{set\-Drop}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Vsid\-Common\-::\-Packet\-Verdict\-::set\-Drop (
+\begin{DoxyParamCaption}
+\item[{uint32\-\_\-t}]{id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}}\label{class_vsid_common_1_1_packet_verdict_ad695769962d16d5e76c95f8e569c8b6b}
+Set a drop verdict on a packet 
+\begin{DoxyParams}{Parameters}
+{\em id} & \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \hyperlink{class_vsid_netfilter_1_1_packet_handler_ad0a799dbbe9a3e6e6310a4d303710aa1}{Vsid\-Netfilter\-::\-Packet\-Handler}.
+
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+src/common/inc/\hyperlink{_packet_callbacks_8h}{Packet\-Callbacks.\-h}\end{DoxyCompactItemize}

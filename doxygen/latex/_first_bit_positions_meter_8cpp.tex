@@ -1,0 +1,41 @@
+\hypertarget{_first_bit_positions_meter_8cpp}{\section{src/protocol\-\_\-model/src/\-First\-Bit\-Positions\-Meter.cpp File Reference}
+\label{_first_bit_positions_meter_8cpp}\index{src/protocol\-\_\-model/src/\-First\-Bit\-Positions\-Meter.\-cpp@{src/protocol\-\_\-model/src/\-First\-Bit\-Positions\-Meter.\-cpp}}
+}
+{\ttfamily \#include \char`\"{}First\-Bit\-Positions\-Meter.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Attribute\-Meter.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Logger.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Attribute\-Meter\-Factory.\-h\char`\"{}}\\*
+Include dependency graph for First\-Bit\-Positions\-Meter.\-cpp\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_first_bit_positions_meter_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\-::unique\-\_\-ptr$<$ \hyperlink{class_vsid_1_1_attribute_meter}{Attribute\-Meter} $>$ \hyperlink{_first_bit_positions_meter_8cpp_a981b5ed745fbdbbe58c348ed2f0706fc}{create\-\_\-bit\-\_\-position\-\_\-meter} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{_first_bit_positions_meter_8cpp_a981b5ed745fbdbbe58c348ed2f0706fc}{\index{First\-Bit\-Positions\-Meter.\-cpp@{First\-Bit\-Positions\-Meter.\-cpp}!create\-\_\-bit\-\_\-position\-\_\-meter@{create\-\_\-bit\-\_\-position\-\_\-meter}}
+\index{create\-\_\-bit\-\_\-position\-\_\-meter@{create\-\_\-bit\-\_\-position\-\_\-meter}!FirstBitPositionsMeter.cpp@{First\-Bit\-Positions\-Meter.\-cpp}}
+\subsubsection[{create\-\_\-bit\-\_\-position\-\_\-meter}]{\setlength{\rightskip}{0pt plus 5cm}std\-::unique\-\_\-ptr$<${\bf Attribute\-Meter}$>$ create\-\_\-bit\-\_\-position\-\_\-meter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{_first_bit_positions_meter_8cpp_a981b5ed745fbdbbe58c348ed2f0706fc}
+
+
+Definition at line 11 of file First\-Bit\-Positions\-Meter.\-cpp.
+
+
+\begin{DoxyCode}
+12 \{
+13     std::unique\_ptr<AttributeMeter> tmp(\textcolor{keyword}{new} \hyperlink{class_vsid_1_1_first_bit_positions_meter}{FirstBitPositionsMeter}());
+14     \textcolor{keywordflow}{return} tmp;
+15 \}
+\end{DoxyCode}

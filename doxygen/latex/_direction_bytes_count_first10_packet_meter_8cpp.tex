@@ -1,0 +1,42 @@
+\hypertarget{_direction_bytes_count_first10_packet_meter_8cpp}{\section{src/protocol\-\_\-model/src/\-Direction\-Bytes\-Count\-First10\-Packet\-Meter.cpp File Reference}
+\label{_direction_bytes_count_first10_packet_meter_8cpp}\index{src/protocol\-\_\-model/src/\-Direction\-Bytes\-Count\-First10\-Packet\-Meter.\-cpp@{src/protocol\-\_\-model/src/\-Direction\-Bytes\-Count\-First10\-Packet\-Meter.\-cpp}}
+}
+{\ttfamily \#include \char`\"{}Direction\-Bytes\-Count\-First10\-Packet\-Meter.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Attribute\-Meter.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Logger.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Attribute\-Meter\-Factory.\-h\char`\"{}}\\*
+Include dependency graph for Direction\-Bytes\-Count\-First10\-Packet\-Meter.\-cpp\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_direction_bytes_count_first10_packet_meter_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\-::unique\-\_\-ptr$<$ \hyperlink{class_vsid_1_1_attribute_meter}{Attribute\-Meter} $>$ \hyperlink{_direction_bytes_count_first10_packet_meter_8cpp_a1913d7f9ad29767a038fb7683d557f2c}{create\-\_\-direction\-\_\-changes\-\_\-first\-\_\-ten\-\_\-meter} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{_direction_bytes_count_first10_packet_meter_8cpp_a1913d7f9ad29767a038fb7683d557f2c}{\index{Direction\-Bytes\-Count\-First10\-Packet\-Meter.\-cpp@{Direction\-Bytes\-Count\-First10\-Packet\-Meter.\-cpp}!create\-\_\-direction\-\_\-changes\-\_\-first\-\_\-ten\-\_\-meter@{create\-\_\-direction\-\_\-changes\-\_\-first\-\_\-ten\-\_\-meter}}
+\index{create\-\_\-direction\-\_\-changes\-\_\-first\-\_\-ten\-\_\-meter@{create\-\_\-direction\-\_\-changes\-\_\-first\-\_\-ten\-\_\-meter}!DirectionBytesCountFirst10PacketMeter.cpp@{Direction\-Bytes\-Count\-First10\-Packet\-Meter.\-cpp}}
+\subsubsection[{create\-\_\-direction\-\_\-changes\-\_\-first\-\_\-ten\-\_\-meter}]{\setlength{\rightskip}{0pt plus 5cm}std\-::unique\-\_\-ptr$<${\bf Attribute\-Meter}$>$ create\-\_\-direction\-\_\-changes\-\_\-first\-\_\-ten\-\_\-meter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{_direction_bytes_count_first10_packet_meter_8cpp_a1913d7f9ad29767a038fb7683d557f2c}
+
+
+Definition at line 11 of file Direction\-Bytes\-Count\-First10\-Packet\-Meter.\-cpp.
+
+
+\begin{DoxyCode}
+12 \{
+13     std::unique\_ptr<AttributeMeter> tmp(\textcolor{keyword}{new} 
+      \hyperlink{class_vsid_1_1_direction_bytes_count_first10_packet_meter}{DirectionBytesCountFirst10PacketMeter}());
+14     \textcolor{keywordflow}{return} tmp;
+15 \}
+\end{DoxyCode}

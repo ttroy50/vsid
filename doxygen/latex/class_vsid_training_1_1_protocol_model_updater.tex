@@ -1,0 +1,258 @@
+\hypertarget{class_vsid_training_1_1_protocol_model_updater}{\section{Vsid\-Training\-:\-:Protocol\-Model\-Updater Class Reference}
+\label{class_vsid_training_1_1_protocol_model_updater}\index{Vsid\-Training\-::\-Protocol\-Model\-Updater@{Vsid\-Training\-::\-Protocol\-Model\-Updater}}
+}
+
+
+{\ttfamily \#include $<$Protocol\-Model\-Updater.\-h$>$}
+
+
+
+Inheritance diagram for Vsid\-Training\-:\-:Protocol\-Model\-Updater\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{class_vsid_training_1_1_protocol_model_updater__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Vsid\-Training\-:\-:Protocol\-Model\-Updater\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{class_vsid_training_1_1_protocol_model_updater__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_vsid_training_1_1_protocol_model_updater_ab295222c2ae24026f1f1e8eb0a6e385e}{Protocol\-Model\-Updater} (\hyperlink{class_vsid_common_1_1_flow_manager}{Vsid\-Common\-::\-Flow\-Manager} $\ast$manager, \hyperlink{class_vsid_1_1_protocol_model_db}{Vsid\-::\-Protocol\-Model\-Db} $\ast$database)
+\item 
+\hyperlink{class_vsid_training_1_1_protocol_model_updater_a97e538b2fda7693de95159325909f809}{$\sim$\-Protocol\-Model\-Updater} ()
+\item 
+void \hyperlink{class_vsid_training_1_1_protocol_model_updater_a38cff233451a4a99d5f19ade7a0e1ded}{set\-Current\-File} (\hyperlink{class_vsid_training_1_1_training_file}{Training\-File} $\ast$file)
+\item 
+virtual void \hyperlink{class_vsid_training_1_1_protocol_model_updater_a6028bafde1f2b803f9133dd9eff1c651}{flow\-Finished} (std\-::shared\-\_\-ptr$<$ \hyperlink{class_vsid_common_1_1_flow}{Vsid\-Common\-::\-Flow} $>$ flow)
+\item 
+bool \hyperlink{class_vsid_training_1_1_protocol_model_updater_a8dccccb71de0bbbf3385fdfaaf1f8bc7}{updated} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_vsid_training_1_1_config}{Config} Singleton 
+
+Definition at line 29 of file Protocol\-Model\-Updater.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_vsid_training_1_1_protocol_model_updater_ab295222c2ae24026f1f1e8eb0a6e385e}{\index{Vsid\-Training\-::\-Protocol\-Model\-Updater@{Vsid\-Training\-::\-Protocol\-Model\-Updater}!Protocol\-Model\-Updater@{Protocol\-Model\-Updater}}
+\index{Protocol\-Model\-Updater@{Protocol\-Model\-Updater}!VsidTraining::ProtocolModelUpdater@{Vsid\-Training\-::\-Protocol\-Model\-Updater}}
+\subsubsection[{Protocol\-Model\-Updater}]{\setlength{\rightskip}{0pt plus 5cm}Protocol\-Model\-Updater\-::\-Protocol\-Model\-Updater (
+\begin{DoxyParamCaption}
+\item[{{\bf Vsid\-Common\-::\-Flow\-Manager} $\ast$}]{manager, }
+\item[{{\bf Vsid\-::\-Protocol\-Model\-Db} $\ast$}]{database}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_training_1_1_protocol_model_updater_ab295222c2ae24026f1f1e8eb0a6e385e}
+
+
+Definition at line 10 of file Protocol\-Model\-Updater.\-cpp.
+
+
+\begin{DoxyCode}
+10                                                                                           :
+11     \_currentFile(NULL),
+12     \_updated(\textcolor{keyword}{false})
+13 \{
+14     \_manager = manager;
+15     \_database = database;
+16     \_manager->\hyperlink{class_vsid_common_1_1_flow_manager_a590e1aaa6abd10dd64838ab7fda9d499}{addFlowFinishedObserver}(\textcolor{keyword}{this});
+17 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_training_1_1_protocol_model_updater_ab295222c2ae24026f1f1e8eb0a6e385e_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_training_1_1_protocol_model_updater_a97e538b2fda7693de95159325909f809}{\index{Vsid\-Training\-::\-Protocol\-Model\-Updater@{Vsid\-Training\-::\-Protocol\-Model\-Updater}!$\sim$\-Protocol\-Model\-Updater@{$\sim$\-Protocol\-Model\-Updater}}
+\index{$\sim$\-Protocol\-Model\-Updater@{$\sim$\-Protocol\-Model\-Updater}!VsidTraining::ProtocolModelUpdater@{Vsid\-Training\-::\-Protocol\-Model\-Updater}}
+\subsubsection[{$\sim$\-Protocol\-Model\-Updater}]{\setlength{\rightskip}{0pt plus 5cm}Vsid\-Training\-::\-Protocol\-Model\-Updater\-::$\sim$\-Protocol\-Model\-Updater (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_training_1_1_protocol_model_updater_a97e538b2fda7693de95159325909f809}
+
+
+Definition at line 33 of file Protocol\-Model\-Updater.\-h.
+
+
+\begin{DoxyCode}
+33 \{\}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_vsid_training_1_1_protocol_model_updater_a6028bafde1f2b803f9133dd9eff1c651}{\index{Vsid\-Training\-::\-Protocol\-Model\-Updater@{Vsid\-Training\-::\-Protocol\-Model\-Updater}!flow\-Finished@{flow\-Finished}}
+\index{flow\-Finished@{flow\-Finished}!VsidTraining::ProtocolModelUpdater@{Vsid\-Training\-::\-Protocol\-Model\-Updater}}
+\subsubsection[{flow\-Finished}]{\setlength{\rightskip}{0pt plus 5cm}void Protocol\-Model\-Updater\-::flow\-Finished (
+\begin{DoxyParamCaption}
+\item[{std\-::shared\-\_\-ptr$<$ {\bf Vsid\-Common\-::\-Flow} $>$}]{flow}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_vsid_training_1_1_protocol_model_updater_a6028bafde1f2b803f9133dd9eff1c651}
+A Flow has finished. Lets update the protocol model D\-B 
+\begin{DoxyParams}{Parameters}
+{\em flow} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{class_vsid_common_1_1_flow_finished_observer_a522fcd1ab5474eca5bc3f7419b3c45a5}{Vsid\-Common\-::\-Flow\-Finished\-Observer}.
+
+
+
+Definition at line 19 of file Protocol\-Model\-Updater.\-cpp.
+
+
+\begin{DoxyCode}
+20 \{
+21     \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"Flow ["} << flow->flowHash() 
+22                     \textcolor{comment}{//<< "] finished in state [" << flow->flowState() }
+23                     << \textcolor{stringliteral}{"] with ["} << flow->pktCount() << \textcolor{stringliteral}{"] packets"});
+24 
+25     \textcolor{keywordflow}{if}(\_currentFile == NULL)
+26     \{
+27         \hyperlink{_logger_8h_a2a8694cd392d18f4db6b9cc9f15bafe3}{SLOG\_ERROR}(<< \textcolor{stringliteral}{"Current file is empty"});
+28     \}
+29 
+30     \textcolor{keywordtype}{bool} flowFound = \textcolor{keyword}{false};
+31     \textcolor{keywordflow}{for}(\textcolor{keyword}{auto} it = \_currentFile->\hyperlink{class_vsid_training_1_1_training_file_aaaa833a3a302e0abe9bd081abd4b7867}{flows}.begin(); it != \_currentFile->\hyperlink{class_vsid_training_1_1_training_file_aaaa833a3a302e0abe9bd081abd4b7867}{flows}.end(); ++it)
+32     \{
+33         \textcolor{keywordflow}{if}(it->flowHash() == flow->flowHash())
+34         \{
+35             \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"Found flow in training file "} << it->tuple)
+36             flowFound = true;
+37             auto meters = flow->attributeMeters();
+38             std::shared\_ptr<\hyperlink{class_vsid_1_1_protocol_model}{ProtocolModel}> model = \_database->find(it->protocol);
+39 
+40             if ( !model )
+41             \{
+42                 \hyperlink{_logger_8h_a2a8694cd392d18f4db6b9cc9f15bafe3}{SLOG\_ERROR}(<< \textcolor{stringliteral}{"Unable to find model : "} << it->protocol);
+43                 \textcolor{keywordflow}{break};
+44             \}
+45 
+46             model->increaseFlowCount();
+47             
+48             \textcolor{keywordflow}{for}(\textcolor{keyword}{auto} meterIt = meters.begin(); meterIt != meters.end(); ++meterIt)
+49             \{
+50                 \textcolor{keyword}{auto} modelMeter = model->find((*meterIt)->name());
+51                 \textcolor{keywordflow}{if}(modelMeter)
+52                 \{
+53                     \_updated = \textcolor{keyword}{true};
+54                     modelMeter->merge((*meterIt));
+55                 \}
+56                 \textcolor{keywordflow}{else}
+57                 \{
+58                     \hyperlink{_logger_8h_a2a8694cd392d18f4db6b9cc9f15bafe3}{SLOG\_ERROR}(<< \textcolor{stringliteral}{"Unable to find meter ["} << (*meterIt)->name() 
+59                                     << \textcolor{stringliteral}{"] in model ["} << model->name() << \textcolor{stringliteral}{"]"});
+60                 \}
+61             \}
+62             \textcolor{keywordflow}{break};
+63         \}
+64         \textcolor{keywordflow}{else}
+65         \{
+66             \textcolor{comment}{//SLOG\_ERROR(<< "Don't match " << *flow << "\(\backslash\)n" << it->tuple);}
+67             \textcolor{comment}{//SLOG\_ERROR(<< "Don't match : ffh : " << flow->flowHash() << " : itfh : " << it->flowHash());}
+68         \}
+69     \}
+70 
+71     \textcolor{keywordflow}{if}(!flowFound)
+72     \{
+73         \hyperlink{_logger_8h_a2a8694cd392d18f4db6b9cc9f15bafe3}{SLOG\_ERROR}(<< \textcolor{stringliteral}{"Unable to find flow in current training file : "} << *flow );
+74     \}
+75 \}\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_training_1_1_protocol_model_updater_a6028bafde1f2b803f9133dd9eff1c651_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_training_1_1_protocol_model_updater_a38cff233451a4a99d5f19ade7a0e1ded}{\index{Vsid\-Training\-::\-Protocol\-Model\-Updater@{Vsid\-Training\-::\-Protocol\-Model\-Updater}!set\-Current\-File@{set\-Current\-File}}
+\index{set\-Current\-File@{set\-Current\-File}!VsidTraining::ProtocolModelUpdater@{Vsid\-Training\-::\-Protocol\-Model\-Updater}}
+\subsubsection[{set\-Current\-File}]{\setlength{\rightskip}{0pt plus 5cm}void Vsid\-Training\-::\-Protocol\-Model\-Updater\-::set\-Current\-File (
+\begin{DoxyParamCaption}
+\item[{{\bf Training\-File} $\ast$}]{file}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_training_1_1_protocol_model_updater_a38cff233451a4a99d5f19ade7a0e1ded}
+The current file we are working on so we can find the flow. Not thread safe but ok for now 
+\begin{DoxyParams}{Parameters}
+{\em file} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 40 of file Protocol\-Model\-Updater.\-h.
+
+
+\begin{DoxyCode}
+40 \{ \_currentFile = file; \}
+\end{DoxyCode}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{class_vsid_training_1_1_protocol_model_updater_a38cff233451a4a99d5f19ade7a0e1ded_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_training_1_1_protocol_model_updater_a8dccccb71de0bbbf3385fdfaaf1f8bc7}{\index{Vsid\-Training\-::\-Protocol\-Model\-Updater@{Vsid\-Training\-::\-Protocol\-Model\-Updater}!updated@{updated}}
+\index{updated@{updated}!VsidTraining::ProtocolModelUpdater@{Vsid\-Training\-::\-Protocol\-Model\-Updater}}
+\subsubsection[{updated}]{\setlength{\rightskip}{0pt plus 5cm}bool Vsid\-Training\-::\-Protocol\-Model\-Updater\-::updated (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_training_1_1_protocol_model_updater_a8dccccb71de0bbbf3385fdfaaf1f8bc7}
+
+
+Definition at line 48 of file Protocol\-Model\-Updater.\-h.
+
+
+\begin{DoxyCode}
+48 \{ \textcolor{keywordflow}{return} \_updated; \}
+\end{DoxyCode}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{class_vsid_training_1_1_protocol_model_updater_a8dccccb71de0bbbf3385fdfaaf1f8bc7_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/training/inc/\hyperlink{_protocol_model_updater_8h}{Protocol\-Model\-Updater.\-h}\item 
+src/training/src/\hyperlink{_protocol_model_updater_8cpp}{Protocol\-Model\-Updater.\-cpp}\end{DoxyCompactItemize}

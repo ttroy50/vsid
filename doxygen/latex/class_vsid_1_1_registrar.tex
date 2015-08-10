@@ -1,0 +1,97 @@
+\hypertarget{class_vsid_1_1_registrar}{\section{Vsid\-:\-:Registrar Class Reference}
+\label{class_vsid_1_1_registrar}\index{Vsid\-::\-Registrar@{Vsid\-::\-Registrar}}
+}
+
+
+{\ttfamily \#include $<$Attribute\-Meter\-Factory.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_vsid_1_1_registrar_a8e7ec9e0cc98f142cc27f231f86501be}{Registrar} (std\-::string class\-Name, \hyperlink{namespace_vsid_a2e5380ba00fdc73183f700ae57702bc3}{Vsid\-::\-Create\-Fn} fn)
+\item 
+void \hyperlink{class_vsid_1_1_registrar_a9523b77ed7f5c546b18b06dfcb1af813}{do\-Registration} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Should be a static public member of the \hyperlink{class_vsid_1_1_attribute_meter}{Attribute\-Meter} sub classes.
+
+A call to the register function should be added to the init\-\_\-attribute\-\_\-meter function in Attribute\-Meter\-Registrar
+
+I'm not a fan of how I'm doing this but it gets me around the static initialization problems I was having trying to do automatic registration. 
+
+Definition at line 87 of file Attribute\-Meter\-Factory.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_vsid_1_1_registrar_a8e7ec9e0cc98f142cc27f231f86501be}{\index{Vsid\-::\-Registrar@{Vsid\-::\-Registrar}!Registrar@{Registrar}}
+\index{Registrar@{Registrar}!Vsid::Registrar@{Vsid\-::\-Registrar}}
+\subsubsection[{Registrar}]{\setlength{\rightskip}{0pt plus 5cm}Vsid\-::\-Registrar\-::\-Registrar (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{class\-Name, }
+\item[{{\bf Vsid\-::\-Create\-Fn}}]{fn}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_1_1_registrar_a8e7ec9e0cc98f142cc27f231f86501be}
+
+
+Definition at line 90 of file Attribute\-Meter\-Factory.\-h.
+
+
+\begin{DoxyCode}
+90                                                     :
+91         \_className(className),
+92         \_fn(fn)
+93     \{ \} 
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_vsid_1_1_registrar_a9523b77ed7f5c546b18b06dfcb1af813}{\index{Vsid\-::\-Registrar@{Vsid\-::\-Registrar}!do\-Registration@{do\-Registration}}
+\index{do\-Registration@{do\-Registration}!Vsid::Registrar@{Vsid\-::\-Registrar}}
+\subsubsection[{do\-Registration}]{\setlength{\rightskip}{0pt plus 5cm}void Vsid\-::\-Registrar\-::do\-Registration (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_1_1_registrar_a9523b77ed7f5c546b18b06dfcb1af813}
+Register the attribute meter with the factory 
+
+Definition at line 98 of file Attribute\-Meter\-Factory.\-h.
+
+
+\begin{DoxyCode}
+99     \{
+100         \hyperlink{class_vsid_1_1_attribute_meter_factory_a6cdacc430c359906c85ef36a7c6842fc}{Vsid::AttributeMeterFactory::instance}()->
+      \hyperlink{class_vsid_1_1_attribute_meter_factory_af6f53e148905ddbc86b73b4050f4df2e}{registerFactory}(\_className, \_fn); 
+101     \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_1_1_registrar_a9523b77ed7f5c546b18b06dfcb1af813_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_1_1_registrar_a9523b77ed7f5c546b18b06dfcb1af813_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+src/protocol\-\_\-model/inc/\hyperlink{_attribute_meter_factory_8h}{Attribute\-Meter\-Factory.\-h}\end{DoxyCompactItemize}

@@ -1,0 +1,294 @@
+\hypertarget{class_vsid_1_1_attribute_meter_factory}{\section{Vsid\-:\-:Attribute\-Meter\-Factory Class Reference}
+\label{class_vsid_1_1_attribute_meter_factory}\index{Vsid\-::\-Attribute\-Meter\-Factory@{Vsid\-::\-Attribute\-Meter\-Factory}}
+}
+
+
+{\ttfamily \#include $<$Attribute\-Meter\-Factory.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_vsid_1_1_attribute_meter_factory_aa2cd9ab8b4326a737202c8657b04edb1}{$\sim$\-Attribute\-Meter\-Factory} ()
+\item 
+std\-::unique\-\_\-ptr$<$ \hyperlink{class_vsid_1_1_attribute_meter}{Attribute\-Meter} $>$ \hyperlink{class_vsid_1_1_attribute_meter_factory_ab376f8420a3c689e5691bbae5b8867a8}{create} (const std\-::string \&name)
+\item 
+void \hyperlink{class_vsid_1_1_attribute_meter_factory_af6f53e148905ddbc86b73b4050f4df2e}{register\-Factory} (const std\-::string \&name, \hyperlink{namespace_vsid_a2e5380ba00fdc73183f700ae57702bc3}{Create\-Fn} fn)
+\item 
+std\-::vector$<$ std\-::shared\-\_\-ptr\\*
+$<$ \hyperlink{class_vsid_1_1_attribute_meter}{Attribute\-Meter} $>$ $>$ \hyperlink{class_vsid_1_1_attribute_meter_factory_ae44a5e19247998216c9e55112c790dea}{get\-All\-Meters} ()
+\item 
+void \hyperlink{class_vsid_1_1_attribute_meter_factory_a879a30730590e0f5cfd597f5ae30084a}{enable\-Attribute} (const std\-::string \&name)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_vsid_1_1_attribute_meter_factory}{Attribute\-Meter\-Factory} $\ast$ \hyperlink{class_vsid_1_1_attribute_meter_factory_a6cdacc430c359906c85ef36a7c6842fc}{instance} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Factory for creating attribute meters 
+
+Definition at line 26 of file Attribute\-Meter\-Factory.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_vsid_1_1_attribute_meter_factory_aa2cd9ab8b4326a737202c8657b04edb1}{\index{Vsid\-::\-Attribute\-Meter\-Factory@{Vsid\-::\-Attribute\-Meter\-Factory}!$\sim$\-Attribute\-Meter\-Factory@{$\sim$\-Attribute\-Meter\-Factory}}
+\index{$\sim$\-Attribute\-Meter\-Factory@{$\sim$\-Attribute\-Meter\-Factory}!Vsid::AttributeMeterFactory@{Vsid\-::\-Attribute\-Meter\-Factory}}
+\subsubsection[{$\sim$\-Attribute\-Meter\-Factory}]{\setlength{\rightskip}{0pt plus 5cm}Vsid\-::\-Attribute\-Meter\-Factory\-::$\sim$\-Attribute\-Meter\-Factory (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_1_1_attribute_meter_factory_aa2cd9ab8b4326a737202c8657b04edb1}
+
+
+Definition at line 30 of file Attribute\-Meter\-Factory.\-h.
+
+
+\begin{DoxyCode}
+30 \{\}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_vsid_1_1_attribute_meter_factory_ab376f8420a3c689e5691bbae5b8867a8}{\index{Vsid\-::\-Attribute\-Meter\-Factory@{Vsid\-::\-Attribute\-Meter\-Factory}!create@{create}}
+\index{create@{create}!Vsid::AttributeMeterFactory@{Vsid\-::\-Attribute\-Meter\-Factory}}
+\subsubsection[{create}]{\setlength{\rightskip}{0pt plus 5cm}std\-::unique\-\_\-ptr$<$ {\bf Attribute\-Meter} $>$ Attribute\-Meter\-Factory\-::create (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{name}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_1_1_attribute_meter_factory_ab376f8420a3c689e5691bbae5b8867a8}
+Create an attribute meter for a particular name
+
+
+\begin{DoxyParams}{Parameters}
+{\em The} & name of the meter \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A unique ptr to the meter 
+\end{DoxyReturn}
+
+
+Definition at line 31 of file Attribute\-Meter\-Factory.\-cpp.
+
+
+\begin{DoxyCode}
+32 \{
+33     \textcolor{keyword}{auto} it = \_factories.find(name);
+34     \textcolor{keywordflow}{if}(it != \_factories.end())
+35     \{
+36         \textcolor{keywordflow}{return} it->second();
+37     \}
+38 
+39     \hyperlink{_logger_8h_a2a8694cd392d18f4db6b9cc9f15bafe3}{SLOG\_ERROR}(<< \textcolor{stringliteral}{"Unable to create class ["} << name << \textcolor{stringliteral}{"]"});
+40     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};
+41 \}
+\end{DoxyCode}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_1_1_attribute_meter_factory_ab376f8420a3c689e5691bbae5b8867a8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_1_1_attribute_meter_factory_a879a30730590e0f5cfd597f5ae30084a}{\index{Vsid\-::\-Attribute\-Meter\-Factory@{Vsid\-::\-Attribute\-Meter\-Factory}!enable\-Attribute@{enable\-Attribute}}
+\index{enable\-Attribute@{enable\-Attribute}!Vsid::AttributeMeterFactory@{Vsid\-::\-Attribute\-Meter\-Factory}}
+\subsubsection[{enable\-Attribute}]{\setlength{\rightskip}{0pt plus 5cm}void Attribute\-Meter\-Factory\-::enable\-Attribute (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{name}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_1_1_attribute_meter_factory_a879a30730590e0f5cfd597f5ae30084a}
+Enable an attribute so that it it returend from get\-All\-Meters
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 83 of file Attribute\-Meter\-Factory.\-cpp.
+
+
+\begin{DoxyCode}
+84 \{
+85     \textcolor{keyword}{auto} it = \_enabledAttributes.find(name);
+86 
+87     \textcolor{keywordflow}{if}( it == \_enabledAttributes.end())
+88     \{
+89         \hyperlink{_logger_8h_a2a8694cd392d18f4db6b9cc9f15bafe3}{SLOG\_ERROR}(<< \textcolor{stringliteral}{"Unable to find attribute : "} << name);
+90         \textcolor{keywordflow}{return};
+91     \}
+92 
+93     \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}( << \textcolor{stringliteral}{"enabling attribute : "} << name);
+94 
+95     it->second = \textcolor{keyword}{true};
+96 \}\end{DoxyCode}
+\hypertarget{class_vsid_1_1_attribute_meter_factory_ae44a5e19247998216c9e55112c790dea}{\index{Vsid\-::\-Attribute\-Meter\-Factory@{Vsid\-::\-Attribute\-Meter\-Factory}!get\-All\-Meters@{get\-All\-Meters}}
+\index{get\-All\-Meters@{get\-All\-Meters}!Vsid::AttributeMeterFactory@{Vsid\-::\-Attribute\-Meter\-Factory}}
+\subsubsection[{get\-All\-Meters}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ std\-::shared\-\_\-ptr$<$ {\bf Attribute\-Meter} $>$ $>$ Attribute\-Meter\-Factory\-::get\-All\-Meters (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_1_1_attribute_meter_factory_ae44a5e19247998216c9e55112c790dea}
+Get a vector containing a list of all registered attribute meters 
+
+Definition at line 53 of file Attribute\-Meter\-Factory.\-cpp.
+
+
+\begin{DoxyCode}
+54 \{
+55     \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"getting meters"});
+56     std::vector<std::shared\_ptr<AttributeMeter> > ret;
+57 
+58     \textcolor{keywordflow}{for}( \textcolor{keyword}{auto} it = \_enabledAttributes.begin(); it != \_enabledAttributes.end(); ++it)
+59     \{       
+60         \textcolor{keywordflow}{if}(it->second)
+61         \{
+62             \textcolor{keyword}{auto} attr = \hyperlink{class_vsid_1_1_attribute_meter_factory_ab376f8420a3c689e5691bbae5b8867a8}{create}(it->first);
+63             
+64             \textcolor{keywordflow}{if}( !attr)
+65             \{
+66                 \hyperlink{_logger_8h_a2a8694cd392d18f4db6b9cc9f15bafe3}{SLOG\_ERROR}( << \textcolor{stringliteral}{"Error creating attribute for "} << it->first)
+67                 continue;
+68             \}
+69 
+70             \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< "getting meter " << it->first);
+71             std::shared\_ptr<\hyperlink{class_vsid_1_1_attribute_meter}{AttributeMeter}> tmp \{ std::move(attr) \};
+72             ret.push\_back(tmp);
+73         \}
+74         \textcolor{keywordflow}{else}
+75         \{
+76             \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}( << \textcolor{stringliteral}{"Attribute Disabled "} << it->first)
+77         \}
+78     \}
+79 
+80     \textcolor{keywordflow}{return} ret;
+81 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_1_1_attribute_meter_factory_ae44a5e19247998216c9e55112c790dea_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_1_1_attribute_meter_factory_ae44a5e19247998216c9e55112c790dea_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_1_1_attribute_meter_factory_a6cdacc430c359906c85ef36a7c6842fc}{\index{Vsid\-::\-Attribute\-Meter\-Factory@{Vsid\-::\-Attribute\-Meter\-Factory}!instance@{instance}}
+\index{instance@{instance}!Vsid::AttributeMeterFactory@{Vsid\-::\-Attribute\-Meter\-Factory}}
+\subsubsection[{instance}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Attribute\-Meter\-Factory} $\ast$ Attribute\-Meter\-Factory\-::instance (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_vsid_1_1_attribute_meter_factory_a6cdacc430c359906c85ef36a7c6842fc}
+
+
+Definition at line 9 of file Attribute\-Meter\-Factory.\-cpp.
+
+
+\begin{DoxyCode}
+10 \{
+11     \textcolor{keywordflow}{try}
+12     \{
+13         std::call\_once(\_onceFlag,
+14             [] \{
+15         \textcolor{keywordflow}{if}(!\_instance) 
+16                 \_instance.reset(\textcolor{keyword}{new} \hyperlink{class_vsid_1_1_attribute_meter_factory}{AttributeMeterFactory});
+17             \}
+18         );
+19     \}
+20     \textcolor{keywordflow}{catch}(std::runtime\_error& e)
+21     \{
+22         \textcolor{comment}{// not thread safe but this should be initialised alread in main thread}
+23         \textcolor{comment}{// Not sure why I was sometimes seeing exception from call\_once. Need time to investigate}
+24         \textcolor{keywordflow}{if}(!\_instance)
+25             \_instance.reset(\textcolor{keyword}{new} \hyperlink{class_vsid_1_1_attribute_meter_factory}{AttributeMeterFactory});
+26     \}
+27 
+28     \textcolor{keywordflow}{return} \_instance.get();
+29 \}
+\end{DoxyCode}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_1_1_attribute_meter_factory_a6cdacc430c359906c85ef36a7c6842fc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_1_1_attribute_meter_factory_af6f53e148905ddbc86b73b4050f4df2e}{\index{Vsid\-::\-Attribute\-Meter\-Factory@{Vsid\-::\-Attribute\-Meter\-Factory}!register\-Factory@{register\-Factory}}
+\index{register\-Factory@{register\-Factory}!Vsid::AttributeMeterFactory@{Vsid\-::\-Attribute\-Meter\-Factory}}
+\subsubsection[{register\-Factory}]{\setlength{\rightskip}{0pt plus 5cm}void Attribute\-Meter\-Factory\-::register\-Factory (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{name, }
+\item[{{\bf Create\-Fn}}]{fn}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_1_1_attribute_meter_factory_af6f53e148905ddbc86b73b4050f4df2e}
+Register a creation function for an attribute meter
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & \\
+\hline
+{\em fn} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 43 of file Attribute\-Meter\-Factory.\-cpp.
+
+
+\begin{DoxyCode}
+44 \{
+45     \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"Registering class ["} << name << \textcolor{stringliteral}{"]"});
+46     \_factories[name] = fn;
+47 
+48     \textcolor{comment}{// Default to false and only enable after it is read from the ProtocolDb}
+49     \_enabledAttributes[name] = \textcolor{keyword}{false};
+50 \}
+\end{DoxyCode}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_1_1_attribute_meter_factory_af6f53e148905ddbc86b73b4050f4df2e_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/protocol\-\_\-model/inc/\hyperlink{_attribute_meter_factory_8h}{Attribute\-Meter\-Factory.\-h}\item 
+src/protocol\-\_\-model/src/\hyperlink{_attribute_meter_factory_8cpp}{Attribute\-Meter\-Factory.\-cpp}\end{DoxyCompactItemize}

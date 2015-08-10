@@ -1,0 +1,322 @@
+\hypertarget{test__model_8cpp}{\section{src/protocol\-\_\-model/unit\-\_\-test/test\-\_\-model.cpp File Reference}
+\label{test__model_8cpp}\index{src/protocol\-\_\-model/unit\-\_\-test/test\-\_\-model.\-cpp@{src/protocol\-\_\-model/unit\-\_\-test/test\-\_\-model.\-cpp}}
+}
+{\ttfamily \#include \char`\"{}Protocol\-Model\-Db.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Protocol\-Model.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Attribute\-Meter.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Logger.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$cstdio$>$}\\*
+{\ttfamily \#include \char`\"{}Attribute\-Meter\-Factory.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Attribute\-Meter\-Registrar.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$boost/test/unit\-\_\-test.\-hpp$>$}\\*
+Include dependency graph for test\-\_\-model.\-cpp\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{test__model_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{test__model_8cpp_a6b2a3852db8bb19ab6909bac01859985}{B\-O\-O\-S\-T\-\_\-\-T\-E\-S\-T\-\_\-\-M\-O\-D\-U\-L\-E}~Protocol\-Model\-Db\-Test
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_logger_8h_abb52531de0e96213782908cfd2dbd677}{I\-N\-I\-T\-\_\-\-L\-O\-G\-G\-I\-N\-G} void \hyperlink{test__model_8cpp_ab2f79d317706a4b729589b7cd872859e}{remove\-Prev} (string test\-File)
+\item 
+bool \hyperlink{test__model_8cpp_a2298740f2069548bbfdf4f3e30b9e274}{check\-Files} (string test\-File)
+\item 
+void \hyperlink{test__model_8cpp_a70ed70ee24d350fcef6ca062293cde74}{copy\-File} (string src, string dst)
+\item 
+\hyperlink{test__model_8cpp_aed707bedcd354ffa13bdc19d69a4f4bf}{B\-O\-O\-S\-T\-\_\-\-A\-U\-T\-O\-\_\-\-T\-E\-S\-T\-\_\-\-C\-A\-S\-E} (test\-\_\-protocol\-\_\-model)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{test__model_8cpp_a6b2a3852db8bb19ab6909bac01859985}{\index{test\-\_\-model.\-cpp@{test\-\_\-model.\-cpp}!B\-O\-O\-S\-T\-\_\-\-T\-E\-S\-T\-\_\-\-M\-O\-D\-U\-L\-E@{B\-O\-O\-S\-T\-\_\-\-T\-E\-S\-T\-\_\-\-M\-O\-D\-U\-L\-E}}
+\index{B\-O\-O\-S\-T\-\_\-\-T\-E\-S\-T\-\_\-\-M\-O\-D\-U\-L\-E@{B\-O\-O\-S\-T\-\_\-\-T\-E\-S\-T\-\_\-\-M\-O\-D\-U\-L\-E}!test_model.cpp@{test\-\_\-model.\-cpp}}
+\subsubsection[{B\-O\-O\-S\-T\-\_\-\-T\-E\-S\-T\-\_\-\-M\-O\-D\-U\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\-O\-O\-S\-T\-\_\-\-T\-E\-S\-T\-\_\-\-M\-O\-D\-U\-L\-E~Protocol\-Model\-Db\-Test}}\label{test__model_8cpp_a6b2a3852db8bb19ab6909bac01859985}
+
+
+Definition at line 11 of file test\-\_\-model.\-cpp.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{test__model_8cpp_aed707bedcd354ffa13bdc19d69a4f4bf}{\index{test\-\_\-model.\-cpp@{test\-\_\-model.\-cpp}!B\-O\-O\-S\-T\-\_\-\-A\-U\-T\-O\-\_\-\-T\-E\-S\-T\-\_\-\-C\-A\-S\-E@{B\-O\-O\-S\-T\-\_\-\-A\-U\-T\-O\-\_\-\-T\-E\-S\-T\-\_\-\-C\-A\-S\-E}}
+\index{B\-O\-O\-S\-T\-\_\-\-A\-U\-T\-O\-\_\-\-T\-E\-S\-T\-\_\-\-C\-A\-S\-E@{B\-O\-O\-S\-T\-\_\-\-A\-U\-T\-O\-\_\-\-T\-E\-S\-T\-\_\-\-C\-A\-S\-E}!test_model.cpp@{test\-\_\-model.\-cpp}}
+\subsubsection[{B\-O\-O\-S\-T\-\_\-\-A\-U\-T\-O\-\_\-\-T\-E\-S\-T\-\_\-\-C\-A\-S\-E}]{\setlength{\rightskip}{0pt plus 5cm}B\-O\-O\-S\-T\-\_\-\-A\-U\-T\-O\-\_\-\-T\-E\-S\-T\-\_\-\-C\-A\-S\-E (
+\begin{DoxyParamCaption}
+\item[{test\-\_\-protocol\-\_\-model}]{}
+\end{DoxyParamCaption}
+)}}\label{test__model_8cpp_aed707bedcd354ffa13bdc19d69a4f4bf}
+
+
+Definition at line 86 of file test\-\_\-model.\-cpp.
+
+
+\begin{DoxyCode}
+87 \{   
+88     \hyperlink{_attribute_meter_registrar_8h_acc628170f0b90d7876378e03d3159647}{init\_attribute\_meters}();
+89 
+90     \textcolor{keywordtype}{int} argc = boost::unit\_test::framework::master\_test\_suite().argc;
+91     \textcolor{keywordtype}{char} ** argv = boost::unit\_test::framework::master\_test\_suite().argv;
+92     \textcolor{keywordtype}{string} testDbFile;
+93     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 1; i < argc; i++)
+94     \{
+95         \textcolor{keywordflow}{if}(argv[i][0] != \textcolor{charliteral}{'-'})
+96         \{
+97             testDbFile = argv[i];
+98             \textcolor{keywordflow}{break};
+99         \}
+100     \}
+101 
+102     \textcolor{keywordflow}{if}( testDbFile.empty() )
+103        testDbFile = \textcolor{stringliteral}{"../../../../src/protocol\_model/unit\_test/test\_db.yaml"};
+104     
+105     \textcolor{keywordtype}{string} copyOfTestDbFile = testDbFile + \textcolor{stringliteral}{".totest"};
+106 
+107     \textcolor{comment}{// Copy the DB to a testable version because when we write we don't want to overwrite checked}
+108     \textcolor{comment}{// in version}
+109     \hyperlink{test__model_8cpp_ab2f79d317706a4b729589b7cd872859e}{removePrev}( copyOfTestDbFile);
+110     \hyperlink{test__model_8cpp_a70ed70ee24d350fcef6ca062293cde74}{copyFile}(testDbFile, copyOfTestDbFile);
+111 
+112     \textcolor{keywordtype}{string} testDbFilePrev = copyOfTestDbFile + \textcolor{stringliteral}{".prev"};
+113     \hyperlink{test__model_8cpp_ab2f79d317706a4b729589b7cd872859e}{removePrev}( testDbFilePrev);
+114 
+115     \hyperlink{class_vsid_1_1_protocol_model_db}{ProtocolModelDb} testDb( copyOfTestDbFile, testDbFilePrev );
+116 
+117     \textcolor{comment}{// check we can read DB}
+118     BOOST\_REQUIRE( testDb.read() );
+119 
+120     \textcolor{comment}{// DB size}
+121     BOOST\_CHECK\_EQUAL( testDb.size(), 2 );
+122     BOOST\_CHECK\_EQUAL( testDb.definingLimit(), 10 );
+123     BOOST\_CHECK\_EQUAL( testDb.cutoffLimit(), 10000 );
+124 
+125     \textcolor{comment}{// We can use the find method}
+126     std::shared\_ptr<ProtocolModel> http\_video\_find = testDb.find(\textcolor{stringliteral}{"HTTP-Video"});
+127     BOOST\_REQUIRE( http\_video\_find );
+128     BOOST\_CHECK\_EQUAL( http\_video\_find->name(), \textcolor{stringliteral}{"HTTP-Video"} );
+129    
+130     \textcolor{comment}{// Check assesor methods for the protoccol model}
+131     std::shared\_ptr<ProtocolModel> http\_video = testDb.front();
+132     BOOST\_REQUIRE(http\_video);
+133     BOOST\_CHECK\_EQUAL( http\_video->name(), \textcolor{stringliteral}{"HTTP-Video"} );
+134     BOOST\_CHECK\_EQUAL( http\_video->name(), http\_video\_find->name() );
+135     BOOST\_CHECK\_EQUAL( http\_video->flowCount(), 55 );
+136     BOOST\_CHECK\_EQUAL( http\_video->enabled(), true );
+137     BOOST\_CHECK\_EQUAL( http\_video->portHints().size(), 2 );
+138     BOOST\_CHECK\_EQUAL( http\_video->portHints()[0], 80 );
+139     BOOST\_CHECK\_EQUAL( http\_video->portHints()[1], 8080 );
+140     \textcolor{comment}{// check attribute meters}
+141     BOOST\_CHECK\_EQUAL( http\_video->size(), 2 );
+142     BOOST\_CHECK\_EQUAL( http\_video->find(\textcolor{stringliteral}{"DirectionBytesCountMeter"})->name(), \textcolor{stringliteral}{"DirectionBytesCountMeter"} );
+143     BOOST\_CHECK\_EQUAL( http\_video->front()->name(), \textcolor{stringliteral}{"DirectionBytesCountMeter"} );
+144     std::shared\_ptr<AttributeMeter> dbcm = http\_video->at(0);
+145     BOOST\_REQUIRE(dbcm);
+146     BOOST\_CHECK\_EQUAL( dbcm->name(), \textcolor{stringliteral}{"DirectionBytesCountMeter"} );
+147     BOOST\_CHECK\_EQUAL( dbcm->enabled(), true );
+148     BOOST\_CHECK\_EQUAL( dbcm->flowCount(), 55 );
+149     std::vector<double> expected\_dbcm\_fp \{0.34,0.66\};
+150     BOOST\_CHECK\_EQUAL\_COLLECTIONS(dbcm->fingerprint().begin(), dbcm->fingerprint().end(), 
+151                                     expected\_dbcm\_fp.begin(), expected\_dbcm\_fp.end());
+152 
+153     std::shared\_ptr<ProtocolModel> https\_video = testDb.at(1);
+154     BOOST\_REQUIRE(https\_video);
+155     BOOST\_CHECK\_EQUAL( https\_video->name(), \textcolor{stringliteral}{"HTTPS-Video"} );
+156     BOOST\_CHECK\_EQUAL( https\_video->flowCount(), 99 );
+157     BOOST\_CHECK\_EQUAL( https\_video->enabled(), false );
+158     BOOST\_CHECK\_EQUAL( https\_video->portHints().size(), 0 );
+159     std::shared\_ptr<AttributeMeter> fpbm = https\_video->find(\textcolor{stringliteral}{"ByteFrequencyFirstOrigToDestPacket"});
+160     BOOST\_CHECK\_EQUAL( fpbm->enabled(), false );
+161     BOOST\_CHECK\_EQUAL( fpbm->flowCount(), 1 );
+162     std::vector<double> expected\_fpbm\_fp \{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+163                             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+164                             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+165                             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+166                             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+167                             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+168                             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+169                             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+170                             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+171                             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+172                             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+173                             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+174                             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+175                             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+176                             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+177                             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+178                             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0\};
+179     BOOST\_CHECK\_EQUAL\_COLLECTIONS(fpbm->fingerprint().begin(), fpbm->fingerprint().end(), 
+180                                     expected\_fpbm\_fp.begin(), expected\_fpbm\_fp.end());
+181 
+182 
+183 
+184     \textcolor{comment}{// One over the DB}
+185     BOOST\_CHECK( !testDb.at(2) );
+186 
+187     BOOST\_REQUIRE(testDb.write());
+188 
+189     BOOST\_CHECK(\hyperlink{test__model_8cpp_a2298740f2069548bbfdf4f3e30b9e274}{checkFiles}(copyOfTestDbFile));
+190 
+191 \}\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{test__model_8cpp_aed707bedcd354ffa13bdc19d69a4f4bf_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{test__model_8cpp_a2298740f2069548bbfdf4f3e30b9e274}{\index{test\-\_\-model.\-cpp@{test\-\_\-model.\-cpp}!check\-Files@{check\-Files}}
+\index{check\-Files@{check\-Files}!test_model.cpp@{test\-\_\-model.\-cpp}}
+\subsubsection[{check\-Files}]{\setlength{\rightskip}{0pt plus 5cm}bool check\-Files (
+\begin{DoxyParamCaption}
+\item[{string}]{test\-File}
+\end{DoxyParamCaption}
+)}}\label{test__model_8cpp_a2298740f2069548bbfdf4f3e30b9e274}
+Checks the files for the existence of the correct files after writing
+
+
+\begin{DoxyParams}{Parameters}
+{\em test\-File} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 41 of file test\-\_\-model.\-cpp.
+
+
+\begin{DoxyCode}
+42 \{
+43     \textcolor{keywordtype}{string} prevFile = testFile;
+44     prevFile += \textcolor{stringliteral}{".prev"};
+45 
+46     ifstream newDb(testFile);
+47     ifstream oldDb(prevFile);
+48     \textcolor{keywordflow}{if}(!newDb.is\_open() || !oldDb.is\_open())
+49     \{
+50         \hyperlink{_logger_8h_a2a8694cd392d18f4db6b9cc9f15bafe3}{SLOG\_ERROR}(<< \textcolor{stringliteral}{"Unable to open DB"});
+51         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+52     \}
+53 
+54     \textcolor{keywordtype}{bool} equal = \textcolor{keyword}{true};
+55     \textcolor{comment}{/* }
+56 \textcolor{comment}{    Can't rely on the order of the nodes so can't just compare files.}
+57 \textcolor{comment}{    Also YAML::Node doesn't have a comparison operator.}
+58 \textcolor{comment}{    Easiest way to check equality would be to run test tool again.}
+59 \textcolor{comment}{    }
+60 \textcolor{comment}{    while ((!newDb.eof()) && (!oldDb.eof())) }
+61 \textcolor{comment}{    \{}
+62 \textcolor{comment}{        string line,line2;}
+63 \textcolor{comment}{        getline(newDb,line); }
+64 \textcolor{comment}{        getline(oldDb,line2);}
+65 \textcolor{comment}{        if(line != line2)}
+66 \textcolor{comment}{        \{}
+67 \textcolor{comment}{            SLOG\_ERROR(<< "Line not equal newDb [" << line << "] oldDb [" << line2 << "]");}
+68 \textcolor{comment}{            equal = false;}
+69 \textcolor{comment}{            break;}
+70 \textcolor{comment}{        \}}
+71 \textcolor{comment}{    \}*/}
+72     newDb.close();
+73     oldDb.close();
+74     \textcolor{keywordflow}{return} equal;
+75 \}
+\end{DoxyCode}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{test__model_8cpp_a2298740f2069548bbfdf4f3e30b9e274_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{test__model_8cpp_a70ed70ee24d350fcef6ca062293cde74}{\index{test\-\_\-model.\-cpp@{test\-\_\-model.\-cpp}!copy\-File@{copy\-File}}
+\index{copy\-File@{copy\-File}!test_model.cpp@{test\-\_\-model.\-cpp}}
+\subsubsection[{copy\-File}]{\setlength{\rightskip}{0pt plus 5cm}void copy\-File (
+\begin{DoxyParamCaption}
+\item[{string}]{src, }
+\item[{string}]{dst}
+\end{DoxyParamCaption}
+)}}\label{test__model_8cpp_a70ed70ee24d350fcef6ca062293cde74}
+
+
+Definition at line 77 of file test\-\_\-model.\-cpp.
+
+
+\begin{DoxyCode}
+78 \{
+79     ifstream source(src, ios::binary);
+80     ofstream dest(dst, ios::binary);
+81     dest << source.rdbuf();
+82     source.close();
+83     dest.close();
+84 \}
+\end{DoxyCode}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{test__model_8cpp_a70ed70ee24d350fcef6ca062293cde74_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{test__model_8cpp_ab2f79d317706a4b729589b7cd872859e}{\index{test\-\_\-model.\-cpp@{test\-\_\-model.\-cpp}!remove\-Prev@{remove\-Prev}}
+\index{remove\-Prev@{remove\-Prev}!test_model.cpp@{test\-\_\-model.\-cpp}}
+\subsubsection[{remove\-Prev}]{\setlength{\rightskip}{0pt plus 5cm}{\bf I\-N\-I\-T\-\_\-\-L\-O\-G\-G\-I\-N\-G} void remove\-Prev (
+\begin{DoxyParamCaption}
+\item[{string}]{test\-File}
+\end{DoxyParamCaption}
+)}}\label{test__model_8cpp_ab2f79d317706a4b729589b7cd872859e}
+
+
+Definition at line 20 of file test\-\_\-model.\-cpp.
+
+
+\begin{DoxyCode}
+21 \{
+22 
+23     std::ifstream tmp(testFile);
+24     \textcolor{keywordflow}{if} ( !tmp.good() )
+25     \{
+26         tmp.close();
+27         \textcolor{keywordflow}{return};
+28     \}
+29     tmp.close();
+30     \textcolor{keywordflow}{if}(std::remove(testFile.c\_str()) != 0)
+31         cout << \textcolor{stringliteral}{"Unable to remove test file"} << endl;
+32 \}
+\end{DoxyCode}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{test__model_8cpp_ab2f79d317706a4b729589b7cd872859e_icgraph}
+\end{center}
+\end{figure}
+
+

@@ -1,0 +1,270 @@
+\hypertarget{class_vsid_1_1_byte_frequency_first8_packets_meter}{\section{Vsid\-:\-:Byte\-Frequency\-First8\-Packets\-Meter Class Reference}
+\label{class_vsid_1_1_byte_frequency_first8_packets_meter}\index{Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter@{Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter}}
+}
+
+
+{\ttfamily \#include $<$Byte\-Frequency\-First8\-Packets\-Meter.\-h$>$}
+
+
+
+Inheritance diagram for Vsid\-:\-:Byte\-Frequency\-First8\-Packets\-Meter\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{class_vsid_1_1_byte_frequency_first8_packets_meter__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Vsid\-:\-:Byte\-Frequency\-First8\-Packets\-Meter\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{class_vsid_1_1_byte_frequency_first8_packets_meter__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_vsid_1_1_byte_frequency_first8_packets_meter_ad69f17ee40fc0a1b142ad4830a2dea57}{Byte\-Frequency\-First8\-Packets\-Meter} ()
+\item 
+virtual \hyperlink{class_vsid_1_1_byte_frequency_first8_packets_meter_ae5dc5f1e4d2a61cb89f5c6fa0a0ce8ad}{$\sim$\-Byte\-Frequency\-First8\-Packets\-Meter} ()
+\item 
+virtual std\-::string \hyperlink{class_vsid_1_1_byte_frequency_first8_packets_meter_a9ef45a8d4e453ac5b67260c186cefdce}{name} () const 
+\item 
+virtual double \hyperlink{class_vsid_1_1_byte_frequency_first8_packets_meter_a882a4412aaf87b7c9b14aa6b71e00534}{at} (size\-\_\-t pos)
+\item 
+virtual void \hyperlink{class_vsid_1_1_byte_frequency_first8_packets_meter_a0c66abfae09225bbe83e3da9a07c14fb}{calculate\-Measurement} (\hyperlink{class_vsid_common_1_1_flow}{Vsid\-Common\-::\-Flow} $\ast$flow, \hyperlink{class_vsid_common_1_1_i_pv4_packet}{Vsid\-Common\-::\-I\-Pv4\-Packet} $\ast$current\-Packet)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_vsid_1_1_registrar}{Vsid\-::\-Registrar} \hyperlink{class_vsid_1_1_byte_frequency_first8_packets_meter_a1f57fc0af2e1700109db9e2d12e63745}{registrar}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_vsid_1_1_byte_frequency_first8_packets_meter_a80219b863d4ff3456933d16bc5f73f45}{Protocol\-Model}
+\item 
+class \hyperlink{class_vsid_1_1_byte_frequency_first8_packets_meter_a3c0d389e7a9476b06313d8fb9ca9fe68}{Protocol\-Model\-Db}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Byte Frequency for all packets. 
+
+Definition at line 24 of file Byte\-Frequency\-First8\-Packets\-Meter.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_vsid_1_1_byte_frequency_first8_packets_meter_ad69f17ee40fc0a1b142ad4830a2dea57}{\index{Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter@{Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter}!Byte\-Frequency\-First8\-Packets\-Meter@{Byte\-Frequency\-First8\-Packets\-Meter}}
+\index{Byte\-Frequency\-First8\-Packets\-Meter@{Byte\-Frequency\-First8\-Packets\-Meter}!Vsid::ByteFrequencyFirst8PacketsMeter@{Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter}}
+\subsubsection[{Byte\-Frequency\-First8\-Packets\-Meter}]{\setlength{\rightskip}{0pt plus 5cm}Byte\-Frequency\-First8\-Packets\-Meter\-::\-Byte\-Frequency\-First8\-Packets\-Meter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_1_1_byte_frequency_first8_packets_meter_ad69f17ee40fc0a1b142ad4830a2dea57}
+
+
+Definition at line 19 of file Byte\-Frequency\-First8\-Packets\-Meter.\-cpp.
+
+
+\begin{DoxyCode}
+19                                                                  :
+20     \hyperlink{class_vsid_1_1_attribute_meter_ae8a9a8b485b2dbf676195bc65bdb746e}{AttributeMeter}(256),
+21     \_overall\_byte\_size(0)
+22 \{
+23 \}
+\end{DoxyCode}
+\hypertarget{class_vsid_1_1_byte_frequency_first8_packets_meter_ae5dc5f1e4d2a61cb89f5c6fa0a0ce8ad}{\index{Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter@{Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter}!$\sim$\-Byte\-Frequency\-First8\-Packets\-Meter@{$\sim$\-Byte\-Frequency\-First8\-Packets\-Meter}}
+\index{$\sim$\-Byte\-Frequency\-First8\-Packets\-Meter@{$\sim$\-Byte\-Frequency\-First8\-Packets\-Meter}!Vsid::ByteFrequencyFirst8PacketsMeter@{Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter}}
+\subsubsection[{$\sim$\-Byte\-Frequency\-First8\-Packets\-Meter}]{\setlength{\rightskip}{0pt plus 5cm}virtual Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter\-::$\sim$\-Byte\-Frequency\-First8\-Packets\-Meter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_vsid_1_1_byte_frequency_first8_packets_meter_ae5dc5f1e4d2a61cb89f5c6fa0a0ce8ad}
+
+
+Definition at line 28 of file Byte\-Frequency\-First8\-Packets\-Meter.\-h.
+
+
+\begin{DoxyCode}
+28 \{\}; 
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_vsid_1_1_byte_frequency_first8_packets_meter_a882a4412aaf87b7c9b14aa6b71e00534}{\index{Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter@{Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter}!at@{at}}
+\index{at@{at}!Vsid::ByteFrequencyFirst8PacketsMeter@{Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter}}
+\subsubsection[{at}]{\setlength{\rightskip}{0pt plus 5cm}double Byte\-Frequency\-First8\-Packets\-Meter\-::at (
+\begin{DoxyParamCaption}
+\item[{size\-\_\-t}]{pos}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_vsid_1_1_byte_frequency_first8_packets_meter_a882a4412aaf87b7c9b14aa6b71e00534}
+Get the fingerprint at position When looking for the probability you shoudl always access through this. The reason is that in some cases the probability for a position is calculated on the fly instead of for every packet 
+\begin{DoxyParams}{Parameters}
+{\em pos} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_vsid_1_1_attribute_meter_a3b067be638ae613a732fa090c07c5e71}{Vsid\-::\-Attribute\-Meter}.
+
+
+
+Definition at line 25 of file Byte\-Frequency\-First8\-Packets\-Meter.\-cpp.
+
+
+\begin{DoxyCode}
+26 \{
+27     \textcolor{comment}{// If the neter comes from the DB}
+28     \textcolor{keywordflow}{if} (\hyperlink{class_vsid_1_1_attribute_meter_a2ce3946fc699d3c375ee4019a9e3c022}{\_fromDb})
+29     \{
+30         \textcolor{keywordflow}{return} \hyperlink{class_vsid_1_1_attribute_meter_a3b067be638ae613a732fa090c07c5e71}{AttributeMeter::at}(pos);
+31     \}
+32     \textcolor{keywordflow}{else}
+33     \{
+34         \textcolor{keywordflow}{if}(pos < \hyperlink{class_vsid_1_1_attribute_meter_a0386b2fe9c5d6ab6fba16029d8da4efe}{\_fingerprint}.size())
+35         \{
+36             \textcolor{keywordflow}{if}(\_overall\_byte\_size == 0)
+37                 \textcolor{keywordflow}{return} 0;
+38             \textcolor{keywordflow}{return} (\textcolor{keywordtype}{double})\hyperlink{class_vsid_1_1_attribute_meter_a0386b2fe9c5d6ab6fba16029d8da4efe}{\_fingerprint}[pos] / \_overall\_byte\_size;
+39         \}
+40         \textcolor{keywordflow}{else}
+41         \{
+42             \textcolor{comment}{//TODO return or throw??}
+43             \textcolor{keywordflow}{return} -1;
+44         \}
+45     \}
+46 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_1_1_byte_frequency_first8_packets_meter_a882a4412aaf87b7c9b14aa6b71e00534_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_1_1_byte_frequency_first8_packets_meter_a0c66abfae09225bbe83e3da9a07c14fb}{\index{Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter@{Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter}!calculate\-Measurement@{calculate\-Measurement}}
+\index{calculate\-Measurement@{calculate\-Measurement}!Vsid::ByteFrequencyFirst8PacketsMeter@{Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter}}
+\subsubsection[{calculate\-Measurement}]{\setlength{\rightskip}{0pt plus 5cm}void Byte\-Frequency\-First8\-Packets\-Meter\-::calculate\-Measurement (
+\begin{DoxyParamCaption}
+\item[{{\bf Vsid\-Common\-::\-Flow} $\ast$}]{flow, }
+\item[{{\bf Vsid\-Common\-::\-I\-Pv4\-Packet} $\ast$}]{current\-Packet}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_vsid_1_1_byte_frequency_first8_packets_meter_a0c66abfae09225bbe83e3da9a07c14fb}
+Update a fingerprint based on the current flow and packet 
+\begin{DoxyParams}{Parameters}
+{\em flow} & \\
+\hline
+{\em current\-Packet} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{class_vsid_1_1_attribute_meter_a5b7adf4a8e493bd24eb027221518e713}{Vsid\-::\-Attribute\-Meter}.
+
+
+
+Definition at line 48 of file Byte\-Frequency\-First8\-Packets\-Meter.\-cpp.
+
+
+\begin{DoxyCode}
+50 \{
+51 
+52     \textcolor{keywordflow}{if}(flow->\hyperlink{class_vsid_common_1_1_flow_a41a3ebb168028d3cf0ea96b7e438ca89}{pktCount}() > 8)
+53         \textcolor{keywordflow}{return};
+54 
+55     \textcolor{keywordflow}{if}(currentPacket->\hyperlink{class_vsid_common_1_1_i_pv4_packet_a39fe36210895625ee87320f5c0c7f52e}{dataSize}() <= 0)
+56         \textcolor{keywordflow}{return};
+57 
+58     \textcolor{keyword}{const} u\_char* data = currentPacket->\hyperlink{class_vsid_common_1_1_i_pv4_packet_a9fb8c763d740e193a68c55604a8a7bd6}{data}();
+59     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t} i = 0; i < currentPacket->\hyperlink{class_vsid_common_1_1_i_pv4_packet_a39fe36210895625ee87320f5c0c7f52e}{dataSize}(); i++ )
+60     \{
+61         \hyperlink{class_vsid_1_1_attribute_meter_a0386b2fe9c5d6ab6fba16029d8da4efe}{\_fingerprint}[*data]++;
+62         data++;
+63     \}
+64 
+65     \_overall\_byte\_size = currentPacket->\hyperlink{class_vsid_common_1_1_i_pv4_packet_a39fe36210895625ee87320f5c0c7f52e}{dataSize}();
+66 \}\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_1_1_byte_frequency_first8_packets_meter_a0c66abfae09225bbe83e3da9a07c14fb_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_1_1_byte_frequency_first8_packets_meter_a9ef45a8d4e453ac5b67260c186cefdce}{\index{Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter@{Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter}!name@{name}}
+\index{name@{name}!Vsid::ByteFrequencyFirst8PacketsMeter@{Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter}}
+\subsubsection[{name}]{\setlength{\rightskip}{0pt plus 5cm}virtual std\-::string Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter\-::name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_vsid_1_1_byte_frequency_first8_packets_meter_a9ef45a8d4e453ac5b67260c186cefdce}
+Unique name for the \hyperlink{class_vsid_1_1_attribute_meter}{Attribute\-Meter}
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_vsid_1_1_attribute_meter_a24d5a7141e89e948c05edf8f70be8c53}{Vsid\-::\-Attribute\-Meter}.
+
+
+
+Definition at line 35 of file Byte\-Frequency\-First8\-Packets\-Meter.\-h.
+
+
+\begin{DoxyCode}
+35 \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"ByteFrequencyFirst8PacketsMeter"}; \}
+\end{DoxyCode}
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{class_vsid_1_1_byte_frequency_first8_packets_meter_a80219b863d4ff3456933d16bc5f73f45}{\index{Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter@{Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter}!Protocol\-Model@{Protocol\-Model}}
+\index{Protocol\-Model@{Protocol\-Model}!Vsid::ByteFrequencyFirst8PacketsMeter@{Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter}}
+\subsubsection[{Protocol\-Model}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf Protocol\-Model}\hspace{0.3cm}{\ttfamily [friend]}}}\label{class_vsid_1_1_byte_frequency_first8_packets_meter_a80219b863d4ff3456933d16bc5f73f45}
+
+
+Definition at line 47 of file Byte\-Frequency\-First8\-Packets\-Meter.\-h.
+
+\hypertarget{class_vsid_1_1_byte_frequency_first8_packets_meter_a3c0d389e7a9476b06313d8fb9ca9fe68}{\index{Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter@{Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter}!Protocol\-Model\-Db@{Protocol\-Model\-Db}}
+\index{Protocol\-Model\-Db@{Protocol\-Model\-Db}!Vsid::ByteFrequencyFirst8PacketsMeter@{Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter}}
+\subsubsection[{Protocol\-Model\-Db}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf Protocol\-Model\-Db}\hspace{0.3cm}{\ttfamily [friend]}}}\label{class_vsid_1_1_byte_frequency_first8_packets_meter_a3c0d389e7a9476b06313d8fb9ca9fe68}
+
+
+Definition at line 48 of file Byte\-Frequency\-First8\-Packets\-Meter.\-h.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_vsid_1_1_byte_frequency_first8_packets_meter_a1f57fc0af2e1700109db9e2d12e63745}{\index{Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter@{Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter}!registrar@{registrar}}
+\index{registrar@{registrar}!Vsid::ByteFrequencyFirst8PacketsMeter@{Vsid\-::\-Byte\-Frequency\-First8\-Packets\-Meter}}
+\subsubsection[{registrar}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Vsid\-::\-Registrar} Byte\-Frequency\-First8\-Packets\-Meter\-::registrar\hspace{0.3cm}{\ttfamily [static]}}}\label{class_vsid_1_1_byte_frequency_first8_packets_meter_a1f57fc0af2e1700109db9e2d12e63745}
+
+
+Definition at line 50 of file Byte\-Frequency\-First8\-Packets\-Meter.\-h.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/protocol\-\_\-model/inc/\hyperlink{_byte_frequency_first8_packets_meter_8h}{Byte\-Frequency\-First8\-Packets\-Meter.\-h}\item 
+src/protocol\-\_\-model/src/\hyperlink{_byte_frequency_first8_packets_meter_8cpp}{Byte\-Frequency\-First8\-Packets\-Meter.\-cpp}\end{DoxyCompactItemize}

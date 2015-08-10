@@ -1,0 +1,214 @@
+\hypertarget{class_vsid_1_1_payload_size_first_packet_meter}{\section{Vsid\-:\-:Payload\-Size\-First\-Packet\-Meter Class Reference}
+\label{class_vsid_1_1_payload_size_first_packet_meter}\index{Vsid\-::\-Payload\-Size\-First\-Packet\-Meter@{Vsid\-::\-Payload\-Size\-First\-Packet\-Meter}}
+}
+
+
+{\ttfamily \#include $<$Payload\-Size\-First\-Packet\-Meter.\-h$>$}
+
+
+
+Inheritance diagram for Vsid\-:\-:Payload\-Size\-First\-Packet\-Meter\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{class_vsid_1_1_payload_size_first_packet_meter__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Vsid\-:\-:Payload\-Size\-First\-Packet\-Meter\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{class_vsid_1_1_payload_size_first_packet_meter__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_vsid_1_1_payload_size_first_packet_meter_aca2bb1b6f755c8e38fd5734e983629d1}{Payload\-Size\-First\-Packet\-Meter} ()
+\item 
+virtual \hyperlink{class_vsid_1_1_payload_size_first_packet_meter_ad8bd0180b85b96f876ddc1c8f3270279}{$\sim$\-Payload\-Size\-First\-Packet\-Meter} ()
+\item 
+virtual std\-::string \hyperlink{class_vsid_1_1_payload_size_first_packet_meter_ae0cea8c8ac9d99246ccca54330ee3897}{name} () const 
+\item 
+virtual void \hyperlink{class_vsid_1_1_payload_size_first_packet_meter_a3e20bc06d7a06de0b9c1cdf5ab6ff880}{calculate\-Measurement} (\hyperlink{class_vsid_common_1_1_flow}{Vsid\-Common\-::\-Flow} $\ast$flow, \hyperlink{class_vsid_common_1_1_i_pv4_packet}{Vsid\-Common\-::\-I\-Pv4\-Packet} $\ast$current\-Packet)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_vsid_1_1_registrar}{Vsid\-::\-Registrar} \hyperlink{class_vsid_1_1_payload_size_first_packet_meter_af1a8cae3939b909b1c4b99d73d21f319}{registrar}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_vsid_1_1_payload_size_first_packet_meter_a80219b863d4ff3456933d16bc5f73f45}{Protocol\-Model}
+\item 
+class \hyperlink{class_vsid_1_1_payload_size_first_packet_meter_a3c0d389e7a9476b06313d8fb9ca9fe68}{Protocol\-Model\-Db}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Byte Frequency for all packets. 
+
+Definition at line 24 of file Payload\-Size\-First\-Packet\-Meter.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_vsid_1_1_payload_size_first_packet_meter_aca2bb1b6f755c8e38fd5734e983629d1}{\index{Vsid\-::\-Payload\-Size\-First\-Packet\-Meter@{Vsid\-::\-Payload\-Size\-First\-Packet\-Meter}!Payload\-Size\-First\-Packet\-Meter@{Payload\-Size\-First\-Packet\-Meter}}
+\index{Payload\-Size\-First\-Packet\-Meter@{Payload\-Size\-First\-Packet\-Meter}!Vsid::PayloadSizeFirstPacketMeter@{Vsid\-::\-Payload\-Size\-First\-Packet\-Meter}}
+\subsubsection[{Payload\-Size\-First\-Packet\-Meter}]{\setlength{\rightskip}{0pt plus 5cm}Payload\-Size\-First\-Packet\-Meter\-::\-Payload\-Size\-First\-Packet\-Meter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_1_1_payload_size_first_packet_meter_aca2bb1b6f755c8e38fd5734e983629d1}
+
+
+Definition at line 21 of file Payload\-Size\-First\-Packet\-Meter.\-cpp.
+
+
+\begin{DoxyCode}
+21                                                          :
+22     \hyperlink{class_vsid_1_1_attribute_meter_ae8a9a8b485b2dbf676195bc65bdb746e}{AttributeMeter}(2)
+23 \{
+24     \hyperlink{class_vsid_1_1_attribute_meter_a0386b2fe9c5d6ab6fba16029d8da4efe}{\_fingerprint}[1] = 1;
+25 \}
+\end{DoxyCode}
+\hypertarget{class_vsid_1_1_payload_size_first_packet_meter_ad8bd0180b85b96f876ddc1c8f3270279}{\index{Vsid\-::\-Payload\-Size\-First\-Packet\-Meter@{Vsid\-::\-Payload\-Size\-First\-Packet\-Meter}!$\sim$\-Payload\-Size\-First\-Packet\-Meter@{$\sim$\-Payload\-Size\-First\-Packet\-Meter}}
+\index{$\sim$\-Payload\-Size\-First\-Packet\-Meter@{$\sim$\-Payload\-Size\-First\-Packet\-Meter}!Vsid::PayloadSizeFirstPacketMeter@{Vsid\-::\-Payload\-Size\-First\-Packet\-Meter}}
+\subsubsection[{$\sim$\-Payload\-Size\-First\-Packet\-Meter}]{\setlength{\rightskip}{0pt plus 5cm}virtual Vsid\-::\-Payload\-Size\-First\-Packet\-Meter\-::$\sim$\-Payload\-Size\-First\-Packet\-Meter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_vsid_1_1_payload_size_first_packet_meter_ad8bd0180b85b96f876ddc1c8f3270279}
+
+
+Definition at line 28 of file Payload\-Size\-First\-Packet\-Meter.\-h.
+
+
+\begin{DoxyCode}
+28 \{\}; 
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_vsid_1_1_payload_size_first_packet_meter_a3e20bc06d7a06de0b9c1cdf5ab6ff880}{\index{Vsid\-::\-Payload\-Size\-First\-Packet\-Meter@{Vsid\-::\-Payload\-Size\-First\-Packet\-Meter}!calculate\-Measurement@{calculate\-Measurement}}
+\index{calculate\-Measurement@{calculate\-Measurement}!Vsid::PayloadSizeFirstPacketMeter@{Vsid\-::\-Payload\-Size\-First\-Packet\-Meter}}
+\subsubsection[{calculate\-Measurement}]{\setlength{\rightskip}{0pt plus 5cm}void Payload\-Size\-First\-Packet\-Meter\-::calculate\-Measurement (
+\begin{DoxyParamCaption}
+\item[{{\bf Vsid\-Common\-::\-Flow} $\ast$}]{flow, }
+\item[{{\bf Vsid\-Common\-::\-I\-Pv4\-Packet} $\ast$}]{current\-Packet}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_vsid_1_1_payload_size_first_packet_meter_a3e20bc06d7a06de0b9c1cdf5ab6ff880}
+Update a fingerprint based on the current flow and packet 
+\begin{DoxyParams}{Parameters}
+{\em flow} & \\
+\hline
+{\em current\-Packet} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{class_vsid_1_1_attribute_meter_a5b7adf4a8e493bd24eb027221518e713}{Vsid\-::\-Attribute\-Meter}.
+
+
+
+Definition at line 27 of file Payload\-Size\-First\-Packet\-Meter.\-cpp.
+
+
+\begin{DoxyCode}
+29 \{   
+30     \textcolor{keywordflow}{if}( !flow->\hyperlink{class_vsid_common_1_1_flow_ae437ae88fb48d6ac2880f40fc88195da}{isFirstPacket}() )
+31         \textcolor{keywordflow}{return};
+32 
+33     \textcolor{keywordtype}{int} \hyperlink{class_vsid_1_1_attribute_meter_a6243f852b5ef8e24d8015e2018037d2c}{size} = 0;
+34     \textcolor{keywordtype}{int} max\_size = 0;
+35 
+36     \textcolor{keywordflow}{if} (currentPacket->\hyperlink{class_vsid_common_1_1_i_pv4_packet_ac1ff979633726d9f558bce1210595879}{protocol}() == IPPROTO\_TCP) 
+37     \{
+38         size = currentPacket->\hyperlink{class_vsid_common_1_1_i_pv4_packet_a39fe36210895625ee87320f5c0c7f52e}{dataSize}();
+39         max\_size = 1460; \textcolor{comment}{// Normal MTU - TCP header size}
+40     \}
+41     \textcolor{keywordflow}{else} 
+42     \{
+43         size = currentPacket->\hyperlink{class_vsid_common_1_1_i_pv4_packet_a39fe36210895625ee87320f5c0c7f52e}{dataSize}();
+44         max\_size = 1476; \textcolor{comment}{// Normal MTU - UDP header size}
+45     \}
+46 
+47     \textcolor{comment}{// Need the probabilities to add up to 1}
+48     \hyperlink{class_vsid_1_1_attribute_meter_a0386b2fe9c5d6ab6fba16029d8da4efe}{\_fingerprint}[0] = (double)size / max\_size;
+49     \hyperlink{class_vsid_1_1_attribute_meter_a0386b2fe9c5d6ab6fba16029d8da4efe}{\_fingerprint}[1] = 1 - \hyperlink{class_vsid_1_1_attribute_meter_a0386b2fe9c5d6ab6fba16029d8da4efe}{\_fingerprint}[0];
+50 \}\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_1_1_payload_size_first_packet_meter_a3e20bc06d7a06de0b9c1cdf5ab6ff880_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_1_1_payload_size_first_packet_meter_ae0cea8c8ac9d99246ccca54330ee3897}{\index{Vsid\-::\-Payload\-Size\-First\-Packet\-Meter@{Vsid\-::\-Payload\-Size\-First\-Packet\-Meter}!name@{name}}
+\index{name@{name}!Vsid::PayloadSizeFirstPacketMeter@{Vsid\-::\-Payload\-Size\-First\-Packet\-Meter}}
+\subsubsection[{name}]{\setlength{\rightskip}{0pt plus 5cm}virtual std\-::string Vsid\-::\-Payload\-Size\-First\-Packet\-Meter\-::name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_vsid_1_1_payload_size_first_packet_meter_ae0cea8c8ac9d99246ccca54330ee3897}
+Unique name for the \hyperlink{class_vsid_1_1_attribute_meter}{Attribute\-Meter}
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_vsid_1_1_attribute_meter_a24d5a7141e89e948c05edf8f70be8c53}{Vsid\-::\-Attribute\-Meter}.
+
+
+
+Definition at line 35 of file Payload\-Size\-First\-Packet\-Meter.\-h.
+
+
+\begin{DoxyCode}
+35 \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"PayloadSizeFirstPacketMeter"}; \}
+\end{DoxyCode}
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{class_vsid_1_1_payload_size_first_packet_meter_a80219b863d4ff3456933d16bc5f73f45}{\index{Vsid\-::\-Payload\-Size\-First\-Packet\-Meter@{Vsid\-::\-Payload\-Size\-First\-Packet\-Meter}!Protocol\-Model@{Protocol\-Model}}
+\index{Protocol\-Model@{Protocol\-Model}!Vsid::PayloadSizeFirstPacketMeter@{Vsid\-::\-Payload\-Size\-First\-Packet\-Meter}}
+\subsubsection[{Protocol\-Model}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf Protocol\-Model}\hspace{0.3cm}{\ttfamily [friend]}}}\label{class_vsid_1_1_payload_size_first_packet_meter_a80219b863d4ff3456933d16bc5f73f45}
+
+
+Definition at line 46 of file Payload\-Size\-First\-Packet\-Meter.\-h.
+
+\hypertarget{class_vsid_1_1_payload_size_first_packet_meter_a3c0d389e7a9476b06313d8fb9ca9fe68}{\index{Vsid\-::\-Payload\-Size\-First\-Packet\-Meter@{Vsid\-::\-Payload\-Size\-First\-Packet\-Meter}!Protocol\-Model\-Db@{Protocol\-Model\-Db}}
+\index{Protocol\-Model\-Db@{Protocol\-Model\-Db}!Vsid::PayloadSizeFirstPacketMeter@{Vsid\-::\-Payload\-Size\-First\-Packet\-Meter}}
+\subsubsection[{Protocol\-Model\-Db}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf Protocol\-Model\-Db}\hspace{0.3cm}{\ttfamily [friend]}}}\label{class_vsid_1_1_payload_size_first_packet_meter_a3c0d389e7a9476b06313d8fb9ca9fe68}
+
+
+Definition at line 47 of file Payload\-Size\-First\-Packet\-Meter.\-h.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_vsid_1_1_payload_size_first_packet_meter_af1a8cae3939b909b1c4b99d73d21f319}{\index{Vsid\-::\-Payload\-Size\-First\-Packet\-Meter@{Vsid\-::\-Payload\-Size\-First\-Packet\-Meter}!registrar@{registrar}}
+\index{registrar@{registrar}!Vsid::PayloadSizeFirstPacketMeter@{Vsid\-::\-Payload\-Size\-First\-Packet\-Meter}}
+\subsubsection[{registrar}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Vsid\-::\-Registrar} Payload\-Size\-First\-Packet\-Meter\-::registrar\hspace{0.3cm}{\ttfamily [static]}}}\label{class_vsid_1_1_payload_size_first_packet_meter_af1a8cae3939b909b1c4b99d73d21f319}
+
+
+Definition at line 49 of file Payload\-Size\-First\-Packet\-Meter.\-h.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/protocol\-\_\-model/inc/\hyperlink{_payload_size_first_packet_meter_8h}{Payload\-Size\-First\-Packet\-Meter.\-h}\item 
+src/protocol\-\_\-model/src/\hyperlink{_payload_size_first_packet_meter_8cpp}{Payload\-Size\-First\-Packet\-Meter.\-cpp}\end{DoxyCompactItemize}

@@ -1,0 +1,282 @@
+\hypertarget{class_vsid_1_1_protocol_model}{\section{Vsid\-:\-:Protocol\-Model Class Reference}
+\label{class_vsid_1_1_protocol_model}\index{Vsid\-::\-Protocol\-Model@{Vsid\-::\-Protocol\-Model}}
+}
+
+
+{\ttfamily \#include $<$Protocol\-Model.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_vsid_1_1_protocol_model_a1d1fa4c2d7f4e60251cb6e661f985d61}{Protocol\-Model} ()
+\item 
+virtual \hyperlink{class_vsid_1_1_protocol_model_aa8c306c2ca0e5f06edcb3e7dfd4ab3be}{$\sim$\-Protocol\-Model} ()
+\item 
+const std\-::string \& \hyperlink{class_vsid_1_1_protocol_model_aff8f664f4e77d09edfa0cbfa5c780d53}{name} () const 
+\item 
+uint32\-\_\-t \hyperlink{class_vsid_1_1_protocol_model_aa41050fdf10addc595abf69bf53b7e3e}{flow\-Count} () const 
+\item 
+void \hyperlink{class_vsid_1_1_protocol_model_a2e9bdfe140c77a299a0e7b374d7ef42a}{increase\-Flow\-Count} ()
+\item 
+bool \hyperlink{class_vsid_1_1_protocol_model_a7aa80a01aed6b768e02df1bfaa168f58}{enabled} () const 
+\item 
+const std\-::vector$<$ uint16\-\_\-t $>$ \& \hyperlink{class_vsid_1_1_protocol_model_ae89609f0cba79ee0d2e55c5fb32f7377}{port\-Hints} () const 
+\item 
+std\-::shared\-\_\-ptr$<$ \hyperlink{class_vsid_1_1_attribute_meter}{Attribute\-Meter} $>$ \hyperlink{class_vsid_1_1_protocol_model_af1a8daae7d395fc5dc2804d2d75a3f2a}{find} (const std\-::string \&\hyperlink{class_vsid_1_1_protocol_model_aff8f664f4e77d09edfa0cbfa5c780d53}{name})
+\item 
+std\-::shared\-\_\-ptr$<$ \hyperlink{class_vsid_1_1_attribute_meter}{Attribute\-Meter} $>$ \hyperlink{class_vsid_1_1_protocol_model_a386f0c7974d09009ed36889e211b4191}{front} ()
+\item 
+std\-::shared\-\_\-ptr$<$ \hyperlink{class_vsid_1_1_attribute_meter}{Attribute\-Meter} $>$ \hyperlink{class_vsid_1_1_protocol_model_adb7900b67985cb22966e0cd22a1f9b00}{at} (size\-\_\-t pos)
+\item 
+size\-\_\-t \hyperlink{class_vsid_1_1_protocol_model_a0703ba5abd17744e10dcf30b578b799c}{size} () const 
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_vsid_1_1_protocol_model_a3c0d389e7a9476b06313d8fb9ca9fe68}{Protocol\-Model\-Db}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 21 of file Protocol\-Model.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_vsid_1_1_protocol_model_a1d1fa4c2d7f4e60251cb6e661f985d61}{\index{Vsid\-::\-Protocol\-Model@{Vsid\-::\-Protocol\-Model}!Protocol\-Model@{Protocol\-Model}}
+\index{Protocol\-Model@{Protocol\-Model}!Vsid::ProtocolModel@{Vsid\-::\-Protocol\-Model}}
+\subsubsection[{Protocol\-Model}]{\setlength{\rightskip}{0pt plus 5cm}Protocol\-Model\-::\-Protocol\-Model (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_1_1_protocol_model_a1d1fa4c2d7f4e60251cb6e661f985d61}
+
+
+Definition at line 9 of file Protocol\-Model.\-cpp.
+
+
+\begin{DoxyCode}
+10 \{
+11 
+12 \}
+\end{DoxyCode}
+\hypertarget{class_vsid_1_1_protocol_model_aa8c306c2ca0e5f06edcb3e7dfd4ab3be}{\index{Vsid\-::\-Protocol\-Model@{Vsid\-::\-Protocol\-Model}!$\sim$\-Protocol\-Model@{$\sim$\-Protocol\-Model}}
+\index{$\sim$\-Protocol\-Model@{$\sim$\-Protocol\-Model}!Vsid::ProtocolModel@{Vsid\-::\-Protocol\-Model}}
+\subsubsection[{$\sim$\-Protocol\-Model}]{\setlength{\rightskip}{0pt plus 5cm}virtual Vsid\-::\-Protocol\-Model\-::$\sim$\-Protocol\-Model (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_vsid_1_1_protocol_model_aa8c306c2ca0e5f06edcb3e7dfd4ab3be}
+
+
+Definition at line 25 of file Protocol\-Model.\-h.
+
+
+\begin{DoxyCode}
+25 \{\};
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_vsid_1_1_protocol_model_adb7900b67985cb22966e0cd22a1f9b00}{\index{Vsid\-::\-Protocol\-Model@{Vsid\-::\-Protocol\-Model}!at@{at}}
+\index{at@{at}!Vsid::ProtocolModel@{Vsid\-::\-Protocol\-Model}}
+\subsubsection[{at}]{\setlength{\rightskip}{0pt plus 5cm}std\-::shared\-\_\-ptr$<$ {\bf Attribute\-Meter} $>$ Protocol\-Model\-::at (
+\begin{DoxyParamCaption}
+\item[{size\-\_\-t}]{pos}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_1_1_protocol_model_adb7900b67985cb22966e0cd22a1f9b00}
+Get the \hyperlink{class_vsid_1_1_attribute_meter}{Attribute\-Meter} at position
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 34 of file Protocol\-Model.\-cpp.
+
+
+\begin{DoxyCode}
+35 \{
+36     \textcolor{keywordflow}{if}(pos < \_attributeMeters.size())
+37     \{
+38         \textcolor{keywordflow}{return} \_attributeMeters[pos];
+39     \}
+40     \textcolor{keywordflow}{else}
+41     \{
+42         \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};
+43     \}
+44 \}\end{DoxyCode}
+\hypertarget{class_vsid_1_1_protocol_model_a7aa80a01aed6b768e02df1bfaa168f58}{\index{Vsid\-::\-Protocol\-Model@{Vsid\-::\-Protocol\-Model}!enabled@{enabled}}
+\index{enabled@{enabled}!Vsid::ProtocolModel@{Vsid\-::\-Protocol\-Model}}
+\subsubsection[{enabled}]{\setlength{\rightskip}{0pt plus 5cm}bool Vsid\-::\-Protocol\-Model\-::enabled (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_1_1_protocol_model_a7aa80a01aed6b768e02df1bfaa168f58}
+
+
+Definition at line 35 of file Protocol\-Model.\-h.
+
+
+\begin{DoxyCode}
+35 \{ \textcolor{keywordflow}{return} \_enabled; \}
+\end{DoxyCode}
+\hypertarget{class_vsid_1_1_protocol_model_af1a8daae7d395fc5dc2804d2d75a3f2a}{\index{Vsid\-::\-Protocol\-Model@{Vsid\-::\-Protocol\-Model}!find@{find}}
+\index{find@{find}!Vsid::ProtocolModel@{Vsid\-::\-Protocol\-Model}}
+\subsubsection[{find}]{\setlength{\rightskip}{0pt plus 5cm}std\-::shared\-\_\-ptr$<$ {\bf Attribute\-Meter} $>$ Protocol\-Model\-::find (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{name}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_1_1_protocol_model_af1a8daae7d395fc5dc2804d2d75a3f2a}
+Find a \hyperlink{class_vsid_1_1_attribute_meter}{Attribute\-Meter} by name
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 15 of file Protocol\-Model.\-cpp.
+
+
+\begin{DoxyCode}
+16 \{
+17     \textcolor{keywordflow}{for}(\textcolor{keyword}{auto} it = \_attributeMeters.begin();
+18             it != \_attributeMeters.end(); ++it)
+19     \{
+20         \textcolor{keywordflow}{if}((*it)->name() == \hyperlink{class_vsid_1_1_protocol_model_aff8f664f4e77d09edfa0cbfa5c780d53}{name})
+21             \textcolor{keywordflow}{return} (*it);
+22     \}
+23 
+24     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};
+25 \}
+\end{DoxyCode}
+\hypertarget{class_vsid_1_1_protocol_model_aa41050fdf10addc595abf69bf53b7e3e}{\index{Vsid\-::\-Protocol\-Model@{Vsid\-::\-Protocol\-Model}!flow\-Count@{flow\-Count}}
+\index{flow\-Count@{flow\-Count}!Vsid::ProtocolModel@{Vsid\-::\-Protocol\-Model}}
+\subsubsection[{flow\-Count}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t Vsid\-::\-Protocol\-Model\-::flow\-Count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_1_1_protocol_model_aa41050fdf10addc595abf69bf53b7e3e}
+
+
+Definition at line 28 of file Protocol\-Model.\-h.
+
+
+\begin{DoxyCode}
+28 \{ \textcolor{keywordflow}{return} \_flowCount; \}
+\end{DoxyCode}
+\hypertarget{class_vsid_1_1_protocol_model_a386f0c7974d09009ed36889e211b4191}{\index{Vsid\-::\-Protocol\-Model@{Vsid\-::\-Protocol\-Model}!front@{front}}
+\index{front@{front}!Vsid::ProtocolModel@{Vsid\-::\-Protocol\-Model}}
+\subsubsection[{front}]{\setlength{\rightskip}{0pt plus 5cm}std\-::shared\-\_\-ptr$<$ {\bf Attribute\-Meter} $>$ Protocol\-Model\-::front (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_1_1_protocol_model_a386f0c7974d09009ed36889e211b4191}
+Get the first attribute meter
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 28 of file Protocol\-Model.\-cpp.
+
+
+\begin{DoxyCode}
+29 \{
+30     \textcolor{keywordflow}{return} \hyperlink{class_vsid_1_1_protocol_model_adb7900b67985cb22966e0cd22a1f9b00}{at}(0);
+31 \}
+\end{DoxyCode}
+\hypertarget{class_vsid_1_1_protocol_model_a2e9bdfe140c77a299a0e7b374d7ef42a}{\index{Vsid\-::\-Protocol\-Model@{Vsid\-::\-Protocol\-Model}!increase\-Flow\-Count@{increase\-Flow\-Count}}
+\index{increase\-Flow\-Count@{increase\-Flow\-Count}!Vsid::ProtocolModel@{Vsid\-::\-Protocol\-Model}}
+\subsubsection[{increase\-Flow\-Count}]{\setlength{\rightskip}{0pt plus 5cm}void Vsid\-::\-Protocol\-Model\-::increase\-Flow\-Count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_1_1_protocol_model_a2e9bdfe140c77a299a0e7b374d7ef42a}
+Add a flow to the flow\-Count 
+
+Definition at line 33 of file Protocol\-Model.\-h.
+
+
+\begin{DoxyCode}
+33 \{ \_flowCount++; \}
+\end{DoxyCode}
+\hypertarget{class_vsid_1_1_protocol_model_aff8f664f4e77d09edfa0cbfa5c780d53}{\index{Vsid\-::\-Protocol\-Model@{Vsid\-::\-Protocol\-Model}!name@{name}}
+\index{name@{name}!Vsid::ProtocolModel@{Vsid\-::\-Protocol\-Model}}
+\subsubsection[{name}]{\setlength{\rightskip}{0pt plus 5cm}const std\-::string\& Vsid\-::\-Protocol\-Model\-::name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_1_1_protocol_model_aff8f664f4e77d09edfa0cbfa5c780d53}
+
+
+Definition at line 27 of file Protocol\-Model.\-h.
+
+
+\begin{DoxyCode}
+27 \{ \textcolor{keywordflow}{return} \_name; \}
+\end{DoxyCode}
+\hypertarget{class_vsid_1_1_protocol_model_ae89609f0cba79ee0d2e55c5fb32f7377}{\index{Vsid\-::\-Protocol\-Model@{Vsid\-::\-Protocol\-Model}!port\-Hints@{port\-Hints}}
+\index{port\-Hints@{port\-Hints}!Vsid::ProtocolModel@{Vsid\-::\-Protocol\-Model}}
+\subsubsection[{port\-Hints}]{\setlength{\rightskip}{0pt plus 5cm}const std\-::vector$<$uint16\-\_\-t$>$\& Vsid\-::\-Protocol\-Model\-::port\-Hints (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_1_1_protocol_model_ae89609f0cba79ee0d2e55c5fb32f7377}
+
+
+Definition at line 36 of file Protocol\-Model.\-h.
+
+
+\begin{DoxyCode}
+36 \{ \textcolor{keywordflow}{return} \_portHints; \}
+\end{DoxyCode}
+\hypertarget{class_vsid_1_1_protocol_model_a0703ba5abd17744e10dcf30b578b799c}{\index{Vsid\-::\-Protocol\-Model@{Vsid\-::\-Protocol\-Model}!size@{size}}
+\index{size@{size}!Vsid::ProtocolModel@{Vsid\-::\-Protocol\-Model}}
+\subsubsection[{size}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t Vsid\-::\-Protocol\-Model\-::size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_1_1_protocol_model_a0703ba5abd17744e10dcf30b578b799c}
+Get number of attribute meters in the list
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 66 of file Protocol\-Model.\-h.
+
+
+\begin{DoxyCode}
+66 \{ \textcolor{keywordflow}{return} \_attributeMeters.size(); \}
+\end{DoxyCode}
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{class_vsid_1_1_protocol_model_a3c0d389e7a9476b06313d8fb9ca9fe68}{\index{Vsid\-::\-Protocol\-Model@{Vsid\-::\-Protocol\-Model}!Protocol\-Model\-Db@{Protocol\-Model\-Db}}
+\index{Protocol\-Model\-Db@{Protocol\-Model\-Db}!Vsid::ProtocolModel@{Vsid\-::\-Protocol\-Model}}
+\subsubsection[{Protocol\-Model\-Db}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf Protocol\-Model\-Db}\hspace{0.3cm}{\ttfamily [friend]}}}\label{class_vsid_1_1_protocol_model_a3c0d389e7a9476b06313d8fb9ca9fe68}
+
+
+Definition at line 68 of file Protocol\-Model.\-h.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/protocol\-\_\-model/inc/\hyperlink{_protocol_model_8h}{Protocol\-Model.\-h}\item 
+src/protocol\-\_\-model/src/\hyperlink{_protocol_model_8cpp}{Protocol\-Model.\-cpp}\end{DoxyCompactItemize}

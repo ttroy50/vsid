@@ -1,0 +1,834 @@
+\hypertarget{class_vsid_common_1_1_i_pv4_packet}{\section{Vsid\-Common\-:\-:I\-Pv4\-Packet Class Reference}
+\label{class_vsid_common_1_1_i_pv4_packet}\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+}
+
+
+{\ttfamily \#include $<$I\-Pv4.\-h$>$}
+
+
+
+Inheritance diagram for Vsid\-Common\-:\-:I\-Pv4\-Packet\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=337pt]{class_vsid_common_1_1_i_pv4_packet__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Vsid\-Common\-:\-:I\-Pv4\-Packet\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{class_vsid_common_1_1_i_pv4_packet__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_vsid_common_1_1_i_pv4_packet_ab0da103979f1104a1b1e2c75a9abd1c2}{I\-Pv4\-Packet} (const u\-\_\-char $\ast$pkt, int pkt\-\_\-size, const u\-\_\-char $\ast$ip\-\_\-hdr\-\_\-start, const u\-\_\-char $\ast$\hyperlink{class_vsid_common_1_1_i_pv4_packet_a2318e0a0cc6d297eda5c4eb57682eb09}{transport\-\_\-hdr\-\_\-start}, const u\-\_\-char $\ast$data\-\_\-start, struct timeval ts)
+\item 
+\hyperlink{class_vsid_common_1_1_i_pv4_packet_ab103f986666c11f28fbb03ea1f0dd21e}{I\-Pv4\-Packet} (const u\-\_\-char $\ast$pkt, int pkt\-\_\-size, const u\-\_\-char $\ast$ip\-\_\-hdr\-\_\-start, const u\-\_\-char $\ast$\hyperlink{class_vsid_common_1_1_i_pv4_packet_a2318e0a0cc6d297eda5c4eb57682eb09}{transport\-\_\-hdr\-\_\-start}, const u\-\_\-char $\ast$data\-\_\-start, struct timeval ts, u\-\_\-char $\ast$buffer)
+\item 
+\hyperlink{class_vsid_common_1_1_i_pv4_packet_a70985349f2c1d53d708e8761e70a106d}{I\-Pv4\-Packet} (const u\-\_\-char $\ast$pkt, int pkt\-\_\-size, const u\-\_\-char $\ast$ip\-\_\-hdr\-\_\-start, const u\-\_\-char $\ast$\hyperlink{class_vsid_common_1_1_i_pv4_packet_a2318e0a0cc6d297eda5c4eb57682eb09}{transport\-\_\-hdr\-\_\-start}, const u\-\_\-char $\ast$data\-\_\-start, struct timeval ts, u\-\_\-char $\ast$buffer, uint32\-\_\-t pkt\-Id, \hyperlink{class_vsid_common_1_1_packet_verdict}{Packet\-Verdict} $\ast$verdict\-Setter)
+\item 
+virtual \hyperlink{class_vsid_common_1_1_i_pv4_packet_acd65245866cf5fafbf2d709b22cefa49}{$\sim$\-I\-Pv4\-Packet} ()
+\item 
+const struct iphdr $\ast$ \hyperlink{class_vsid_common_1_1_i_pv4_packet_af3c00b2854ad766cf194bf12c99da86c}{iphdr} () const 
+\item 
+uint16\-\_\-t \hyperlink{class_vsid_common_1_1_i_pv4_packet_afc572d33e3813745c3a7c97e5adb444e}{version} () const 
+\item 
+uint16\-\_\-t \hyperlink{class_vsid_common_1_1_i_pv4_packet_a3a373823b0702a77a525aeecd7ca8087}{ip\-\_\-len} () const 
+\item 
+uint32\-\_\-t \hyperlink{class_vsid_common_1_1_i_pv4_packet_ab659b369af59b2745479e9080e0a0c54}{src\-Ip} () const 
+\item 
+uint32\-\_\-t \hyperlink{class_vsid_common_1_1_i_pv4_packet_ac70c0e7771413d5d123d57c263bcde80}{dst\-Ip} () const 
+\item 
+uint8\-\_\-t \hyperlink{class_vsid_common_1_1_i_pv4_packet_ac1ff979633726d9f558bce1210595879}{protocol} () const 
+\item 
+const u\-\_\-char $\ast$ \hyperlink{class_vsid_common_1_1_i_pv4_packet_a2318e0a0cc6d297eda5c4eb57682eb09}{transport\-\_\-hdr\-\_\-start} ()
+\item 
+virtual uint16\-\_\-t \hyperlink{class_vsid_common_1_1_i_pv4_packet_ad7f9c53e8a29a9ab3c87c28278ca7f5c}{src\-Port} () const 
+\item 
+virtual uint16\-\_\-t \hyperlink{class_vsid_common_1_1_i_pv4_packet_aa61f726412de0c644df127d2cd86ef64}{dst\-Port} () const 
+\item 
+const u\-\_\-char $\ast$ \hyperlink{class_vsid_common_1_1_i_pv4_packet_a9fb8c763d740e193a68c55604a8a7bd6}{data} ()
+\item 
+size\-\_\-t \hyperlink{class_vsid_common_1_1_i_pv4_packet_a39fe36210895625ee87320f5c0c7f52e}{data\-Size} ()
+\item 
+uint32\-\_\-t \hyperlink{class_vsid_common_1_1_i_pv4_packet_a75fde96785c70c7a818a165482eae5e5}{flow\-Hash} ()
+\item 
+bool \hyperlink{class_vsid_common_1_1_i_pv4_packet_a042efdd301d96b9cf16d9aaea147c234}{same\-Flow} (\hyperlink{class_vsid_common_1_1_i_pv4_packet}{I\-Pv4\-Packet} \&rhs)
+\item 
+const struct timeval \& \hyperlink{class_vsid_common_1_1_i_pv4_packet_abef9e70b733c8e5718153cb032ea6f1a}{timestamp} () const 
+\item 
+void \hyperlink{class_vsid_common_1_1_i_pv4_packet_ae314f9e085588928d3c260211f80da87}{set\-Verdict} ()
+\item 
+void \hyperlink{class_vsid_common_1_1_i_pv4_packet_a091a1ec41077e9a40a13b7a37bb11f0e}{accept\-Pkt} ()
+\item 
+void \hyperlink{class_vsid_common_1_1_i_pv4_packet_af59fa1adf18f2db27fbe9905de50d5bb}{drop\-Pkt} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const u\-\_\-char $\ast$ \hyperlink{class_vsid_common_1_1_i_pv4_packet_ae39b78b3e02fe344d6a0aaa10bad55b6}{\-\_\-pkt}
+\item 
+int \hyperlink{class_vsid_common_1_1_i_pv4_packet_a2d4133be37c304ebf4951f975647a2f2}{\-\_\-pkt\-\_\-size}
+\item 
+const u\-\_\-char $\ast$ \hyperlink{class_vsid_common_1_1_i_pv4_packet_ab9d1ecb868ec5cd9f14e62b90edc05c8}{\-\_\-ip\-\_\-hdr\-\_\-start}
+\item 
+const u\-\_\-char $\ast$ \hyperlink{class_vsid_common_1_1_i_pv4_packet_adb6dc95e430636380d1f068dc4708def}{\-\_\-transport\-\_\-hdr\-\_\-start}
+\item 
+const u\-\_\-char $\ast$ \hyperlink{class_vsid_common_1_1_i_pv4_packet_a2caca73de76d8c86e9a003c459188b81}{\-\_\-data\-\_\-start}
+\item 
+u\-\_\-char $\ast$ \hyperlink{class_vsid_common_1_1_i_pv4_packet_a935c6b0cb3c3a0d4a90d825d68088c3a}{\-\_\-buffer}
+\item 
+struct timeval \hyperlink{class_vsid_common_1_1_i_pv4_packet_af9fee09107ca0376a36f307256f54df3}{\-\_\-timestamp}
+\item 
+uint32\-\_\-t \hyperlink{class_vsid_common_1_1_i_pv4_packet_a5967fced67bba49307c5f7de667b1ba4}{\-\_\-pkt\-Id}
+\item 
+\hyperlink{class_vsid_common_1_1_packet_verdict}{Packet\-Verdict} $\ast$ \hyperlink{class_vsid_common_1_1_i_pv4_packet_a71b0a5f7928f5ea0d6b5e1ab720f54cf}{\-\_\-verdict\-Setter}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 21 of file I\-Pv4.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_ab0da103979f1104a1b1e2c75a9abd1c2}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!I\-Pv4\-Packet@{I\-Pv4\-Packet}}
+\index{I\-Pv4\-Packet@{I\-Pv4\-Packet}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{I\-Pv4\-Packet}]{\setlength{\rightskip}{0pt plus 5cm}Vsid\-Common\-::\-I\-Pv4\-Packet\-::\-I\-Pv4\-Packet (
+\begin{DoxyParamCaption}
+\item[{const u\-\_\-char $\ast$}]{pkt, }
+\item[{int}]{pkt\-\_\-size, }
+\item[{const u\-\_\-char $\ast$}]{ip\-\_\-hdr\-\_\-start, }
+\item[{const u\-\_\-char $\ast$}]{transport\-\_\-hdr\-\_\-start, }
+\item[{const u\-\_\-char $\ast$}]{data\-\_\-start, }
+\item[{struct timeval}]{ts}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_common_1_1_i_pv4_packet_ab0da103979f1104a1b1e2c75a9abd1c2}
+Packet where the receiving buffer is owned by the caller. 
+
+Definition at line 27 of file I\-Pv4.\-h.
+
+
+\begin{DoxyCode}
+32                                :
+33         \hyperlink{class_vsid_common_1_1_i_pv4_packet_ae39b78b3e02fe344d6a0aaa10bad55b6}{\_pkt}(pkt),
+34         \hyperlink{class_vsid_common_1_1_i_pv4_packet_a2d4133be37c304ebf4951f975647a2f2}{\_pkt\_size}(pkt\_size),
+35         \hyperlink{class_vsid_common_1_1_i_pv4_packet_ab9d1ecb868ec5cd9f14e62b90edc05c8}{\_ip\_hdr\_start}(ip\_hdr\_start),
+36         \hyperlink{class_vsid_common_1_1_i_pv4_packet_adb6dc95e430636380d1f068dc4708def}{\_transport\_hdr\_start}(\hyperlink{class_vsid_common_1_1_i_pv4_packet_a2318e0a0cc6d297eda5c4eb57682eb09}{transport\_hdr\_start}),
+37         \hyperlink{class_vsid_common_1_1_i_pv4_packet_a2caca73de76d8c86e9a003c459188b81}{\_data\_start}(data\_start),
+38         \hyperlink{class_vsid_common_1_1_i_pv4_packet_af9fee09107ca0376a36f307256f54df3}{\_timestamp}(ts),
+39         \hyperlink{class_vsid_common_1_1_i_pv4_packet_a935c6b0cb3c3a0d4a90d825d68088c3a}{\_buffer}(NULL),
+40         \hyperlink{class_vsid_common_1_1_i_pv4_packet_a5967fced67bba49307c5f7de667b1ba4}{\_pktId}(0),
+41         \hyperlink{class_vsid_common_1_1_i_pv4_packet_a71b0a5f7928f5ea0d6b5e1ab720f54cf}{\_verdictSetter}(NULL)
+42     \{
+43     \}
+\end{DoxyCode}
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_ab103f986666c11f28fbb03ea1f0dd21e}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!I\-Pv4\-Packet@{I\-Pv4\-Packet}}
+\index{I\-Pv4\-Packet@{I\-Pv4\-Packet}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{I\-Pv4\-Packet}]{\setlength{\rightskip}{0pt plus 5cm}Vsid\-Common\-::\-I\-Pv4\-Packet\-::\-I\-Pv4\-Packet (
+\begin{DoxyParamCaption}
+\item[{const u\-\_\-char $\ast$}]{pkt, }
+\item[{int}]{pkt\-\_\-size, }
+\item[{const u\-\_\-char $\ast$}]{ip\-\_\-hdr\-\_\-start, }
+\item[{const u\-\_\-char $\ast$}]{transport\-\_\-hdr\-\_\-start, }
+\item[{const u\-\_\-char $\ast$}]{data\-\_\-start, }
+\item[{struct timeval}]{ts, }
+\item[{u\-\_\-char $\ast$}]{buffer}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_common_1_1_i_pv4_packet_ab103f986666c11f28fbb03ea1f0dd21e}
+Constructor that gives this packet ownership of the buffer it was received on 
+
+Definition at line 48 of file I\-Pv4.\-h.
+
+
+\begin{DoxyCode}
+54                             :
+55         \hyperlink{class_vsid_common_1_1_i_pv4_packet_ae39b78b3e02fe344d6a0aaa10bad55b6}{\_pkt}(pkt),
+56         \hyperlink{class_vsid_common_1_1_i_pv4_packet_a2d4133be37c304ebf4951f975647a2f2}{\_pkt\_size}(pkt\_size),
+57         \hyperlink{class_vsid_common_1_1_i_pv4_packet_ab9d1ecb868ec5cd9f14e62b90edc05c8}{\_ip\_hdr\_start}(ip\_hdr\_start),
+58         \hyperlink{class_vsid_common_1_1_i_pv4_packet_adb6dc95e430636380d1f068dc4708def}{\_transport\_hdr\_start}(\hyperlink{class_vsid_common_1_1_i_pv4_packet_a2318e0a0cc6d297eda5c4eb57682eb09}{transport\_hdr\_start}),
+59         \hyperlink{class_vsid_common_1_1_i_pv4_packet_a2caca73de76d8c86e9a003c459188b81}{\_data\_start}(data\_start),
+60         \hyperlink{class_vsid_common_1_1_i_pv4_packet_af9fee09107ca0376a36f307256f54df3}{\_timestamp}(ts),
+61         \hyperlink{class_vsid_common_1_1_i_pv4_packet_a935c6b0cb3c3a0d4a90d825d68088c3a}{\_buffer}(buffer),
+62         \hyperlink{class_vsid_common_1_1_i_pv4_packet_a5967fced67bba49307c5f7de667b1ba4}{\_pktId}(0),
+63         \hyperlink{class_vsid_common_1_1_i_pv4_packet_a71b0a5f7928f5ea0d6b5e1ab720f54cf}{\_verdictSetter}(NULL)
+64     \{
+65     \}
+\end{DoxyCode}
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_a70985349f2c1d53d708e8761e70a106d}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!I\-Pv4\-Packet@{I\-Pv4\-Packet}}
+\index{I\-Pv4\-Packet@{I\-Pv4\-Packet}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{I\-Pv4\-Packet}]{\setlength{\rightskip}{0pt plus 5cm}Vsid\-Common\-::\-I\-Pv4\-Packet\-::\-I\-Pv4\-Packet (
+\begin{DoxyParamCaption}
+\item[{const u\-\_\-char $\ast$}]{pkt, }
+\item[{int}]{pkt\-\_\-size, }
+\item[{const u\-\_\-char $\ast$}]{ip\-\_\-hdr\-\_\-start, }
+\item[{const u\-\_\-char $\ast$}]{transport\-\_\-hdr\-\_\-start, }
+\item[{const u\-\_\-char $\ast$}]{data\-\_\-start, }
+\item[{struct timeval}]{ts, }
+\item[{u\-\_\-char $\ast$}]{buffer, }
+\item[{uint32\-\_\-t}]{pkt\-Id, }
+\item[{{\bf Packet\-Verdict} $\ast$}]{verdict\-Setter}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_common_1_1_i_pv4_packet_a70985349f2c1d53d708e8761e70a106d}
+Constructor that gives this packet ownership of the buffer it was received on Adds a Packet Id and verdict callback 
+
+Definition at line 71 of file I\-Pv4.\-h.
+
+
+\begin{DoxyCode}
+79                                           :
+80         \hyperlink{class_vsid_common_1_1_i_pv4_packet_ae39b78b3e02fe344d6a0aaa10bad55b6}{\_pkt}(pkt),
+81         \hyperlink{class_vsid_common_1_1_i_pv4_packet_a2d4133be37c304ebf4951f975647a2f2}{\_pkt\_size}(pkt\_size),
+82         \hyperlink{class_vsid_common_1_1_i_pv4_packet_ab9d1ecb868ec5cd9f14e62b90edc05c8}{\_ip\_hdr\_start}(ip\_hdr\_start),
+83         \hyperlink{class_vsid_common_1_1_i_pv4_packet_adb6dc95e430636380d1f068dc4708def}{\_transport\_hdr\_start}(\hyperlink{class_vsid_common_1_1_i_pv4_packet_a2318e0a0cc6d297eda5c4eb57682eb09}{transport\_hdr\_start}),
+84         \hyperlink{class_vsid_common_1_1_i_pv4_packet_a2caca73de76d8c86e9a003c459188b81}{\_data\_start}(data\_start),
+85         \hyperlink{class_vsid_common_1_1_i_pv4_packet_af9fee09107ca0376a36f307256f54df3}{\_timestamp}(ts),
+86         \hyperlink{class_vsid_common_1_1_i_pv4_packet_a935c6b0cb3c3a0d4a90d825d68088c3a}{\_buffer}(buffer),
+87         \hyperlink{class_vsid_common_1_1_i_pv4_packet_a5967fced67bba49307c5f7de667b1ba4}{\_pktId}(pktId),
+88         \hyperlink{class_vsid_common_1_1_i_pv4_packet_a71b0a5f7928f5ea0d6b5e1ab720f54cf}{\_verdictSetter}(verdictSetter)
+89     \{
+90     \}
+\end{DoxyCode}
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_acd65245866cf5fafbf2d709b22cefa49}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!$\sim$\-I\-Pv4\-Packet@{$\sim$\-I\-Pv4\-Packet}}
+\index{$\sim$\-I\-Pv4\-Packet@{$\sim$\-I\-Pv4\-Packet}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{$\sim$\-I\-Pv4\-Packet}]{\setlength{\rightskip}{0pt plus 5cm}I\-Pv4\-Packet\-::$\sim$\-I\-Pv4\-Packet (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_vsid_common_1_1_i_pv4_packet_acd65245866cf5fafbf2d709b22cefa49}
+
+
+Definition at line 9 of file I\-Pv4.\-cpp.
+
+
+\begin{DoxyCode}
+10 \{
+11     \textcolor{comment}{// make sure a packet has a verdict set}
+12     \textcolor{keywordflow}{if}( \hyperlink{class_vsid_common_1_1_i_pv4_packet_a71b0a5f7928f5ea0d6b5e1ab720f54cf}{\_verdictSetter} )
+13     \{
+14         \hyperlink{class_vsid_common_1_1_i_pv4_packet_a71b0a5f7928f5ea0d6b5e1ab720f54cf}{\_verdictSetter}->\hyperlink{class_vsid_common_1_1_packet_verdict_ad695769962d16d5e76c95f8e569c8b6b}{setDrop}(\hyperlink{class_vsid_common_1_1_i_pv4_packet_a5967fced67bba49307c5f7de667b1ba4}{\_pktId});
+15         \hyperlink{class_vsid_common_1_1_i_pv4_packet_a71b0a5f7928f5ea0d6b5e1ab720f54cf}{\_verdictSetter} = NULL;
+16     \}
+17 
+18 
+19     \textcolor{keywordflow}{if}(\hyperlink{class_vsid_common_1_1_i_pv4_packet_a935c6b0cb3c3a0d4a90d825d68088c3a}{\_buffer})
+20     \{
+21         \textcolor{keyword}{delete}[] \hyperlink{class_vsid_common_1_1_i_pv4_packet_a935c6b0cb3c3a0d4a90d825d68088c3a}{\_buffer};
+22     \}
+23 \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_a091a1ec41077e9a40a13b7a37bb11f0e}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!accept\-Pkt@{accept\-Pkt}}
+\index{accept\-Pkt@{accept\-Pkt}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{accept\-Pkt}]{\setlength{\rightskip}{0pt plus 5cm}void I\-Pv4\-Packet\-::accept\-Pkt (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_common_1_1_i_pv4_packet_a091a1ec41077e9a40a13b7a37bb11f0e}
+Accept a packet 
+
+Definition at line 76 of file I\-Pv4.\-cpp.
+
+
+\begin{DoxyCode}
+77 \{
+78     \textcolor{keywordflow}{if} ( \hyperlink{class_vsid_common_1_1_i_pv4_packet_a71b0a5f7928f5ea0d6b5e1ab720f54cf}{\_verdictSetter} )
+79     \{
+80         \hyperlink{class_vsid_common_1_1_i_pv4_packet_a71b0a5f7928f5ea0d6b5e1ab720f54cf}{\_verdictSetter}->\hyperlink{class_vsid_common_1_1_packet_verdict_a65a14cfba9da80f91e06feb1e12bde0d}{setAccept}(\hyperlink{class_vsid_common_1_1_i_pv4_packet_a5967fced67bba49307c5f7de667b1ba4}{\_pktId});
+81         \hyperlink{class_vsid_common_1_1_i_pv4_packet_a71b0a5f7928f5ea0d6b5e1ab720f54cf}{\_verdictSetter} = NULL;
+82     \}
+83 \}
+\end{DoxyCode}
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_a9fb8c763d740e193a68c55604a8a7bd6}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!data@{data}}
+\index{data@{data}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{data}]{\setlength{\rightskip}{0pt plus 5cm}const u\-\_\-char$\ast$ Vsid\-Common\-::\-I\-Pv4\-Packet\-::data (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_common_1_1_i_pv4_packet_a9fb8c763d740e193a68c55604a8a7bd6}
+
+
+Definition at line 115 of file I\-Pv4.\-h.
+
+
+\begin{DoxyCode}
+115 \{ \textcolor{keywordflow}{return} \hyperlink{class_vsid_common_1_1_i_pv4_packet_a2caca73de76d8c86e9a003c459188b81}{\_data\_start}; \}
+\end{DoxyCode}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_i_pv4_packet_a9fb8c763d740e193a68c55604a8a7bd6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_a39fe36210895625ee87320f5c0c7f52e}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!data\-Size@{data\-Size}}
+\index{data\-Size@{data\-Size}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{data\-Size}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t Vsid\-Common\-::\-I\-Pv4\-Packet\-::data\-Size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_common_1_1_i_pv4_packet_a39fe36210895625ee87320f5c0c7f52e}
+
+
+Definition at line 116 of file I\-Pv4.\-h.
+
+
+\begin{DoxyCode}
+116 \{ \textcolor{keywordflow}{return} \hyperlink{class_vsid_common_1_1_i_pv4_packet_ae39b78b3e02fe344d6a0aaa10bad55b6}{\_pkt} + \hyperlink{class_vsid_common_1_1_i_pv4_packet_a2d4133be37c304ebf4951f975647a2f2}{\_pkt\_size} - \hyperlink{class_vsid_common_1_1_i_pv4_packet_a2caca73de76d8c86e9a003c459188b81}{\_data\_start}; \}
+\end{DoxyCode}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_vsid_common_1_1_i_pv4_packet_a39fe36210895625ee87320f5c0c7f52e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_af59fa1adf18f2db27fbe9905de50d5bb}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!drop\-Pkt@{drop\-Pkt}}
+\index{drop\-Pkt@{drop\-Pkt}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{drop\-Pkt}]{\setlength{\rightskip}{0pt plus 5cm}void I\-Pv4\-Packet\-::drop\-Pkt (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_common_1_1_i_pv4_packet_af59fa1adf18f2db27fbe9905de50d5bb}
+Drop a packet 
+
+Definition at line 85 of file I\-Pv4.\-cpp.
+
+
+\begin{DoxyCode}
+86 \{
+87     \textcolor{keywordflow}{if} ( \hyperlink{class_vsid_common_1_1_i_pv4_packet_a71b0a5f7928f5ea0d6b5e1ab720f54cf}{\_verdictSetter} )
+88     \{
+89         \hyperlink{class_vsid_common_1_1_i_pv4_packet_a71b0a5f7928f5ea0d6b5e1ab720f54cf}{\_verdictSetter}->\hyperlink{class_vsid_common_1_1_packet_verdict_ad695769962d16d5e76c95f8e569c8b6b}{setDrop}(\hyperlink{class_vsid_common_1_1_i_pv4_packet_a5967fced67bba49307c5f7de667b1ba4}{\_pktId});
+90         \hyperlink{class_vsid_common_1_1_i_pv4_packet_a71b0a5f7928f5ea0d6b5e1ab720f54cf}{\_verdictSetter} = NULL;
+91     \}
+92 \}\end{DoxyCode}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_i_pv4_packet_af59fa1adf18f2db27fbe9905de50d5bb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_ac70c0e7771413d5d123d57c263bcde80}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!dst\-Ip@{dst\-Ip}}
+\index{dst\-Ip@{dst\-Ip}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{dst\-Ip}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t Vsid\-Common\-::\-I\-Pv4\-Packet\-::dst\-Ip (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_common_1_1_i_pv4_packet_ac70c0e7771413d5d123d57c263bcde80}
+
+
+Definition at line 104 of file I\-Pv4.\-h.
+
+
+\begin{DoxyCode}
+104 \{ \textcolor{keywordflow}{return} \hyperlink{class_vsid_common_1_1_i_pv4_packet_af3c00b2854ad766cf194bf12c99da86c}{iphdr}()->daddr; \};
+\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_i_pv4_packet_ac70c0e7771413d5d123d57c263bcde80_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_i_pv4_packet_ac70c0e7771413d5d123d57c263bcde80_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_aa61f726412de0c644df127d2cd86ef64}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!dst\-Port@{dst\-Port}}
+\index{dst\-Port@{dst\-Port}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{dst\-Port}]{\setlength{\rightskip}{0pt plus 5cm}virtual uint16\-\_\-t Vsid\-Common\-::\-I\-Pv4\-Packet\-::dst\-Port (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_vsid_common_1_1_i_pv4_packet_aa61f726412de0c644df127d2cd86ef64}
+
+
+Reimplemented in \hyperlink{class_vsid_common_1_1_tcp_i_pv4_aa1d46d861e41823153b388605114a816}{Vsid\-Common\-::\-Tcp\-I\-Pv4}, and \hyperlink{class_vsid_common_1_1_udp_i_pv4_acff278de2cb7c3103bc94163710f677d}{Vsid\-Common\-::\-Udp\-I\-Pv4}.
+
+
+
+Definition at line 112 of file I\-Pv4.\-h.
+
+
+\begin{DoxyCode}
+112 \{ \textcolor{keywordflow}{return} 0; \}
+\end{DoxyCode}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_i_pv4_packet_aa61f726412de0c644df127d2cd86ef64_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_a75fde96785c70c7a818a165482eae5e5}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!flow\-Hash@{flow\-Hash}}
+\index{flow\-Hash@{flow\-Hash}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{flow\-Hash}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t I\-Pv4\-Packet\-::flow\-Hash (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_common_1_1_i_pv4_packet_a75fde96785c70c7a818a165482eae5e5}
+
+
+Definition at line 25 of file I\-Pv4.\-cpp.
+
+
+\begin{DoxyCode}
+26 \{
+27     \hyperlink{class_vsid_common_1_1_ipv4_flow_hasher}{Ipv4FlowHasher} hasher;
+28     \textcolor{keywordflow}{return} hasher(\textcolor{keyword}{this});
+29 \}
+\end{DoxyCode}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_i_pv4_packet_a75fde96785c70c7a818a165482eae5e5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_a3a373823b0702a77a525aeecd7ca8087}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!ip\-\_\-len@{ip\-\_\-len}}
+\index{ip\-\_\-len@{ip\-\_\-len}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{ip\-\_\-len}]{\setlength{\rightskip}{0pt plus 5cm}uint16\-\_\-t Vsid\-Common\-::\-I\-Pv4\-Packet\-::ip\-\_\-len (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_common_1_1_i_pv4_packet_a3a373823b0702a77a525aeecd7ca8087}
+
+
+Definition at line 99 of file I\-Pv4.\-h.
+
+
+\begin{DoxyCode}
+99 \{ \textcolor{keywordflow}{return} \hyperlink{class_vsid_common_1_1_i_pv4_packet_af3c00b2854ad766cf194bf12c99da86c}{iphdr}()->ihl; \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_i_pv4_packet_a3a373823b0702a77a525aeecd7ca8087_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_af3c00b2854ad766cf194bf12c99da86c}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!iphdr@{iphdr}}
+\index{iphdr@{iphdr}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{iphdr}]{\setlength{\rightskip}{0pt plus 5cm}const struct iphdr$\ast$ Vsid\-Common\-::\-I\-Pv4\-Packet\-::iphdr (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_common_1_1_i_pv4_packet_af3c00b2854ad766cf194bf12c99da86c}
+
+
+Definition at line 95 of file I\-Pv4.\-h.
+
+
+\begin{DoxyCode}
+95 \{ \textcolor{keywordflow}{return} (\textcolor{keyword}{const} \textcolor{keyword}{struct} \hyperlink{class_vsid_common_1_1_i_pv4_packet_af3c00b2854ad766cf194bf12c99da86c}{iphdr}*)\hyperlink{class_vsid_common_1_1_i_pv4_packet_ab9d1ecb868ec5cd9f14e62b90edc05c8}{\_ip\_hdr\_start}; \}
+\end{DoxyCode}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_i_pv4_packet_af3c00b2854ad766cf194bf12c99da86c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_ac1ff979633726d9f558bce1210595879}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!protocol@{protocol}}
+\index{protocol@{protocol}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{protocol}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Vsid\-Common\-::\-I\-Pv4\-Packet\-::protocol (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_common_1_1_i_pv4_packet_ac1ff979633726d9f558bce1210595879}
+
+
+Definition at line 107 of file I\-Pv4.\-h.
+
+
+\begin{DoxyCode}
+107 \{ \textcolor{keywordflow}{return} \hyperlink{class_vsid_common_1_1_i_pv4_packet_af3c00b2854ad766cf194bf12c99da86c}{iphdr}()->protocol; \};
+\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_i_pv4_packet_ac1ff979633726d9f558bce1210595879_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_i_pv4_packet_ac1ff979633726d9f558bce1210595879_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_a042efdd301d96b9cf16d9aaea147c234}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!same\-Flow@{same\-Flow}}
+\index{same\-Flow@{same\-Flow}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{same\-Flow}]{\setlength{\rightskip}{0pt plus 5cm}bool I\-Pv4\-Packet\-::same\-Flow (
+\begin{DoxyParamCaption}
+\item[{{\bf I\-Pv4\-Packet} \&}]{rhs}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_common_1_1_i_pv4_packet_a042efdd301d96b9cf16d9aaea147c234}
+
+
+Definition at line 31 of file I\-Pv4.\-cpp.
+
+
+\begin{DoxyCode}
+32 \{
+33     \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"checking flow"});
+34     
+35     \textcolor{comment}{//SLOG\_INFO( << "lhs : " << *this);}
+36     \textcolor{comment}{//SLOG\_INFO( << "rhs : " << rhs);}
+37 
+38     \textcolor{keywordflow}{if}(\hyperlink{class_vsid_common_1_1_i_pv4_packet_ac1ff979633726d9f558bce1210595879}{protocol}() != rhs.\hyperlink{class_vsid_common_1_1_i_pv4_packet_ac1ff979633726d9f558bce1210595879}{protocol}())
+39     \{
+40         \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"Not the same flow proto"})
+41         return false;
+42     \}
+43 
+44     if(\hyperlink{class_vsid_common_1_1_i_pv4_packet_ab659b369af59b2745479e9080e0a0c54}{srcIp}() == rhs.\hyperlink{class_vsid_common_1_1_i_pv4_packet_ab659b369af59b2745479e9080e0a0c54}{srcIp}() 
+45             && \hyperlink{class_vsid_common_1_1_i_pv4_packet_ac70c0e7771413d5d123d57c263bcde80}{dstIp}() == rhs.\hyperlink{class_vsid_common_1_1_i_pv4_packet_ac70c0e7771413d5d123d57c263bcde80}{dstIp}()
+46             && \hyperlink{class_vsid_common_1_1_i_pv4_packet_ad7f9c53e8a29a9ab3c87c28278ca7f5c}{srcPort}() == rhs.\hyperlink{class_vsid_common_1_1_i_pv4_packet_ad7f9c53e8a29a9ab3c87c28278ca7f5c}{srcPort}()
+47             && \hyperlink{class_vsid_common_1_1_i_pv4_packet_aa61f726412de0c644df127d2cd86ef64}{dstPort}() == rhs.\hyperlink{class_vsid_common_1_1_i_pv4_packet_aa61f726412de0c644df127d2cd86ef64}{dstPort}())
+48     \{
+49         \textcolor{comment}{// same flow and direction}
+50          \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"same flow and direction"})
+51         return true;
+52     \}
+53     else if( \hyperlink{class_vsid_common_1_1_i_pv4_packet_ab659b369af59b2745479e9080e0a0c54}{srcIp}() == rhs.\hyperlink{class_vsid_common_1_1_i_pv4_packet_ac70c0e7771413d5d123d57c263bcde80}{dstIp}() 
+54             && \hyperlink{class_vsid_common_1_1_i_pv4_packet_ac70c0e7771413d5d123d57c263bcde80}{dstIp}() == rhs.\hyperlink{class_vsid_common_1_1_i_pv4_packet_ab659b369af59b2745479e9080e0a0c54}{srcIp}()
+55             && \hyperlink{class_vsid_common_1_1_i_pv4_packet_ad7f9c53e8a29a9ab3c87c28278ca7f5c}{srcPort}() == rhs.dstPort()
+56             && dstPort() == rhs.\hyperlink{class_vsid_common_1_1_i_pv4_packet_ad7f9c53e8a29a9ab3c87c28278ca7f5c}{srcPort}())
+57     \{
+58         \textcolor{comment}{// same flow different direction}
+59         \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"same flow different direction"})
+60         return true;
+61     \}
+62     else
+63     \{
+64         \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"Not the same flow"})
+65         return false;
+66     \}
+67 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_i_pv4_packet_a042efdd301d96b9cf16d9aaea147c234_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_ae314f9e085588928d3c260211f80da87}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!set\-Verdict@{set\-Verdict}}
+\index{set\-Verdict@{set\-Verdict}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{set\-Verdict}]{\setlength{\rightskip}{0pt plus 5cm}void I\-Pv4\-Packet\-::set\-Verdict (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_common_1_1_i_pv4_packet_ae314f9e085588928d3c260211f80da87}
+Use the default verdict. 
+
+Definition at line 70 of file I\-Pv4.\-cpp.
+
+
+\begin{DoxyCode}
+71 \{
+72     \textcolor{comment}{// Default to accept for now.}
+73     \hyperlink{class_vsid_common_1_1_i_pv4_packet_a091a1ec41077e9a40a13b7a37bb11f0e}{acceptPkt}();
+74 \}
+\end{DoxyCode}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_i_pv4_packet_ae314f9e085588928d3c260211f80da87_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_ab659b369af59b2745479e9080e0a0c54}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!src\-Ip@{src\-Ip}}
+\index{src\-Ip@{src\-Ip}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{src\-Ip}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t Vsid\-Common\-::\-I\-Pv4\-Packet\-::src\-Ip (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_common_1_1_i_pv4_packet_ab659b369af59b2745479e9080e0a0c54}
+
+
+Definition at line 101 of file I\-Pv4.\-h.
+
+
+\begin{DoxyCode}
+101 \{ \textcolor{keywordflow}{return} \hyperlink{class_vsid_common_1_1_i_pv4_packet_af3c00b2854ad766cf194bf12c99da86c}{iphdr}()->saddr; \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_i_pv4_packet_ab659b369af59b2745479e9080e0a0c54_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_i_pv4_packet_ab659b369af59b2745479e9080e0a0c54_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_ad7f9c53e8a29a9ab3c87c28278ca7f5c}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!src\-Port@{src\-Port}}
+\index{src\-Port@{src\-Port}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{src\-Port}]{\setlength{\rightskip}{0pt plus 5cm}virtual uint16\-\_\-t Vsid\-Common\-::\-I\-Pv4\-Packet\-::src\-Port (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_vsid_common_1_1_i_pv4_packet_ad7f9c53e8a29a9ab3c87c28278ca7f5c}
+
+
+Reimplemented in \hyperlink{class_vsid_common_1_1_tcp_i_pv4_ab59a48561087a5d08fece31a08c7a3f4}{Vsid\-Common\-::\-Tcp\-I\-Pv4}, and \hyperlink{class_vsid_common_1_1_udp_i_pv4_ad76f80077e2e730ecffc141da5c6d5e4}{Vsid\-Common\-::\-Udp\-I\-Pv4}.
+
+
+
+Definition at line 111 of file I\-Pv4.\-h.
+
+
+\begin{DoxyCode}
+111 \{ \textcolor{keywordflow}{return} 0; \}
+\end{DoxyCode}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_i_pv4_packet_ad7f9c53e8a29a9ab3c87c28278ca7f5c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_abef9e70b733c8e5718153cb032ea6f1a}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!timestamp@{timestamp}}
+\index{timestamp@{timestamp}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{timestamp}]{\setlength{\rightskip}{0pt plus 5cm}const struct timeval\& Vsid\-Common\-::\-I\-Pv4\-Packet\-::timestamp (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_common_1_1_i_pv4_packet_abef9e70b733c8e5718153cb032ea6f1a}
+
+
+Definition at line 122 of file I\-Pv4.\-h.
+
+
+\begin{DoxyCode}
+122 \{ \textcolor{keywordflow}{return} \hyperlink{class_vsid_common_1_1_i_pv4_packet_af9fee09107ca0376a36f307256f54df3}{\_timestamp}; \}
+\end{DoxyCode}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_i_pv4_packet_abef9e70b733c8e5718153cb032ea6f1a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_a2318e0a0cc6d297eda5c4eb57682eb09}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!transport\-\_\-hdr\-\_\-start@{transport\-\_\-hdr\-\_\-start}}
+\index{transport\-\_\-hdr\-\_\-start@{transport\-\_\-hdr\-\_\-start}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{transport\-\_\-hdr\-\_\-start}]{\setlength{\rightskip}{0pt plus 5cm}const u\-\_\-char$\ast$ Vsid\-Common\-::\-I\-Pv4\-Packet\-::transport\-\_\-hdr\-\_\-start (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_common_1_1_i_pv4_packet_a2318e0a0cc6d297eda5c4eb57682eb09}
+
+
+Definition at line 109 of file I\-Pv4.\-h.
+
+
+\begin{DoxyCode}
+109 \{ \textcolor{keywordflow}{return} \hyperlink{class_vsid_common_1_1_i_pv4_packet_adb6dc95e430636380d1f068dc4708def}{\_transport\_hdr\_start}; \}
+\end{DoxyCode}
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_afc572d33e3813745c3a7c97e5adb444e}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!version@{version}}
+\index{version@{version}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{version}]{\setlength{\rightskip}{0pt plus 5cm}uint16\-\_\-t Vsid\-Common\-::\-I\-Pv4\-Packet\-::version (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_common_1_1_i_pv4_packet_afc572d33e3813745c3a7c97e5adb444e}
+
+
+Definition at line 97 of file I\-Pv4.\-h.
+
+
+\begin{DoxyCode}
+97 \{ \textcolor{keywordflow}{return} \hyperlink{class_vsid_common_1_1_i_pv4_packet_af3c00b2854ad766cf194bf12c99da86c}{iphdr}()->version; \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_i_pv4_packet_afc572d33e3813745c3a7c97e5adb444e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_a935c6b0cb3c3a0d4a90d825d68088c3a}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!\-\_\-buffer@{\-\_\-buffer}}
+\index{\-\_\-buffer@{\-\_\-buffer}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{\-\_\-buffer}]{\setlength{\rightskip}{0pt plus 5cm}u\-\_\-char$\ast$ Vsid\-Common\-::\-I\-Pv4\-Packet\-::\-\_\-buffer\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_vsid_common_1_1_i_pv4_packet_a935c6b0cb3c3a0d4a90d825d68088c3a}
+
+
+Definition at line 146 of file I\-Pv4.\-h.
+
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_a2caca73de76d8c86e9a003c459188b81}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!\-\_\-data\-\_\-start@{\-\_\-data\-\_\-start}}
+\index{\-\_\-data\-\_\-start@{\-\_\-data\-\_\-start}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{\-\_\-data\-\_\-start}]{\setlength{\rightskip}{0pt plus 5cm}const u\-\_\-char$\ast$ Vsid\-Common\-::\-I\-Pv4\-Packet\-::\-\_\-data\-\_\-start\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_vsid_common_1_1_i_pv4_packet_a2caca73de76d8c86e9a003c459188b81}
+
+
+Definition at line 144 of file I\-Pv4.\-h.
+
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_ab9d1ecb868ec5cd9f14e62b90edc05c8}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!\-\_\-ip\-\_\-hdr\-\_\-start@{\-\_\-ip\-\_\-hdr\-\_\-start}}
+\index{\-\_\-ip\-\_\-hdr\-\_\-start@{\-\_\-ip\-\_\-hdr\-\_\-start}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{\-\_\-ip\-\_\-hdr\-\_\-start}]{\setlength{\rightskip}{0pt plus 5cm}const u\-\_\-char$\ast$ Vsid\-Common\-::\-I\-Pv4\-Packet\-::\-\_\-ip\-\_\-hdr\-\_\-start\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_vsid_common_1_1_i_pv4_packet_ab9d1ecb868ec5cd9f14e62b90edc05c8}
+
+
+Definition at line 142 of file I\-Pv4.\-h.
+
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_ae39b78b3e02fe344d6a0aaa10bad55b6}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!\-\_\-pkt@{\-\_\-pkt}}
+\index{\-\_\-pkt@{\-\_\-pkt}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{\-\_\-pkt}]{\setlength{\rightskip}{0pt plus 5cm}const u\-\_\-char$\ast$ Vsid\-Common\-::\-I\-Pv4\-Packet\-::\-\_\-pkt\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_vsid_common_1_1_i_pv4_packet_ae39b78b3e02fe344d6a0aaa10bad55b6}
+
+
+Definition at line 140 of file I\-Pv4.\-h.
+
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_a2d4133be37c304ebf4951f975647a2f2}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!\-\_\-pkt\-\_\-size@{\-\_\-pkt\-\_\-size}}
+\index{\-\_\-pkt\-\_\-size@{\-\_\-pkt\-\_\-size}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{\-\_\-pkt\-\_\-size}]{\setlength{\rightskip}{0pt plus 5cm}int Vsid\-Common\-::\-I\-Pv4\-Packet\-::\-\_\-pkt\-\_\-size\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_vsid_common_1_1_i_pv4_packet_a2d4133be37c304ebf4951f975647a2f2}
+
+
+Definition at line 141 of file I\-Pv4.\-h.
+
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_a5967fced67bba49307c5f7de667b1ba4}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!\-\_\-pkt\-Id@{\-\_\-pkt\-Id}}
+\index{\-\_\-pkt\-Id@{\-\_\-pkt\-Id}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{\-\_\-pkt\-Id}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t Vsid\-Common\-::\-I\-Pv4\-Packet\-::\-\_\-pkt\-Id\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_vsid_common_1_1_i_pv4_packet_a5967fced67bba49307c5f7de667b1ba4}
+
+
+Definition at line 151 of file I\-Pv4.\-h.
+
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_af9fee09107ca0376a36f307256f54df3}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!\-\_\-timestamp@{\-\_\-timestamp}}
+\index{\-\_\-timestamp@{\-\_\-timestamp}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{\-\_\-timestamp}]{\setlength{\rightskip}{0pt plus 5cm}struct timeval Vsid\-Common\-::\-I\-Pv4\-Packet\-::\-\_\-timestamp\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_vsid_common_1_1_i_pv4_packet_af9fee09107ca0376a36f307256f54df3}
+
+
+Definition at line 149 of file I\-Pv4.\-h.
+
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_adb6dc95e430636380d1f068dc4708def}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!\-\_\-transport\-\_\-hdr\-\_\-start@{\-\_\-transport\-\_\-hdr\-\_\-start}}
+\index{\-\_\-transport\-\_\-hdr\-\_\-start@{\-\_\-transport\-\_\-hdr\-\_\-start}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{\-\_\-transport\-\_\-hdr\-\_\-start}]{\setlength{\rightskip}{0pt plus 5cm}const u\-\_\-char$\ast$ Vsid\-Common\-::\-I\-Pv4\-Packet\-::\-\_\-transport\-\_\-hdr\-\_\-start\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_vsid_common_1_1_i_pv4_packet_adb6dc95e430636380d1f068dc4708def}
+
+
+Definition at line 143 of file I\-Pv4.\-h.
+
+\hypertarget{class_vsid_common_1_1_i_pv4_packet_a71b0a5f7928f5ea0d6b5e1ab720f54cf}{\index{Vsid\-Common\-::\-I\-Pv4\-Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}!\-\_\-verdict\-Setter@{\-\_\-verdict\-Setter}}
+\index{\-\_\-verdict\-Setter@{\-\_\-verdict\-Setter}!VsidCommon::IPv4Packet@{Vsid\-Common\-::\-I\-Pv4\-Packet}}
+\subsubsection[{\-\_\-verdict\-Setter}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Packet\-Verdict}$\ast$ Vsid\-Common\-::\-I\-Pv4\-Packet\-::\-\_\-verdict\-Setter\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_vsid_common_1_1_i_pv4_packet_a71b0a5f7928f5ea0d6b5e1ab720f54cf}
+
+
+Definition at line 153 of file I\-Pv4.\-h.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/common/inc/\hyperlink{_i_pv4_8h}{I\-Pv4.\-h}\item 
+src/common/src/\hyperlink{_i_pv4_8cpp}{I\-Pv4.\-cpp}\end{DoxyCompactItemize}

@@ -1,0 +1,43 @@
+\hypertarget{_payload_size_first_packet_meter_8cpp}{\section{src/protocol\-\_\-model/src/\-Payload\-Size\-First\-Packet\-Meter.cpp File Reference}
+\label{_payload_size_first_packet_meter_8cpp}\index{src/protocol\-\_\-model/src/\-Payload\-Size\-First\-Packet\-Meter.\-cpp@{src/protocol\-\_\-model/src/\-Payload\-Size\-First\-Packet\-Meter.\-cpp}}
+}
+{\ttfamily \#include \char`\"{}Payload\-Size\-First\-Packet\-Meter.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Attribute\-Meter.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Logger.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Attribute\-Meter\-Factory.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$netinet/udp.\-h$>$}\\*
+{\ttfamily \#include $<$netinet/tcp.\-h$>$}\\*
+Include dependency graph for Payload\-Size\-First\-Packet\-Meter.\-cpp\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_payload_size_first_packet_meter_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\-::unique\-\_\-ptr$<$ \hyperlink{class_vsid_1_1_attribute_meter}{Attribute\-Meter} $>$ \hyperlink{_payload_size_first_packet_meter_8cpp_ac5753ff77b4b08bf507e146a3b59fc6b}{create\-\_\-first\-\_\-payload\-\_\-size\-\_\-meter} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{_payload_size_first_packet_meter_8cpp_ac5753ff77b4b08bf507e146a3b59fc6b}{\index{Payload\-Size\-First\-Packet\-Meter.\-cpp@{Payload\-Size\-First\-Packet\-Meter.\-cpp}!create\-\_\-first\-\_\-payload\-\_\-size\-\_\-meter@{create\-\_\-first\-\_\-payload\-\_\-size\-\_\-meter}}
+\index{create\-\_\-first\-\_\-payload\-\_\-size\-\_\-meter@{create\-\_\-first\-\_\-payload\-\_\-size\-\_\-meter}!PayloadSizeFirstPacketMeter.cpp@{Payload\-Size\-First\-Packet\-Meter.\-cpp}}
+\subsubsection[{create\-\_\-first\-\_\-payload\-\_\-size\-\_\-meter}]{\setlength{\rightskip}{0pt plus 5cm}std\-::unique\-\_\-ptr$<${\bf Attribute\-Meter}$>$ create\-\_\-first\-\_\-payload\-\_\-size\-\_\-meter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{_payload_size_first_packet_meter_8cpp_ac5753ff77b4b08bf507e146a3b59fc6b}
+
+
+Definition at line 13 of file Payload\-Size\-First\-Packet\-Meter.\-cpp.
+
+
+\begin{DoxyCode}
+14 \{
+15     std::unique\_ptr<AttributeMeter> tmp(\textcolor{keyword}{new} \hyperlink{class_vsid_1_1_payload_size_first_packet_meter}{PayloadSizeFirstPacketMeter}());
+16     \textcolor{keywordflow}{return} tmp;
+17 \}
+\end{DoxyCode}

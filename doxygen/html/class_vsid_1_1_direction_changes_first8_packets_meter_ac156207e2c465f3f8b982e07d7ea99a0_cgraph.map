@@ -1,0 +1,5 @@
+<map id="Vsid::DirectionChangesFirst8PacketsMeter::calculateMeasurement" name="Vsid::DirectionChangesFirst8PacketsMeter::calculateMeasurement">
+<area shape="rect" id="node2" href="$class_vsid_common_1_1_flow.html#a41a3ebb168028d3cf0ea96b7e438ca89" title="VsidCommon::Flow::pktCount" alt="" coords="301,5,499,32"/>
+<area shape="rect" id="node3" href="$class_vsid_common_1_1_flow.html#a3a2a19ce10910e74f43a196ab65f6cd9" title="VsidCommon::Flow::lastPacket\lDirection" alt="" coords="297,57,503,98"/>
+<area shape="rect" id="node4" href="$class_vsid_common_1_1_flow.html#a0eb1c59e966ceb9ad6fee05d4c4784ad" title="VsidCommon::Flow::current\lPacketDirection" alt="" coords="307,122,493,163"/>
+</map>

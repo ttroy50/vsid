@@ -1,0 +1,255 @@
+\hypertarget{training_2src_2main_8cpp}{\section{src/training/src/main.cpp File Reference}
+\label{training_2src_2main_8cpp}\index{src/training/src/main.\-cpp@{src/training/src/main.\-cpp}}
+}
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$getopt.\-h$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include \char`\"{}Logger.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Config.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Pcap\-Reader.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Training\-Input.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Protocol\-Model\-Db.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Attribute\-Meter\-Registrar.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Protocol\-Model\-Updater.\-h\char`\"{}}\\*
+Include dependency graph for main.\-cpp\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{training_2src_2main_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_logger_8h_abb52531de0e96213782908cfd2dbd677}{I\-N\-I\-T\-\_\-\-L\-O\-G\-G\-I\-N\-G} void \hyperlink{training_2src_2main_8cpp_ab718619364228cc1e655c32aad927bb6}{usage} (const char $\ast$command)
+\item 
+int \hyperlink{training_2src_2main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{training_2src_2main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{\index{training/src/main.\-cpp@{training/src/main.\-cpp}!main@{main}}
+\index{main@{main}!training/src/main.cpp@{training/src/main.\-cpp}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{training_2src_2main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+Definition at line 47 of file main.\-cpp.
+
+
+\begin{DoxyCode}
+48 \{
+49     \textcolor{comment}{// TODO read from argv  }
+50     el::Loggers::addFlag(el::LoggingFlag::StrictLogFileSizeCheck);
+51 
+52     \textcolor{keywordtype}{string} protocol\_db;
+53     \textcolor{keywordtype}{bool} protocol\_db\_set = \textcolor{keyword}{false};
+54     \textcolor{keywordtype}{string} config = \textcolor{stringliteral}{"config.yaml"};
+55     \textcolor{keywordtype}{string} training;
+56     \textcolor{keywordtype}{string} log\_config = \textcolor{stringliteral}{"../config/logging.conf"};
+57     \textcolor{keywordtype}{char} c;
+58     \textcolor{keywordflow}{while} ( (c = getopt(argc, argv, \textcolor{stringliteral}{":hc:d:t:l:"}) ) != -1) 
+59     \{
+60         \textcolor{keywordflow}{switch} (c) 
+61         \{
+62             \textcolor{keywordflow}{case} \textcolor{charliteral}{'d'}:
+63                 protocol\_db = optarg;
+64                 \textcolor{keywordflow}{break};
+65             \textcolor{keywordflow}{case} \textcolor{charliteral}{'c'}:
+66                 config = optarg;
+67                 \textcolor{keywordflow}{break};
+68             \textcolor{keywordflow}{case} \textcolor{charliteral}{'t'}:
+69                 training = optarg;
+70                 \textcolor{keywordflow}{break};
+71             \textcolor{keywordflow}{case} \textcolor{charliteral}{'l'}:
+72                 log\_config = optarg;
+73                 \textcolor{keywordflow}{break};
+74             \textcolor{keywordflow}{case} \textcolor{charliteral}{'h'}:
+75                 \hyperlink{pcap__classifier_2src_2main_8cpp_ab718619364228cc1e655c32aad927bb6}{usage}(argv[0]);
+76                 exit(0);
+77                 \textcolor{keywordflow}{break};
+78             \textcolor{keywordflow}{case} \textcolor{charliteral}{':'}:
+79                 cerr << \textcolor{stringliteral}{"ERROR: Option "} << (char)optopt << \textcolor{stringliteral}{" requires an argument."} << endl;
+80                 \hyperlink{pcap__classifier_2src_2main_8cpp_ab718619364228cc1e655c32aad927bb6}{usage}(argv[0]);
+81                 exit(1);
+82                 \textcolor{keywordflow}{break};
+83             \textcolor{keywordflow}{case} \textcolor{charliteral}{'?'}:
+84             \textcolor{keywordflow}{default}:
+85                 cerr << \textcolor{stringliteral}{"ERROR: Unrecognised Option : "} << (char)optopt << endl;
+86                 \hyperlink{pcap__classifier_2src_2main_8cpp_ab718619364228cc1e655c32aad927bb6}{usage}(argv[0]);
+87                 exit(1);
+88                 \textcolor{keywordflow}{break};
+89         \}
+90     \}
+91 
+92     el::Configurations conf(log\_config); 
+93     el::Loggers::reconfigureAllLoggers(conf);
+94 
+95     \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(  << endl 
+96                 << \textcolor{stringliteral}{"\(\backslash\)t\(\backslash\)t
+      +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+"} << endl
+97                 << \textcolor{stringliteral}{"\(\backslash\)t\(\backslash\)t+ Running "} << argv[0] << endl
+98                 << \textcolor{stringliteral}{"\(\backslash\)t\(\backslash\)t
+      +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+"} << endl);
+99 
+100 
+101     \hyperlink{_attribute_meter_registrar_8h_acc628170f0b90d7876378e03d3159647}{init\_attribute\_meters}();
+102 
+103     
+104 
+105     \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"config file : "} << config);
+106 
+107     \textcolor{keywordflow}{if} ( !Config::instance()->init(config) )
+108     \{
+109         \hyperlink{_logger_8h_a2a8694cd392d18f4db6b9cc9f15bafe3}{SLOG\_ERROR}( << \textcolor{stringliteral}{"Unable to initialise configuration"});
+110         cerr << \textcolor{stringliteral}{"ERROR: Unable to initialise configuration"} << endl;
+111         exit(1);
+112     \}
+113 
+114     \textcolor{keywordflow}{if}( !protocol\_db.empty() )
+115     \{
+116         \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}( << \textcolor{stringliteral}{"overriding protocol\_db from config : "} << protocol\_db); 
+117         Config::instance()->protocolDatabase(protocol\_db);
+118     \}
+119 
+120     \textcolor{keywordflow}{if}(Config::instance()->protocolDatabase().empty())
+121     \{
+122         \hyperlink{_logger_8h_a2a8694cd392d18f4db6b9cc9f15bafe3}{SLOG\_ERROR}(<< \textcolor{stringliteral}{"No spid database configured"})
+123         cerr << "No spid database configured" << endl;
+124         exit(1);
+125     \}
+126 
+127     \hyperlink{class_vsid_1_1_protocol_model_db}{ProtocolModelDb} protocolModelDb(\hyperlink{class_vsid_training_1_1_config}{Config}::instance()->protocolDatabase(), 
+128                                         \hyperlink{class_vsid_training_1_1_config}{Config}::instance()->protocolDatabaseBackup() );
+129     
+130     if( !protocolModelDb.read() )
+131     \{
+132         \hyperlink{_logger_8h_a2a8694cd392d18f4db6b9cc9f15bafe3}{SLOG\_ERROR}(<< \textcolor{stringliteral}{"Unable to read DB at ["} << Config::instance()->protocolDatabase() << \textcolor{stringliteral}{"]"})
+133         cerr << "Unable to read DB at [" << \hyperlink{class_vsid_training_1_1_config}{Config}::instance()->protocolDatabase() << "]" << endl;
+134         exit(1);
+135     \}
+136 
+137     \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< "spid database : " << \hyperlink{class_vsid_training_1_1_config}{Config}::instance()->protocolDatabase());
+138 
+139     
+140     \hyperlink{class_vsid_training_1_1_training_input}{TrainingInput} training\_input;
+141     if ( !training\_input.read(training, &protocolModelDb) )
+142     \{
+143         \hyperlink{_logger_8h_a2a8694cd392d18f4db6b9cc9f15bafe3}{SLOG\_ERROR}( << \textcolor{stringliteral}{"ERROR: Unable to read training file"} );
+144         exit(1);
+145     \}
+146 
+147     \textcolor{keywordflow}{if}(training\_input.trainingFiles().size() == 0)
+148     \{
+149         cerr << \textcolor{stringliteral}{"ERROR: Need a pcap file to analyse"} << endl;
+150         \hyperlink{pcap__classifier_2src_2main_8cpp_ab718619364228cc1e655c32aad927bb6}{usage}(argv[0]);
+151         exit(1);
+152     \}
+153     \textcolor{keywordflow}{else}
+154     \{
+155         \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < training\_input.trainingFiles().size(); i++)
+156         \{
+157             std::ifstream tmp(training\_input.trainingFiles()[i].filename);
+158             \textcolor{keywordflow}{if} ( !tmp.good() )
+159             \{
+160 
+161                 \hyperlink{_logger_8h_aa2ffef3c03ca18789b5d04ac9b260128}{LOG\_ERROR}((\textcolor{stringliteral}{"Unable to find pcap file : %v"}, training\_input.trainingFiles()[i].
+      filename));
+162                 cerr << \textcolor{stringliteral}{"ERROR: Unable to find pcap file : "} << training\_input.trainingFiles()[i].filename 
+      << endl;
+163                 \textcolor{keywordflow}{continue};
+164             \}
+165             \textcolor{keywordflow}{else}
+166             \{
+167                 training\_input.trainingFiles()[i].exists = \textcolor{keyword}{true};
+168             \}
+169         \}
+170     \}
+171 
+172     \hyperlink{class_vsid_common_1_1_flow_manager}{FlowManager} flowManager(&protocolModelDb);
+173     flowManager.init();
+174     
+175     \hyperlink{class_vsid_training_1_1_protocol_model_updater}{ProtocolModelUpdater} pmUpdated(&flowManager, &protocolModelDb);
+176 
+177     \hyperlink{class_vsid_training_1_1_pcap_reader}{PcapReader} reader(&flowManager);
+178 
+179     \textcolor{keywordtype}{bool} updated = \textcolor{keyword}{false};
+180     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < training\_input.trainingFiles().size(); i++)
+181     \{
+182         \textcolor{keywordflow}{if}(training\_input.trainingFiles()[i].exists)
+183         \{
+184 
+185             pmUpdated.setCurrentFile(&training\_input.trainingFiles()[i]);
+186 
+187             \textcolor{keywordflow}{if} ( !reader.read(training\_input.trainingFiles()[i].filename) )
+188             \{
+189                 \hyperlink{_logger_8h_a2a8694cd392d18f4db6b9cc9f15bafe3}{SLOG\_ERROR}(<< \textcolor{stringliteral}{"Unable to read pcap ["} << training\_input.trainingFiles()[i].
+      filename << \textcolor{stringliteral}{"]"});
+190             \}
+191             \textcolor{keywordflow}{else}
+192             \{
+193                 cout << i+1 << \textcolor{stringliteral}{" of "} << training\_input.trainingFiles().size() << \textcolor{stringliteral}{" files processed"} << 
+      endl;
+194                 \textcolor{comment}{// Tell the flow manager that it can cleanup flows before the next round}
+195                 \textcolor{comment}{// This will update the protocol model from a callback to ProtocolModelUpdater}
+196                 flowManager.finished();
+197                 updated = \textcolor{keyword}{true};
+198             \}
+199         \}
+200     \}
+201 
+202     \textcolor{keywordflow}{if}(pmUpdated.updated())
+203     \{
+204         protocolModelDb.write();
+205     \}
+206     \textcolor{keywordflow}{else}
+207     \{
+208         \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"protocol model not updated"});
+209     \}
+210 
+211     \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"Finished program"})
+212 \}\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{training_2src_2main_8cpp_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{training_2src_2main_8cpp_ab718619364228cc1e655c32aad927bb6}{\index{training/src/main.\-cpp@{training/src/main.\-cpp}!usage@{usage}}
+\index{usage@{usage}!training/src/main.cpp@{training/src/main.\-cpp}}
+\subsubsection[{usage}]{\setlength{\rightskip}{0pt plus 5cm}{\bf I\-N\-I\-T\-\_\-\-L\-O\-G\-G\-I\-N\-G} void usage (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{command}
+\end{DoxyParamCaption}
+)}}\label{training_2src_2main_8cpp_ab718619364228cc1e655c32aad927bb6}
+
+
+Definition at line 33 of file main.\-cpp.
+
+
+\begin{DoxyCode}
+34 \{
+35     cout << endl << gvProgramName <<  endl << endl;
+36     cout << \textcolor{stringliteral}{"Usage : "} << command << \textcolor{stringliteral}{" [-h] [-c <config\_file>] [-d <database\_file>] [-l <logging\_config>]
+       -t <training\_file>"} << endl;
+37     cout << \textcolor{stringliteral}{"Options :"} << endl 
+38         << \textcolor{stringliteral}{" -c \(\backslash\)t Config file "} << endl
+39         << \textcolor{stringliteral}{" -l \(\backslash\)t Logging Config "} << endl
+40         << \textcolor{stringliteral}{" -d \(\backslash\)t VSI SPID database file. Overrides the one from config file"} << endl
+41         << \textcolor{stringliteral}{" -t \(\backslash\)t Training file which lists the pcap files to read"} << endl
+42         << \textcolor{stringliteral}{" -h \(\backslash\)t print this help and exit"} << endl;
+43 
+44 \}
+\end{DoxyCode}

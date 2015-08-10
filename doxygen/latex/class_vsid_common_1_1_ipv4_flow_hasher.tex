@@ -1,0 +1,148 @@
+\hypertarget{class_vsid_common_1_1_ipv4_flow_hasher}{\section{Vsid\-Common\-:\-:Ipv4\-Flow\-Hasher Class Reference}
+\label{class_vsid_common_1_1_ipv4_flow_hasher}\index{Vsid\-Common\-::\-Ipv4\-Flow\-Hasher@{Vsid\-Common\-::\-Ipv4\-Flow\-Hasher}}
+}
+
+
+{\ttfamily \#include $<$Hasher.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\uint32\-\_\-t \hyperlink{class_vsid_common_1_1_ipv4_flow_hasher_a31d6f446e05bd50772dbae1ab1550c01}{operator()} (const T $\ast$t) const 
+\item 
+{\footnotesize template$<$typename T $>$ }\\uint32\-\_\-t \hyperlink{class_vsid_common_1_1_ipv4_flow_hasher_a5a67c74cc52946c6ce4b1467849cb9df}{operator()} (std\-::shared\-\_\-ptr$<$ T $>$ t) const 
+\item 
+{\footnotesize template$<$$>$ }\\uint32\-\_\-t \hyperlink{class_vsid_common_1_1_ipv4_flow_hasher_a9d78e9057c00a8cc86f248b066e42205}{operator()} (const \hyperlink{class_vsid_common_1_1_flow}{Flow} $\ast$t) const 
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Generate a unique hash for a flow
+
+I think this should work. The idea is that no matter what direction the packet is on the flow, it will generated the same hash
+
+take flow starting O\-R\-I\-G\-I\-N\-A\-T\-O\-R -\/$>$ R\-E\-S\-P\-O\-N\-D\-E\-R 192.\-168.\-1.\-1\-:3333 192.\-168.\-1.\-5\-:5060 T\-C\-P R\-E\-S\-P\-O\-N\-D\-E\-R -\/$>$ O\-R\-I\-G\-I\-N\-A\-T\-O\-R 192.\-168.\-1.\-5\-:5060 192.\-168.\-1.\-1\-:3333 T\-C\-P This will generate 192.\-168.\-1.\-1 192.\-168.\-1.\-5 33335060 T\-C\-P for both directions
+
+Copared to the flow for O\-R\-I\-G\-I\-N\-A\-T\-O\-R -\/$>$ R\-E\-S\-P\-O\-N\-D\-E\-R 192.\-168.\-1.\-5\-:3333 192.\-168.\-1.\-1\-:5060 T\-C\-P R\-E\-S\-P\-O\-N\-D\-E\-R -\/$>$ O\-R\-I\-G\-I\-N\-A\-T\-O\-R 192.\-168.\-1.\-1\-:5060 192.\-168.\-1.\-5\-:3333 T\-C\-P Which will generated 192.\-168.\-1.\-1 192.\-168.\-1.\-5 50603333 T\-C\-P
+
+When the I\-P is the same we fallback to ports take flow starting O\-R\-I\-G\-I\-N\-A\-T\-O\-R -\/$>$ R\-E\-S\-P\-O\-N\-D\-E\-R 192.\-168.\-1.\-1\-:3333 192.\-168.\-1.\-1\-:5060 T\-C\-P R\-E\-S\-P\-O\-N\-D\-E\-R -\/$>$ O\-R\-I\-G\-I\-N\-A\-T\-O\-R 192.\-168.\-1.\-1\-:5060 192.\-168.\-1.\-1\-:3333 T\-C\-P This will generate 192.\-168.\-1.\-1 192.\-168.\-1.\-1 33335060 T\-C\-P for both directions
+
+The above is the same as the connection in the other direction, however because these are on the same I\-P it should be same to assume they are different connections O\-R\-I\-G\-I\-N\-A\-T\-O\-R -\/$>$ R\-E\-S\-P\-O\-N\-D\-E\-R 192.\-168.\-1.\-1\-:5060 192.\-168.\-1.\-1\-:3333 T\-C\-P R\-E\-S\-P\-O\-N\-D\-E\-R -\/$>$ O\-R\-I\-G\-I\-N\-A\-T\-O\-R 192.\-168.\-1.\-1\-:3333 192.\-168.\-1.\-1\-:5050 T\-C\-P This will generate 192.\-168.\-1.\-1 192.\-168.\-1.\-1 33335060 T\-C\-P for both directions 
+
+Definition at line 81 of file Hasher.\-h.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_vsid_common_1_1_ipv4_flow_hasher_a9d78e9057c00a8cc86f248b066e42205}{\index{Vsid\-Common\-::\-Ipv4\-Flow\-Hasher@{Vsid\-Common\-::\-Ipv4\-Flow\-Hasher}!operator()@{operator()}}
+\index{operator()@{operator()}!VsidCommon::Ipv4FlowHasher@{Vsid\-Common\-::\-Ipv4\-Flow\-Hasher}}
+\subsubsection[{operator()}]{\setlength{\rightskip}{0pt plus 5cm}template$<$$>$ uint32\-\_\-t Vsid\-Common\-::\-Ipv4\-Flow\-Hasher\-::operator() (
+\begin{DoxyParamCaption}
+\item[{const {\bf Flow} $\ast$}]{t}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_common_1_1_ipv4_flow_hasher_a9d78e9057c00a8cc86f248b066e42205}
+
+
+Definition at line 29 of file Flow\-Manager.\-h.
+
+
+\begin{DoxyCode}
+30 \{
+31     \textcolor{keywordflow}{return} (*\textcolor{keyword}{this})(&(t->fiveTuple()));
+32 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_ipv4_flow_hasher_a9d78e9057c00a8cc86f248b066e42205_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_common_1_1_ipv4_flow_hasher_a31d6f446e05bd50772dbae1ab1550c01}{\index{Vsid\-Common\-::\-Ipv4\-Flow\-Hasher@{Vsid\-Common\-::\-Ipv4\-Flow\-Hasher}!operator()@{operator()}}
+\index{operator()@{operator()}!VsidCommon::Ipv4FlowHasher@{Vsid\-Common\-::\-Ipv4\-Flow\-Hasher}}
+\subsubsection[{operator()}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ uint32\-\_\-t Vsid\-Common\-::\-Ipv4\-Flow\-Hasher\-::operator() (
+\begin{DoxyParamCaption}
+\item[{const T $\ast$}]{t}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_common_1_1_ipv4_flow_hasher_a31d6f446e05bd50772dbae1ab1550c01}
+
+
+Definition at line 85 of file Hasher.\-h.
+
+
+\begin{DoxyCode}
+86     \{
+87         uint32\_t input[4];
+88 
+89         input[2] = 0;
+90 
+91         \textcolor{keywordflow}{if}( t->srcIp() < t->dstIp() )
+92         \{
+93             input[0] = t->srcIp();
+94             input[1] = t->dstIp();
+95             input[2] = (uint32\_t)t->srcPort() << 16 | ((uint32\_t)t->dstPort() & 0x0000FFFF);
+96 
+97             input[3] = t->protocol();
+98         \}
+99         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (t->srcIp() > t->dstIp())
+100         \{
+101             input[0] = t->dstIp();
+102             input[1] = t->srcIp();
+103             input[2] = (uint32\_t)t->dstPort() << 16 | ((uint32\_t)t->srcPort() & 0x0000FFFF);
+104 
+105             input[3] = t->protocol();
+106         \}
+107         \textcolor{keywordflow}{else}
+108         \{
+109             \textcolor{keywordflow}{if}( t->srcPort() <= t->dstPort() )
+110             \{
+111                 input[0] = t->srcIp();
+112                 input[1] = t->dstIp();
+113                 input[2] = (uint32\_t)t->srcPort() << 16 | ((uint32\_t)t->dstPort() & 0x0000FFFF);
+114 
+115                 input[3] = t->protocol();
+116             \}
+117             \textcolor{keywordflow}{else}
+118             \{
+119                 input[0] = t->dstIp();
+120                 input[1] = t->srcIp();
+121                 input[2] = (uint32\_t)t->dstPort() << 16 | ((uint32\_t)t->srcPort() & 0x0000FFFF);
+122 
+123                 input[3] = t->protocol();
+124             \}
+125         \}
+126 
+127         \textcolor{comment}{//void MurmurHash3\_x86\_32 (const void *key, int len, uint32\_t seed, void *out);}
+128         uint32\_t hash = 0;
+129         MurmurHash3\_x86\_32(input, \textcolor{keyword}{sizeof}(input), gvMurmurSeed, &hash);
+130         \textcolor{keywordflow}{return} hash;
+131     \}
+\end{DoxyCode}
+\hypertarget{class_vsid_common_1_1_ipv4_flow_hasher_a5a67c74cc52946c6ce4b1467849cb9df}{\index{Vsid\-Common\-::\-Ipv4\-Flow\-Hasher@{Vsid\-Common\-::\-Ipv4\-Flow\-Hasher}!operator()@{operator()}}
+\index{operator()@{operator()}!VsidCommon::Ipv4FlowHasher@{Vsid\-Common\-::\-Ipv4\-Flow\-Hasher}}
+\subsubsection[{operator()}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ uint32\-\_\-t Vsid\-Common\-::\-Ipv4\-Flow\-Hasher\-::operator() (
+\begin{DoxyParamCaption}
+\item[{std\-::shared\-\_\-ptr$<$ T $>$}]{t}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_common_1_1_ipv4_flow_hasher_a5a67c74cc52946c6ce4b1467849cb9df}
+
+
+Definition at line 134 of file Hasher.\-h.
+
+
+\begin{DoxyCode}
+135     \{
+136         \textcolor{keywordflow}{return} (*\textcolor{keyword}{this})(t.get());
+137     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/common/inc/\hyperlink{_hasher_8h}{Hasher.\-h}\item 
+src/common/inc/\hyperlink{_flow_manager_8h}{Flow\-Manager.\-h}\end{DoxyCompactItemize}

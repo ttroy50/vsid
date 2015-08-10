@@ -1,0 +1,1030 @@
+\hypertarget{class_vsid_common_1_1_flow_manager}{\section{Vsid\-Common\-:\-:Flow\-Manager Class Reference}
+\label{class_vsid_common_1_1_flow_manager}\index{Vsid\-Common\-::\-Flow\-Manager@{Vsid\-Common\-::\-Flow\-Manager}}
+}
+
+
+{\ttfamily \#include $<$Flow\-Manager.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_vsid_common_1_1_flow_manager_a3bfb8315f670eec223fc6b59a33ca6a3}{Flow\-Manager} (\hyperlink{class_vsid_1_1_protocol_model_db}{Vsid\-::\-Protocol\-Model\-Db} $\ast$datbase)
+\item 
+\hyperlink{class_vsid_common_1_1_flow_manager_a1d0b2e0917fd7f3f0af018bfcd1e2361}{$\sim$\-Flow\-Manager} ()
+\item 
+void \hyperlink{class_vsid_common_1_1_flow_manager_a49fc9f26f20cb8b963dcf28a704f5861}{init} ()
+\item 
+std\-::shared\-\_\-ptr$<$ \hyperlink{class_vsid_common_1_1_flow}{Flow} $>$ \hyperlink{class_vsid_common_1_1_flow_manager_a9c840fe2a6650079a3b90ba2d65f1e7e}{add\-Packet} (\hyperlink{class_vsid_common_1_1_i_pv4_packet}{I\-Pv4\-Packet} $\ast$packet)
+\item 
+void \hyperlink{class_vsid_common_1_1_flow_manager_a73e959f27b2b196694b94cb73b09143d}{process\-Packets} (int queue\-\_\-id)
+\item 
+void \hyperlink{class_vsid_common_1_1_flow_manager_a1771b987b5c030b6561713781fe90587}{process\-Packet} (\hyperlink{class_vsid_common_1_1_i_pv4_packet}{I\-Pv4\-Packet} $\ast$packet)
+\item 
+bool \hyperlink{class_vsid_common_1_1_flow_manager_a2f8f9df4a426385d52d4390f45b0492e}{flow\-Exists} (\hyperlink{class_vsid_common_1_1_i_pv4_packet}{I\-Pv4\-Packet} $\ast$packet)
+\item 
+bool \hyperlink{class_vsid_common_1_1_flow_manager_aa6e102536a355fe7d4c4b7d068b21edb}{flow\-Exists} (uint32\-\_\-t hash)
+\item 
+std\-::shared\-\_\-ptr$<$ \hyperlink{class_vsid_common_1_1_flow}{Flow} $>$ \hyperlink{class_vsid_common_1_1_flow_manager_ad8e2576a43951a72d71b5cb9827e80e3}{get\-Flow} (\hyperlink{class_vsid_common_1_1_i_pv4_packet}{I\-Pv4\-Packet} $\ast$packet)
+\item 
+std\-::shared\-\_\-ptr$<$ \hyperlink{class_vsid_common_1_1_flow}{Flow} $>$ \hyperlink{class_vsid_common_1_1_flow_manager_a42933b8fa0011eb3f635e72658bf4697}{get\-Flow} (uint32\-\_\-t hash)
+\item 
+void \hyperlink{class_vsid_common_1_1_flow_manager_a5e3d398ded3ad62f8677cab1515f5c4e}{delete\-Flow} (\hyperlink{class_vsid_common_1_1_i_pv4_packet}{I\-Pv4\-Packet} $\ast$packet)
+\item 
+void \hyperlink{class_vsid_common_1_1_flow_manager_a76aaaf9bf9106ff54161f5349f15e0de}{delete\-Flow} (uint32\-\_\-t hash)
+\item 
+void \hyperlink{class_vsid_common_1_1_flow_manager_a971f03f5e5e56bb4db8611be6f16f5e3}{delete\-Flow} (std\-::shared\-\_\-ptr$<$ \hyperlink{class_vsid_common_1_1_flow}{Flow} $>$ flow)
+\item 
+size\-\_\-t \hyperlink{class_vsid_common_1_1_flow_manager_aabf9d276ad8e588573805ac40160e108}{num\-Flows} ()
+\item 
+void \hyperlink{class_vsid_common_1_1_flow_manager_a590e1aaa6abd10dd64838ab7fda9d499}{add\-Flow\-Finished\-Observer} (\hyperlink{class_vsid_common_1_1_flow_finished_observer}{Flow\-Finished\-Observer} $\ast$observer)
+\item 
+void \hyperlink{class_vsid_common_1_1_flow_manager_ac6f9a96795952bcbf9c028be4db2dd20}{add\-Flow\-Classified\-Observer} (\hyperlink{class_vsid_common_1_1_flow_classified_observer}{Flow\-Classified\-Observer} $\ast$observer)
+\item 
+void \hyperlink{class_vsid_common_1_1_flow_manager_a8b55d3d066632a576b2e5c82b69d5860}{finished} ()
+\item 
+void \hyperlink{class_vsid_common_1_1_flow_manager_a631e775596b97c611f2fb3ee7e207295}{shutdown} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 43 of file Flow\-Manager.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_vsid_common_1_1_flow_manager_a3bfb8315f670eec223fc6b59a33ca6a3}{\index{Vsid\-Common\-::\-Flow\-Manager@{Vsid\-Common\-::\-Flow\-Manager}!Flow\-Manager@{Flow\-Manager}}
+\index{Flow\-Manager@{Flow\-Manager}!VsidCommon::FlowManager@{Vsid\-Common\-::\-Flow\-Manager}}
+\subsubsection[{Flow\-Manager}]{\setlength{\rightskip}{0pt plus 5cm}Flow\-Manager\-::\-Flow\-Manager (
+\begin{DoxyParamCaption}
+\item[{{\bf Vsid\-::\-Protocol\-Model\-Db} $\ast$}]{datbase}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_common_1_1_flow_manager_a3bfb8315f670eec223fc6b59a33ca6a3}
+
+
+Definition at line 16 of file Flow\-Manager.\-cpp.
+
+
+\begin{DoxyCode}
+16                                                   :
+17     \_protocolModelDb(database),
+18     \_currentQueue(0),
+19     \_shutdown(\textcolor{keyword}{false}),
+20     \_finishing(\textcolor{keyword}{false})
+21 \{
+22     
+23 \}
+\end{DoxyCode}
+\hypertarget{class_vsid_common_1_1_flow_manager_a1d0b2e0917fd7f3f0af018bfcd1e2361}{\index{Vsid\-Common\-::\-Flow\-Manager@{Vsid\-Common\-::\-Flow\-Manager}!$\sim$\-Flow\-Manager@{$\sim$\-Flow\-Manager}}
+\index{$\sim$\-Flow\-Manager@{$\sim$\-Flow\-Manager}!VsidCommon::FlowManager@{Vsid\-Common\-::\-Flow\-Manager}}
+\subsubsection[{$\sim$\-Flow\-Manager}]{\setlength{\rightskip}{0pt plus 5cm}Flow\-Manager\-::$\sim$\-Flow\-Manager (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_common_1_1_flow_manager_a1d0b2e0917fd7f3f0af018bfcd1e2361}
+
+
+Definition at line 34 of file Flow\-Manager.\-cpp.
+
+
+\begin{DoxyCode}
+35 \{
+36     \_shutdown = \textcolor{keyword}{true};
+37     \textcolor{keywordflow}{for}( \textcolor{keywordtype}{int} i = 0; i < \_workerThreads.size(); i++ )
+38     \{
+39         \_workerThreads[i].join();
+40         \hyperlink{class_vsid_common_1_1_i_pv4_packet}{IPv4Packet}* packet = NULL;
+41         \textcolor{keywordflow}{while}( \_threadQueues[i]->pop(packet) )
+42         \{
+43             \textcolor{keywordflow}{if}(packet != NULL)
+44             \{
+45                 \textcolor{keyword}{delete} packet;
+46             \}
+47         \}
+48 
+49         boost::lockfree::queue<IPv4Packet*, boost::lockfree::fixed\_sized<true> > * tmp = \_threadQueues[i];
+50         \textcolor{keyword}{delete} tmp;
+51 
+52     \}
+53 \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_vsid_common_1_1_flow_manager_ac6f9a96795952bcbf9c028be4db2dd20}{\index{Vsid\-Common\-::\-Flow\-Manager@{Vsid\-Common\-::\-Flow\-Manager}!add\-Flow\-Classified\-Observer@{add\-Flow\-Classified\-Observer}}
+\index{add\-Flow\-Classified\-Observer@{add\-Flow\-Classified\-Observer}!VsidCommon::FlowManager@{Vsid\-Common\-::\-Flow\-Manager}}
+\subsubsection[{add\-Flow\-Classified\-Observer}]{\setlength{\rightskip}{0pt plus 5cm}void Flow\-Manager\-::add\-Flow\-Classified\-Observer (
+\begin{DoxyParamCaption}
+\item[{{\bf Flow\-Classified\-Observer} $\ast$}]{observer}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_common_1_1_flow_manager_ac6f9a96795952bcbf9c028be4db2dd20}
+Add Observer that is called when a flow is classified.
+
+
+\begin{DoxyParams}{Parameters}
+{\em observer} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 465 of file Flow\-Manager.\-cpp.
+
+
+\begin{DoxyCode}
+466 \{
+467     \_flow\_classified\_observers.push\_back(observer);
+468 \}
+\end{DoxyCode}
+\hypertarget{class_vsid_common_1_1_flow_manager_a590e1aaa6abd10dd64838ab7fda9d499}{\index{Vsid\-Common\-::\-Flow\-Manager@{Vsid\-Common\-::\-Flow\-Manager}!add\-Flow\-Finished\-Observer@{add\-Flow\-Finished\-Observer}}
+\index{add\-Flow\-Finished\-Observer@{add\-Flow\-Finished\-Observer}!VsidCommon::FlowManager@{Vsid\-Common\-::\-Flow\-Manager}}
+\subsubsection[{add\-Flow\-Finished\-Observer}]{\setlength{\rightskip}{0pt plus 5cm}void Flow\-Manager\-::add\-Flow\-Finished\-Observer (
+\begin{DoxyParamCaption}
+\item[{{\bf Flow\-Finished\-Observer} $\ast$}]{observer}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_common_1_1_flow_manager_a590e1aaa6abd10dd64838ab7fda9d499}
+Add Observer that is called when a flow is finished.
+
+
+\begin{DoxyParams}{Parameters}
+{\em observer} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 426 of file Flow\-Manager.\-cpp.
+
+
+\begin{DoxyCode}
+427 \{
+428     \_flow\_finished\_observers.push\_back(observer);
+429 \}
+\end{DoxyCode}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_flow_manager_a590e1aaa6abd10dd64838ab7fda9d499_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_common_1_1_flow_manager_a9c840fe2a6650079a3b90ba2d65f1e7e}{\index{Vsid\-Common\-::\-Flow\-Manager@{Vsid\-Common\-::\-Flow\-Manager}!add\-Packet@{add\-Packet}}
+\index{add\-Packet@{add\-Packet}!VsidCommon::FlowManager@{Vsid\-Common\-::\-Flow\-Manager}}
+\subsubsection[{add\-Packet}]{\setlength{\rightskip}{0pt plus 5cm}std\-::shared\-\_\-ptr$<$ {\bf Flow} $>$ Flow\-Manager\-::add\-Packet (
+\begin{DoxyParamCaption}
+\item[{{\bf I\-Pv4\-Packet} $\ast$}]{packet}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_common_1_1_flow_manager_a9c840fe2a6650079a3b90ba2d65f1e7e}
+Add a new packet to a flow. This will create a new flow it it doesn't exist If using threading will put the packet onto the packet thread queue If not using theading will call process packet 
+\begin{DoxyParams}{Parameters}
+{\em packet} & \mbox{[}description\mbox{]} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The flow in use or N\-U\-L\-L if one could not be created 
+\end{DoxyReturn}
+
+
+Definition at line 124 of file Flow\-Manager.\-cpp.
+
+
+\begin{DoxyCode}
+125 \{
+126     std::shared\_ptr<Flow> flow = \hyperlink{class_vsid_common_1_1_flow_manager_ad8e2576a43951a72d71b5cb9827e80e3}{getFlow}(packet);
+127 
+128     \textcolor{keywordflow}{if}( flow )
+129     \{
+130         flow->incPktsInQueue();
+131         
+132         \textcolor{keywordflow}{if}( \hyperlink{class_vsid_common_1_1_common_config_a69c29458a786be527fe66470ac9fbbdb}{CommonConfig::instance}()->workerThreadsPerQueue() >0 && \_workerThreads.
+      size() > 0)
+133         \{
+134             \textcolor{keywordflow}{if}(flow->threadQueueId() == -1)
+135             \{
+136                 \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"No queue in flow. Must be new"})
+137                 
+138                 if(\_currentQueue >= \_workerThreads.size())
+139                 \{
+140                     \_currentQueue = 0;
+141                 \}
+142                 flow->threadQueueId(\_currentQueue);
+143                 \_currentQueue++;
+144             \}
+145 
+146             \textcolor{keywordflow}{if} (\_threadQueues[flow->threadQueueId()]->push(packet) )
+147             \{
+148                 \textcolor{keywordflow}{return} flow;
+149             \}
+150             \textcolor{keywordflow}{else}
+151             \{
+152                 \hyperlink{_logger_8h_a2a8694cd392d18f4db6b9cc9f15bafe3}{SLOG\_ERROR}(<< \textcolor{stringliteral}{"Unable to push packet onto queue : "} << flow->threadQueueId());
+153                 flow->decPktsInQueue();
+154                 packet->\hyperlink{class_vsid_common_1_1_i_pv4_packet_af59fa1adf18f2db27fbe9905de50d5bb}{dropPkt}();
+155                 \textcolor{keyword}{delete} packet;
+156                 \textcolor{keywordflow}{return} flow;
+157             \}
+158         \}
+159         \textcolor{keywordflow}{else}
+160         \{
+161             \textcolor{comment}{// Not in threaded mode}
+162             \hyperlink{class_vsid_common_1_1_flow_manager_a1771b987b5c030b6561713781fe90587}{processPacket}(packet);
+163             \textcolor{keywordflow}{return} flow;
+164         \}
+165     \}
+166     \textcolor{keywordflow}{else}
+167     \{
+168         packet->\hyperlink{class_vsid_common_1_1_i_pv4_packet_ae314f9e085588928d3c260211f80da87}{setVerdict}();
+169         \textcolor{keyword}{delete} packet;
+170         \textcolor{keywordflow}{return} flow;
+171     \}
+172 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_flow_manager_a9c840fe2a6650079a3b90ba2d65f1e7e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_flow_manager_a9c840fe2a6650079a3b90ba2d65f1e7e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_common_1_1_flow_manager_a5e3d398ded3ad62f8677cab1515f5c4e}{\index{Vsid\-Common\-::\-Flow\-Manager@{Vsid\-Common\-::\-Flow\-Manager}!delete\-Flow@{delete\-Flow}}
+\index{delete\-Flow@{delete\-Flow}!VsidCommon::FlowManager@{Vsid\-Common\-::\-Flow\-Manager}}
+\subsubsection[{delete\-Flow}]{\setlength{\rightskip}{0pt plus 5cm}void Flow\-Manager\-::delete\-Flow (
+\begin{DoxyParamCaption}
+\item[{{\bf I\-Pv4\-Packet} $\ast$}]{packet}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_common_1_1_flow_manager_a5e3d398ded3ad62f8677cab1515f5c4e}
+Delete a flow
+
+
+\begin{DoxyParams}{Parameters}
+{\em packet} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 394 of file Flow\-Manager.\-cpp.
+
+
+\begin{DoxyCode}
+395 \{
+396     std::lock\_guard<std::mutex> guard(\_flowsMutex);
+397     \textcolor{keywordtype}{size\_t} num = \_flows.erase(packet->\hyperlink{class_vsid_common_1_1_i_pv4_packet_a75fde96785c70c7a818a165482eae5e5}{flowHash}());
+398 
+399     \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< num << \textcolor{stringliteral}{" flows deleted"});
+400 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_flow_manager_a5e3d398ded3ad62f8677cab1515f5c4e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_flow_manager_a5e3d398ded3ad62f8677cab1515f5c4e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_common_1_1_flow_manager_a76aaaf9bf9106ff54161f5349f15e0de}{\index{Vsid\-Common\-::\-Flow\-Manager@{Vsid\-Common\-::\-Flow\-Manager}!delete\-Flow@{delete\-Flow}}
+\index{delete\-Flow@{delete\-Flow}!VsidCommon::FlowManager@{Vsid\-Common\-::\-Flow\-Manager}}
+\subsubsection[{delete\-Flow}]{\setlength{\rightskip}{0pt plus 5cm}void Flow\-Manager\-::delete\-Flow (
+\begin{DoxyParamCaption}
+\item[{uint32\-\_\-t}]{hash}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_common_1_1_flow_manager_a76aaaf9bf9106ff54161f5349f15e0de}
+
+
+Definition at line 418 of file Flow\-Manager.\-cpp.
+
+
+\begin{DoxyCode}
+419 \{
+420     std::lock\_guard<std::mutex> guard(\_flowsMutex);
+421     \textcolor{keywordtype}{size\_t} num = \_flows.erase(hash);
+422 
+423     \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< num << \textcolor{stringliteral}{" flows deleted"});
+424 \}
+\end{DoxyCode}
+\hypertarget{class_vsid_common_1_1_flow_manager_a971f03f5e5e56bb4db8611be6f16f5e3}{\index{Vsid\-Common\-::\-Flow\-Manager@{Vsid\-Common\-::\-Flow\-Manager}!delete\-Flow@{delete\-Flow}}
+\index{delete\-Flow@{delete\-Flow}!VsidCommon::FlowManager@{Vsid\-Common\-::\-Flow\-Manager}}
+\subsubsection[{delete\-Flow}]{\setlength{\rightskip}{0pt plus 5cm}void Flow\-Manager\-::delete\-Flow (
+\begin{DoxyParamCaption}
+\item[{std\-::shared\-\_\-ptr$<$ {\bf Flow} $>$}]{flow}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_common_1_1_flow_manager_a971f03f5e5e56bb4db8611be6f16f5e3}
+
+
+Definition at line 402 of file Flow\-Manager.\-cpp.
+
+
+\begin{DoxyCode}
+403 \{
+404     std::lock\_guard<std::mutex> guard(\_flowsMutex);
+405     \textcolor{keywordflow}{if}(flow->havePktsInQueue())
+406     \{
+407         \textcolor{comment}{// if we're here it's safe to assume we've tried to notify}
+408         flow->setFinishedAndNotified();
+409         \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"Not deleting because still packets to process"})
+410         return;
+411     \}
+412 
+413     \textcolor{keywordtype}{size\_t} num = \_flows.erase(flow->flowHash());
+414 
+415     \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< num << " flows deleted");
+416 \}
+\end{DoxyCode}
+\hypertarget{class_vsid_common_1_1_flow_manager_a8b55d3d066632a576b2e5c82b69d5860}{\index{Vsid\-Common\-::\-Flow\-Manager@{Vsid\-Common\-::\-Flow\-Manager}!finished@{finished}}
+\index{finished@{finished}!VsidCommon::FlowManager@{Vsid\-Common\-::\-Flow\-Manager}}
+\subsubsection[{finished}]{\setlength{\rightskip}{0pt plus 5cm}void Flow\-Manager\-::finished (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_common_1_1_flow_manager_a8b55d3d066632a576b2e5c82b69d5860}
+Let the \hyperlink{class_vsid_common_1_1_flow_manager}{Flow\-Manager} know that we are finished so it can cleanup any flows And call the Flow\-Finished\-Observers 
+
+Definition at line 478 of file Flow\-Manager.\-cpp.
+
+
+\begin{DoxyCode}
+479 \{
+480     
+481     \textcolor{comment}{// Wait for all queues to be empty before deleting flows form the manager}
+482     \textcolor{keywordflow}{for}( \textcolor{keywordtype}{int} i = 0; i < \_threadQueues.size(); i++ )
+483     \{
+484         \textcolor{keywordflow}{while}( !\_threadQueues[i]->empty() )
+485         \{
+486             std::this\_thread::sleep\_for( std::chrono::microseconds(10) );
+487         \}
+488     \}
+489 
+490     \_finishing = \textcolor{keyword}{true};
+491     std::lock\_guard<std::mutex> guard(\_flowsMutex);
+492     \textcolor{keywordflow}{for}(\textcolor{keyword}{auto} it = \_flows.begin(); it != \_flows.end(); )
+493     \{
+494         \textcolor{keyword}{auto} flow = it->second;
+495         \textcolor{keywordflow}{while}(flow->havePktsInQueue())
+496         \{
+497             std::this\_thread::sleep\_for( std::chrono::microseconds(10) );
+498         \}
+499 
+500         
+501         \textcolor{keyword}{auto} origIt = it;
+502         ++it;
+503 
+504         notifyFlowFinished(flow);
+505         \_flows.erase(origIt);
+506     \}
+507 
+508     \_finishing = \textcolor{keyword}{false};
+509 \}\end{DoxyCode}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{class_vsid_common_1_1_flow_manager_a8b55d3d066632a576b2e5c82b69d5860_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_common_1_1_flow_manager_a2f8f9df4a426385d52d4390f45b0492e}{\index{Vsid\-Common\-::\-Flow\-Manager@{Vsid\-Common\-::\-Flow\-Manager}!flow\-Exists@{flow\-Exists}}
+\index{flow\-Exists@{flow\-Exists}!VsidCommon::FlowManager@{Vsid\-Common\-::\-Flow\-Manager}}
+\subsubsection[{flow\-Exists}]{\setlength{\rightskip}{0pt plus 5cm}bool Flow\-Manager\-::flow\-Exists (
+\begin{DoxyParamCaption}
+\item[{{\bf I\-Pv4\-Packet} $\ast$}]{packet}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_common_1_1_flow_manager_a2f8f9df4a426385d52d4390f45b0492e}
+Check if a flow exists 
+\begin{DoxyParams}{Parameters}
+{\em packet} & \mbox{[}description\mbox{]} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}description\mbox{]} 
+\end{DoxyReturn}
+
+
+Definition at line 174 of file Flow\-Manager.\-cpp.
+
+
+\begin{DoxyCode}
+175 \{
+176     std::lock\_guard<std::mutex> guard(\_flowsMutex);
+177 
+178     \textcolor{keyword}{auto} it = \_flows.find(packet->\hyperlink{class_vsid_common_1_1_i_pv4_packet_a75fde96785c70c7a818a165482eae5e5}{flowHash}());
+179 
+180     \textcolor{keywordflow}{if}(it == \_flows.end())
+181     \{
+182         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+183     \}
+184 
+185     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+186 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_flow_manager_a2f8f9df4a426385d52d4390f45b0492e_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_common_1_1_flow_manager_aa6e102536a355fe7d4c4b7d068b21edb}{\index{Vsid\-Common\-::\-Flow\-Manager@{Vsid\-Common\-::\-Flow\-Manager}!flow\-Exists@{flow\-Exists}}
+\index{flow\-Exists@{flow\-Exists}!VsidCommon::FlowManager@{Vsid\-Common\-::\-Flow\-Manager}}
+\subsubsection[{flow\-Exists}]{\setlength{\rightskip}{0pt plus 5cm}bool Flow\-Manager\-::flow\-Exists (
+\begin{DoxyParamCaption}
+\item[{uint32\-\_\-t}]{hash}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_common_1_1_flow_manager_aa6e102536a355fe7d4c4b7d068b21edb}
+Finds if a flow exists in the manager.
+
+Only matches the hash and not the equality operator. 
+\begin{DoxyParams}{Parameters}
+{\em hash} & \mbox{[}description\mbox{]} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}description\mbox{]} 
+\end{DoxyReturn}
+
+
+Definition at line 188 of file Flow\-Manager.\-cpp.
+
+
+\begin{DoxyCode}
+189 \{
+190     std::lock\_guard<std::mutex> guard(\_flowsMutex);
+191 
+192     \textcolor{keyword}{auto} it = \_flows.find(hash);
+193 
+194     \textcolor{keywordflow}{if}(it == \_flows.end())
+195     \{
+196         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+197     \}
+198 
+199     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+200 \}
+\end{DoxyCode}
+\hypertarget{class_vsid_common_1_1_flow_manager_ad8e2576a43951a72d71b5cb9827e80e3}{\index{Vsid\-Common\-::\-Flow\-Manager@{Vsid\-Common\-::\-Flow\-Manager}!get\-Flow@{get\-Flow}}
+\index{get\-Flow@{get\-Flow}!VsidCommon::FlowManager@{Vsid\-Common\-::\-Flow\-Manager}}
+\subsubsection[{get\-Flow}]{\setlength{\rightskip}{0pt plus 5cm}std\-::shared\-\_\-ptr$<$ {\bf Flow} $>$ Flow\-Manager\-::get\-Flow (
+\begin{DoxyParamCaption}
+\item[{{\bf I\-Pv4\-Packet} $\ast$}]{packet}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_common_1_1_flow_manager_ad8e2576a43951a72d71b5cb9827e80e3}
+Get a \hyperlink{class_vsid_common_1_1_flow}{Flow}. If this is a new flow then it will be created 
+\begin{DoxyParams}{Parameters}
+{\em packet} & \mbox{[}description\mbox{]} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}description\mbox{]} 
+\end{DoxyReturn}
+
+
+Definition at line 202 of file Flow\-Manager.\-cpp.
+
+
+\begin{DoxyCode}
+203 \{
+204     std::lock\_guard<std::mutex> guard(\_flowsMutex);
+205 
+206     \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \_flows.size() << \textcolor{stringliteral}{" flows in manager"});
+207 
+208     \textcolor{keyword}{auto} it = \_flows.find(packet->\hyperlink{class_vsid_common_1_1_i_pv4_packet_a75fde96785c70c7a818a165482eae5e5}{flowHash}());
+209 
+210     \textcolor{keywordflow}{if}(it == \_flows.end())
+211     \{
+212         std::shared\_ptr<Flow>  f(\textcolor{keyword}{new} \hyperlink{class_vsid_common_1_1_flow}{Flow}(packet, \_protocolModelDb));
+213         \_flows.insert(std::make\_pair(f->flowHash(), f));
+214         \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"New Flow added : "} << *f);
+215 
+216         \textcolor{keywordflow}{if}( \hyperlink{class_vsid_common_1_1_common_config_a69c29458a786be527fe66470ac9fbbdb}{CommonConfig::instance}()->workerThreadsPerQueue() >0 && \_workerThreads.
+      size() > 0)
+217         \{
+218             \textcolor{comment}{// Will tell if flow is on thread}
+219             \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < \_workerThreads.size(); i++)
+220             \{
+221                 \textcolor{keywordflow}{if}(\_workerThreads[i].get\_id() == std::this\_thread::get\_id() )
+222                 \{
+223                     f->threadQueueId(i);
+224                     \textcolor{keywordflow}{break};
+225                 \}
+226             \}
+227 
+228             \textcolor{comment}{// if flow created on main thread}
+229             \textcolor{keywordflow}{if}(f->threadQueueId() == -1)
+230             \{
+231                 \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"New flow so no queue in flow "})
+232                 
+233                 if(\_currentQueue >= \_workerThreads.size())
+234                 \{
+235                     \_currentQueue = 0;
+236                 \}
+237                 f->threadQueueId(\_currentQueue);
+238                 \_currentQueue++;
+239             \}
+240         \}
+241         
+242         \textcolor{keywordflow}{return} f;
+243     \}
+244     \textcolor{keywordflow}{else}
+245     \{
+246         \textcolor{keywordflow}{if}( packet->\hyperlink{class_vsid_common_1_1_i_pv4_packet_ac1ff979633726d9f558bce1210595879}{protocol}() == IPPROTO\_UDP )
+247         \{
+248             std::shared\_ptr<Flow> tmp = it->second;
+249             
+250             \textcolor{keywordflow}{if}( !tmp->havePktsInQueue() &&
+251                 (packet->\hyperlink{class_vsid_common_1_1_i_pv4_packet_abef9e70b733c8e5718153cb032ea6f1a}{timestamp}().tv\_sec - tmp->lastPacketTimestamp().tv\_sec ) > 
+      \hyperlink{class_vsid_common_1_1_common_config_a69c29458a786be527fe66470ac9fbbdb}{CommonConfig::instance}()->\hyperlink{class_vsid_common_1_1_common_config_a60ebee6b72a64b11236b893417f84e72}{udpFlowTimeout}())
+252             \{
+253                 \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"Flow ["} << *tmp << \textcolor{stringliteral}{"] found but past udp timeout. Removing from list
+       and adding new one"})
+254                 notifyFlowFinished(tmp);
+255                 \_flows.erase(it);
+256                 std::shared\_ptr<\hyperlink{class_vsid_common_1_1_flow}{Flow}>  f(new \hyperlink{class_vsid_common_1_1_flow}{Flow}(packet, \_protocolModelDb));
+257                 \_flows.insert(std::make\_pair(f->flowHash(), f));
+258 
+259                 if( \hyperlink{class_vsid_common_1_1_common_config}{CommonConfig}::instance()->workerThreadsPerQueue() >0 && \_workerThreads.size
+      () > 0)
+260                 \{
+261                     \textcolor{comment}{// Will tell if flow is on thread}
+262                     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < \_workerThreads.size(); i++)
+263                     \{
+264                         \textcolor{keywordflow}{if}(\_workerThreads[i].get\_id() == std::this\_thread::get\_id() )
+265                         \{
+266                             f->\hyperlink{class_vsid_common_1_1_flow_a067c4a0fbf63c7295442c54898d9990d}{threadQueueId}(i);
+267                             \textcolor{keywordflow}{break};
+268                         \}
+269                     \}
+270 
+271                     \textcolor{comment}{// if flow created on main thread}
+272                     \textcolor{keywordflow}{if}(f->threadQueueId() == -1)
+273                     \{
+274                         \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"No queue in flow. Must be new"})
+275                         
+276                         if(\_currentQueue >= \_workerThreads.size())
+277                         \{
+278                             \_currentQueue = 0;
+279                         \}
+280                         f->threadQueueId(\_currentQueue);
+281                         \_currentQueue++;
+282                     \}
+283                 \}
+284 
+285                 \textcolor{keywordflow}{return} f;
+286             \}
+287         \}
+288         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}( packet->protocol() == IPPROTO\_TCP )
+289         \{
+290             std::shared\_ptr<Flow> tmp = it->second;
+291             
+292             \textcolor{keywordflow}{if}( (!tmp->havePktsInQueue() &&
+293                     packet->timestamp().tv\_sec - tmp->lastPacketTimestamp().tv\_sec ) > 
+      \hyperlink{class_vsid_common_1_1_common_config_a69c29458a786be527fe66470ac9fbbdb}{CommonConfig::instance}()->\hyperlink{class_vsid_common_1_1_common_config_af2130266e27cc2b8cf135e4ba499aaa5}{tcpFlowTimeout}())
+294             \{
+295                 \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"Flow ["} << *tmp << \textcolor{stringliteral}{"] found but past tcp timeout. Removing from list
+       and adding new one"})
+296                 notifyFlowFinished(tmp);
+297                 \_flows.erase(it);
+298                 std::shared\_ptr<\hyperlink{class_vsid_common_1_1_flow}{Flow}>  f(new \hyperlink{class_vsid_common_1_1_flow}{Flow}(packet, \_protocolModelDb));
+299                 \_flows.insert(std::make\_pair(f->flowHash(), f));
+300 
+301                 if( \hyperlink{class_vsid_common_1_1_common_config}{CommonConfig}::instance()->workerThreadsPerQueue() >0 && \_workerThreads.size
+      () > 0)
+302                 \{
+303                     \textcolor{comment}{// Will tell if flow is on thread}
+304                     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < \_workerThreads.size(); i++)
+305                     \{
+306                         \textcolor{keywordflow}{if}(\_workerThreads[i].get\_id() == std::this\_thread::get\_id() )
+307                         \{
+308                             f->\hyperlink{class_vsid_common_1_1_flow_a067c4a0fbf63c7295442c54898d9990d}{threadQueueId}(i);
+309                             \textcolor{keywordflow}{break};
+310                         \}
+311                     \}
+312 
+313                     \textcolor{comment}{// if flow created on main thread}
+314                     \textcolor{keywordflow}{if}(f->threadQueueId() == -1)
+315                     \{
+316                         \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"No queue in flow. Must be new"})
+317                         
+318                         if(\_currentQueue >= \_workerThreads.size())
+319                         \{
+320                             \_currentQueue = 0;
+321                         \}
+322                         f->threadQueueId(\_currentQueue);
+323                         \_currentQueue++;
+324                     \}
+325                 \}
+326 
+327                 \textcolor{keywordflow}{return} f;
+328             \}
+329             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ( (tmp->flowState() == \hyperlink{class_vsid_common_1_1_flow_a4c78d7517903031a861c7287e706a6c2a055b500bb0ed82a58f138a885208507a}{Flow::State::FINISHED\_NOTIFIED} 
+330                                 || tmp->flowState() == \hyperlink{class_vsid_common_1_1_flow_a4c78d7517903031a861c7287e706a6c2a2c616b2713e2e0aed04b4c4752c88133}{Flow::State::FINISHED}) 
+331                         && !tmp->havePktsInQueue()
+332                         && ((packet->timestamp().tv\_sec - tmp->lastPacketTimestamp().tv\_sec ) 
+333                                     > \hyperlink{class_vsid_common_1_1_common_config_a69c29458a786be527fe66470ac9fbbdb}{CommonConfig::instance}()->
+      \hyperlink{class_vsid_common_1_1_common_config_a7005e5b9127c2c58525b81a10805e255}{tcpFlowCloseWaitTimeout}()))
+334             \{
+335                 \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"Flow ["} << *tmp << \textcolor{stringliteral}{"] found but finished. Removing from list and
+       adding new one"})
+336                 notifyFlowFinished(tmp);
+337                 \_flows.erase(it);
+338                 std::shared\_ptr<\hyperlink{class_vsid_common_1_1_flow}{Flow}>  f(new \hyperlink{class_vsid_common_1_1_flow}{Flow}(packet, \_protocolModelDb));
+339                 \_flows.insert(std::make\_pair(f->flowHash(), f));
+340 
+341                 if( \hyperlink{class_vsid_common_1_1_common_config}{CommonConfig}::instance()->workerThreadsPerQueue() >0 && \_workerThreads.size
+      () > 0)
+342                 \{
+343                     \textcolor{comment}{// Will tell if flow is on thread}
+344                     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < \_workerThreads.size(); i++)
+345                     \{
+346                         \textcolor{keywordflow}{if}(\_workerThreads[i].get\_id() == std::this\_thread::get\_id() )
+347                         \{
+348                             f->\hyperlink{class_vsid_common_1_1_flow_a067c4a0fbf63c7295442c54898d9990d}{threadQueueId}(i);
+349                             \textcolor{keywordflow}{break};
+350                         \}
+351                     \}
+352 
+353                     \textcolor{comment}{// if flow created on main thread}
+354                     \textcolor{keywordflow}{if}(f->threadQueueId() == -1)
+355                     \{
+356                         \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"No queue in flow. Must be new"})
+357                         
+358                         if(\_currentQueue >= \_workerThreads.size())
+359                         \{
+360                             \_currentQueue = 0;
+361                         \}
+362                         f->threadQueueId(\_currentQueue);
+363                         \_currentQueue++;
+364                     \}
+365                 \}
+366 
+367                 \textcolor{keywordflow}{return} f;
+368             \}
+369         \}
+370 
+371 
+372 
+373         \textcolor{keywordflow}{return} it->second;
+374 
+375     \}
+376 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_flow_manager_ad8e2576a43951a72d71b5cb9827e80e3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_flow_manager_ad8e2576a43951a72d71b5cb9827e80e3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_common_1_1_flow_manager_a42933b8fa0011eb3f635e72658bf4697}{\index{Vsid\-Common\-::\-Flow\-Manager@{Vsid\-Common\-::\-Flow\-Manager}!get\-Flow@{get\-Flow}}
+\index{get\-Flow@{get\-Flow}!VsidCommon::FlowManager@{Vsid\-Common\-::\-Flow\-Manager}}
+\subsubsection[{get\-Flow}]{\setlength{\rightskip}{0pt plus 5cm}std\-::shared\-\_\-ptr$<$ {\bf Flow} $>$ Flow\-Manager\-::get\-Flow (
+\begin{DoxyParamCaption}
+\item[{uint32\-\_\-t}]{hash}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_common_1_1_flow_manager_a42933b8fa0011eb3f635e72658bf4697}
+Lookup a flow by it's hash. Won't create a new flow in the list 
+
+Definition at line 378 of file Flow\-Manager.\-cpp.
+
+
+\begin{DoxyCode}
+379 \{
+380     std::lock\_guard<std::mutex> guard(\_flowsMutex);
+381     \textcolor{keyword}{auto} it = \_flows.find(hash);
+382 
+383     \textcolor{keywordflow}{if}(it != \_flows.end())
+384     \{
+385         \textcolor{keywordflow}{return} it->second;
+386     \}
+387     \textcolor{keywordflow}{else}
+388     \{
+389         \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};
+390     \}
+391 \}
+\end{DoxyCode}
+\hypertarget{class_vsid_common_1_1_flow_manager_a49fc9f26f20cb8b963dcf28a704f5861}{\index{Vsid\-Common\-::\-Flow\-Manager@{Vsid\-Common\-::\-Flow\-Manager}!init@{init}}
+\index{init@{init}!VsidCommon::FlowManager@{Vsid\-Common\-::\-Flow\-Manager}}
+\subsubsection[{init}]{\setlength{\rightskip}{0pt plus 5cm}void Flow\-Manager\-::init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_common_1_1_flow_manager_a49fc9f26f20cb8b963dcf28a704f5861}
+Initialise the flow managers thread pool 
+
+Definition at line 25 of file Flow\-Manager.\-cpp.
+
+
+\begin{DoxyCode}
+26 \{
+27     \textcolor{keywordflow}{for}( \textcolor{keywordtype}{int} i = 0; i < \hyperlink{class_vsid_common_1_1_common_config_a69c29458a786be527fe66470ac9fbbdb}{CommonConfig::instance}()->
+      \hyperlink{class_vsid_common_1_1_common_config_a7ef125a1ecf4a659355d83c2531a49e9}{workerThreadsPerQueue}(); i++ )
+28     \{
+29         \_threadQueues.push\_back(\textcolor{keyword}{new} boost::lockfree::queue<\hyperlink{class_vsid_common_1_1_i_pv4_packet}{IPv4Packet}*, 
+      boost::lockfree::fixed\_sized<true> >(\hyperlink{class_vsid_common_1_1_common_config_a69c29458a786be527fe66470ac9fbbdb}{CommonConfig::instance}()->workerThreadQueueSize()));
+30         \_workerThreads.push\_back( std::thread(&\hyperlink{class_vsid_common_1_1_flow_manager_a73e959f27b2b196694b94cb73b09143d}{FlowManager::processPackets}, \textcolor{keyword}{this}
+      , i) );
+31     \}
+32 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_flow_manager_a49fc9f26f20cb8b963dcf28a704f5861_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_flow_manager_a49fc9f26f20cb8b963dcf28a704f5861_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_common_1_1_flow_manager_aabf9d276ad8e588573805ac40160e108}{\index{Vsid\-Common\-::\-Flow\-Manager@{Vsid\-Common\-::\-Flow\-Manager}!num\-Flows@{num\-Flows}}
+\index{num\-Flows@{num\-Flows}!VsidCommon::FlowManager@{Vsid\-Common\-::\-Flow\-Manager}}
+\subsubsection[{num\-Flows}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t Vsid\-Common\-::\-Flow\-Manager\-::num\-Flows (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_common_1_1_flow_manager_aabf9d276ad8e588573805ac40160e108}
+Number of flows
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 119 of file Flow\-Manager.\-h.
+
+
+\begin{DoxyCode}
+119 \{ \textcolor{keywordflow}{return} \_flows.size(); \}
+\end{DoxyCode}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_flow_manager_aabf9d276ad8e588573805ac40160e108_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_common_1_1_flow_manager_a1771b987b5c030b6561713781fe90587}{\index{Vsid\-Common\-::\-Flow\-Manager@{Vsid\-Common\-::\-Flow\-Manager}!process\-Packet@{process\-Packet}}
+\index{process\-Packet@{process\-Packet}!VsidCommon::FlowManager@{Vsid\-Common\-::\-Flow\-Manager}}
+\subsubsection[{process\-Packet}]{\setlength{\rightskip}{0pt plus 5cm}void Flow\-Manager\-::process\-Packet (
+\begin{DoxyParamCaption}
+\item[{{\bf I\-Pv4\-Packet} $\ast$}]{packet}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_common_1_1_flow_manager_a1771b987b5c030b6561713781fe90587}
+Process a single packet 
+\begin{DoxyParams}{Parameters}
+{\em packet} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 78 of file Flow\-Manager.\-cpp.
+
+
+\begin{DoxyCode}
+79 \{
+80     \textcolor{keywordflow}{try}
+81     \{
+82         std::shared\_ptr<Flow> flow = \hyperlink{class_vsid_common_1_1_flow_manager_ad8e2576a43951a72d71b5cb9827e80e3}{getFlow}(packet);
+83 
+84         \textcolor{keywordflow}{if}( flow )
+85         \{
+86             \textcolor{keywordtype}{bool} classified = flow->flowClassified();
+87 
+88             flow->decPktsInQueue();
+89             flow->addPacket(packet);
+90 
+91             \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"Packet added to flow : "} << *flow);  
+92 
+93             \textcolor{keywordflow}{if}( flow->flowClassified() != classified && flow->flowClassified() )
+94             \{
+95                 notifyFlowClassified(flow);
+96             \}
+97 
+98             \textcolor{keywordflow}{if}(flow->flowState() == \hyperlink{class_vsid_common_1_1_flow_a4c78d7517903031a861c7287e706a6c2a2c616b2713e2e0aed04b4c4752c88133}{Flow::State::FINISHED})
+99             \{
+100                 notifyFlowFinished(flow);
+101                 \hyperlink{class_vsid_common_1_1_flow_manager_a5e3d398ded3ad62f8677cab1515f5c4e}{deleteFlow}(flow);
+102                 \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"Flow in finished state. Removing"})
+103             \}
+104             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (flow->flowState() == \hyperlink{class_vsid_common_1_1_flow_a4c78d7517903031a861c7287e706a6c2a055b500bb0ed82a58f138a885208507a}{Flow::State::FINISHED\_NOTIFIED} )
+105             \{
+106                 \hyperlink{class_vsid_common_1_1_flow_manager_a5e3d398ded3ad62f8677cab1515f5c4e}{deleteFlow}(flow);
+107                 \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"Flow in finished & notified state. Removing"})
+108             \}
+109         \}
+110         \textcolor{keywordflow}{else}
+111         \{
+112             \hyperlink{_logger_8h_a2a8694cd392d18f4db6b9cc9f15bafe3}{SLOG\_ERROR}(<< \textcolor{stringliteral}{"Unable to find flow"});
+113             packet->\hyperlink{class_vsid_common_1_1_i_pv4_packet_ae314f9e085588928d3c260211f80da87}{setVerdict}();
+114             \textcolor{keyword}{delete} packet;
+115         \}
+116     \}
+117     \textcolor{keywordflow}{catch}(\textcolor{keyword}{const} std::exception& e)
+118     \{
+119         \hyperlink{_logger_8h_a2a8694cd392d18f4db6b9cc9f15bafe3}{SLOG\_ERROR}(<< \textcolor{stringliteral}{"Caught exception processing packet"});
+120     \}
+121     
+122 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_flow_manager_a1771b987b5c030b6561713781fe90587_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_flow_manager_a1771b987b5c030b6561713781fe90587_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_common_1_1_flow_manager_a73e959f27b2b196694b94cb73b09143d}{\index{Vsid\-Common\-::\-Flow\-Manager@{Vsid\-Common\-::\-Flow\-Manager}!process\-Packets@{process\-Packets}}
+\index{process\-Packets@{process\-Packets}!VsidCommon::FlowManager@{Vsid\-Common\-::\-Flow\-Manager}}
+\subsubsection[{process\-Packets}]{\setlength{\rightskip}{0pt plus 5cm}void Flow\-Manager\-::process\-Packets (
+\begin{DoxyParamCaption}
+\item[{int}]{queue\-\_\-id}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_common_1_1_flow_manager_a73e959f27b2b196694b94cb73b09143d}
+Process Packets from a thread queue 
+\begin{DoxyParams}{Parameters}
+{\em queue\-\_\-id} & Id of the thread queue \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 55 of file Flow\-Manager.\-cpp.
+
+
+\begin{DoxyCode}
+56 \{
+57     \textcolor{keywordflow}{while}(!\_shutdown)
+58     \{
+59         \hyperlink{class_vsid_common_1_1_i_pv4_packet}{IPv4Packet}* packet = NULL;
+60         \textcolor{keywordflow}{if} ( \_threadQueues[queue\_id]->pop(packet) )
+61         \{
+62             \textcolor{keywordflow}{if}( packet == NULL )
+63             \{
+64                 \hyperlink{_logger_8h_a2a8694cd392d18f4db6b9cc9f15bafe3}{SLOG\_ERROR}(<< \textcolor{stringliteral}{"Packet is null from queue"});
+65             \}
+66             \textcolor{keywordflow}{else}
+67             \{
+68                 \hyperlink{class_vsid_common_1_1_flow_manager_a1771b987b5c030b6561713781fe90587}{processPacket}(packet);
+69             \}
+70         \}
+71         \textcolor{keywordflow}{else}
+72         \{
+73             std::this\_thread::sleep\_for( std::chrono::milliseconds(10) );
+74         \}
+75     \}
+76 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_flow_manager_a73e959f27b2b196694b94cb73b09143d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_flow_manager_a73e959f27b2b196694b94cb73b09143d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_common_1_1_flow_manager_a631e775596b97c611f2fb3ee7e207295}{\index{Vsid\-Common\-::\-Flow\-Manager@{Vsid\-Common\-::\-Flow\-Manager}!shutdown@{shutdown}}
+\index{shutdown@{shutdown}!VsidCommon::FlowManager@{Vsid\-Common\-::\-Flow\-Manager}}
+\subsubsection[{shutdown}]{\setlength{\rightskip}{0pt plus 5cm}void Vsid\-Common\-::\-Flow\-Manager\-::shutdown (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_common_1_1_flow_manager_a631e775596b97c611f2fb3ee7e207295}
+
+
+Definition at line 141 of file Flow\-Manager.\-h.
+
+
+\begin{DoxyCode}
+141 \{ \_shutdown = \textcolor{keyword}{true}; \}
+\end{DoxyCode}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_common_1_1_flow_manager_a631e775596b97c611f2fb3ee7e207295_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/common/inc/\hyperlink{_flow_manager_8h}{Flow\-Manager.\-h}\item 
+src/common/src/\hyperlink{_flow_manager_8cpp}{Flow\-Manager.\-cpp}\end{DoxyCompactItemize}

@@ -1,0 +1,206 @@
+\hypertarget{class_vsid_1_1_direction_changes_first8_packets_meter}{\section{Vsid\-:\-:Direction\-Changes\-First8\-Packets\-Meter Class Reference}
+\label{class_vsid_1_1_direction_changes_first8_packets_meter}\index{Vsid\-::\-Direction\-Changes\-First8\-Packets\-Meter@{Vsid\-::\-Direction\-Changes\-First8\-Packets\-Meter}}
+}
+
+
+{\ttfamily \#include $<$Direction\-Changes\-First8\-Packets\-Meter.\-h$>$}
+
+
+
+Inheritance diagram for Vsid\-:\-:Direction\-Changes\-First8\-Packets\-Meter\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{class_vsid_1_1_direction_changes_first8_packets_meter__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Vsid\-:\-:Direction\-Changes\-First8\-Packets\-Meter\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{class_vsid_1_1_direction_changes_first8_packets_meter__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_vsid_1_1_direction_changes_first8_packets_meter_a08ef93ea92fe912df456453b2b6dea57}{Direction\-Changes\-First8\-Packets\-Meter} ()
+\item 
+virtual \hyperlink{class_vsid_1_1_direction_changes_first8_packets_meter_a6b7e6b8d8d04a1bf40bf422f84d1149a}{$\sim$\-Direction\-Changes\-First8\-Packets\-Meter} ()
+\item 
+virtual std\-::string \hyperlink{class_vsid_1_1_direction_changes_first8_packets_meter_a14276ee9ec9c10f80e10ea49e2d8aa27}{name} () const 
+\item 
+virtual void \hyperlink{class_vsid_1_1_direction_changes_first8_packets_meter_ac156207e2c465f3f8b982e07d7ea99a0}{calculate\-Measurement} (\hyperlink{class_vsid_common_1_1_flow}{Vsid\-Common\-::\-Flow} $\ast$flow, \hyperlink{class_vsid_common_1_1_i_pv4_packet}{Vsid\-Common\-::\-I\-Pv4\-Packet} $\ast$current\-Packet)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_vsid_1_1_registrar}{Vsid\-::\-Registrar} \hyperlink{class_vsid_1_1_direction_changes_first8_packets_meter_ada5677211397c9ef8177e2f5d7e8fa26}{registrar}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_vsid_1_1_direction_changes_first8_packets_meter_a80219b863d4ff3456933d16bc5f73f45}{Protocol\-Model}
+\item 
+class \hyperlink{class_vsid_1_1_direction_changes_first8_packets_meter_a3c0d389e7a9476b06313d8fb9ca9fe68}{Protocol\-Model\-Db}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Frequency of direction changes 
+
+Definition at line 24 of file Direction\-Changes\-First8\-Packets\-Meter.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_vsid_1_1_direction_changes_first8_packets_meter_a08ef93ea92fe912df456453b2b6dea57}{\index{Vsid\-::\-Direction\-Changes\-First8\-Packets\-Meter@{Vsid\-::\-Direction\-Changes\-First8\-Packets\-Meter}!Direction\-Changes\-First8\-Packets\-Meter@{Direction\-Changes\-First8\-Packets\-Meter}}
+\index{Direction\-Changes\-First8\-Packets\-Meter@{Direction\-Changes\-First8\-Packets\-Meter}!Vsid::DirectionChangesFirst8PacketsMeter@{Vsid\-::\-Direction\-Changes\-First8\-Packets\-Meter}}
+\subsubsection[{Direction\-Changes\-First8\-Packets\-Meter}]{\setlength{\rightskip}{0pt plus 5cm}Direction\-Changes\-First8\-Packets\-Meter\-::\-Direction\-Changes\-First8\-Packets\-Meter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_1_1_direction_changes_first8_packets_meter_a08ef93ea92fe912df456453b2b6dea57}
+
+
+Definition at line 19 of file Direction\-Changes\-First8\-Packets\-Meter.\-cpp.
+
+
+\begin{DoxyCode}
+19                                                                        :
+20     \hyperlink{class_vsid_1_1_attribute_meter_ae8a9a8b485b2dbf676195bc65bdb746e}{AttributeMeter}(2)
+21 \{
+22 \}
+\end{DoxyCode}
+\hypertarget{class_vsid_1_1_direction_changes_first8_packets_meter_a6b7e6b8d8d04a1bf40bf422f84d1149a}{\index{Vsid\-::\-Direction\-Changes\-First8\-Packets\-Meter@{Vsid\-::\-Direction\-Changes\-First8\-Packets\-Meter}!$\sim$\-Direction\-Changes\-First8\-Packets\-Meter@{$\sim$\-Direction\-Changes\-First8\-Packets\-Meter}}
+\index{$\sim$\-Direction\-Changes\-First8\-Packets\-Meter@{$\sim$\-Direction\-Changes\-First8\-Packets\-Meter}!Vsid::DirectionChangesFirst8PacketsMeter@{Vsid\-::\-Direction\-Changes\-First8\-Packets\-Meter}}
+\subsubsection[{$\sim$\-Direction\-Changes\-First8\-Packets\-Meter}]{\setlength{\rightskip}{0pt plus 5cm}virtual Vsid\-::\-Direction\-Changes\-First8\-Packets\-Meter\-::$\sim$\-Direction\-Changes\-First8\-Packets\-Meter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_vsid_1_1_direction_changes_first8_packets_meter_a6b7e6b8d8d04a1bf40bf422f84d1149a}
+
+
+Definition at line 28 of file Direction\-Changes\-First8\-Packets\-Meter.\-h.
+
+
+\begin{DoxyCode}
+28 \{\}; 
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_vsid_1_1_direction_changes_first8_packets_meter_ac156207e2c465f3f8b982e07d7ea99a0}{\index{Vsid\-::\-Direction\-Changes\-First8\-Packets\-Meter@{Vsid\-::\-Direction\-Changes\-First8\-Packets\-Meter}!calculate\-Measurement@{calculate\-Measurement}}
+\index{calculate\-Measurement@{calculate\-Measurement}!Vsid::DirectionChangesFirst8PacketsMeter@{Vsid\-::\-Direction\-Changes\-First8\-Packets\-Meter}}
+\subsubsection[{calculate\-Measurement}]{\setlength{\rightskip}{0pt plus 5cm}void Direction\-Changes\-First8\-Packets\-Meter\-::calculate\-Measurement (
+\begin{DoxyParamCaption}
+\item[{{\bf Vsid\-Common\-::\-Flow} $\ast$}]{flow, }
+\item[{{\bf Vsid\-Common\-::\-I\-Pv4\-Packet} $\ast$}]{current\-Packet}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_vsid_1_1_direction_changes_first8_packets_meter_ac156207e2c465f3f8b982e07d7ea99a0}
+Update a fingerprint based on the current flow and packet 
+\begin{DoxyParams}{Parameters}
+{\em flow} & \\
+\hline
+{\em current\-Packet} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{class_vsid_1_1_attribute_meter_a5b7adf4a8e493bd24eb027221518e713}{Vsid\-::\-Attribute\-Meter}.
+
+
+
+Definition at line 24 of file Direction\-Changes\-First8\-Packets\-Meter.\-cpp.
+
+
+\begin{DoxyCode}
+26 \{   
+27     \textcolor{keywordflow}{if}(flow->\hyperlink{class_vsid_common_1_1_flow_a41a3ebb168028d3cf0ea96b7e438ca89}{pktCount}() > 8)
+28         \textcolor{keywordflow}{return};
+29     
+30     uint64\_t count = \hyperlink{class_vsid_1_1_attribute_meter_a0386b2fe9c5d6ab6fba16029d8da4efe}{\_fingerprint}[0] * (flow->\hyperlink{class_vsid_common_1_1_flow_a41a3ebb168028d3cf0ea96b7e438ca89}{pktCount}() - 1);
+31 
+32     \textcolor{keywordflow}{if}( flow->\hyperlink{class_vsid_common_1_1_flow_a3a2a19ce10910e74f43a196ab65f6cd9}{lastPacketDirection}() != flow->
+      \hyperlink{class_vsid_common_1_1_flow_a0eb1c59e966ceb9ad6fee05d4c4784ad}{currentPacketDirection}() )
+33     \{
+34         count++;
+35     \}
+36 
+37     \hyperlink{class_vsid_1_1_attribute_meter_a0386b2fe9c5d6ab6fba16029d8da4efe}{\_fingerprint}[0] = (double)count / flow->\hyperlink{class_vsid_common_1_1_flow_a41a3ebb168028d3cf0ea96b7e438ca89}{pktCount}();
+38     \hyperlink{class_vsid_1_1_attribute_meter_a0386b2fe9c5d6ab6fba16029d8da4efe}{\_fingerprint}[1] = 1.0 - \hyperlink{class_vsid_1_1_attribute_meter_a0386b2fe9c5d6ab6fba16029d8da4efe}{\_fingerprint}[0];
+39 \}\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_1_1_direction_changes_first8_packets_meter_ac156207e2c465f3f8b982e07d7ea99a0_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_1_1_direction_changes_first8_packets_meter_a14276ee9ec9c10f80e10ea49e2d8aa27}{\index{Vsid\-::\-Direction\-Changes\-First8\-Packets\-Meter@{Vsid\-::\-Direction\-Changes\-First8\-Packets\-Meter}!name@{name}}
+\index{name@{name}!Vsid::DirectionChangesFirst8PacketsMeter@{Vsid\-::\-Direction\-Changes\-First8\-Packets\-Meter}}
+\subsubsection[{name}]{\setlength{\rightskip}{0pt plus 5cm}virtual std\-::string Vsid\-::\-Direction\-Changes\-First8\-Packets\-Meter\-::name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_vsid_1_1_direction_changes_first8_packets_meter_a14276ee9ec9c10f80e10ea49e2d8aa27}
+Unique name for the \hyperlink{class_vsid_1_1_attribute_meter}{Attribute\-Meter}
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_vsid_1_1_attribute_meter_a24d5a7141e89e948c05edf8f70be8c53}{Vsid\-::\-Attribute\-Meter}.
+
+
+
+Definition at line 35 of file Direction\-Changes\-First8\-Packets\-Meter.\-h.
+
+
+\begin{DoxyCode}
+35 \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"DirectionChangesFirst8PacketsMeter"}; \}
+\end{DoxyCode}
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{class_vsid_1_1_direction_changes_first8_packets_meter_a80219b863d4ff3456933d16bc5f73f45}{\index{Vsid\-::\-Direction\-Changes\-First8\-Packets\-Meter@{Vsid\-::\-Direction\-Changes\-First8\-Packets\-Meter}!Protocol\-Model@{Protocol\-Model}}
+\index{Protocol\-Model@{Protocol\-Model}!Vsid::DirectionChangesFirst8PacketsMeter@{Vsid\-::\-Direction\-Changes\-First8\-Packets\-Meter}}
+\subsubsection[{Protocol\-Model}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf Protocol\-Model}\hspace{0.3cm}{\ttfamily [friend]}}}\label{class_vsid_1_1_direction_changes_first8_packets_meter_a80219b863d4ff3456933d16bc5f73f45}
+
+
+Definition at line 46 of file Direction\-Changes\-First8\-Packets\-Meter.\-h.
+
+\hypertarget{class_vsid_1_1_direction_changes_first8_packets_meter_a3c0d389e7a9476b06313d8fb9ca9fe68}{\index{Vsid\-::\-Direction\-Changes\-First8\-Packets\-Meter@{Vsid\-::\-Direction\-Changes\-First8\-Packets\-Meter}!Protocol\-Model\-Db@{Protocol\-Model\-Db}}
+\index{Protocol\-Model\-Db@{Protocol\-Model\-Db}!Vsid::DirectionChangesFirst8PacketsMeter@{Vsid\-::\-Direction\-Changes\-First8\-Packets\-Meter}}
+\subsubsection[{Protocol\-Model\-Db}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf Protocol\-Model\-Db}\hspace{0.3cm}{\ttfamily [friend]}}}\label{class_vsid_1_1_direction_changes_first8_packets_meter_a3c0d389e7a9476b06313d8fb9ca9fe68}
+
+
+Definition at line 47 of file Direction\-Changes\-First8\-Packets\-Meter.\-h.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_vsid_1_1_direction_changes_first8_packets_meter_ada5677211397c9ef8177e2f5d7e8fa26}{\index{Vsid\-::\-Direction\-Changes\-First8\-Packets\-Meter@{Vsid\-::\-Direction\-Changes\-First8\-Packets\-Meter}!registrar@{registrar}}
+\index{registrar@{registrar}!Vsid::DirectionChangesFirst8PacketsMeter@{Vsid\-::\-Direction\-Changes\-First8\-Packets\-Meter}}
+\subsubsection[{registrar}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Vsid\-::\-Registrar} Direction\-Changes\-First8\-Packets\-Meter\-::registrar\hspace{0.3cm}{\ttfamily [static]}}}\label{class_vsid_1_1_direction_changes_first8_packets_meter_ada5677211397c9ef8177e2f5d7e8fa26}
+
+
+Definition at line 49 of file Direction\-Changes\-First8\-Packets\-Meter.\-h.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/protocol\-\_\-model/inc/\hyperlink{_direction_changes_first8_packets_meter_8h}{Direction\-Changes\-First8\-Packets\-Meter.\-h}\item 
+src/protocol\-\_\-model/src/\hyperlink{_direction_changes_first8_packets_meter_8cpp}{Direction\-Changes\-First8\-Packets\-Meter.\-cpp}\end{DoxyCompactItemize}

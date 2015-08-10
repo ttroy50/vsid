@@ -1,0 +1,153 @@
+\hypertarget{class_vsid_training_1_1_config}{\section{Vsid\-Training\-:\-:Config Class Reference}
+\label{class_vsid_training_1_1_config}\index{Vsid\-Training\-::\-Config@{Vsid\-Training\-::\-Config}}
+}
+
+
+{\ttfamily \#include $<$Config.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_vsid_training_1_1_config_a49572f1ec2b823878a8a1c1632ab451e}{$\sim$\-Config} ()
+\item 
+bool \hyperlink{class_vsid_training_1_1_config_ace4d51e400fb53db0792c2601aca2d74}{init} (const std\-::string \&config\-\_\-file)
+\item 
+void \hyperlink{class_vsid_training_1_1_config_ad86a1890cfdeb5e8c5bd935be953270d}{protocol\-Database} (const std\-::string \&s)
+\item 
+std\-::string \hyperlink{class_vsid_training_1_1_config_a918c871857cc73339ca7d19c5efac3cc}{protocol\-Database} ()
+\item 
+const std\-::string \& \hyperlink{class_vsid_training_1_1_config_af585af38b1835eaaef747879e7d2767f}{protocol\-Database\-Backup} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_vsid_training_1_1_config}{Config} $\ast$ \hyperlink{class_vsid_training_1_1_config_abf1d4539011ef83cac0fef2ac864a3a9}{instance} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_vsid_training_1_1_config}{Config} Singleton 
+
+Definition at line 22 of file Config.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_vsid_training_1_1_config_a49572f1ec2b823878a8a1c1632ab451e}{\index{Vsid\-Training\-::\-Config@{Vsid\-Training\-::\-Config}!$\sim$\-Config@{$\sim$\-Config}}
+\index{$\sim$\-Config@{$\sim$\-Config}!VsidTraining::Config@{Vsid\-Training\-::\-Config}}
+\subsubsection[{$\sim$\-Config}]{\setlength{\rightskip}{0pt plus 5cm}Vsid\-Training\-::\-Config\-::$\sim$\-Config (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_training_1_1_config_a49572f1ec2b823878a8a1c1632ab451e}
+
+
+Definition at line 31 of file Config.\-h.
+
+
+\begin{DoxyCode}
+31 \{\};
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_vsid_training_1_1_config_ace4d51e400fb53db0792c2601aca2d74}{\index{Vsid\-Training\-::\-Config@{Vsid\-Training\-::\-Config}!init@{init}}
+\index{init@{init}!VsidTraining::Config@{Vsid\-Training\-::\-Config}}
+\subsubsection[{init}]{\setlength{\rightskip}{0pt plus 5cm}bool Vsid\-Training\-::\-Config\-::init (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{config\-\_\-file}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_training_1_1_config_ace4d51e400fb53db0792c2601aca2d74}
+Initialise the config 
+\begin{DoxyParams}{Parameters}
+{\em config\-\_\-file} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_vsid_training_1_1_config_abf1d4539011ef83cac0fef2ac864a3a9}{\index{Vsid\-Training\-::\-Config@{Vsid\-Training\-::\-Config}!instance@{instance}}
+\index{instance@{instance}!VsidTraining::Config@{Vsid\-Training\-::\-Config}}
+\subsubsection[{instance}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Config} $\ast$ Config\-::instance (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_vsid_training_1_1_config_abf1d4539011ef83cac0fef2ac864a3a9}
+Get an instance of the singleton. Should be called first from main thread \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 21 of file Config.\-cpp.
+
+
+\begin{DoxyCode}
+22 \{
+23     \textcolor{keywordflow}{try}
+24     \{
+25         std::call\_once(\_onceFlag,
+26             [] \{
+27         \textcolor{keywordflow}{if}(!\_instance) 
+28                 \_instance.reset(\textcolor{keyword}{new} \hyperlink{class_vsid_training_1_1_config}{Config});
+29             \}
+30         );
+31     \}
+32     \textcolor{keywordflow}{catch}(std::runtime\_error& e)
+33     \{
+34         \textcolor{comment}{// not thread safe but this should be initialised alread in main thread}
+35         \textcolor{comment}{// Not sure why I was sometimes seeing exception from call\_once. Need time to investigate}
+36         \textcolor{keywordflow}{if}(!\_instance)
+37             \_instance.reset(\textcolor{keyword}{new} \hyperlink{class_vsid_training_1_1_config}{Config});
+38     \}
+39 
+40     \textcolor{keywordflow}{return} \_instance.get();
+41 \}
+\end{DoxyCode}
+\hypertarget{class_vsid_training_1_1_config_ad86a1890cfdeb5e8c5bd935be953270d}{\index{Vsid\-Training\-::\-Config@{Vsid\-Training\-::\-Config}!protocol\-Database@{protocol\-Database}}
+\index{protocol\-Database@{protocol\-Database}!VsidTraining::Config@{Vsid\-Training\-::\-Config}}
+\subsubsection[{protocol\-Database}]{\setlength{\rightskip}{0pt plus 5cm}void Vsid\-Training\-::\-Config\-::protocol\-Database (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{s}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_training_1_1_config_ad86a1890cfdeb5e8c5bd935be953270d}
+
+
+Definition at line 39 of file Config.\-h.
+
+
+\begin{DoxyCode}
+39 \{ \_protocol\_database = s; \}
+\end{DoxyCode}
+\hypertarget{class_vsid_training_1_1_config_a918c871857cc73339ca7d19c5efac3cc}{\index{Vsid\-Training\-::\-Config@{Vsid\-Training\-::\-Config}!protocol\-Database@{protocol\-Database}}
+\index{protocol\-Database@{protocol\-Database}!VsidTraining::Config@{Vsid\-Training\-::\-Config}}
+\subsubsection[{protocol\-Database}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Vsid\-Training\-::\-Config\-::protocol\-Database (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_training_1_1_config_a918c871857cc73339ca7d19c5efac3cc}
+
+
+Definition at line 40 of file Config.\-h.
+
+
+\begin{DoxyCode}
+40 \{ \textcolor{keywordflow}{return} \_protocol\_database; \}
+\end{DoxyCode}
+\hypertarget{class_vsid_training_1_1_config_af585af38b1835eaaef747879e7d2767f}{\index{Vsid\-Training\-::\-Config@{Vsid\-Training\-::\-Config}!protocol\-Database\-Backup@{protocol\-Database\-Backup}}
+\index{protocol\-Database\-Backup@{protocol\-Database\-Backup}!VsidTraining::Config@{Vsid\-Training\-::\-Config}}
+\subsubsection[{protocol\-Database\-Backup}]{\setlength{\rightskip}{0pt plus 5cm}const std\-::string\& Vsid\-Training\-::\-Config\-::protocol\-Database\-Backup (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_training_1_1_config_af585af38b1835eaaef747879e7d2767f}
+
+
+Definition at line 42 of file Config.\-h.
+
+
+\begin{DoxyCode}
+42 \{ \textcolor{keywordflow}{return} \_protocol\_database\_backup; \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/training/inc/\hyperlink{training_2inc_2_config_8h}{Config.\-h}\item 
+src/training/src/\hyperlink{training_2src_2_config_8cpp}{Config.\-cpp}\end{DoxyCompactItemize}

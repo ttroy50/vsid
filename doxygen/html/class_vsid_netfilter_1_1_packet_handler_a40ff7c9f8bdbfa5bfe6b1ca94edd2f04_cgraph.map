@@ -1,0 +1,4 @@
+<map id="VsidNetfilter::PacketHandler::setAccept" name="VsidNetfilter::PacketHandler::setAccept">
+<area shape="rect" id="node2" href="$class_vsid_netfilter_1_1_config.html#abf1d4539011ef83cac0fef2ac864a3a9" title="VsidNetfilter::Config\l::instance" alt="" coords="267,5,407,46"/>
+<area shape="rect" id="node3" href="$class_vsid_netfilter_1_1_packet_handler.html#abb5ca3f313ceaed495dd06ce56bdf849" title="VsidNetfilter::PacketHandler\l::setVerdict" alt="" coords="243,70,431,111"/>
+</map>

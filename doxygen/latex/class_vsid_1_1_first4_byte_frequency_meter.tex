@@ -1,0 +1,272 @@
+\hypertarget{class_vsid_1_1_first4_byte_frequency_meter}{\section{Vsid\-:\-:First4\-Byte\-Frequency\-Meter Class Reference}
+\label{class_vsid_1_1_first4_byte_frequency_meter}\index{Vsid\-::\-First4\-Byte\-Frequency\-Meter@{Vsid\-::\-First4\-Byte\-Frequency\-Meter}}
+}
+
+
+{\ttfamily \#include $<$First4\-Byte\-Frequency\-Meter.\-h$>$}
+
+
+
+Inheritance diagram for Vsid\-:\-:First4\-Byte\-Frequency\-Meter\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{class_vsid_1_1_first4_byte_frequency_meter__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Vsid\-:\-:First4\-Byte\-Frequency\-Meter\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{class_vsid_1_1_first4_byte_frequency_meter__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_vsid_1_1_first4_byte_frequency_meter_a109d17ab19e7836f135cc6bf09412dc2}{First4\-Byte\-Frequency\-Meter} ()
+\item 
+virtual \hyperlink{class_vsid_1_1_first4_byte_frequency_meter_afb2f30485b84588848ed1eb82b820a0e}{$\sim$\-First4\-Byte\-Frequency\-Meter} ()
+\item 
+virtual std\-::string \hyperlink{class_vsid_1_1_first4_byte_frequency_meter_a7e3eca220933b294beefa431801ffcc8}{name} () const 
+\item 
+virtual double \hyperlink{class_vsid_1_1_first4_byte_frequency_meter_a4ba5a1cd0fc2863a6aec337f980f9b78}{at} (size\-\_\-t pos)
+\item 
+virtual void \hyperlink{class_vsid_1_1_first4_byte_frequency_meter_a2137dd758531a111172c7a9952e18095}{calculate\-Measurement} (\hyperlink{class_vsid_common_1_1_flow}{Vsid\-Common\-::\-Flow} $\ast$flow, \hyperlink{class_vsid_common_1_1_i_pv4_packet}{Vsid\-Common\-::\-I\-Pv4\-Packet} $\ast$current\-Packet)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_vsid_1_1_registrar}{Vsid\-::\-Registrar} \hyperlink{class_vsid_1_1_first4_byte_frequency_meter_a7512bb139e9d0542d3c840a5c4f6052f}{registrar}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_vsid_1_1_first4_byte_frequency_meter_a80219b863d4ff3456933d16bc5f73f45}{Protocol\-Model}
+\item 
+class \hyperlink{class_vsid_1_1_first4_byte_frequency_meter_a3c0d389e7a9476b06313d8fb9ca9fe68}{Protocol\-Model\-Db}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Byte Frequency for first 4 bytes of all packets. 
+
+Definition at line 24 of file First4\-Byte\-Frequency\-Meter.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_vsid_1_1_first4_byte_frequency_meter_a109d17ab19e7836f135cc6bf09412dc2}{\index{Vsid\-::\-First4\-Byte\-Frequency\-Meter@{Vsid\-::\-First4\-Byte\-Frequency\-Meter}!First4\-Byte\-Frequency\-Meter@{First4\-Byte\-Frequency\-Meter}}
+\index{First4\-Byte\-Frequency\-Meter@{First4\-Byte\-Frequency\-Meter}!Vsid::First4ByteFrequencyMeter@{Vsid\-::\-First4\-Byte\-Frequency\-Meter}}
+\subsubsection[{First4\-Byte\-Frequency\-Meter}]{\setlength{\rightskip}{0pt plus 5cm}First4\-Byte\-Frequency\-Meter\-::\-First4\-Byte\-Frequency\-Meter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_1_1_first4_byte_frequency_meter_a109d17ab19e7836f135cc6bf09412dc2}
+
+
+Definition at line 19 of file First4\-Byte\-Frequency\-Meter.\-cpp.
+
+
+\begin{DoxyCode}
+19                                                    :
+20     \hyperlink{class_vsid_1_1_attribute_meter_ae8a9a8b485b2dbf676195bc65bdb746e}{AttributeMeter}(256),
+21     \_overall\_byte\_size(0)
+22 \{
+23 \}
+\end{DoxyCode}
+\hypertarget{class_vsid_1_1_first4_byte_frequency_meter_afb2f30485b84588848ed1eb82b820a0e}{\index{Vsid\-::\-First4\-Byte\-Frequency\-Meter@{Vsid\-::\-First4\-Byte\-Frequency\-Meter}!$\sim$\-First4\-Byte\-Frequency\-Meter@{$\sim$\-First4\-Byte\-Frequency\-Meter}}
+\index{$\sim$\-First4\-Byte\-Frequency\-Meter@{$\sim$\-First4\-Byte\-Frequency\-Meter}!Vsid::First4ByteFrequencyMeter@{Vsid\-::\-First4\-Byte\-Frequency\-Meter}}
+\subsubsection[{$\sim$\-First4\-Byte\-Frequency\-Meter}]{\setlength{\rightskip}{0pt plus 5cm}virtual Vsid\-::\-First4\-Byte\-Frequency\-Meter\-::$\sim$\-First4\-Byte\-Frequency\-Meter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_vsid_1_1_first4_byte_frequency_meter_afb2f30485b84588848ed1eb82b820a0e}
+
+
+Definition at line 28 of file First4\-Byte\-Frequency\-Meter.\-h.
+
+
+\begin{DoxyCode}
+28 \{\}; 
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_vsid_1_1_first4_byte_frequency_meter_a4ba5a1cd0fc2863a6aec337f980f9b78}{\index{Vsid\-::\-First4\-Byte\-Frequency\-Meter@{Vsid\-::\-First4\-Byte\-Frequency\-Meter}!at@{at}}
+\index{at@{at}!Vsid::First4ByteFrequencyMeter@{Vsid\-::\-First4\-Byte\-Frequency\-Meter}}
+\subsubsection[{at}]{\setlength{\rightskip}{0pt plus 5cm}double First4\-Byte\-Frequency\-Meter\-::at (
+\begin{DoxyParamCaption}
+\item[{size\-\_\-t}]{pos}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_vsid_1_1_first4_byte_frequency_meter_a4ba5a1cd0fc2863a6aec337f980f9b78}
+Get the fingerprint at position When looking for the probability you shoudl always access through this. The reason is that in some cases the probability for a position is calculated on the fly instead of for every packet 
+\begin{DoxyParams}{Parameters}
+{\em pos} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_vsid_1_1_attribute_meter_a3b067be638ae613a732fa090c07c5e71}{Vsid\-::\-Attribute\-Meter}.
+
+
+
+Definition at line 25 of file First4\-Byte\-Frequency\-Meter.\-cpp.
+
+
+\begin{DoxyCode}
+26 \{
+27     \textcolor{comment}{// If the neter comes from the DB}
+28     \textcolor{keywordflow}{if} (\hyperlink{class_vsid_1_1_attribute_meter_a2ce3946fc699d3c375ee4019a9e3c022}{\_fromDb})
+29     \{
+30         \textcolor{keywordflow}{return} \hyperlink{class_vsid_1_1_attribute_meter_a3b067be638ae613a732fa090c07c5e71}{AttributeMeter::at}(pos);
+31     \}
+32     \textcolor{keywordflow}{else}
+33     \{
+34         \textcolor{keywordflow}{if}(pos < \hyperlink{class_vsid_1_1_attribute_meter_a0386b2fe9c5d6ab6fba16029d8da4efe}{\_fingerprint}.size())
+35         \{
+36             \textcolor{keywordflow}{if}(\_overall\_byte\_size == 0)
+37                 \textcolor{keywordflow}{return} 0;
+38 
+39             \textcolor{keywordflow}{return} (\textcolor{keywordtype}{double})\hyperlink{class_vsid_1_1_attribute_meter_a0386b2fe9c5d6ab6fba16029d8da4efe}{\_fingerprint}[pos] / \_overall\_byte\_size;
+40         \}
+41         \textcolor{keywordflow}{else}
+42         \{
+43             \textcolor{comment}{//TODO return or throw??}
+44             \textcolor{keywordflow}{return} -1;
+45         \}
+46     \}
+47 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_1_1_first4_byte_frequency_meter_a4ba5a1cd0fc2863a6aec337f980f9b78_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_1_1_first4_byte_frequency_meter_a2137dd758531a111172c7a9952e18095}{\index{Vsid\-::\-First4\-Byte\-Frequency\-Meter@{Vsid\-::\-First4\-Byte\-Frequency\-Meter}!calculate\-Measurement@{calculate\-Measurement}}
+\index{calculate\-Measurement@{calculate\-Measurement}!Vsid::First4ByteFrequencyMeter@{Vsid\-::\-First4\-Byte\-Frequency\-Meter}}
+\subsubsection[{calculate\-Measurement}]{\setlength{\rightskip}{0pt plus 5cm}void First4\-Byte\-Frequency\-Meter\-::calculate\-Measurement (
+\begin{DoxyParamCaption}
+\item[{{\bf Vsid\-Common\-::\-Flow} $\ast$}]{flow, }
+\item[{{\bf Vsid\-Common\-::\-I\-Pv4\-Packet} $\ast$}]{current\-Packet}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_vsid_1_1_first4_byte_frequency_meter_a2137dd758531a111172c7a9952e18095}
+Update a fingerprint based on the current flow and packet 
+\begin{DoxyParams}{Parameters}
+{\em flow} & \\
+\hline
+{\em current\-Packet} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{class_vsid_1_1_attribute_meter_a5b7adf4a8e493bd24eb027221518e713}{Vsid\-::\-Attribute\-Meter}.
+
+
+
+Definition at line 50 of file First4\-Byte\-Frequency\-Meter.\-cpp.
+
+
+\begin{DoxyCode}
+52 \{   
+53     \textcolor{keywordflow}{if}(currentPacket->\hyperlink{class_vsid_common_1_1_i_pv4_packet_a39fe36210895625ee87320f5c0c7f52e}{dataSize}() <= 0)
+54         \textcolor{keywordflow}{return};
+55 
+56     \textcolor{keywordtype}{int} bytesCount = 0;
+57     \textcolor{keyword}{const} u\_char* data = currentPacket->\hyperlink{class_vsid_common_1_1_i_pv4_packet_a9fb8c763d740e193a68c55604a8a7bd6}{data}();
+58     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t} i = 0; i < currentPacket->\hyperlink{class_vsid_common_1_1_i_pv4_packet_a39fe36210895625ee87320f5c0c7f52e}{dataSize}() && i < 4 ; i++ )
+59     \{
+60         \hyperlink{class_vsid_1_1_attribute_meter_a0386b2fe9c5d6ab6fba16029d8da4efe}{\_fingerprint}[*data]++;
+61         data++;
+62         bytesCount++;
+63     \}
+64 
+65     \_overall\_byte\_size += bytesCount;
+66 
+67     \textcolor{keywordflow}{if} ( \_overall\_byte\_size == 0 )
+68         \textcolor{keywordflow}{return}; 
+69 \}\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_1_1_first4_byte_frequency_meter_a2137dd758531a111172c7a9952e18095_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_1_1_first4_byte_frequency_meter_a7e3eca220933b294beefa431801ffcc8}{\index{Vsid\-::\-First4\-Byte\-Frequency\-Meter@{Vsid\-::\-First4\-Byte\-Frequency\-Meter}!name@{name}}
+\index{name@{name}!Vsid::First4ByteFrequencyMeter@{Vsid\-::\-First4\-Byte\-Frequency\-Meter}}
+\subsubsection[{name}]{\setlength{\rightskip}{0pt plus 5cm}virtual std\-::string Vsid\-::\-First4\-Byte\-Frequency\-Meter\-::name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_vsid_1_1_first4_byte_frequency_meter_a7e3eca220933b294beefa431801ffcc8}
+Unique name for the \hyperlink{class_vsid_1_1_attribute_meter}{Attribute\-Meter}
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_vsid_1_1_attribute_meter_a24d5a7141e89e948c05edf8f70be8c53}{Vsid\-::\-Attribute\-Meter}.
+
+
+
+Definition at line 35 of file First4\-Byte\-Frequency\-Meter.\-h.
+
+
+\begin{DoxyCode}
+35 \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"First4ByteFrequencyMeter"}; \}
+\end{DoxyCode}
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{class_vsid_1_1_first4_byte_frequency_meter_a80219b863d4ff3456933d16bc5f73f45}{\index{Vsid\-::\-First4\-Byte\-Frequency\-Meter@{Vsid\-::\-First4\-Byte\-Frequency\-Meter}!Protocol\-Model@{Protocol\-Model}}
+\index{Protocol\-Model@{Protocol\-Model}!Vsid::First4ByteFrequencyMeter@{Vsid\-::\-First4\-Byte\-Frequency\-Meter}}
+\subsubsection[{Protocol\-Model}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf Protocol\-Model}\hspace{0.3cm}{\ttfamily [friend]}}}\label{class_vsid_1_1_first4_byte_frequency_meter_a80219b863d4ff3456933d16bc5f73f45}
+
+
+Definition at line 42 of file First4\-Byte\-Frequency\-Meter.\-h.
+
+\hypertarget{class_vsid_1_1_first4_byte_frequency_meter_a3c0d389e7a9476b06313d8fb9ca9fe68}{\index{Vsid\-::\-First4\-Byte\-Frequency\-Meter@{Vsid\-::\-First4\-Byte\-Frequency\-Meter}!Protocol\-Model\-Db@{Protocol\-Model\-Db}}
+\index{Protocol\-Model\-Db@{Protocol\-Model\-Db}!Vsid::First4ByteFrequencyMeter@{Vsid\-::\-First4\-Byte\-Frequency\-Meter}}
+\subsubsection[{Protocol\-Model\-Db}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf Protocol\-Model\-Db}\hspace{0.3cm}{\ttfamily [friend]}}}\label{class_vsid_1_1_first4_byte_frequency_meter_a3c0d389e7a9476b06313d8fb9ca9fe68}
+
+
+Definition at line 43 of file First4\-Byte\-Frequency\-Meter.\-h.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_vsid_1_1_first4_byte_frequency_meter_a7512bb139e9d0542d3c840a5c4f6052f}{\index{Vsid\-::\-First4\-Byte\-Frequency\-Meter@{Vsid\-::\-First4\-Byte\-Frequency\-Meter}!registrar@{registrar}}
+\index{registrar@{registrar}!Vsid::First4ByteFrequencyMeter@{Vsid\-::\-First4\-Byte\-Frequency\-Meter}}
+\subsubsection[{registrar}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Vsid\-::\-Registrar} First4\-Byte\-Frequency\-Meter\-::registrar\hspace{0.3cm}{\ttfamily [static]}}}\label{class_vsid_1_1_first4_byte_frequency_meter_a7512bb139e9d0542d3c840a5c4f6052f}
+
+
+Definition at line 45 of file First4\-Byte\-Frequency\-Meter.\-h.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/protocol\-\_\-model/inc/\hyperlink{_first4_byte_frequency_meter_8h}{First4\-Byte\-Frequency\-Meter.\-h}\item 
+src/protocol\-\_\-model/src/\hyperlink{_first4_byte_frequency_meter_8cpp}{First4\-Byte\-Frequency\-Meter.\-cpp}\end{DoxyCompactItemize}

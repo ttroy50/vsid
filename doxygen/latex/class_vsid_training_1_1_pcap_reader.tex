@@ -1,0 +1,281 @@
+\hypertarget{class_vsid_training_1_1_pcap_reader}{\section{Vsid\-Training\-:\-:Pcap\-Reader Class Reference}
+\label{class_vsid_training_1_1_pcap_reader}\index{Vsid\-Training\-::\-Pcap\-Reader@{Vsid\-Training\-::\-Pcap\-Reader}}
+}
+
+
+{\ttfamily \#include $<$Pcap\-Reader.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_vsid_training_1_1_pcap_reader_ab223c081ca4cdbb853a4a315b4baa27a}{Pcap\-Reader} (\hyperlink{class_vsid_common_1_1_flow_manager}{Vsid\-Common\-::\-Flow\-Manager} $\ast$flow\-Manager)
+\item 
+\hyperlink{class_vsid_training_1_1_pcap_reader_a276abaec11afbc8fa5f3c587e0f5b2ef}{$\sim$\-Pcap\-Reader} ()
+\item 
+bool \hyperlink{class_vsid_training_1_1_pcap_reader_ae1d647bb7d299a9803389b8bebc529ee}{read} (const std\-::string \&file\-Name)
+\item 
+void \hyperlink{class_vsid_training_1_1_pcap_reader_a1e206d73c80ef174903861f22a2e6336}{handle\-Packet} (pcap\-\_\-t $\ast$pcap, const pcap\-\_\-pkthdr $\ast$header, const u\-\_\-char $\ast$packet)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 21 of file Pcap\-Reader.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_vsid_training_1_1_pcap_reader_ab223c081ca4cdbb853a4a315b4baa27a}{\index{Vsid\-Training\-::\-Pcap\-Reader@{Vsid\-Training\-::\-Pcap\-Reader}!Pcap\-Reader@{Pcap\-Reader}}
+\index{Pcap\-Reader@{Pcap\-Reader}!VsidTraining::PcapReader@{Vsid\-Training\-::\-Pcap\-Reader}}
+\subsubsection[{Pcap\-Reader}]{\setlength{\rightskip}{0pt plus 5cm}Vsid\-Training\-::\-Pcap\-Reader\-::\-Pcap\-Reader (
+\begin{DoxyParamCaption}
+\item[{{\bf Vsid\-Common\-::\-Flow\-Manager} $\ast$}]{flow\-Manager}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_training_1_1_pcap_reader_ab223c081ca4cdbb853a4a315b4baa27a}
+
+
+Definition at line 24 of file Pcap\-Reader.\-h.
+
+
+\begin{DoxyCode}
+24                                                    :
+25         \_flowManager(flowManager),
+26         \_numPackets(0)
+27     \{\};
+\end{DoxyCode}
+\hypertarget{class_vsid_training_1_1_pcap_reader_a276abaec11afbc8fa5f3c587e0f5b2ef}{\index{Vsid\-Training\-::\-Pcap\-Reader@{Vsid\-Training\-::\-Pcap\-Reader}!$\sim$\-Pcap\-Reader@{$\sim$\-Pcap\-Reader}}
+\index{$\sim$\-Pcap\-Reader@{$\sim$\-Pcap\-Reader}!VsidTraining::PcapReader@{Vsid\-Training\-::\-Pcap\-Reader}}
+\subsubsection[{$\sim$\-Pcap\-Reader}]{\setlength{\rightskip}{0pt plus 5cm}Vsid\-Training\-::\-Pcap\-Reader\-::$\sim$\-Pcap\-Reader (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_vsid_training_1_1_pcap_reader_a276abaec11afbc8fa5f3c587e0f5b2ef}
+
+
+Definition at line 28 of file Pcap\-Reader.\-h.
+
+
+\begin{DoxyCode}
+28 \{\};
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_vsid_training_1_1_pcap_reader_a1e206d73c80ef174903861f22a2e6336}{\index{Vsid\-Training\-::\-Pcap\-Reader@{Vsid\-Training\-::\-Pcap\-Reader}!handle\-Packet@{handle\-Packet}}
+\index{handle\-Packet@{handle\-Packet}!VsidTraining::PcapReader@{Vsid\-Training\-::\-Pcap\-Reader}}
+\subsubsection[{handle\-Packet}]{\setlength{\rightskip}{0pt plus 5cm}void Pcap\-Reader\-::handle\-Packet (
+\begin{DoxyParamCaption}
+\item[{pcap\-\_\-t $\ast$}]{pcap, }
+\item[{const pcap\-\_\-pkthdr $\ast$}]{header, }
+\item[{const u\-\_\-char $\ast$}]{packet}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_training_1_1_pcap_reader_a1e206d73c80ef174903861f22a2e6336}
+Handle a packet
+
+
+\begin{DoxyParams}{Parameters}
+{\em pcap} & \\
+\hline
+{\em header} & \\
+\hline
+{\em packet} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 40 of file Pcap\-Reader.\-cpp.
+
+
+\begin{DoxyCode}
+43 \{
+44     \_numPackets++;
+45     \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}( << \textcolor{stringliteral}{"Packet count : "} << \_numPackets);
+46     \hyperlink{_logger_8h_a6d6715d1fe8c64694de5f15913341dfa}{LOG\_HEXDUMP}(\textcolor{stringliteral}{"Packet :"}, packet, pkthdr->len)
+47     \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}( << "ts.sec : " << pkthdr->ts.tv\_sec << " ts.usec : " << pkthdr->ts.tv\_usec);
+48     \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}( << "caplen : " << pkthdr->caplen);
+49     \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}( << "len : " << pkthdr->len);
+50 
+51     \textcolor{keywordtype}{int} linktype;
+52 
+53     uint32\_t linkhdrlen = 14;
+54  
+55     \textcolor{comment}{// Determine the datalink layer type.}
+56     if ((linktype = pcap\_datalink(pcap)) < 0)
+57     \{
+58         \hyperlink{_logger_8h_aa2ffef3c03ca18789b5d04ac9b260128}{LOG\_ERROR}((\textcolor{stringliteral}{"pcap\_datalink(): %v\(\backslash\)n"}, pcap\_geterr(pcap)));
+59         \textcolor{keywordflow}{return};
+60     \}
+61  
+62     \textcolor{comment}{// Set the datalink layer header size.}
+63     \textcolor{keywordflow}{switch} (linktype)
+64     \{
+65     \textcolor{keywordflow}{case} DLT\_NULL:
+66         linkhdrlen = 4;
+67         \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"DLT\_NULL"});
+68         \textcolor{keywordflow}{break};
+69  
+70     \textcolor{keywordflow}{case} DLT\_EN10MB:
+71         linkhdrlen = LL\_ETH\_HDR\_LEN;
+72         \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"DLT\_EN10MB"});
+73         \textcolor{keywordflow}{break};
+74  
+75     \textcolor{keywordflow}{case} DLT\_SLIP:
+76     \textcolor{keywordflow}{case} DLT\_PPP:
+77         linkhdrlen = 24;
+78         \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"DLT\_PPP"});
+79         \textcolor{keywordflow}{break};
+80  
+81     \textcolor{keywordflow}{case} DLT\_LINUX\_SLL:
+82         linkhdrlen = LL\_SLL\_HDR\_LEN;
+83         \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"LL\_SLL\_HDR\_LEN"});
+84         \textcolor{keywordflow}{break};
+85     \textcolor{keywordflow}{default}:
+86         \hyperlink{_logger_8h_aa2ffef3c03ca18789b5d04ac9b260128}{LOG\_ERROR}((\textcolor{stringliteral}{"Unsupported datalink (%v)\(\backslash\)n"}, linktype));
+87         \textcolor{keywordflow}{return};
+88     \}
+89 
+90     \textcolor{keyword}{struct }ip\_vhl \{
+91         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ip\_hl:4; \textcolor{comment}{// only in IPv4}
+92         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ip\_v:4;
+93     \};  
+94 
+95     \textcolor{comment}{// IP Header}
+96     \textcolor{keyword}{const} u\_char* ip\_hdr\_start = packet + linkhdrlen;
+97 
+98     ip\_vhl* vhl = (\textcolor{keyword}{struct }ip\_vhl*)(ip\_hdr\_start);
+99     \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"IP - HLen : "} << vhl->ip\_hl * 4 << \textcolor{stringliteral}{" - Ver : "} << vhl->ip\_v);
+100 
+101     \textcolor{keywordflow}{if}(vhl->ip\_v == IPv4)
+102     \{
+103         \textcolor{keyword}{struct }iphdr* ip\_hdr = (\textcolor{keyword}{struct }iphdr*)(ip\_hdr\_start);
+104         \textcolor{keyword}{const} u\_char* transport\_hdr\_start = ip\_hdr\_start + (vhl->ip\_hl * 4);
+105 
+106         \textcolor{comment}{// extract the source and the destination ip-adrress}
+107         in\_addr* srcIp = (in\_addr*) &ip\_hdr->saddr;
+108         in\_addr* dstIp = (in\_addr*) &ip\_hdr->daddr;
+109 
+110         \textcolor{comment}{// convert datagram network byte order to host byte order and calculate}
+111         \textcolor{comment}{// the header size}
+112         \textcolor{comment}{//uint16\_t ipDatagramSize = ntohs(ip\_hdr->ip\_len);}
+113         \textcolor{comment}{//uint16\_t headerSize     = IP\_HL(ip\_hdr) << 2;}
+114 
+115         \textcolor{keywordtype}{char} src[INET6\_ADDRSTRLEN];
+116         inet\_ntop(AF\_INET, srcIp, src, INET6\_ADDRSTRLEN);
+117 
+118         \textcolor{keywordtype}{char} dst[INET6\_ADDRSTRLEN];
+119         inet\_ntop(AF\_INET, dstIp, dst, INET6\_ADDRSTRLEN);
+120 
+121         \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}( << \textcolor{stringliteral}{"src ip : "} << src );
+122         \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}( << \textcolor{stringliteral}{"dst ip : "} << dst );
+123 
+124         \textcolor{comment}{// Transport Layer Header}
+125         \textcolor{keywordflow}{switch}(ip\_hdr->protocol)
+126         \{
+127             \textcolor{keywordflow}{case} IPPROTO\_ICMP:
+128             \{
+129                 \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}( << \textcolor{stringliteral}{"IPPROTO\_ICMP"});
+130                 \textcolor{keywordflow}{break};
+131             \}
+132             \textcolor{keywordflow}{case} IPPROTO\_TCP:
+133             \{
+134                 \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}( << \textcolor{stringliteral}{"IPPROTO\_TCP"});
+135 
+136                 \textcolor{keyword}{struct }tcphdr* tcph = (\textcolor{keyword}{struct }tcphdr*)(transport\_hdr\_start);
+137 
+138                 \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}(<< \textcolor{stringliteral}{"tcph->doff : "} << tcph->doff);
+139                 \textcolor{keyword}{const} u\_char* data\_start = transport\_hdr\_start  + tcph->doff * 4;
+140 
+141                 \textcolor{comment}{//LOG\_HEXDUMP("Packet :", data\_start, (packet + pkthdr->len - data\_start));}
+142                 
+143                 \hyperlink{class_vsid_common_1_1_tcp_i_pv4}{TcpIPv4}* tcp = \textcolor{keyword}{new} \hyperlink{class_vsid_common_1_1_tcp_i_pv4}{TcpIPv4}(packet, pkthdr->len, ip\_hdr\_start, 
+144                                                 transport\_hdr\_start, data\_start, 
+145                                                 pkthdr->ts);
+146 
+147                 \_flowManager->\hyperlink{class_vsid_common_1_1_flow_manager_a9c840fe2a6650079a3b90ba2d65f1e7e}{addPacket}(tcp);
+148 
+149                 \textcolor{keywordflow}{break};
+150             \}
+151             \textcolor{keywordflow}{case} IPPROTO\_UDP:
+152             \{
+153                 \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}( << \textcolor{stringliteral}{"IPPROTO\_UDP"});
+154 
+155                 \textcolor{keyword}{const} u\_char* data\_start = transport\_hdr\_start + \textcolor{keyword}{sizeof}(udphdr);
+156 
+157                 \hyperlink{class_vsid_common_1_1_udp_i_pv4}{UdpIPv4}* udp = \textcolor{keyword}{new} \hyperlink{class_vsid_common_1_1_udp_i_pv4}{UdpIPv4}(packet, pkthdr->len, ip\_hdr\_start, 
+158                                             transport\_hdr\_start, data\_start, 
+159                                             pkthdr->ts);
+160 
+161                 \_flowManager->\hyperlink{class_vsid_common_1_1_flow_manager_a9c840fe2a6650079a3b90ba2d65f1e7e}{addPacket}(udp);
+162 
+163                 \textcolor{keywordflow}{break};
+164             \}
+165             \textcolor{keywordflow}{case} IPPROTO\_SCTP:
+166             \{
+167                 \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}( << \textcolor{stringliteral}{"IPPROTO\_SCTP"});
+168                 \textcolor{keywordflow}{break};
+169             \}
+170             \textcolor{keywordflow}{default}:
+171             \{
+172                 \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{SLOG\_INFO}( << \textcolor{stringliteral}{"UNKNOWN IPPROTO : "} << ip\_hdr->protocol);
+173             \}
+174 
+175         \}
+176     \}
+177     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(vhl->ip\_v == IPv6)
+178     \{
+179         \hyperlink{_logger_8h_a2a8694cd392d18f4db6b9cc9f15bafe3}{SLOG\_ERROR}(<< \textcolor{stringliteral}{"IP Version 6 not supported yet"})
+180         return;
+181     \}
+182     else
+183     \{
+184         \hyperlink{_logger_8h_a2a8694cd392d18f4db6b9cc9f15bafe3}{SLOG\_ERROR}(<< \textcolor{stringliteral}{"Invalid IP Version : "} << vhl->ip\_v)
+185         return;
+186     \}
+187 \}
+\end{DoxyCode}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{class_vsid_training_1_1_pcap_reader_a1e206d73c80ef174903861f22a2e6336_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_training_1_1_pcap_reader_ae1d647bb7d299a9803389b8bebc529ee}{\index{Vsid\-Training\-::\-Pcap\-Reader@{Vsid\-Training\-::\-Pcap\-Reader}!read@{read}}
+\index{read@{read}!VsidTraining::PcapReader@{Vsid\-Training\-::\-Pcap\-Reader}}
+\subsubsection[{read}]{\setlength{\rightskip}{0pt plus 5cm}bool Vsid\-Training\-::\-Pcap\-Reader\-::read (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{file\-Name}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_training_1_1_pcap_reader_ae1d647bb7d299a9803389b8bebc529ee}
+read a pcap file 
+\begin{DoxyParams}{Parameters}
+{\em file\-Name} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{class_vsid_training_1_1_pcap_reader_ae1d647bb7d299a9803389b8bebc529ee_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/training/inc/\hyperlink{training_2inc_2_pcap_reader_8h}{Pcap\-Reader.\-h}\item 
+src/training/src/\hyperlink{training_2src_2_pcap_reader_8cpp}{Pcap\-Reader.\-cpp}\end{DoxyCompactItemize}

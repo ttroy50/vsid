@@ -1,0 +1,295 @@
+\hypertarget{class_vsid_1_1_first_bit_positions_meter}{\section{Vsid\-:\-:First\-Bit\-Positions\-Meter Class Reference}
+\label{class_vsid_1_1_first_bit_positions_meter}\index{Vsid\-::\-First\-Bit\-Positions\-Meter@{Vsid\-::\-First\-Bit\-Positions\-Meter}}
+}
+
+
+{\ttfamily \#include $<$First\-Bit\-Positions\-Meter.\-h$>$}
+
+
+
+Inheritance diagram for Vsid\-:\-:First\-Bit\-Positions\-Meter\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{class_vsid_1_1_first_bit_positions_meter__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Vsid\-:\-:First\-Bit\-Positions\-Meter\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{class_vsid_1_1_first_bit_positions_meter__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_vsid_1_1_first_bit_positions_meter_affa1d6ec7d06905d67bcd0fc1e0d2ea7}{First\-Bit\-Positions\-Meter} ()
+\item 
+virtual \hyperlink{class_vsid_1_1_first_bit_positions_meter_a9971989d8f4082ee9fb1d67d8d1ba151}{$\sim$\-First\-Bit\-Positions\-Meter} ()
+\item 
+virtual std\-::string \hyperlink{class_vsid_1_1_first_bit_positions_meter_afaca2ad43403ff1bea08d64a8e584197}{name} () const 
+\item 
+virtual double \hyperlink{class_vsid_1_1_first_bit_positions_meter_a4660f82419be36294df0ca50713da70f}{at} (size\-\_\-t pos)
+\item 
+virtual void \hyperlink{class_vsid_1_1_first_bit_positions_meter_a516fe18ee500c57c6c5fa2f51091b88a}{calculate\-Measurement} (\hyperlink{class_vsid_common_1_1_flow}{Vsid\-Common\-::\-Flow} $\ast$flow, \hyperlink{class_vsid_common_1_1_i_pv4_packet}{Vsid\-Common\-::\-I\-Pv4\-Packet} $\ast$current\-Packet)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_vsid_1_1_registrar}{Vsid\-::\-Registrar} \hyperlink{class_vsid_1_1_first_bit_positions_meter_ae142f3b7fd6c6d24baf34114f04520a7}{registrar}
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint64\-\_\-t \hyperlink{class_vsid_1_1_first_bit_positions_meter_a2557a44d6bf953c4f352f1e465fb1f43}{\-\_\-overall\-\_\-bit\-\_\-size}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_vsid_1_1_first_bit_positions_meter_a80219b863d4ff3456933d16bc5f73f45}{Protocol\-Model}
+\item 
+class \hyperlink{class_vsid_1_1_first_bit_positions_meter_a3c0d389e7a9476b06313d8fb9ca9fe68}{Protocol\-Model\-Db}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Byte Frequency for all packets. 
+
+Definition at line 24 of file First\-Bit\-Positions\-Meter.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_vsid_1_1_first_bit_positions_meter_affa1d6ec7d06905d67bcd0fc1e0d2ea7}{\index{Vsid\-::\-First\-Bit\-Positions\-Meter@{Vsid\-::\-First\-Bit\-Positions\-Meter}!First\-Bit\-Positions\-Meter@{First\-Bit\-Positions\-Meter}}
+\index{First\-Bit\-Positions\-Meter@{First\-Bit\-Positions\-Meter}!Vsid::FirstBitPositionsMeter@{Vsid\-::\-First\-Bit\-Positions\-Meter}}
+\subsubsection[{First\-Bit\-Positions\-Meter}]{\setlength{\rightskip}{0pt plus 5cm}First\-Bit\-Positions\-Meter\-::\-First\-Bit\-Positions\-Meter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_1_1_first_bit_positions_meter_affa1d6ec7d06905d67bcd0fc1e0d2ea7}
+
+
+Definition at line 19 of file First\-Bit\-Positions\-Meter.\-cpp.
+
+
+\begin{DoxyCode}
+19                                                :
+20     \hyperlink{class_vsid_1_1_attribute_meter_ae8a9a8b485b2dbf676195bc65bdb746e}{AttributeMeter}(64),
+21     \hyperlink{class_vsid_1_1_first_bit_positions_meter_a2557a44d6bf953c4f352f1e465fb1f43}{\_overall\_bit\_size}(0)
+22 \{
+23 \}
+\end{DoxyCode}
+\hypertarget{class_vsid_1_1_first_bit_positions_meter_a9971989d8f4082ee9fb1d67d8d1ba151}{\index{Vsid\-::\-First\-Bit\-Positions\-Meter@{Vsid\-::\-First\-Bit\-Positions\-Meter}!$\sim$\-First\-Bit\-Positions\-Meter@{$\sim$\-First\-Bit\-Positions\-Meter}}
+\index{$\sim$\-First\-Bit\-Positions\-Meter@{$\sim$\-First\-Bit\-Positions\-Meter}!Vsid::FirstBitPositionsMeter@{Vsid\-::\-First\-Bit\-Positions\-Meter}}
+\subsubsection[{$\sim$\-First\-Bit\-Positions\-Meter}]{\setlength{\rightskip}{0pt plus 5cm}virtual Vsid\-::\-First\-Bit\-Positions\-Meter\-::$\sim$\-First\-Bit\-Positions\-Meter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_vsid_1_1_first_bit_positions_meter_a9971989d8f4082ee9fb1d67d8d1ba151}
+
+
+Definition at line 28 of file First\-Bit\-Positions\-Meter.\-h.
+
+
+\begin{DoxyCode}
+28 \{\}; 
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_vsid_1_1_first_bit_positions_meter_a4660f82419be36294df0ca50713da70f}{\index{Vsid\-::\-First\-Bit\-Positions\-Meter@{Vsid\-::\-First\-Bit\-Positions\-Meter}!at@{at}}
+\index{at@{at}!Vsid::FirstBitPositionsMeter@{Vsid\-::\-First\-Bit\-Positions\-Meter}}
+\subsubsection[{at}]{\setlength{\rightskip}{0pt plus 5cm}double First\-Bit\-Positions\-Meter\-::at (
+\begin{DoxyParamCaption}
+\item[{size\-\_\-t}]{pos}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_vsid_1_1_first_bit_positions_meter_a4660f82419be36294df0ca50713da70f}
+Get the fingerprint at position When looking for the probability you shoudl always access through this. The reason is that in some cases the probability for a position is calculated on the fly instead of for every packet 
+\begin{DoxyParams}{Parameters}
+{\em pos} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_vsid_1_1_attribute_meter_a3b067be638ae613a732fa090c07c5e71}{Vsid\-::\-Attribute\-Meter}.
+
+
+
+Definition at line 25 of file First\-Bit\-Positions\-Meter.\-cpp.
+
+
+\begin{DoxyCode}
+26 \{
+27     \textcolor{comment}{// If the neter comes from the DB}
+28     \textcolor{keywordflow}{if} (\hyperlink{class_vsid_1_1_attribute_meter_a2ce3946fc699d3c375ee4019a9e3c022}{\_fromDb})
+29     \{
+30         \textcolor{keywordflow}{return} \hyperlink{class_vsid_1_1_attribute_meter_a3b067be638ae613a732fa090c07c5e71}{AttributeMeter::at}(pos);
+31     \}
+32     \textcolor{keywordflow}{else}
+33     \{
+34         \textcolor{keywordflow}{if}(pos < \hyperlink{class_vsid_1_1_attribute_meter_a0386b2fe9c5d6ab6fba16029d8da4efe}{\_fingerprint}.size())
+35         \{
+36             \textcolor{keywordflow}{if}(\hyperlink{class_vsid_1_1_first_bit_positions_meter_a2557a44d6bf953c4f352f1e465fb1f43}{\_overall\_bit\_size} == 0)
+37                 \textcolor{keywordflow}{return} 0;
+38 
+39             \textcolor{keywordflow}{return} (\textcolor{keywordtype}{double})\hyperlink{class_vsid_1_1_attribute_meter_a0386b2fe9c5d6ab6fba16029d8da4efe}{\_fingerprint}[pos] / \hyperlink{class_vsid_1_1_first_bit_positions_meter_a2557a44d6bf953c4f352f1e465fb1f43}{\_overall\_bit\_size};
+40         \}
+41         \textcolor{keywordflow}{else}
+42         \{
+43             \textcolor{comment}{//TODO return or throw??}
+44             \textcolor{keywordflow}{return} -1;
+45         \}
+46     \}
+47 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_1_1_first_bit_positions_meter_a4660f82419be36294df0ca50713da70f_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_1_1_first_bit_positions_meter_a516fe18ee500c57c6c5fa2f51091b88a}{\index{Vsid\-::\-First\-Bit\-Positions\-Meter@{Vsid\-::\-First\-Bit\-Positions\-Meter}!calculate\-Measurement@{calculate\-Measurement}}
+\index{calculate\-Measurement@{calculate\-Measurement}!Vsid::FirstBitPositionsMeter@{Vsid\-::\-First\-Bit\-Positions\-Meter}}
+\subsubsection[{calculate\-Measurement}]{\setlength{\rightskip}{0pt plus 5cm}void First\-Bit\-Positions\-Meter\-::calculate\-Measurement (
+\begin{DoxyParamCaption}
+\item[{{\bf Vsid\-Common\-::\-Flow} $\ast$}]{flow, }
+\item[{{\bf Vsid\-Common\-::\-I\-Pv4\-Packet} $\ast$}]{current\-Packet}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_vsid_1_1_first_bit_positions_meter_a516fe18ee500c57c6c5fa2f51091b88a}
+Update a fingerprint based on the current flow and packet 
+\begin{DoxyParams}{Parameters}
+{\em flow} & \\
+\hline
+{\em current\-Packet} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{class_vsid_1_1_attribute_meter_a5b7adf4a8e493bd24eb027221518e713}{Vsid\-::\-Attribute\-Meter}.
+
+
+
+Definition at line 50 of file First\-Bit\-Positions\-Meter.\-cpp.
+
+
+\begin{DoxyCode}
+52 \{   
+53     \textcolor{keywordflow}{if}(currentPacket->\hyperlink{class_vsid_common_1_1_i_pv4_packet_a39fe36210895625ee87320f5c0c7f52e}{dataSize}() <= 0)
+54         \textcolor{keywordflow}{return};
+55 
+56     \textcolor{keywordtype}{int} oneOffset = 0;
+57     \textcolor{keywordtype}{int} zeroOffset = 8;
+58 
+59     \textcolor{keyword}{const} u\_char* payload = currentPacket->\hyperlink{class_vsid_common_1_1_i_pv4_packet_a9fb8c763d740e193a68c55604a8a7bd6}{data}();
+60     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < currentPacket->\hyperlink{class_vsid_common_1_1_i_pv4_packet_a39fe36210895625ee87320f5c0c7f52e}{dataSize}() && i < 4 ; i++)
+61     \{
+62         \textcolor{keywordtype}{int} posOffset = i*16;
+63         oneOffset= 0;
+64         zeroOffset = 8;
+65         \textcolor{keywordflow}{for}( uint32\_t mask = 0x80; mask != 0; mask >>= 1)
+66         \{
+67             \textcolor{keywordflow}{if} (payload[i] & mask)
+68             \{
+69                 \hyperlink{class_vsid_1_1_attribute_meter_a0386b2fe9c5d6ab6fba16029d8da4efe}{\_fingerprint}[posOffset + oneOffset]++;
+70             \}
+71             \textcolor{keywordflow}{else}
+72             \{
+73                 \hyperlink{class_vsid_1_1_attribute_meter_a0386b2fe9c5d6ab6fba16029d8da4efe}{\_fingerprint}[posOffset + zeroOffset]++;
+74             \}
+75             oneOffset++;
+76             zeroOffset++;
+77         \}
+78     \}
+79 
+80     \hyperlink{class_vsid_1_1_first_bit_positions_meter_a2557a44d6bf953c4f352f1e465fb1f43}{\_overall\_bit\_size} += 32;
+81 \}\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_1_1_first_bit_positions_meter_a516fe18ee500c57c6c5fa2f51091b88a_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_1_1_first_bit_positions_meter_afaca2ad43403ff1bea08d64a8e584197}{\index{Vsid\-::\-First\-Bit\-Positions\-Meter@{Vsid\-::\-First\-Bit\-Positions\-Meter}!name@{name}}
+\index{name@{name}!Vsid::FirstBitPositionsMeter@{Vsid\-::\-First\-Bit\-Positions\-Meter}}
+\subsubsection[{name}]{\setlength{\rightskip}{0pt plus 5cm}virtual std\-::string Vsid\-::\-First\-Bit\-Positions\-Meter\-::name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_vsid_1_1_first_bit_positions_meter_afaca2ad43403ff1bea08d64a8e584197}
+Unique name for the \hyperlink{class_vsid_1_1_attribute_meter}{Attribute\-Meter}
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_vsid_1_1_attribute_meter_a24d5a7141e89e948c05edf8f70be8c53}{Vsid\-::\-Attribute\-Meter}.
+
+
+
+Definition at line 35 of file First\-Bit\-Positions\-Meter.\-h.
+
+
+\begin{DoxyCode}
+35 \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"FirstBitPositionsMeter"}; \}
+\end{DoxyCode}
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{class_vsid_1_1_first_bit_positions_meter_a80219b863d4ff3456933d16bc5f73f45}{\index{Vsid\-::\-First\-Bit\-Positions\-Meter@{Vsid\-::\-First\-Bit\-Positions\-Meter}!Protocol\-Model@{Protocol\-Model}}
+\index{Protocol\-Model@{Protocol\-Model}!Vsid::FirstBitPositionsMeter@{Vsid\-::\-First\-Bit\-Positions\-Meter}}
+\subsubsection[{Protocol\-Model}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf Protocol\-Model}\hspace{0.3cm}{\ttfamily [friend]}}}\label{class_vsid_1_1_first_bit_positions_meter_a80219b863d4ff3456933d16bc5f73f45}
+
+
+Definition at line 42 of file First\-Bit\-Positions\-Meter.\-h.
+
+\hypertarget{class_vsid_1_1_first_bit_positions_meter_a3c0d389e7a9476b06313d8fb9ca9fe68}{\index{Vsid\-::\-First\-Bit\-Positions\-Meter@{Vsid\-::\-First\-Bit\-Positions\-Meter}!Protocol\-Model\-Db@{Protocol\-Model\-Db}}
+\index{Protocol\-Model\-Db@{Protocol\-Model\-Db}!Vsid::FirstBitPositionsMeter@{Vsid\-::\-First\-Bit\-Positions\-Meter}}
+\subsubsection[{Protocol\-Model\-Db}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf Protocol\-Model\-Db}\hspace{0.3cm}{\ttfamily [friend]}}}\label{class_vsid_1_1_first_bit_positions_meter_a3c0d389e7a9476b06313d8fb9ca9fe68}
+
+
+Definition at line 43 of file First\-Bit\-Positions\-Meter.\-h.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_vsid_1_1_first_bit_positions_meter_a2557a44d6bf953c4f352f1e465fb1f43}{\index{Vsid\-::\-First\-Bit\-Positions\-Meter@{Vsid\-::\-First\-Bit\-Positions\-Meter}!\-\_\-overall\-\_\-bit\-\_\-size@{\-\_\-overall\-\_\-bit\-\_\-size}}
+\index{\-\_\-overall\-\_\-bit\-\_\-size@{\-\_\-overall\-\_\-bit\-\_\-size}!Vsid::FirstBitPositionsMeter@{Vsid\-::\-First\-Bit\-Positions\-Meter}}
+\subsubsection[{\-\_\-overall\-\_\-bit\-\_\-size}]{\setlength{\rightskip}{0pt plus 5cm}uint64\-\_\-t Vsid\-::\-First\-Bit\-Positions\-Meter\-::\-\_\-overall\-\_\-bit\-\_\-size\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_vsid_1_1_first_bit_positions_meter_a2557a44d6bf953c4f352f1e465fb1f43}
+
+
+Definition at line 48 of file First\-Bit\-Positions\-Meter.\-h.
+
+\hypertarget{class_vsid_1_1_first_bit_positions_meter_ae142f3b7fd6c6d24baf34114f04520a7}{\index{Vsid\-::\-First\-Bit\-Positions\-Meter@{Vsid\-::\-First\-Bit\-Positions\-Meter}!registrar@{registrar}}
+\index{registrar@{registrar}!Vsid::FirstBitPositionsMeter@{Vsid\-::\-First\-Bit\-Positions\-Meter}}
+\subsubsection[{registrar}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Vsid\-::\-Registrar} First\-Bit\-Positions\-Meter\-::registrar\hspace{0.3cm}{\ttfamily [static]}}}\label{class_vsid_1_1_first_bit_positions_meter_ae142f3b7fd6c6d24baf34114f04520a7}
+
+
+Definition at line 45 of file First\-Bit\-Positions\-Meter.\-h.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/protocol\-\_\-model/inc/\hyperlink{_first_bit_positions_meter_8h}{First\-Bit\-Positions\-Meter.\-h}\item 
+src/protocol\-\_\-model/src/\hyperlink{_first_bit_positions_meter_8cpp}{First\-Bit\-Positions\-Meter.\-cpp}\end{DoxyCompactItemize}

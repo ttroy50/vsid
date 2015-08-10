@@ -1,0 +1,5 @@
+<map id="init_attribute_meters" name="init_attribute_meters">
+<area shape="rect" id="node2" href="$class_vsid_1_1_registrar.html#a9523b77ed7f5c546b18b06dfcb1af813" title="Vsid::Registrar::doRegistration" alt="" coords="195,45,397,72"/>
+<area shape="rect" id="node3" href="$class_vsid_1_1_attribute_meter_factory.html#a6cdacc430c359906c85ef36a7c6842fc" title="Vsid::AttributeMeterFactory\l::instance" alt="" coords="446,5,629,46"/>
+<area shape="rect" id="node4" href="$class_vsid_1_1_attribute_meter_factory.html#af6f53e148905ddbc86b73b4050f4df2e" title="Vsid::AttributeMeterFactory\l::registerFactory" alt="" coords="446,70,629,111"/>
+</map>

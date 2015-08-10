@@ -1,0 +1,273 @@
+\hypertarget{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet}{\section{Vsid\-:\-:Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet Class Reference}
+\label{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet}\index{Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet@{Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet}}
+}
+
+
+{\ttfamily \#include $<$Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet.\-h$>$}
+
+
+
+Inheritance diagram for Vsid\-:\-:Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=208pt]{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Vsid\-:\-:Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet_a5e39abc55ff11705b30279a2ebfcf255}{Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet} ()
+\item 
+virtual \hyperlink{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet_ab52d66613bb6ff5c45b3a49931e6ed45}{$\sim$\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet} ()
+\item 
+virtual std\-::string \hyperlink{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet_ae284d11d94bbc50a8d573fbdc4e4f1a5}{name} () const 
+\item 
+virtual double \hyperlink{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet_abf57aa7255bb08e2cc2920154b872232}{at} (size\-\_\-t pos)
+\item 
+virtual void \hyperlink{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet_a2976d7759672e626bb5d7a971898eec9}{calculate\-Measurement} (\hyperlink{class_vsid_common_1_1_flow}{Vsid\-Common\-::\-Flow} $\ast$flow, \hyperlink{class_vsid_common_1_1_i_pv4_packet}{Vsid\-Common\-::\-I\-Pv4\-Packet} $\ast$current\-Packet)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_vsid_1_1_registrar}{Vsid\-::\-Registrar} \hyperlink{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet_a17fd026aa31ac03feecdd33ea37e9a21}{registrar}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet_a80219b863d4ff3456933d16bc5f73f45}{Protocol\-Model}
+\item 
+class \hyperlink{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet_a3c0d389e7a9476b06313d8fb9ca9fe68}{Protocol\-Model\-Db}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Byte Frequency for first non empty D\-E\-S\-T to O\-R\-I\-G packet 
+
+Definition at line 24 of file Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet_a5e39abc55ff11705b30279a2ebfcf255}{\index{Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet@{Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet}!Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet@{Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet}}
+\index{Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet@{Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet}!Vsid::ByteFrequencyFirstDestToOrigPacket@{Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet}}
+\subsubsection[{Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet}]{\setlength{\rightskip}{0pt plus 5cm}Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet_a5e39abc55ff11705b30279a2ebfcf255}
+
+
+Definition at line 19 of file Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet.\-cpp.
+
+
+\begin{DoxyCode}
+19                                                                        :
+20     \hyperlink{class_vsid_1_1_attribute_meter_ae8a9a8b485b2dbf676195bc65bdb746e}{AttributeMeter}(256),
+21     \_done(\textcolor{keyword}{false}),
+22     \_overall\_byte\_size(0)
+23 \{
+24 
+25 \}
+\end{DoxyCode}
+\hypertarget{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet_ab52d66613bb6ff5c45b3a49931e6ed45}{\index{Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet@{Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet}!$\sim$\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet@{$\sim$\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet}}
+\index{$\sim$\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet@{$\sim$\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet}!Vsid::ByteFrequencyFirstDestToOrigPacket@{Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet}}
+\subsubsection[{$\sim$\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet}]{\setlength{\rightskip}{0pt plus 5cm}virtual Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet\-::$\sim$\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet_ab52d66613bb6ff5c45b3a49931e6ed45}
+
+
+Definition at line 28 of file Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet.\-h.
+
+
+\begin{DoxyCode}
+28 \{\}; 
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet_abf57aa7255bb08e2cc2920154b872232}{\index{Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet@{Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet}!at@{at}}
+\index{at@{at}!Vsid::ByteFrequencyFirstDestToOrigPacket@{Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet}}
+\subsubsection[{at}]{\setlength{\rightskip}{0pt plus 5cm}double Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet\-::at (
+\begin{DoxyParamCaption}
+\item[{size\-\_\-t}]{pos}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet_abf57aa7255bb08e2cc2920154b872232}
+Get the fingerprint at position When looking for the probability you shoudl always access through this. The reason is that in some cases the probability for a position is calculated on the fly instead of for every packet 
+\begin{DoxyParams}{Parameters}
+{\em pos} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_vsid_1_1_attribute_meter_a3b067be638ae613a732fa090c07c5e71}{Vsid\-::\-Attribute\-Meter}.
+
+
+
+Definition at line 27 of file Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet.\-cpp.
+
+
+\begin{DoxyCode}
+28 \{
+29     \textcolor{comment}{// If the neter comes from the DB}
+30     \textcolor{keywordflow}{if} (\hyperlink{class_vsid_1_1_attribute_meter_a2ce3946fc699d3c375ee4019a9e3c022}{\_fromDb})
+31     \{
+32         \textcolor{keywordflow}{return} \hyperlink{class_vsid_1_1_attribute_meter_a3b067be638ae613a732fa090c07c5e71}{AttributeMeter::at}(pos);
+33     \}
+34     \textcolor{keywordflow}{else}
+35     \{
+36         \textcolor{keywordflow}{if}(pos < \hyperlink{class_vsid_1_1_attribute_meter_a0386b2fe9c5d6ab6fba16029d8da4efe}{\_fingerprint}.size())
+37         \{
+38             \textcolor{keywordflow}{if}(\_overall\_byte\_size == 0)
+39                 \textcolor{keywordflow}{return} 0;
+40             
+41             \textcolor{keywordflow}{return} (\textcolor{keywordtype}{double})\hyperlink{class_vsid_1_1_attribute_meter_a0386b2fe9c5d6ab6fba16029d8da4efe}{\_fingerprint}[pos] / \_overall\_byte\_size;
+42         \}
+43         \textcolor{keywordflow}{else}
+44         \{
+45             \textcolor{comment}{//TODO return or throw??}
+46             \textcolor{keywordflow}{return} -1;
+47         \}
+48     \}
+49 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet_abf57aa7255bb08e2cc2920154b872232_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet_a2976d7759672e626bb5d7a971898eec9}{\index{Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet@{Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet}!calculate\-Measurement@{calculate\-Measurement}}
+\index{calculate\-Measurement@{calculate\-Measurement}!Vsid::ByteFrequencyFirstDestToOrigPacket@{Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet}}
+\subsubsection[{calculate\-Measurement}]{\setlength{\rightskip}{0pt plus 5cm}void Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet\-::calculate\-Measurement (
+\begin{DoxyParamCaption}
+\item[{{\bf Vsid\-Common\-::\-Flow} $\ast$}]{flow, }
+\item[{{\bf Vsid\-Common\-::\-I\-Pv4\-Packet} $\ast$}]{current\-Packet}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet_a2976d7759672e626bb5d7a971898eec9}
+Update a fingerprint based on the current flow and packet 
+\begin{DoxyParams}{Parameters}
+{\em flow} & \\
+\hline
+{\em current\-Packet} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{class_vsid_1_1_attribute_meter_a5b7adf4a8e493bd24eb027221518e713}{Vsid\-::\-Attribute\-Meter}.
+
+
+
+Definition at line 52 of file Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet.\-cpp.
+
+
+\begin{DoxyCode}
+54 \{
+55     \textcolor{keywordflow}{if}( \_done || currentPacket->\hyperlink{class_vsid_common_1_1_i_pv4_packet_a39fe36210895625ee87320f5c0c7f52e}{dataSize}() <= 0 )
+56     \textcolor{keywordflow}{return};
+57 
+58     std::vector<int> count(\hyperlink{class_vsid_1_1_attribute_meter_a95396692ad5dd58a6e7460d8eaa9a9ec}{\_fingerprint\_size}, 0);
+59 
+60     \textcolor{keyword}{const} u\_char* data = currentPacket->\hyperlink{class_vsid_common_1_1_i_pv4_packet_a9fb8c763d740e193a68c55604a8a7bd6}{data}();
+61     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t} i = 0; i < currentPacket->\hyperlink{class_vsid_common_1_1_i_pv4_packet_a39fe36210895625ee87320f5c0c7f52e}{dataSize}(); i++ )
+62     \{
+63         \hyperlink{class_vsid_1_1_attribute_meter_a0386b2fe9c5d6ab6fba16029d8da4efe}{\_fingerprint}[*data]++;
+64         data++;
+65     \}
+66 
+67     \_overall\_byte\_size += currentPacket->\hyperlink{class_vsid_common_1_1_i_pv4_packet_a39fe36210895625ee87320f5c0c7f52e}{dataSize}();
+68 
+69     \_done = \textcolor{keyword}{true};
+70 \}\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet_a2976d7759672e626bb5d7a971898eec9_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet_ae284d11d94bbc50a8d573fbdc4e4f1a5}{\index{Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet@{Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet}!name@{name}}
+\index{name@{name}!Vsid::ByteFrequencyFirstDestToOrigPacket@{Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet}}
+\subsubsection[{name}]{\setlength{\rightskip}{0pt plus 5cm}virtual std\-::string Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet\-::name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet_ae284d11d94bbc50a8d573fbdc4e4f1a5}
+Unique name for the \hyperlink{class_vsid_1_1_attribute_meter}{Attribute\-Meter}
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_vsid_1_1_attribute_meter_a24d5a7141e89e948c05edf8f70be8c53}{Vsid\-::\-Attribute\-Meter}.
+
+
+
+Definition at line 35 of file Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet.\-h.
+
+
+\begin{DoxyCode}
+35 \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"ByteFrequencyFirstDestToOrigPacket"}; \}
+\end{DoxyCode}
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet_a80219b863d4ff3456933d16bc5f73f45}{\index{Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet@{Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet}!Protocol\-Model@{Protocol\-Model}}
+\index{Protocol\-Model@{Protocol\-Model}!Vsid::ByteFrequencyFirstDestToOrigPacket@{Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet}}
+\subsubsection[{Protocol\-Model}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf Protocol\-Model}\hspace{0.3cm}{\ttfamily [friend]}}}\label{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet_a80219b863d4ff3456933d16bc5f73f45}
+
+
+Definition at line 47 of file Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet.\-h.
+
+\hypertarget{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet_a3c0d389e7a9476b06313d8fb9ca9fe68}{\index{Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet@{Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet}!Protocol\-Model\-Db@{Protocol\-Model\-Db}}
+\index{Protocol\-Model\-Db@{Protocol\-Model\-Db}!Vsid::ByteFrequencyFirstDestToOrigPacket@{Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet}}
+\subsubsection[{Protocol\-Model\-Db}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf Protocol\-Model\-Db}\hspace{0.3cm}{\ttfamily [friend]}}}\label{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet_a3c0d389e7a9476b06313d8fb9ca9fe68}
+
+
+Definition at line 48 of file Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet.\-h.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet_a17fd026aa31ac03feecdd33ea37e9a21}{\index{Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet@{Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet}!registrar@{registrar}}
+\index{registrar@{registrar}!Vsid::ByteFrequencyFirstDestToOrigPacket@{Vsid\-::\-Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet}}
+\subsubsection[{registrar}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Vsid\-::\-Registrar} Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet\-::registrar\hspace{0.3cm}{\ttfamily [static]}}}\label{class_vsid_1_1_byte_frequency_first_dest_to_orig_packet_a17fd026aa31ac03feecdd33ea37e9a21}
+
+
+Definition at line 50 of file Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet.\-h.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/protocol\-\_\-model/inc/\hyperlink{_byte_frequency_first_dest_to_orig_packet_8h}{Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet.\-h}\item 
+src/protocol\-\_\-model/src/\hyperlink{_byte_frequency_first_dest_to_orig_packet_8cpp}{Byte\-Frequency\-First\-Dest\-To\-Orig\-Packet.\-cpp}\end{DoxyCompactItemize}

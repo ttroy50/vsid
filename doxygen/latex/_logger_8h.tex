@@ -1,0 +1,376 @@
+\hypertarget{_logger_8h}{\section{src/common/inc/\-Logger.h File Reference}
+\label{_logger_8h}\index{src/common/inc/\-Logger.\-h@{src/common/inc/\-Logger.\-h}}
+}
+{\ttfamily \#include \char`\"{}easylogging++.\-h\char`\"{}}\\*
+Include dependency graph for Logger.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=206pt]{_logger_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_logger_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_logger_8h_a5dca5cbbbd18c88445f7c80133daa9f1}{E\-L\-P\-P\-\_\-\-N\-O\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-L\-O\-G\-\_\-\-F\-I\-L\-E}
+\item 
+\#define \hyperlink{_logger_8h_abb52531de0e96213782908cfd2dbd677}{I\-N\-I\-T\-\_\-\-L\-O\-G\-G\-I\-N\-G}~I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-\_\-\-E\-A\-S\-Y\-L\-O\-G\-G\-I\-N\-G\-P\-P
+\item 
+\#define \hyperlink{_logger_8h_afa94127e7b238437414aded1d422547a}{E\-L\-P\-P\-\_\-\-D\-I\-S\-A\-B\-L\-E\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-R\-A\-S\-H\-\_\-\-H\-A\-N\-D\-L\-I\-N\-G}
+\item 
+\#define \hyperlink{_logger_8h_a81125cfd7753025dc4ac27c6fa9d1180}{L\-O\-G\-\_\-\-I\-N\-F\-O}(X)~el\-::\-Loggers\-::get\-Logger(\char`\"{}default\char`\"{})-\/$>$info X;
+\item 
+\#define \hyperlink{_logger_8h_aeff5b3ac3d7e22272df68059ed892cae}{L\-O\-G\-\_\-\-W\-A\-R\-N}(X)~el\-::\-Loggers\-::get\-Logger(\char`\"{}default\char`\"{})-\/$>$warn X;
+\item 
+\#define \hyperlink{_logger_8h_aa2ffef3c03ca18789b5d04ac9b260128}{L\-O\-G\-\_\-\-E\-R\-R\-O\-R}(X)~el\-::\-Loggers\-::get\-Logger(\char`\"{}default\char`\"{})-\/$>$error X;
+\item 
+\#define \hyperlink{_logger_8h_af6bb7855204d7bf7bb5596999c4af416}{L\-O\-G\-\_\-\-D\-E\-B\-U\-G}(X)~el\-::\-Loggers\-::get\-Logger(\char`\"{}default\char`\"{})-\/$>$debug X;
+\item 
+\#define \hyperlink{_logger_8h_a9866cf551d942ff93886cd615060b351}{L\-O\-G\-\_\-\-F\-A\-T\-A\-L}(X)~el\-::\-Loggers\-::get\-Logger(\char`\"{}default\char`\"{})-\/$>$fatal X;
+\item 
+\#define \hyperlink{_logger_8h_ae0af3e7fba16b5bf7ceb2e5572c5c3c1}{L\-O\-G\-\_\-\-T\-R\-A\-C\-E}(X)~el\-::\-Loggers\-::get\-Logger(\char`\"{}default\char`\"{})-\/$>$trace X;
+\item 
+\#define \hyperlink{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{S\-L\-O\-G\-\_\-\-I\-N\-F\-O}(X)~L\-O\-G(I\-N\-F\-O) X;
+\item 
+\#define \hyperlink{_logger_8h_a1c6efad29ceef2a86c277eb2fbb67c85}{S\-L\-O\-G\-\_\-\-W\-A\-R\-N}(X)~L\-O\-G(W\-A\-R\-N\-I\-N\-G) X;
+\item 
+\#define \hyperlink{_logger_8h_a2a8694cd392d18f4db6b9cc9f15bafe3}{S\-L\-O\-G\-\_\-\-E\-R\-R\-O\-R}(X)~L\-O\-G(E\-R\-R\-O\-R) X;
+\item 
+\#define \hyperlink{_logger_8h_a1eb7292acb79b8ddab9851b3a9f7a4da}{S\-L\-O\-G\-\_\-\-D\-E\-B\-U\-G}(X)~L\-O\-G(D\-E\-B\-U\-G) X;
+\item 
+\#define \hyperlink{_logger_8h_a5925d6d587868d8ba5ce1a0bfade4f4c}{S\-L\-O\-G\-\_\-\-F\-A\-T\-A\-L}(X)~L\-O\-G(F\-A\-T\-A\-L) X;
+\item 
+\#define \hyperlink{_logger_8h_a92056d6f812b14acf33d9e27b9b1f157}{S\-L\-O\-G\-\_\-\-T\-R\-A\-C\-E}(X)~L\-O\-G(T\-R\-A\-C\-E) X;
+\item 
+\#define \hyperlink{_logger_8h_a6d6715d1fe8c64694de5f15913341dfa}{L\-O\-G\-\_\-\-H\-E\-X\-D\-U\-M\-P}(M\-S\-G, H\-E\-X, S\-Z\-E)
+\item 
+\#define \hyperlink{_logger_8h_a0743c1b314a309e8a2c819c56d028641}{C\-L\-A\-S\-S\-\_\-\-L\-O\-G}(Output\-Stream\-Instance)~virtual void log(el\-::base\-::type\-::ostream\-\_\-t\& Output\-Stream\-Instance) const
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{_logger_8h_adcd6bdcba107b79f5e6790d4dfc7d8f9}{format\-\_\-hexdump} (const u\-\_\-char $\ast$buffer, int size, char $\ast$obuf, int obuf\-\_\-sz)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{_logger_8h_a0743c1b314a309e8a2c819c56d028641}{\index{Logger.\-h@{Logger.\-h}!C\-L\-A\-S\-S\-\_\-\-L\-O\-G@{C\-L\-A\-S\-S\-\_\-\-L\-O\-G}}
+\index{C\-L\-A\-S\-S\-\_\-\-L\-O\-G@{C\-L\-A\-S\-S\-\_\-\-L\-O\-G}!Logger.h@{Logger.\-h}}
+\subsubsection[{C\-L\-A\-S\-S\-\_\-\-L\-O\-G}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-L\-A\-S\-S\-\_\-\-L\-O\-G(
+\begin{DoxyParamCaption}
+\item[{}]{Output\-Stream\-Instance}
+\end{DoxyParamCaption}
+)~virtual void log(el\-::base\-::type\-::ostream\-\_\-t\& Output\-Stream\-Instance) const}}\label{_logger_8h_a0743c1b314a309e8a2c819c56d028641}
+
+
+Definition at line 143 of file Logger.\-h.
+
+\hypertarget{_logger_8h_afa94127e7b238437414aded1d422547a}{\index{Logger.\-h@{Logger.\-h}!E\-L\-P\-P\-\_\-\-D\-I\-S\-A\-B\-L\-E\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-R\-A\-S\-H\-\_\-\-H\-A\-N\-D\-L\-I\-N\-G@{E\-L\-P\-P\-\_\-\-D\-I\-S\-A\-B\-L\-E\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-R\-A\-S\-H\-\_\-\-H\-A\-N\-D\-L\-I\-N\-G}}
+\index{E\-L\-P\-P\-\_\-\-D\-I\-S\-A\-B\-L\-E\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-R\-A\-S\-H\-\_\-\-H\-A\-N\-D\-L\-I\-N\-G@{E\-L\-P\-P\-\_\-\-D\-I\-S\-A\-B\-L\-E\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-R\-A\-S\-H\-\_\-\-H\-A\-N\-D\-L\-I\-N\-G}!Logger.h@{Logger.\-h}}
+\subsubsection[{E\-L\-P\-P\-\_\-\-D\-I\-S\-A\-B\-L\-E\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-R\-A\-S\-H\-\_\-\-H\-A\-N\-D\-L\-I\-N\-G}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\-L\-P\-P\-\_\-\-D\-I\-S\-A\-B\-L\-E\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-R\-A\-S\-H\-\_\-\-H\-A\-N\-D\-L\-I\-N\-G}}\label{_logger_8h_afa94127e7b238437414aded1d422547a}
+
+
+Definition at line 19 of file Logger.\-h.
+
+\hypertarget{_logger_8h_a5dca5cbbbd18c88445f7c80133daa9f1}{\index{Logger.\-h@{Logger.\-h}!E\-L\-P\-P\-\_\-\-N\-O\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-L\-O\-G\-\_\-\-F\-I\-L\-E@{E\-L\-P\-P\-\_\-\-N\-O\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-L\-O\-G\-\_\-\-F\-I\-L\-E}}
+\index{E\-L\-P\-P\-\_\-\-N\-O\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-L\-O\-G\-\_\-\-F\-I\-L\-E@{E\-L\-P\-P\-\_\-\-N\-O\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-L\-O\-G\-\_\-\-F\-I\-L\-E}!Logger.h@{Logger.\-h}}
+\subsubsection[{E\-L\-P\-P\-\_\-\-N\-O\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-L\-O\-G\-\_\-\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\-L\-P\-P\-\_\-\-N\-O\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-L\-O\-G\-\_\-\-F\-I\-L\-E}}\label{_logger_8h_a5dca5cbbbd18c88445f7c80133daa9f1}
+Logging. Just wrappers around easylogging++ in case I decide to change later
+
+\begin{DoxyAuthor}{Author}
+Thom Troy
+\end{DoxyAuthor}
+Copyright (C) 2015 Thom Troy 
+
+Definition at line 13 of file Logger.\-h.
+
+\hypertarget{_logger_8h_abb52531de0e96213782908cfd2dbd677}{\index{Logger.\-h@{Logger.\-h}!I\-N\-I\-T\-\_\-\-L\-O\-G\-G\-I\-N\-G@{I\-N\-I\-T\-\_\-\-L\-O\-G\-G\-I\-N\-G}}
+\index{I\-N\-I\-T\-\_\-\-L\-O\-G\-G\-I\-N\-G@{I\-N\-I\-T\-\_\-\-L\-O\-G\-G\-I\-N\-G}!Logger.h@{Logger.\-h}}
+\subsubsection[{I\-N\-I\-T\-\_\-\-L\-O\-G\-G\-I\-N\-G}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\-N\-I\-T\-\_\-\-L\-O\-G\-G\-I\-N\-G~I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-\_\-\-E\-A\-S\-Y\-L\-O\-G\-G\-I\-N\-G\-P\-P}}\label{_logger_8h_abb52531de0e96213782908cfd2dbd677}
+
+
+Definition at line 17 of file Logger.\-h.
+
+\hypertarget{_logger_8h_af6bb7855204d7bf7bb5596999c4af416}{\index{Logger.\-h@{Logger.\-h}!L\-O\-G\-\_\-\-D\-E\-B\-U\-G@{L\-O\-G\-\_\-\-D\-E\-B\-U\-G}}
+\index{L\-O\-G\-\_\-\-D\-E\-B\-U\-G@{L\-O\-G\-\_\-\-D\-E\-B\-U\-G}!Logger.h@{Logger.\-h}}
+\subsubsection[{L\-O\-G\-\_\-\-D\-E\-B\-U\-G}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\-O\-G\-\_\-\-D\-E\-B\-U\-G(
+\begin{DoxyParamCaption}
+\item[{}]{X}
+\end{DoxyParamCaption}
+)~el\-::\-Loggers\-::get\-Logger(\char`\"{}default\char`\"{})-\/$>$debug X;}}\label{_logger_8h_af6bb7855204d7bf7bb5596999c4af416}
+
+
+Definition at line 29 of file Logger.\-h.
+
+\hypertarget{_logger_8h_aa2ffef3c03ca18789b5d04ac9b260128}{\index{Logger.\-h@{Logger.\-h}!L\-O\-G\-\_\-\-E\-R\-R\-O\-R@{L\-O\-G\-\_\-\-E\-R\-R\-O\-R}}
+\index{L\-O\-G\-\_\-\-E\-R\-R\-O\-R@{L\-O\-G\-\_\-\-E\-R\-R\-O\-R}!Logger.h@{Logger.\-h}}
+\subsubsection[{L\-O\-G\-\_\-\-E\-R\-R\-O\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\-O\-G\-\_\-\-E\-R\-R\-O\-R(
+\begin{DoxyParamCaption}
+\item[{}]{X}
+\end{DoxyParamCaption}
+)~el\-::\-Loggers\-::get\-Logger(\char`\"{}default\char`\"{})-\/$>$error X;}}\label{_logger_8h_aa2ffef3c03ca18789b5d04ac9b260128}
+
+
+Definition at line 28 of file Logger.\-h.
+
+\hypertarget{_logger_8h_a9866cf551d942ff93886cd615060b351}{\index{Logger.\-h@{Logger.\-h}!L\-O\-G\-\_\-\-F\-A\-T\-A\-L@{L\-O\-G\-\_\-\-F\-A\-T\-A\-L}}
+\index{L\-O\-G\-\_\-\-F\-A\-T\-A\-L@{L\-O\-G\-\_\-\-F\-A\-T\-A\-L}!Logger.h@{Logger.\-h}}
+\subsubsection[{L\-O\-G\-\_\-\-F\-A\-T\-A\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\-O\-G\-\_\-\-F\-A\-T\-A\-L(
+\begin{DoxyParamCaption}
+\item[{}]{X}
+\end{DoxyParamCaption}
+)~el\-::\-Loggers\-::get\-Logger(\char`\"{}default\char`\"{})-\/$>$fatal X;}}\label{_logger_8h_a9866cf551d942ff93886cd615060b351}
+
+
+Definition at line 30 of file Logger.\-h.
+
+\hypertarget{_logger_8h_a6d6715d1fe8c64694de5f15913341dfa}{\index{Logger.\-h@{Logger.\-h}!L\-O\-G\-\_\-\-H\-E\-X\-D\-U\-M\-P@{L\-O\-G\-\_\-\-H\-E\-X\-D\-U\-M\-P}}
+\index{L\-O\-G\-\_\-\-H\-E\-X\-D\-U\-M\-P@{L\-O\-G\-\_\-\-H\-E\-X\-D\-U\-M\-P}!Logger.h@{Logger.\-h}}
+\subsubsection[{L\-O\-G\-\_\-\-H\-E\-X\-D\-U\-M\-P}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\-O\-G\-\_\-\-H\-E\-X\-D\-U\-M\-P(
+\begin{DoxyParamCaption}
+\item[{}]{M\-S\-G, }
+\item[{}]{H\-E\-X, }
+\item[{}]{S\-Z\-E}
+\end{DoxyParamCaption}
+)}}\label{_logger_8h_a6d6715d1fe8c64694de5f15913341dfa}
+{\bfseries Value\-:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{if}( SZE < 2048) \{ \(\backslash\)
+        char LHD\_buf[4097];     \(\backslash\)
+        LHD\_buf[0] = \textcolor{charliteral}{'\(\backslash\)0'};      \(\backslash\)
+        int len = \hyperlink{_logger_8h_adcd6bdcba107b79f5e6790d4dfc7d8f9}{format\_hexdump} (HEX, SZE, LHD\_buf, \textcolor{keyword}{sizeof} LHD\_buf); \(\backslash\)
+        LOG(INFO) << MSG << endl << LHD\_buf << endl; \(\backslash\)
+    \}
+\end{DoxyCode}
+Log a buffer as H\-E\-X.
+
+Mainly for logging a packet
+
+Use sparingly 
+\begin{DoxyParams}{Parameters}
+{\em M\-S\-G} & A msg to print in the first line \\
+\hline
+{\em H\-E\-X} & The hex buffer \\
+\hline
+{\em S\-Z\-E} & Size of the hex buffer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 134 of file Logger.\-h.
+
+\hypertarget{_logger_8h_a81125cfd7753025dc4ac27c6fa9d1180}{\index{Logger.\-h@{Logger.\-h}!L\-O\-G\-\_\-\-I\-N\-F\-O@{L\-O\-G\-\_\-\-I\-N\-F\-O}}
+\index{L\-O\-G\-\_\-\-I\-N\-F\-O@{L\-O\-G\-\_\-\-I\-N\-F\-O}!Logger.h@{Logger.\-h}}
+\subsubsection[{L\-O\-G\-\_\-\-I\-N\-F\-O}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\-O\-G\-\_\-\-I\-N\-F\-O(
+\begin{DoxyParamCaption}
+\item[{}]{X}
+\end{DoxyParamCaption}
+)~el\-::\-Loggers\-::get\-Logger(\char`\"{}default\char`\"{})-\/$>$info X;}}\label{_logger_8h_a81125cfd7753025dc4ac27c6fa9d1180}
+
+
+Definition at line 26 of file Logger.\-h.
+
+\hypertarget{_logger_8h_ae0af3e7fba16b5bf7ceb2e5572c5c3c1}{\index{Logger.\-h@{Logger.\-h}!L\-O\-G\-\_\-\-T\-R\-A\-C\-E@{L\-O\-G\-\_\-\-T\-R\-A\-C\-E}}
+\index{L\-O\-G\-\_\-\-T\-R\-A\-C\-E@{L\-O\-G\-\_\-\-T\-R\-A\-C\-E}!Logger.h@{Logger.\-h}}
+\subsubsection[{L\-O\-G\-\_\-\-T\-R\-A\-C\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\-O\-G\-\_\-\-T\-R\-A\-C\-E(
+\begin{DoxyParamCaption}
+\item[{}]{X}
+\end{DoxyParamCaption}
+)~el\-::\-Loggers\-::get\-Logger(\char`\"{}default\char`\"{})-\/$>$trace X;}}\label{_logger_8h_ae0af3e7fba16b5bf7ceb2e5572c5c3c1}
+
+
+Definition at line 31 of file Logger.\-h.
+
+\hypertarget{_logger_8h_aeff5b3ac3d7e22272df68059ed892cae}{\index{Logger.\-h@{Logger.\-h}!L\-O\-G\-\_\-\-W\-A\-R\-N@{L\-O\-G\-\_\-\-W\-A\-R\-N}}
+\index{L\-O\-G\-\_\-\-W\-A\-R\-N@{L\-O\-G\-\_\-\-W\-A\-R\-N}!Logger.h@{Logger.\-h}}
+\subsubsection[{L\-O\-G\-\_\-\-W\-A\-R\-N}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\-O\-G\-\_\-\-W\-A\-R\-N(
+\begin{DoxyParamCaption}
+\item[{}]{X}
+\end{DoxyParamCaption}
+)~el\-::\-Loggers\-::get\-Logger(\char`\"{}default\char`\"{})-\/$>$warn X;}}\label{_logger_8h_aeff5b3ac3d7e22272df68059ed892cae}
+
+
+Definition at line 27 of file Logger.\-h.
+
+\hypertarget{_logger_8h_a1eb7292acb79b8ddab9851b3a9f7a4da}{\index{Logger.\-h@{Logger.\-h}!S\-L\-O\-G\-\_\-\-D\-E\-B\-U\-G@{S\-L\-O\-G\-\_\-\-D\-E\-B\-U\-G}}
+\index{S\-L\-O\-G\-\_\-\-D\-E\-B\-U\-G@{S\-L\-O\-G\-\_\-\-D\-E\-B\-U\-G}!Logger.h@{Logger.\-h}}
+\subsubsection[{S\-L\-O\-G\-\_\-\-D\-E\-B\-U\-G}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\-L\-O\-G\-\_\-\-D\-E\-B\-U\-G(
+\begin{DoxyParamCaption}
+\item[{}]{X}
+\end{DoxyParamCaption}
+)~L\-O\-G(D\-E\-B\-U\-G) X;}}\label{_logger_8h_a1eb7292acb79b8ddab9851b3a9f7a4da}
+
+
+Definition at line 38 of file Logger.\-h.
+
+\hypertarget{_logger_8h_a2a8694cd392d18f4db6b9cc9f15bafe3}{\index{Logger.\-h@{Logger.\-h}!S\-L\-O\-G\-\_\-\-E\-R\-R\-O\-R@{S\-L\-O\-G\-\_\-\-E\-R\-R\-O\-R}}
+\index{S\-L\-O\-G\-\_\-\-E\-R\-R\-O\-R@{S\-L\-O\-G\-\_\-\-E\-R\-R\-O\-R}!Logger.h@{Logger.\-h}}
+\subsubsection[{S\-L\-O\-G\-\_\-\-E\-R\-R\-O\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\-L\-O\-G\-\_\-\-E\-R\-R\-O\-R(
+\begin{DoxyParamCaption}
+\item[{}]{X}
+\end{DoxyParamCaption}
+)~L\-O\-G(E\-R\-R\-O\-R) X;}}\label{_logger_8h_a2a8694cd392d18f4db6b9cc9f15bafe3}
+
+
+Definition at line 37 of file Logger.\-h.
+
+\hypertarget{_logger_8h_a5925d6d587868d8ba5ce1a0bfade4f4c}{\index{Logger.\-h@{Logger.\-h}!S\-L\-O\-G\-\_\-\-F\-A\-T\-A\-L@{S\-L\-O\-G\-\_\-\-F\-A\-T\-A\-L}}
+\index{S\-L\-O\-G\-\_\-\-F\-A\-T\-A\-L@{S\-L\-O\-G\-\_\-\-F\-A\-T\-A\-L}!Logger.h@{Logger.\-h}}
+\subsubsection[{S\-L\-O\-G\-\_\-\-F\-A\-T\-A\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\-L\-O\-G\-\_\-\-F\-A\-T\-A\-L(
+\begin{DoxyParamCaption}
+\item[{}]{X}
+\end{DoxyParamCaption}
+)~L\-O\-G(F\-A\-T\-A\-L) X;}}\label{_logger_8h_a5925d6d587868d8ba5ce1a0bfade4f4c}
+
+
+Definition at line 39 of file Logger.\-h.
+
+\hypertarget{_logger_8h_a119c1c29ba35a8db38e2358e41167282}{\index{Logger.\-h@{Logger.\-h}!S\-L\-O\-G\-\_\-\-I\-N\-F\-O@{S\-L\-O\-G\-\_\-\-I\-N\-F\-O}}
+\index{S\-L\-O\-G\-\_\-\-I\-N\-F\-O@{S\-L\-O\-G\-\_\-\-I\-N\-F\-O}!Logger.h@{Logger.\-h}}
+\subsubsection[{S\-L\-O\-G\-\_\-\-I\-N\-F\-O}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\-L\-O\-G\-\_\-\-I\-N\-F\-O(
+\begin{DoxyParamCaption}
+\item[{}]{X}
+\end{DoxyParamCaption}
+)~L\-O\-G(I\-N\-F\-O) X;}}\label{_logger_8h_a119c1c29ba35a8db38e2358e41167282}
+
+
+Definition at line 35 of file Logger.\-h.
+
+\hypertarget{_logger_8h_a92056d6f812b14acf33d9e27b9b1f157}{\index{Logger.\-h@{Logger.\-h}!S\-L\-O\-G\-\_\-\-T\-R\-A\-C\-E@{S\-L\-O\-G\-\_\-\-T\-R\-A\-C\-E}}
+\index{S\-L\-O\-G\-\_\-\-T\-R\-A\-C\-E@{S\-L\-O\-G\-\_\-\-T\-R\-A\-C\-E}!Logger.h@{Logger.\-h}}
+\subsubsection[{S\-L\-O\-G\-\_\-\-T\-R\-A\-C\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\-L\-O\-G\-\_\-\-T\-R\-A\-C\-E(
+\begin{DoxyParamCaption}
+\item[{}]{X}
+\end{DoxyParamCaption}
+)~L\-O\-G(T\-R\-A\-C\-E) X;}}\label{_logger_8h_a92056d6f812b14acf33d9e27b9b1f157}
+
+
+Definition at line 40 of file Logger.\-h.
+
+\hypertarget{_logger_8h_a1c6efad29ceef2a86c277eb2fbb67c85}{\index{Logger.\-h@{Logger.\-h}!S\-L\-O\-G\-\_\-\-W\-A\-R\-N@{S\-L\-O\-G\-\_\-\-W\-A\-R\-N}}
+\index{S\-L\-O\-G\-\_\-\-W\-A\-R\-N@{S\-L\-O\-G\-\_\-\-W\-A\-R\-N}!Logger.h@{Logger.\-h}}
+\subsubsection[{S\-L\-O\-G\-\_\-\-W\-A\-R\-N}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\-L\-O\-G\-\_\-\-W\-A\-R\-N(
+\begin{DoxyParamCaption}
+\item[{}]{X}
+\end{DoxyParamCaption}
+)~L\-O\-G(W\-A\-R\-N\-I\-N\-G) X;}}\label{_logger_8h_a1c6efad29ceef2a86c277eb2fbb67c85}
+
+
+Definition at line 36 of file Logger.\-h.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{_logger_8h_adcd6bdcba107b79f5e6790d4dfc7d8f9}{\index{Logger.\-h@{Logger.\-h}!format\-\_\-hexdump@{format\-\_\-hexdump}}
+\index{format\-\_\-hexdump@{format\-\_\-hexdump}!Logger.h@{Logger.\-h}}
+\subsubsection[{format\-\_\-hexdump}]{\setlength{\rightskip}{0pt plus 5cm}int format\-\_\-hexdump (
+\begin{DoxyParamCaption}
+\item[{const u\-\_\-char $\ast$}]{buffer, }
+\item[{int}]{size, }
+\item[{char $\ast$}]{obuf, }
+\item[{int}]{obuf\-\_\-sz}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{_logger_8h_adcd6bdcba107b79f5e6790d4dfc7d8f9}
+Format a buffer to print it as hex. The resulting outbuf looks like
+
+4\-C 60 D\-E D8 D8 F\-A 08 3\-E 8\-E 64 A\-E E0 08 00 45 00 L`.....$>$.d....E.
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & Max buffer size is 1000 \\
+\hline
+{\em size} & size of buffer \\
+\hline
+{\em obuf} & \\
+\hline
+{\em obuf\-\_\-sz} & returned size of output buffer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 54 of file Logger.\-h.
+
+
+\begin{DoxyCode}
+56 \{
+57     u\_char c;
+58     \textcolor{keywordtype}{char} textver[16 + 1];
+59 
+60     \textcolor{comment}{//int maxlen = (obuf\_sz / 68) * 16;}
+61     \textcolor{keywordtype}{int} maxlen = (obuf\_sz / 69) * 16; \textcolor{comment}{// +1 for \(\backslash\)t}
+62 
+63     \textcolor{keywordflow}{if} (size > maxlen)
+64         size = maxlen;
+65 
+66     \textcolor{keywordtype}{int} i;
+67 
+68     \textcolor{keywordflow}{for} (i = 0; i < (size >> 4); i++)
+69     \{
+70         \textcolor{keywordtype}{int} j;
+71 
+72         *obuf++ = \textcolor{charliteral}{'\(\backslash\)t'};
+73         \textcolor{keywordflow}{for} (j = 0 ; j < 16; j++)
+74         \{
+75             c = (u\_char) buffer[(i << 4) + j];
+76             ::sprintf (obuf, \textcolor{stringliteral}{"%02X "}, c);
+77             obuf += 3;
+78             \textcolor{keywordflow}{if} (j == 7)
+79             \{
+80                 ::sprintf (obuf, \textcolor{stringliteral}{" "});
+81                 obuf++;
+82             \}
+83             textver[j] = (c < 0x20 || c > 0x7e) ? \textcolor{charliteral}{'.'} : c;
+84         \}
+85 
+86         textver[j] = 0;
+87 
+88         ::sprintf (obuf, \textcolor{stringliteral}{"  %s\(\backslash\)n"}, textver);
+89 
+90         \textcolor{keywordflow}{while} (*obuf != \textcolor{charliteral}{'\(\backslash\)0'})
+91             obuf++;
+92     \}
+93 
+94     \textcolor{keywordflow}{if} (size % 16)
+95     \{
+96         *obuf++ = \textcolor{charliteral}{'\(\backslash\)t'};
+97         \textcolor{keywordflow}{for} (i = 0 ; i < size % 16; i++)
+98         \{
+99             c = (u\_char) buffer[size - size % 16 + i];
+100             ::sprintf (obuf, \textcolor{stringliteral}{"%02X "},c);
+101             obuf += 3;
+102             \textcolor{keywordflow}{if} (i == 7)
+103             \{
+104                 ::sprintf (obuf, \textcolor{stringliteral}{" "});
+105                 obuf++;
+106             \}
+107             textver[i] = (c < 0x20 || c > 0x7e) ? \textcolor{charliteral}{'.'} : c;
+108         \}
+109 
+110         \textcolor{keywordflow}{for} (i = size % 16; i < 16; i++)
+111         \{
+112             ::sprintf (obuf, \textcolor{stringliteral}{"   "});
+113             obuf += 3;
+114             textver[i] = \textcolor{charliteral}{' '};
+115         \}
+116 
+117         textver[i] = 0;
+118         ::sprintf (obuf, \textcolor{stringliteral}{"  %s\(\backslash\)n"}, textver);
+119     \}
+120     \textcolor{keywordflow}{return} size;
+121 \}
+\end{DoxyCode}

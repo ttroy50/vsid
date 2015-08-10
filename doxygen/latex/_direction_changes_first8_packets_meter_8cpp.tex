@@ -1,0 +1,42 @@
+\hypertarget{_direction_changes_first8_packets_meter_8cpp}{\section{src/protocol\-\_\-model/src/\-Direction\-Changes\-First8\-Packets\-Meter.cpp File Reference}
+\label{_direction_changes_first8_packets_meter_8cpp}\index{src/protocol\-\_\-model/src/\-Direction\-Changes\-First8\-Packets\-Meter.\-cpp@{src/protocol\-\_\-model/src/\-Direction\-Changes\-First8\-Packets\-Meter.\-cpp}}
+}
+{\ttfamily \#include \char`\"{}Direction\-Changes\-First8\-Packets\-Meter.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Attribute\-Meter.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Logger.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Attribute\-Meter\-Factory.\-h\char`\"{}}\\*
+Include dependency graph for Direction\-Changes\-First8\-Packets\-Meter.\-cpp\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_direction_changes_first8_packets_meter_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\-::unique\-\_\-ptr$<$ \hyperlink{class_vsid_1_1_attribute_meter}{Attribute\-Meter} $>$ \hyperlink{_direction_changes_first8_packets_meter_8cpp_ab4442b01979b0c1de151476e77fdb3fa}{create\-\_\-direction\-\_\-changes\-\_\-first\-\_\-8\-\_\-meter} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{_direction_changes_first8_packets_meter_8cpp_ab4442b01979b0c1de151476e77fdb3fa}{\index{Direction\-Changes\-First8\-Packets\-Meter.\-cpp@{Direction\-Changes\-First8\-Packets\-Meter.\-cpp}!create\-\_\-direction\-\_\-changes\-\_\-first\-\_\-8\-\_\-meter@{create\-\_\-direction\-\_\-changes\-\_\-first\-\_\-8\-\_\-meter}}
+\index{create\-\_\-direction\-\_\-changes\-\_\-first\-\_\-8\-\_\-meter@{create\-\_\-direction\-\_\-changes\-\_\-first\-\_\-8\-\_\-meter}!DirectionChangesFirst8PacketsMeter.cpp@{Direction\-Changes\-First8\-Packets\-Meter.\-cpp}}
+\subsubsection[{create\-\_\-direction\-\_\-changes\-\_\-first\-\_\-8\-\_\-meter}]{\setlength{\rightskip}{0pt plus 5cm}std\-::unique\-\_\-ptr$<${\bf Attribute\-Meter}$>$ create\-\_\-direction\-\_\-changes\-\_\-first\-\_\-8\-\_\-meter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{_direction_changes_first8_packets_meter_8cpp_ab4442b01979b0c1de151476e77fdb3fa}
+
+
+Definition at line 11 of file Direction\-Changes\-First8\-Packets\-Meter.\-cpp.
+
+
+\begin{DoxyCode}
+12 \{
+13     std::unique\_ptr<AttributeMeter> tmp(\textcolor{keyword}{new} \hyperlink{class_vsid_1_1_direction_changes_first8_packets_meter}{DirectionChangesFirst8PacketsMeter}
+      ());
+14     \textcolor{keywordflow}{return} tmp;
+15 \}
+\end{DoxyCode}

@@ -1,0 +1,187 @@
+\hypertarget{namespace_vsid_common}{\section{Vsid\-Common Namespace Reference}
+\label{namespace_vsid_common}\index{Vsid\-Common@{Vsid\-Common}}
+}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_vsid_common_1_1_common_config}{Common\-Config}
+\item 
+class \hyperlink{class_vsid_common_1_1_flow}{Flow}
+\item 
+class \hyperlink{class_vsid_common_1_1_flow_classification_logger}{Flow\-Classification\-Logger}
+\item 
+class \hyperlink{class_vsid_common_1_1_flow_ptr_equal_fn}{Flow\-Ptr\-Equal\-Fn}
+\item 
+class \hyperlink{class_vsid_common_1_1_flow_manager}{Flow\-Manager}
+\item 
+class \hyperlink{class_vsid_common_1_1_flow_finished_observer}{Flow\-Finished\-Observer}
+\item 
+class \hyperlink{class_vsid_common_1_1_flow_classified_observer}{Flow\-Classified\-Observer}
+\item 
+class \hyperlink{class_vsid_common_1_1_ipv4_flow_hasher}{Ipv4\-Flow\-Hasher}
+\item 
+class \hyperlink{class_vsid_common_1_1_i_pv4_packet}{I\-Pv4\-Packet}
+\item 
+class \hyperlink{class_vsid_common_1_1_i_pv4_tuple}{I\-Pv4\-Tuple}
+\item 
+class \hyperlink{class_vsid_common_1_1_packet_verdict}{Packet\-Verdict}
+\item 
+class \hyperlink{class_vsid_common_1_1_string_exception}{String\-Exception}
+\item 
+class \hyperlink{class_vsid_common_1_1_tcp_i_pv4}{Tcp\-I\-Pv4}
+\item 
+class \hyperlink{class_vsid_common_1_1_udp_i_pv4}{Udp\-I\-Pv4}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{namespace_vsid_common_a96f8765b6113d5628331fd3f6c1ead2d}{operator==} (const \hyperlink{class_vsid_common_1_1_flow}{Flow} \&lhs, const \hyperlink{class_vsid_common_1_1_flow}{Flow} \&rhs)
+\item 
+bool \hyperlink{namespace_vsid_common_ab26dd6287c1246530fee0857f724f081}{operator!=} (const \hyperlink{class_vsid_common_1_1_flow}{Flow} \&lhs, const \hyperlink{class_vsid_common_1_1_flow}{Flow} \&rhs)
+\item 
+\hyperlink{namespace_vsid_common_a83fc47c790d5ec8e57c0c8dc4499d166}{M\-A\-K\-E\-\_\-\-L\-O\-G\-G\-A\-B\-L\-E} (\hyperlink{class_vsid_common_1_1_flow}{Flow}, flow, os)
+\item 
+\hyperlink{namespace_vsid_common_acf7e5686da4da777600212ca4250235c}{M\-A\-K\-E\-\_\-\-L\-O\-G\-G\-A\-B\-L\-E} (\hyperlink{class_vsid_common_1_1_i_pv4_tuple}{I\-Pv4\-Tuple}, tuple, os)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Configuration for the V\-S\-I\-D program
+
+\begin{DoxyAuthor}{Author}
+Thom Troy
+\end{DoxyAuthor}
+Copyright (C) 2015 Thom Troy
+
+\begin{DoxyAuthor}{Author}
+Thom Troy
+\end{DoxyAuthor}
+Copyright (C) 2015 Thom Troy
+
+\begin{DoxyAuthor}{Author}
+Thom Troy
+\end{DoxyAuthor}
+Copyright (C) 2015 Thom Troy \href{http://stackoverflow.com/questions/3215232/hash-function-for-src-dest-ip-port}{\tt http\-://stackoverflow.\-com/questions/3215232/hash-\/function-\/for-\/src-\/dest-\/ip-\/port} Potential hash functtion ((size\-\_\-t)(key.\-src.\-s\-\_\-addr) $\ast$ 59) $^\wedge$ ((size\-\_\-t)(key.\-dst.\-s\-\_\-addr)) $^\wedge$ ((size\-\_\-t)(key.\-sport) $<$$<$ 16) $^\wedge$ ((size\-\_\-t)(key.\-dport)) $^\wedge$ ((size\-\_\-t)(key.\-proto));
+
+\href{https://www.cs.auckland.ac.nz/~brian/flowhashRep.pdf}{\tt https\-://www.\-cs.\-auckland.\-ac.\-nz/$\sim$brian/flowhash\-Rep.\-pdf} \href{http://stackoverflow.com/questions/29258860/hash-function-for-5-tuple-ipv4-6?lq=1}{\tt http\-://stackoverflow.\-com/questions/29258860/hash-\/function-\/for-\/5-\/tuple-\/ipv4-\/6?lq=1}
+
+32 16 32 16 8 srcip srcport dstip dstport protocol 1499754874 5060 1499754764 8888 12
+
+1499754764 8888 1499754874 5060 12
+
+String value 89.\-100.\-113.\-122 Binary 01011001 . 01100100 . 01110001 . 01111010 Integer 1499754874
+
+String value 89.\-100.\-113.\-12 Binary 01011001 . 01100100 . 01110001 . 00001100 Integer 1499754764
+
+\href{https://searchcode.com/codesearch/view/9626801/}{\tt https\-://searchcode.\-com/codesearch/view/9626801/} void \-\_\-\-\_\-skb\-\_\-get\-\_\-rxhash(struct sk\-\_\-buff $\ast$skb) 
+
+\subsection{Function Documentation}
+\hypertarget{namespace_vsid_common_acf7e5686da4da777600212ca4250235c}{\index{Vsid\-Common@{Vsid\-Common}!M\-A\-K\-E\-\_\-\-L\-O\-G\-G\-A\-B\-L\-E@{M\-A\-K\-E\-\_\-\-L\-O\-G\-G\-A\-B\-L\-E}}
+\index{M\-A\-K\-E\-\_\-\-L\-O\-G\-G\-A\-B\-L\-E@{M\-A\-K\-E\-\_\-\-L\-O\-G\-G\-A\-B\-L\-E}!VsidCommon@{Vsid\-Common}}
+\subsubsection[{M\-A\-K\-E\-\_\-\-L\-O\-G\-G\-A\-B\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}Vsid\-Common\-::\-M\-A\-K\-E\-\_\-\-L\-O\-G\-G\-A\-B\-L\-E (
+\begin{DoxyParamCaption}
+\item[{I\-Pv4\-Tuple}]{, }
+\item[{tuple}]{, }
+\item[{os}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{namespace_vsid_common_acf7e5686da4da777600212ca4250235c}
+
+
+Definition at line 61 of file I\-Pv4\-Tuple.\-h.
+
+
+\begin{DoxyCode}
+62     \{
+63         \textcolor{keywordtype}{char} src[INET6\_ADDRSTRLEN];
+64         inet\_ntop(AF\_INET, &tuple.src\_ip, src, INET6\_ADDRSTRLEN);
+65 
+66         \textcolor{keywordtype}{char} dst[INET6\_ADDRSTRLEN];
+67         inet\_ntop(AF\_INET, &tuple.dst\_ip , dst, INET6\_ADDRSTRLEN);
+68 
+69         os << \textcolor{stringliteral}{"transport : "} << (uint32\_t)tuple.transport 
+70             << \textcolor{stringliteral}{" | src : "} << src << \textcolor{stringliteral}{":"} << tuple.src\_port 
+71             << \textcolor{stringliteral}{" | dst : "} << dst << \textcolor{stringliteral}{":"} << tuple.dst\_port;
+72     \}
+\end{DoxyCode}
+\hypertarget{namespace_vsid_common_a83fc47c790d5ec8e57c0c8dc4499d166}{\index{Vsid\-Common@{Vsid\-Common}!M\-A\-K\-E\-\_\-\-L\-O\-G\-G\-A\-B\-L\-E@{M\-A\-K\-E\-\_\-\-L\-O\-G\-G\-A\-B\-L\-E}}
+\index{M\-A\-K\-E\-\_\-\-L\-O\-G\-G\-A\-B\-L\-E@{M\-A\-K\-E\-\_\-\-L\-O\-G\-G\-A\-B\-L\-E}!VsidCommon@{Vsid\-Common}}
+\subsubsection[{M\-A\-K\-E\-\_\-\-L\-O\-G\-G\-A\-B\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}Vsid\-Common\-::\-M\-A\-K\-E\-\_\-\-L\-O\-G\-G\-A\-B\-L\-E (
+\begin{DoxyParamCaption}
+\item[{Flow}]{, }
+\item[{flow}]{, }
+\item[{os}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{namespace_vsid_common_a83fc47c790d5ec8e57c0c8dc4499d166}
+
+
+Definition at line 267 of file Flow.\-h.
+
+
+\begin{DoxyCode}
+268     \{
+269         \textcolor{keywordtype}{char} src[INET6\_ADDRSTRLEN];
+270         inet\_ntop(AF\_INET, &flow.fiveTuple().src\_ip, src, INET6\_ADDRSTRLEN);
+271 
+272         \textcolor{keywordtype}{char} dst[INET6\_ADDRSTRLEN];
+273         inet\_ntop(AF\_INET, &flow.fiveTuple().dst\_ip , dst, INET6\_ADDRSTRLEN);
+274 
+275         os  << \textcolor{stringliteral}{"\{"}
+276             << \textcolor{stringliteral}{"pkt\_count: "} << flow.pktCount() 
+277             << \textcolor{stringliteral}{", overall\_pkt\_count: "} << flow.overallPktCount() 
+278             << \textcolor{stringliteral}{", state: "} << \textcolor{keyword}{static\_cast<}std::underlying\_type<Flow::State>::type\textcolor{keyword}{>}(flow.flowState())
+279             << \textcolor{stringliteral}{", hash: "} << flow.flowHash()
+280             << \textcolor{stringliteral}{", transport: "} << (uint32\_t)flow.fiveTuple().transport 
+281             << \textcolor{stringliteral}{", src: '"} << src << \textcolor{stringliteral}{":"} << flow.fiveTuple().src\_port << \textcolor{stringliteral}{"'"} 
+282             << \textcolor{stringliteral}{", dst: '"} << dst << \textcolor{stringliteral}{":"} << flow.fiveTuple().dst\_port << \textcolor{stringliteral}{"'"} 
+283             << \textcolor{stringliteral}{", classified: "} << (flow.flowClassified() ? \textcolor{stringliteral}{"true"} : \textcolor{stringliteral}{"false"})
+284             << \textcolor{stringliteral}{"\}"};
+285     \}
+\end{DoxyCode}
+\hypertarget{namespace_vsid_common_ab26dd6287c1246530fee0857f724f081}{\index{Vsid\-Common@{Vsid\-Common}!operator!=@{operator!=}}
+\index{operator!=@{operator!=}!VsidCommon@{Vsid\-Common}}
+\subsubsection[{operator!=}]{\setlength{\rightskip}{0pt plus 5cm}bool Vsid\-Common\-::operator!= (
+\begin{DoxyParamCaption}
+\item[{const Flow \&}]{lhs, }
+\item[{const Flow \&}]{rhs}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{namespace_vsid_common_ab26dd6287c1246530fee0857f724f081}
+
+
+Definition at line 262 of file Flow.\-h.
+
+
+\begin{DoxyCode}
+263     \{
+264         \textcolor{keywordflow}{return} !(lhs == rhs);
+265     \}
+\end{DoxyCode}
+\hypertarget{namespace_vsid_common_a96f8765b6113d5628331fd3f6c1ead2d}{\index{Vsid\-Common@{Vsid\-Common}!operator==@{operator==}}
+\index{operator==@{operator==}!VsidCommon@{Vsid\-Common}}
+\subsubsection[{operator==}]{\setlength{\rightskip}{0pt plus 5cm}bool Vsid\-Common\-::operator== (
+\begin{DoxyParamCaption}
+\item[{const Flow \&}]{lhs, }
+\item[{const Flow \&}]{rhs}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{namespace_vsid_common_a96f8765b6113d5628331fd3f6c1ead2d}
+
+
+Definition at line 257 of file Flow.\-h.
+
+
+\begin{DoxyCode}
+258     \{
+259         \textcolor{keywordflow}{return} lhs.sameFlow(&rhs.fiveTuple());
+260     \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespace_vsid_common_a96f8765b6113d5628331fd3f6c1ead2d_cgraph}
+\end{center}
+\end{figure}
+
+
