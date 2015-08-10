@@ -19,6 +19,10 @@ namespace Vsid
 
 /**
  * Byte Frequency for all packets.
+ * Measures the frequency which all possible 256 byte values 
+ * appear in a payload. 
+ * It looks at all bytes in all data packets up to the defining
+ * limit of the database.
  * 
  */
 class ByteFrequencyMeter : public AttributeMeter

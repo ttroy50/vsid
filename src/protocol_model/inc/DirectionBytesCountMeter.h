@@ -17,6 +17,15 @@
 namespace Vsid
 {
 
+/**
+ * The direction bytes count meter analyses the total byte count in each direction of the flow. 
+ * This is for all data packets in all directions up to the defining limit. 
+ * 
+ * This attribute can be useful for defining if a protocol is used for 
+ * bulk data or request / response pairs. In bulk data protocols such as RTMP, 
+ * most data will be in a single direction, however for request response protocols such as RTSP, 
+ * the data exchanged in each direction should be similar. 
+ */
 class DirectionBytesCountMeter : public AttributeMeter
 {
 public:

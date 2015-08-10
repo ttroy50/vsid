@@ -100,7 +100,7 @@ BOOST_AUTO_TEST_CASE( test_protocol_model )
     }
 
     if( testDbFile.empty() )
-	   testDbFile = "/home/matrim/workspace/college/vsi/src/protocol_model/unit_test/test_db.yaml";
+	   testDbFile = "../../../../src/protocol_model/unit_test/test_db.yaml";
     
     string copyOfTestDbFile = testDbFile + ".totest";
 

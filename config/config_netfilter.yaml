@@ -36,7 +36,7 @@
     # If true, the FlowManager / Flow will set the verdict. Which will be when it has processed the packet.
     #   This can allow drop packets if it fails to put the packet into the processing queue
     # If false, the packet is always set ot accept by the PacketHandler before passing control to the FlowManager
-    VerdictAfterClassification: false
+    VerdictAfterClassification: true
 
     # If the classification algorithm will look at protocols in the order of their port hints
     # when doing a classification. This may allow certain protocols to be preferred during
