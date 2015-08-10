@@ -8,6 +8,7 @@ Thom Troy
 
 ### Requirements
 
+* autoconf
 * libpcap
 * [YAML-cpp])(https://github.com/jbeder/yaml-cpp)
 * boost-dev
