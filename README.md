@@ -4,6 +4,10 @@ M.EEng Dublin City University
 
 Thom Troy
 
+## Status
+
+[ ![Codeship Status for matrim/vsid](https://codeship.com/projects/516b87e0-fa63-0132-7227-1a34b2d0f857/status?branch=master)](https://codeship.com/projects/86931)
+
 ## Building
 
 ### Requirements
