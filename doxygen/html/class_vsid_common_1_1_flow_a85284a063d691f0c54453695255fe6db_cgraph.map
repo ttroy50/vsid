@@ -1,7 +1,0 @@
-<map id="VsidCommon::Flow::sameFlow" name="VsidCommon::Flow::sameFlow">
-<area shape="rect" id="node2" href="$class_vsid_common_1_1_i_pv4_tuple.html#a6e05cf962bef53a9f3b1772a04e3878f" title="VsidCommon::IPv4Tuple\l::protocol" alt="" coords="259,5,427,46"/>
-<area shape="rect" id="node3" href="$class_vsid_common_1_1_i_pv4_tuple.html#aa1f9b5071312e6062b5bd39ada560c43" title="VsidCommon::IPv4Tuple\l::srcIp" alt="" coords="259,70,427,111"/>
-<area shape="rect" id="node4" href="$class_vsid_common_1_1_i_pv4_tuple.html#a020b9a4b89155b0e4a796d3367e577eb" title="VsidCommon::IPv4Tuple\l::dstIp" alt="" coords="259,135,427,177"/>
-<area shape="rect" id="node5" href="$class_vsid_common_1_1_i_pv4_tuple.html#a4092c3bd8281c8f5a8972c5c6c6f4bac" title="VsidCommon::IPv4Tuple\l::srcPort" alt="" coords="259,201,427,242"/>
-<area shape="rect" id="node6" href="$class_vsid_common_1_1_i_pv4_tuple.html#afc04d9dcf937c67ce60a2f2fcc0c7c10" title="VsidCommon::IPv4Tuple\l::dstPort" alt="" coords="259,266,427,307"/>
-</map>

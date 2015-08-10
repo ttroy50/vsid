@@ -1,6 +1,0 @@
-<map id="BOOST_AUTO_TEST_CASE" name="BOOST_AUTO_TEST_CASE">
-<area shape="rect" id="node2" href="$_attribute_meter_registrar_8h.html#acc628170f0b90d7876378e03d3159647" title="init_attribute_meters" alt="" coords="251,45,391,72"/>
-<area shape="rect" id="node3" href="$class_vsid_1_1_registrar.html#a9523b77ed7f5c546b18b06dfcb1af813" title="Vsid::Registrar::doRegistration" alt="" coords="441,45,642,72"/>
-<area shape="rect" id="node4" href="$class_vsid_1_1_attribute_meter_factory.html#a6cdacc430c359906c85ef36a7c6842fc" title="Vsid::AttributeMeterFactory\l::instance" alt="" coords="691,5,874,46"/>
-<area shape="rect" id="node5" href="$class_vsid_1_1_attribute_meter_factory.html#af6f53e148905ddbc86b73b4050f4df2e" title="Vsid::AttributeMeterFactory\l::registerFactory" alt="" coords="691,70,874,111"/>
-</map>

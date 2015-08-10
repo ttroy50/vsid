@@ -1,8 +1,0 @@
-<map id="src/common/inc/FlowClassificationLogger.h" name="src/common/inc/FlowClassificationLogger.h">
-<area shape="rect" id="node2" href="$_flow_8h.html" title="Flow.h" alt="" coords="460,171,521,197"/>
-<area shape="rect" id="node19" href="$_flow_observers_8h.html" title="FlowObservers.h" alt="" coords="479,96,600,123"/>
-<area shape="rect" id="node10" href="$_i_pv4_8h.html" title="IPv4.h" alt="" coords="709,245,768,272"/>
-<area shape="rect" id="node15" href="$_logger_8h.html" title="Logger.h" alt="" coords="960,320,1032,347"/>
-<area shape="rect" id="node18" href="$_i_pv4_tuple_8h.html" title="IPv4Tuple.h" alt="" coords="914,245,1005,272"/>
-<area shape="rect" id="node17" href="$_packet_callbacks_8h.html" title="PacketCallbacks.h" alt="" coords="803,320,935,347"/>
-</map>

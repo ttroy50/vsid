@@ -1,7 +1,0 @@
-<map id="Vsid::PayloadSizeFirstPacketMeter::calculateMeasurement" name="Vsid::PayloadSizeFirstPacketMeter::calculateMeasurement">
-<area shape="rect" id="node2" href="$class_vsid_common_1_1_flow.html#ae437ae88fb48d6ac2880f40fc88195da" title="VsidCommon::Flow::isFirst\lPacket" alt="" coords="251,5,432,46"/>
-<area shape="rect" id="node3" href="$class_vsid_1_1_attribute_meter.html#a6243f852b5ef8e24d8015e2018037d2c" title="Vsid::AttributeMeter\l::size" alt="" coords="272,70,411,111"/>
-<area shape="rect" id="node4" href="$class_vsid_common_1_1_i_pv4_packet.html#ac1ff979633726d9f558bce1210595879" title="VsidCommon::IPv4Packet\l::protocol" alt="" coords="253,135,430,177"/>
-<area shape="rect" id="node6" href="$class_vsid_common_1_1_i_pv4_packet.html#a39fe36210895625ee87320f5c0c7f52e" title="VsidCommon::IPv4Packet\l::dataSize" alt="" coords="253,201,430,242"/>
-<area shape="rect" id="node5" href="$class_vsid_common_1_1_i_pv4_packet.html#af3c00b2854ad766cf194bf12c99da86c" title="VsidCommon::IPv4Packet\l::iphdr" alt="" coords="481,135,658,177"/>
-</map>

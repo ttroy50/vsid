@@ -1,7 +1,0 @@
-<map id="VsidCommon::IPv4Tuple::dstPort" name="VsidCommon::IPv4Tuple::dstPort">
-<area shape="rect" id="node2" href="$class_vsid_common_1_1_flow.html#a85284a063d691f0c54453695255fe6db" title="VsidCommon::Flow::sameFlow" alt="" coords="221,27,427,53"/>
-<area shape="rect" id="node5" href="$class_vsid_common_1_1_flow.html#a8708e13cea69ad630274901ec94b5cf4" title="VsidCommon::Flow::packet\lDirection" alt="" coords="232,78,416,119"/>
-<area shape="rect" id="node3" href="$namespace_vsid_common.html#a96f8765b6113d5628331fd3f6c1ead2d" title="VsidCommon::operator==" alt="" coords="493,5,665,32"/>
-<area shape="rect" id="node4" href="$test__common_8cpp.html#a0a004b90e5b8e096142cce43b739c48e" title="BOOST_AUTO_TEST_CASE" alt="" coords="480,56,677,83"/>
-<area shape="rect" id="node6" href="$class_vsid_common_1_1_flow.html#a314bc25fad15a7a2b052dfda75cc3af6" title="VsidCommon::Flow::addPacket" alt="" coords="475,107,682,133"/>
-</map>

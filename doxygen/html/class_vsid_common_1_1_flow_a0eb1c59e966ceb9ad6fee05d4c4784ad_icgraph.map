@@ -1,7 +1,0 @@
-<map id="VsidCommon::Flow::currentPacketDirection" name="VsidCommon::Flow::currentPacketDirection">
-<area shape="rect" id="node2" href="$class_vsid_1_1_action_reaction_first3_byte_hash_meter.html#aa09c85dfa76ab2dcc0bc1e0a996e87f9" title="Vsid::ActionReactionFirst3\lByteHashMeter::calculateMeasurement" alt="" coords="251,5,503,46"/>
-<area shape="rect" id="node3" href="$class_vsid_1_1_direction_bytes_count_first10_packet_meter.html#a72110bee456d1160a70db709bd507d30" title="Vsid::DirectionBytesCount\lFirst10PacketMeter::calculateMeasurement" alt="" coords="240,70,515,111"/>
-<area shape="rect" id="node4" href="$class_vsid_1_1_direction_bytes_count_meter.html#a4768e6b91e25682668f49ed2f59b1bf5" title="Vsid::DirectionBytesCount\lMeter::calculateMeasurement" alt="" coords="280,135,475,177"/>
-<area shape="rect" id="node5" href="$class_vsid_1_1_direction_changes_first8_packets_meter.html#ac156207e2c465f3f8b982e07d7ea99a0" title="Vsid::DirectionChangesFirst8\lPacketsMeter::calculateMeasurement" alt="" coords="256,201,499,242"/>
-<area shape="rect" id="node6" href="$class_vsid_1_1_direction_changes_meter.html#a1c548c4b273d9fd3b336394ff4dbf424" title="Vsid::DirectionChangesMeter\l::calculateMeasurement" alt="" coords="281,266,474,307"/>
-</map>

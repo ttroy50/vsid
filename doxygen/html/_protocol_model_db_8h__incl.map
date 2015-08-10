@@ -1,9 +1,0 @@
-<map id="src/protocol_model/inc/ProtocolModelDb.h" name="src/protocol_model/inc/ProtocolModelDb.h">
-<area shape="rect" id="node6" href="$_protocol_model_8h.html" title="ProtocolModel.h" alt="" coords="514,104,629,131"/>
-<area shape="rect" id="node7" href="$_attribute_meter_8h.html" title="AttributeMeter.h" alt="" coords="423,187,537,213"/>
-<area shape="rect" id="node8" href="$_flow_8h.html" title="Flow.h" alt="" coords="449,261,511,288"/>
-<area shape="rect" id="node16" href="$_i_pv4_8h.html" title="IPv4.h" alt="" coords="417,336,476,363"/>
-<area shape="rect" id="node21" href="$_logger_8h.html" title="Logger.h" alt="" coords="652,411,724,437"/>
-<area shape="rect" id="node24" href="$_i_pv4_tuple_8h.html" title="IPv4Tuple.h" alt="" coords="553,336,644,363"/>
-<area shape="rect" id="node23" href="$_packet_callbacks_8h.html" title="PacketCallbacks.h" alt="" coords="319,411,451,437"/>
-</map>

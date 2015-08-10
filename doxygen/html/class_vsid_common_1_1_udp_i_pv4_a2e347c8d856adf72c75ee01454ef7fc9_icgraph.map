@@ -1,5 +1,0 @@
-<map id="VsidCommon::UdpIPv4::udphdr" name="VsidCommon::UdpIPv4::udphdr">
-<area shape="rect" id="node2" href="$class_vsid_common_1_1_udp_i_pv4.html#ad76f80077e2e730ecffc141da5c6d5e4" title="VsidCommon::UdpIPv4\l::srcPort" alt="" coords="213,5,373,46"/>
-<area shape="rect" id="node3" href="$class_vsid_common_1_1_udp_i_pv4.html#acff278de2cb7c3103bc94163710f677d" title="VsidCommon::UdpIPv4\l::dstPort" alt="" coords="213,70,373,111"/>
-<area shape="rect" id="node4" href="$class_vsid_common_1_1_udp_i_pv4.html#a4fe5cf843e52b92c95fbd5098c13f14d" title="VsidCommon::UdpIPv4\l::udp_len" alt="" coords="213,135,373,177"/>
-</map>

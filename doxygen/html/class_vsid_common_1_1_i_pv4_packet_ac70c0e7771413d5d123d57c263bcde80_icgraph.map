@@ -1,4 +1,0 @@
-<map id="VsidCommon::IPv4Packet::dstIp" name="VsidCommon::IPv4Packet::dstIp">
-<area shape="rect" id="node2" href="$class_vsid_common_1_1_flow.html#a88a60ef6857c0b4dbcec4cc62828be6d" title="VsidCommon::Flow::Flow" alt="" coords="235,5,408,32"/>
-<area shape="rect" id="node3" href="$class_vsid_common_1_1_i_pv4_packet.html#a042efdd301d96b9cf16d9aaea147c234" title="VsidCommon::IPv4Packet\l::sameFlow" alt="" coords="233,57,410,98"/>
-</map>

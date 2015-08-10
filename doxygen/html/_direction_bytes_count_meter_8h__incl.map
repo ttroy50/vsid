@@ -1,9 +1,0 @@
-<map id="src/protocol_model/inc/DirectionBytesCountMeter.h" name="src/protocol_model/inc/DirectionBytesCountMeter.h">
-<area shape="rect" id="node5" href="$_attribute_meter_factory_8h.html" title="AttributeMeterFactory.h" alt="" coords="579,96,737,123"/>
-<area shape="rect" id="node8" href="$_attribute_meter_8h.html" title="AttributeMeter.h" alt="" coords="412,171,527,197"/>
-<area shape="rect" id="node9" href="$_flow_8h.html" title="Flow.h" alt="" coords="439,245,500,272"/>
-<area shape="rect" id="node17" href="$_i_pv4_8h.html" title="IPv4.h" alt="" coords="406,320,465,347"/>
-<area shape="rect" id="node22" href="$_logger_8h.html" title="Logger.h" alt="" coords="651,395,723,421"/>
-<area shape="rect" id="node25" href="$_i_pv4_tuple_8h.html" title="IPv4Tuple.h" alt="" coords="542,320,633,347"/>
-<area shape="rect" id="node24" href="$_packet_callbacks_8h.html" title="PacketCallbacks.h" alt="" coords="115,395,247,421"/>
-</map>

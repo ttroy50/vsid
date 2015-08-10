@@ -1,8 +1,0 @@
-<map id="VsidCommon::IPv4Packet::sameFlow" name="VsidCommon::IPv4Packet::sameFlow">
-<area shape="rect" id="node2" href="$class_vsid_common_1_1_i_pv4_packet.html#ac1ff979633726d9f558bce1210595879" title="VsidCommon::IPv4Packet\l::protocol" alt="" coords="233,5,410,46"/>
-<area shape="rect" id="node4" href="$class_vsid_common_1_1_i_pv4_packet.html#ab659b369af59b2745479e9080e0a0c54" title="VsidCommon::IPv4Packet\l::srcIp" alt="" coords="233,70,410,111"/>
-<area shape="rect" id="node5" href="$class_vsid_common_1_1_i_pv4_packet.html#ac70c0e7771413d5d123d57c263bcde80" title="VsidCommon::IPv4Packet\l::dstIp" alt="" coords="233,135,410,177"/>
-<area shape="rect" id="node6" href="$class_vsid_common_1_1_i_pv4_packet.html#ad7f9c53e8a29a9ab3c87c28278ca7f5c" title="VsidCommon::IPv4Packet\l::srcPort" alt="" coords="233,201,410,242"/>
-<area shape="rect" id="node7" href="$class_vsid_common_1_1_i_pv4_packet.html#aa61f726412de0c644df127d2cd86ef64" title="VsidCommon::IPv4Packet\l::dstPort" alt="" coords="233,266,410,307"/>
-<area shape="rect" id="node3" href="$class_vsid_common_1_1_i_pv4_packet.html#af3c00b2854ad766cf194bf12c99da86c" title="VsidCommon::IPv4Packet\l::iphdr" alt="" coords="459,70,637,111"/>
-</map>

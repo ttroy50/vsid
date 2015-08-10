@@ -1,4 +1,0 @@
-<map id="VsidCommon::FlowClassificationLogger" name="VsidCommon::FlowClassificationLogger">
-<area shape="rect" id="node2" href="$class_vsid_common_1_1_flow_finished_observer.html" title="VsidCommon::FlowFinished\lObserver" alt="" coords="5,6,192,47"/>
-<area shape="rect" id="node3" href="$class_vsid_common_1_1_flow_classified_observer.html" title="VsidCommon::FlowClassified\lObserver" alt="" coords="216,6,411,47"/>
-</map>

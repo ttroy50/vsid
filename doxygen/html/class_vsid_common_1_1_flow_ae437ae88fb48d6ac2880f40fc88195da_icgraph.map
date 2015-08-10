@@ -1,6 +1,0 @@
-<map id="VsidCommon::Flow::isFirstPacket" name="VsidCommon::Flow::isFirstPacket">
-<area shape="rect" id="node2" href="$class_vsid_1_1_action_reaction_first3_byte_hash_meter.html#aa09c85dfa76ab2dcc0bc1e0a996e87f9" title="Vsid::ActionReactionFirst3\lByteHashMeter::calculateMeasurement" alt="" coords="243,5,495,46"/>
-<area shape="rect" id="node3" href="$class_vsid_1_1_byte_frequency_first_orig_to_dest_packet.html#a81834b3f4236f6c53b7114c9b22e6f56" title="Vsid::ByteFrequencyFirst\lOrigToDestPacket::calculateMeasurement" alt="" coords="235,70,504,111"/>
-<area shape="rect" id="node4" href="$class_vsid_1_1_entropy_first_orig_to_dest_packet.html#a63a5f0ee67b9817eab71b519cc9e892f" title="Vsid::EntropyFirstOrigTo\lDestPacket::calculateMeasurement" alt="" coords="254,135,485,177"/>
-<area shape="rect" id="node5" href="$class_vsid_1_1_payload_size_first_packet_meter.html#a3e20bc06d7a06de0b9c1cdf5ab6ff880" title="Vsid::PayloadSizeFirstPacket\lMeter::calculateMeasurement" alt="" coords="271,201,467,242"/>
-</map>

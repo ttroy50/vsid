@@ -1,8 +1,0 @@
-<map id="src/protocol_model/inc/ProtocolModel.h" name="src/protocol_model/inc/ProtocolModel.h">
-<area shape="rect" id="node5" href="$_attribute_meter_8h.html" title="AttributeMeter.h" alt="" coords="388,96,503,123"/>
-<area shape="rect" id="node6" href="$_flow_8h.html" title="Flow.h" alt="" coords="415,171,476,197"/>
-<area shape="rect" id="node14" href="$_i_pv4_8h.html" title="IPv4.h" alt="" coords="382,245,441,272"/>
-<area shape="rect" id="node19" href="$_logger_8h.html" title="Logger.h" alt="" coords="689,320,761,347"/>
-<area shape="rect" id="node22" href="$_i_pv4_tuple_8h.html" title="IPv4Tuple.h" alt="" coords="518,245,609,272"/>
-<area shape="rect" id="node21" href="$_packet_callbacks_8h.html" title="PacketCallbacks.h" alt="" coords="533,320,664,347"/>
-</map>
