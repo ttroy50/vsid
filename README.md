@@ -59,6 +59,9 @@ To stop the process and unbind from iptables
  $ src/training/src/vsid_training -c ../config/config_training.yaml -t /path/to/training_file.yaml
 ```
 
+## Documentation
+
+Doxygen documentation for the code may be found from [here](http://matrim.bitbucket.org/vsid/)
 
 ## Related Projects
 
