@@ -3,19 +3,23 @@
     ProtocolDatabase: "../config/protocol_model_db.yaml"
 
     # Timeout in seconds after which a UDP flow will be considered to have ended
-    UdpFlowTimeoupt: 120
+    UdpFlowTimeoupt: 1200
 
     # The KL Divergence Threshold. Any threshold below this will be considered that protocol
-    KLDivergenceThreshold : 0.03
+    KLDivergenceThreshold : 0.05
 
     # If we are to use the best match from before the defining limit once we reach it
     UseBestMatchDivergence: false
 
     # Number of worker threads to use in the Flow Manager. Each flow is assigned to a thread
     # And that thread is responsible for all packets in the flow
-    NumWorkerThreadsPerQueue: 1
+    NumWorkerThreadsPerQueue: 0
+
+    # Size of the thread packet queue to use for worker threads
+    WorkerThreadQueueSize: 20000
 
     # If the classification algorithm will look at protocols in the order of their port hints
     # when doing a classification. This may allow certain protocols to be preferred during
     # classification because they will be analysed first
     UsePortHints: true
+

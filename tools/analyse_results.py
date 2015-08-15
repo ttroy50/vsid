@@ -30,6 +30,7 @@ class IPv4Tuple():
                 self.protocol = 17
 
         self.l7protocol = l7protocol
+        self.seen = False
 
     def dict_repr(self):
         """
@@ -51,6 +52,8 @@ class IPv4Tuple():
                                     self.src_ip, self.src_port, self.protocol)
         return ret
 
+    def setSeen(self):
+        self.seen = True
 
 class ProtocolResult:
     """
@@ -68,6 +71,15 @@ class ProtocolResult:
         self.expected = 0
         self.false_positive_protocols = {}
         self.false_negative_protocols = {}
+
+        self.min_pkt_count = 0
+        self.max_pkt_count = 0
+        #self.pkt_classified_counts = []
+        #self.pkt_not_classified_counts = []
+
+        self.min_divergence = 0.0
+        self.max_divergence = 0.0
+        #self.divergences = []
 
     def increase_true_positive(self):
         self.true_positive = self.true_positive + 1
@@ -87,6 +99,9 @@ class ProtocolResult:
     def increase_expected(self):
         self.expected = self.expected + 1
 
+    def decrease_expected(self):
+        self.expected = self.expected - 1
+
     def increase_under_defining_limit(self):
         self.under_defining_limit = self.under_defining_limit + 1
 
@@ -102,6 +117,32 @@ class ProtocolResult:
         else:
             self.false_negative_protocols[protocol] = 1
 
+    def add_divergence(self, divergence):
+        if self.min_divergence == 0.0:
+            self.min_divergence = divergence
+        elif divergence < self.min_divergence:
+            self.min_divergence = divergence
+
+        if self.max_divergence == 0.0:
+            self.max_divergence = divergence
+        elif divergence > self.max_divergence:
+            self.max_divergence = divergence
+
+        #self.divergences.append(divergence)
+
+    def add_pkt_count(self, count, classified):
+        if classified and self.min_pkt_count == 0:
+            self.min_pkt_count = count
+        elif classified and count < self.min_pkt_count:
+            self.min_pkt_count = count
+
+        if classified and self.max_pkt_count == 0:
+            self.max_pkt_count = count
+        elif classified and count > self.max_pkt_count:
+            self.max_pkt_count = count
+
+        #if not classified:
+            #self.pkt_not_classified_counts.append(count)
 
     def calculate_analysis(self):
         if self.true_positive == 0 and self.false_negative == 0:
@@ -173,6 +214,10 @@ class ProtocolResult:
         ret["expected"] = self.expected
         ret["false_positive_protocols"] = self.false_positive_protocols
         ret["false_negative_protocols"] = self.false_negative_protocols
+        ret["min_pkt_count"] = self.min_pkt_count
+        ret["max_pkt_count"] = self.max_pkt_count
+        ret["min_divergence"] = self.min_divergence
+        ret["max_divergence"] = self.max_divergence
         return ret
 
 class Analyser:
@@ -305,6 +350,7 @@ class Analyser:
             expected_l7protocol = self.default_protocol
             if self.flows is not None and ip_tuple.dict_repr() in self.flows:
                 expected_l7protocol = self.flows[ip_tuple.dict_repr()].l7protocol
+                self.flows[ip_tuple.dict_repr()].setSeen()
             else:
                 if self.default_protocol is not None:
                     self.protocol_results[self.default_protocol].increase_expected()
@@ -344,10 +390,12 @@ class Analyser:
                         else:
                             v.increase_true_negative()
 
+                    self.protocol_results[expected_l7protocol].add_divergence(result["Divergence"])
+                    self.protocol_results[expected_l7protocol].add_pkt_count(result["Flow"]["pkt_count"], True)
                 else:
                     self.protocol_results[expected_l7protocol].increase_false_negative()  
                     self.protocol_results[expected_l7protocol].add_false_negative_protocol(result["Protocol"])  
-
+                    self.protocol_results[expected_l7protocol].add_pkt_count(result["Flow"]["pkt_count"], False)
 
                     self.protocol_results[result["Protocol"]].increase_false_positive()
                     self.protocol_results[result["Protocol"]].add_false_positive_protocol(expected_l7protocol)
@@ -362,6 +410,7 @@ class Analyser:
 
             else:
                 self.protocol_results[expected_l7protocol].increase_not_classified()
+                self.protocol_results[expected_l7protocol].add_pkt_count(result["Flow"]["pkt_count"], False)
 
                 if flow["pkt_count"] < self.defining_limit:
                     self.protocol_results[expected_l7protocol].increase_under_defining_limit()
@@ -373,7 +422,14 @@ class Analyser:
                         v.increase_true_negative()
 
 
-    def analyse_results(self):
+        for k, fl in self.flows.iteritems():
+            # A protocol that is in the flows file but is not seen in the results is 
+            # probably one that was under the packet limit  (e.g. had no data so wasn't logged)
+            if fl.seen == False:
+                #print "%s not seen [%s]" %(fl.l7protocol, k)
+                self.protocol_results[fl.l7protocol].decrease_expected()
+
+    def analyse_results(self):                
         """
         Analyse the raw results into Recall / precision
         """

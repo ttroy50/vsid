@@ -10,13 +10,15 @@
 #include <memory>
 #include <unordered_map>
 #include <mutex>
+#include <condition_variable>
 
-#include <boost/lockfree/queue.hpp>
+#include <boost/lockfree/spsc_queue.hpp>
 #include "IPv4.h"
 #include "Flow.h"
 #include "Hasher.h"
 #include "FlowObservers.h"
-
+#include "ThreadWaiter.h"
+ 
 namespace Vsid
 {
 	class ProtocolModelDb;
@@ -39,6 +41,8 @@ public:
     return (*t1 == *t2);
   }
 };
+
+
 
 class FlowManager
 {
@@ -153,7 +157,9 @@ private:
 
 	std::mutex _flowsMutex;
 	std::vector<std::thread> _workerThreads;
-	std::vector<boost::lockfree::queue<IPv4Packet*, boost::lockfree::fixed_sized<true> > *> _threadQueues;
+	std::vector<boost::lockfree::spsc_queue<IPv4Packet*, boost::lockfree::fixed_sized<true> > *> _threadQueues;
+	std::vector<ThreadWaiter> _threadNotifiers;
+
 	int _currentQueue;
 	bool _shutdown;
 	bool _finishing;

@@ -26,8 +26,10 @@ void FlowManager::init()
 {
 	for( int i = 0; i < CommonConfig::instance()->workerThreadsPerQueue(); i++ )
 	{
-		_threadQueues.push_back(new boost::lockfree::queue<IPv4Packet*, boost::lockfree::fixed_sized<true> >(CommonConfig::instance()->workerThreadQueueSize()));
+		_threadQueues.push_back(new boost::lockfree::spsc_queue<IPv4Packet*, boost::lockfree::fixed_sized<true> >(CommonConfig::instance()->workerThreadQueueSize()));
+		_threadNotifiers.push_back(ThreadWaiter());
 		_workerThreads.push_back( std::thread(&FlowManager::processPackets, this, i) );
+		
 	}
 }
 
@@ -37,42 +39,59 @@ FlowManager::~FlowManager()
 	for( int i = 0; i < _workerThreads.size(); i++ )
 	{
 		_workerThreads[i].join();
-		IPv4Packet* packet = NULL;
-		while( _threadQueues[i]->pop(packet) )
-		{
-			if(packet != NULL)
-			{
-				delete packet;
-			}
-		}
 
-		boost::lockfree::queue<IPv4Packet*, boost::lockfree::fixed_sized<true> > * tmp = _threadQueues[i];
+		boost::lockfree::spsc_queue<IPv4Packet*, boost::lockfree::fixed_sized<true> > * tmp = _threadQueues[i];
 		delete tmp;
-
 	}
 }
 
 void FlowManager::processPackets(int queue_id)
 {
-	while(!_shutdown)
+	try
 	{
-		IPv4Packet* packet = NULL;
-		if ( _threadQueues[queue_id]->pop(packet) )
+		while(!_shutdown)
 		{
-			if( packet == NULL )
+			IPv4Packet* packet = NULL;
+			if ( _threadQueues[queue_id]->pop(packet) )
 			{
-				SLOG_ERROR(<< "Packet is null from queue");
+				if( packet == NULL )
+				{
+					SLOG_ERROR(<< "Packet is null from queue");
+				}
+				else
+				{
+					processPacket(packet);
+				}
 			}
 			else
 			{
-				processPacket(packet);
+				_threadNotifiers[queue_id].wait();
 			}
 		}
-		else
+	}
+	catch(std::exception& ex)
+	{
+		_shutdown = true;
+		SLOG_ERROR(<< "exception caught in processPackets" << ex.what());
+	}
+
+	/*try
+	{
+		IPv4Packet* packet = NULL;
+		while( _threadQueues[queue_id]->pop(packet) )
 		{
-			std::this_thread::sleep_for( std::chrono::milliseconds(10) );
+			if(packet != NULL)
+			{
+				packet->setVerdict();
+				delete packet;
+			}
 		}
 	}
+	catch(std::exception& ex)
+	{
+		SLOG_ERROR(<< "exception caught cleaning up processPackets" << ex.what());
+	}*/
+
 }
 
 void FlowManager::processPacket(IPv4Packet* packet)
@@ -123,6 +142,13 @@ void FlowManager::processPacket(IPv4Packet* packet)
 
 std::shared_ptr<Flow> FlowManager::addPacket(IPv4Packet* packet)
 {
+	if(_shutdown)
+	{
+		packet->setVerdict();
+		delete packet;
+		return nullptr;
+	}
+
 	std::shared_ptr<Flow> flow = getFlow(packet);
 
 	if( flow )
@@ -145,6 +171,7 @@ std::shared_ptr<Flow> FlowManager::addPacket(IPv4Packet* packet)
 
 			if (_threadQueues[flow->threadQueueId()]->push(packet) )
 			{
+				_threadNotifiers[flow->threadQueueId()].notify();
 				return flow;
 			}
 			else
@@ -452,6 +479,15 @@ void FlowManager::notifyFlowFinished(std::shared_ptr<Flow> flow)
 			SLOG_INFO(<< "Not notifying because packets in flow")
 			return;
 		}*/
+	}
+	else
+	{
+		if(flow->pktCount() == 0 || flow->overallPktCount() < 2)
+		{
+			SLOG_INFO(<< "Not notifying about finished becasue too few packets");
+			flow->setFinishedAndNotified();
+			return;
+		}
 	}
 
 	for(auto it = _flow_finished_observers.begin(); it != _flow_finished_observers.end(); ++it)

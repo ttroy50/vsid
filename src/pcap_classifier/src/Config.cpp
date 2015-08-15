@@ -96,11 +96,14 @@ bool Config::init(const string& config_file)
     }
     SLOG_INFO(<< "UseBestMatchDivergence : " << CommonConfig::instance()->useBestMatch())
 
+
     if(config["UsePortHints"])
     {
         CommonConfig::instance()->usePortHints(config["UsePortHints"].as<bool>());
     }
     SLOG_INFO(<< "UsePortHints : " << CommonConfig::instance()->usePortHints())
+
+
 
     if(config["NumWorkerThreadsPerQueue"])
     {
@@ -112,6 +115,14 @@ bool Config::init(const string& config_file)
         CommonConfig::instance()->workerThreadsPerQueue(0);
         SLOG_INFO(<< "NumWorkerThreadsPerQueue : " << CommonConfig::instance()->workerThreadsPerQueue())
     }
+
+
+    if(config["WorkerThreadQueueSize"])
+    {
+        CommonConfig::instance()->workerThreadQueueSize(config["WorkerThreadQueueSize"].as<size_t>());    
+    }
+    SLOG_INFO(<< "WorkerThreadQueueSize : " << CommonConfig::instance()->workerThreadQueueSize())
+
 
 	return true;
 }

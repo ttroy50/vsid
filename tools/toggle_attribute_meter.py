@@ -44,7 +44,7 @@ def main():
     parser.add_option("-f", "--file", dest="filename",
                       help="Database file to load", metavar="FILE")
     parser.add_option("-d", "--dest", dest="destfile",
-                      help="Database file to write to. If not supplied will write to stdout", metavar="FILE")
+                      help="Database file to write to. If not supplied will use input database", metavar="FILE")
     parser.add_option("-n", "--name", dest="name",
                       help="Attribute Name. If 'all' then all attributes will be changed", metavar="name")
     parser.add_option("-e", "--enable", dest="enabled", action="store_true", default=False, help="If set enable the meter. Otherwise disable")
@@ -57,6 +57,9 @@ def main():
         print "ERROR: No Database file supplied\n"
         parser.print_help()
         sys.exit(1)
+
+    if options.destfile is None or options.destfile == "":
+        options.destfile = options.filename
 
     if options.name is None or options.name == "":
         print "ERROR: No Name\n"

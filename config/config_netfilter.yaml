@@ -3,11 +3,11 @@
     ProtocolDatabase: "../config/protocol_model_db.yaml"
 
     # Timeout in seconds after which a UDP flow will be considered to have ended
-    UdpFlowTimeout: 120
+    UdpFlowTimeout: 600
 
     # Number of queues that are to be configured.
     # There will be between 1 and NumWorkerThreadsPerQueue threads per queue
-    NumQueues: 2
+    NumQueues: 1
 
     # The offset for the queue numbers. 
     # For example, 2 queues with an offset of 2000, would be queue 2000 and 2001
@@ -26,7 +26,7 @@
     # Number of worker threads to use in the Flow Manager. 
     # Each flow is assigned to a thread and that thread is responsible for all packets in the flow
     # The total number of threads used by the program will be NumQueues * NumWorkerThreadsPerQueue
-    NumWorkerThreadsPerQueue: 10
+    NumWorkerThreadsPerQueue: 4
 
     # Size of the thread packet queue to use for worker threads
     # If not using VerdictAfterClassification this should be larger than if using 

@@ -7,8 +7,11 @@ fi
 
 echo "setting iptables"
 
-iptables -A INPUT -p tcp -j NFQUEUE --queue-balance 0:1
-iptables -A OUTPUT -p tcp -j NFQUEUE --queue-balance 0:1
+# Flush any old 
+iptables -F 
+
+# Add any new  
+iptables -I FORWARD -j NFQUEUE --queue-num 0 #--queue-balance 0:1
 
 #iptables -A INPUT -p tcp -j NFQUEUE --queue-num 0
 #iptables -A OUTPUT -p tcp -j NFQUEUE --queue-num 0

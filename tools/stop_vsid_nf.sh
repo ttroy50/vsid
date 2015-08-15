@@ -7,11 +7,7 @@ fi
 
 echo "resetting iptables"
 
-iptables -D INPUT -p tcp -j NFQUEUE --queue-balance 0:1
-iptables -D OUTPUT -p tcp -j NFQUEUE --queue-balance 0:1
-
-#iptables -D INPUT -p tcp -j NFQUEUE --queue-num 0
-#iptables -D OUTPUT -p tcp -j NFQUEUE --queue-num 0
+iptables -F
 
 echo "Stopping process"
 

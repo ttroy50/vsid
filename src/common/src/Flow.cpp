@@ -296,12 +296,11 @@ void Flow::addPacket(IPv4Packet* packet)
 		}
 	}
 
-	SLOG_INFO( << "Meters updated")
 	_lastPacketTimestamp = packet->timestamp();
 
 	if( !CommonConfig::instance()->learningMode() && !_flowClassified )
 	{
-		SLOG_DEBUG(<< "Calculating K-L Divergence")
+		//SLOG_DEBUG(<< "Calculating K-L Divergence")
 		// TODO Calculate K-L Divergence
 		for(size_t i = 0; i < _protocolModelDb->size(); i++)
 		{
@@ -322,11 +321,11 @@ void Flow::addPacket(IPv4Packet* packet)
 
 			if( ! pm->enabled() )
 			{
-				SLOG_DEBUG(<< "PRotocol [" << pm->name() << "] disabled")
+				//SLOG_DEBUG(<< "PRotocol [" << pm->name() << "] disabled")
 				continue;
 			}
 
-			SLOG_DEBUG(<< "Checking model " << pm->name());
+			//SLOG_DEBUG(<< "Checking model " << pm->name());
 			for(size_t attr = 0; attr < pm->size(); attr++)
 			{
 				std::shared_ptr<AttributeMeter> pm_am = pm->at(attr);
@@ -336,9 +335,6 @@ void Flow::addPacket(IPv4Packet* packet)
 				std::shared_ptr<AttributeMeter> am = _attributeMetersMap[pm_am->name()];
 
 				double sum = 0.0;
-
-				double pm_am_sum = 0;
-				double am_sum = 0;
 
 				for(size_t fp = 0; fp < pm_am->size(); ++fp)
 				{
@@ -355,9 +351,6 @@ void Flow::addPacket(IPv4Packet* packet)
 					 */
 					double am_fp = (am->at(fp) * am->klFixMultiplier()) + am->klFixIncrement();
 					double pm_am_fp = (pm_am->at(fp) * pm_am->klFixMultiplier()) + pm_am->klFixIncrement();
-
-					am_sum += am_fp;
-					pm_am_sum += pm_am_fp;
 
 					if(pm_am_fp > (double)0)
 					{	
