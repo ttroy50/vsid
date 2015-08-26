@@ -230,6 +230,7 @@ class Analyser:
         self.protocol_database = protocol_database
         self.defining_limit = 0
         self.cutoff_limit = 0
+        self.divergence_threshold = 0.0
 
     def read_database(self):
         """
@@ -284,6 +285,7 @@ class Analyser:
                     
                             self.defining_limit = one_run["ProtocolDatabase"]["DefiningLimit"]
                             self.cutoff_limit = one_run["ProtocolDatabase"]["CutoffLimit"]
+                            self.divergence_threshold = one_run["KLDivergenceThreshold"]
 
                             if one_run["Results"] is not None:
                                 self.results["Results"] = self.results["Results"] + one_run["Results"]
@@ -437,20 +439,61 @@ class Analyser:
         for k, pr in self.protocol_results.iteritems():
             (recall, precision, fmeasure) = pr.calculate_analysis()
             analysis[k] = {}
-            analysis[k]["recall"] = float("%.2f" %recall)
-            analysis[k]["precision"] = float("%.2f" %precision)
-            analysis[k]["fmeasure"] = float("%.2f" %fmeasure)
+            analysis[k]["xxa_recall"] = float("%.2f" %recall)
+            analysis[k]["xxa_precision"] = float("%.2f" %precision)
+            analysis[k]["xxa_fmeasure"] = float("%.2f" %fmeasure)
 
             (recall_pc, precision_pc, fmeasure_pc) = pr.calculate_analysis_inc_not_classified()
-            analysis[k]["recall_pc"] = float("%.2f" %recall_pc)
-            analysis[k]["precision_pc"] = float("%.2f" %precision_pc)
-            analysis[k]["fmeasure_pc"] = float("%.2f" %fmeasure_pc)
+            analysis[k]["nc_recall"] = float("%.2f" %recall_pc)
+            analysis[k]["nc_precision"] = float("%.2f" %precision_pc)
+            analysis[k]["nc_fmeasure"] = float("%.2f" %fmeasure_pc)
 
             (nc, ul) = pr.calculate_not_classified()
             analysis[k]["unclassified"] = float("%.2f" %nc)
             analysis[k]["under_limit"] = float("%.2f" %ul)
 
+        print ""
+        print "##################################"
+        print ""
         print yaml.dump(analysis,  indent=4, default_flow_style=False)
+
+        print ""
+        print "############"
+        print ""
+
+        # pretty print the analysis to cpy to doc
+        print "Defining Limit: %d" %self.defining_limit
+        print "Cut-Off Limit: %d" %self.cutoff_limit
+        print "Divergence Threshold: %.2f" %self.divergence_threshold
+        print "Protocol\tPrecision\tRecall\tF-Measure\tUnder Defining Limit\tUnclassified"
+
+        if "Youtube" in analysis:
+            self.pretty_print_line("Youtube", analysis)
+        if "HTTP-Progressive" in analysis:
+            self.pretty_print_line("HTTP-Progressive", analysis)
+        if "HLS" in analysis:
+            self.pretty_print_line("HLS", analysis)
+        if "RTMP" in analysis:
+            self.pretty_print_line("RTMP", analysis)
+        if "RTP" in analysis:
+            self.pretty_print_line("RTP", analysis)
+        if "RTCP" in analysis:
+            self.pretty_print_line("RTCP", analysis)
+        if "RTSP" in analysis:
+            self.pretty_print_line("RTSP", analysis)
+        if "HTTP" in analysis:
+            self.pretty_print_line("HTTP", analysis)
+        if "HTTPS" in analysis:
+            self.pretty_print_line("HTTPS", analysis)
+        if "DNS" in analysis:
+            self.pretty_print_line("DNS", analysis)
+        
+
+
+    def pretty_print_line(self, k, analysis):
+        pr = analysis[k]
+        print "%s\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f" %(k, pr["nc_precision"], pr["nc_recall"], 
+                                                pr["nc_fmeasure"], pr["under_limit"], pr["unclassified"])
 
 
     def print_results(self):
@@ -463,7 +506,6 @@ class Analyser:
             print "Total results is %d" %(len(self.results["Results"]))
 
         print yaml.dump(self.protocol_results, indent=4, default_flow_style=False) 
-
 
 def main():
     parser = OptionParser()

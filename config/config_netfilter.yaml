@@ -21,12 +21,12 @@
     NfBufSize: 2048
 
     # The KL Divergence Threshold. Any threshold below this will be considered that protocol
-    KLDivergenceThreshold : 0.1
+    KLDivergenceThreshold : 0.05
 
     # Number of worker threads to use in the Flow Manager. 
     # Each flow is assigned to a thread and that thread is responsible for all packets in the flow
     # The total number of threads used by the program will be NumQueues * NumWorkerThreadsPerQueue
-    NumWorkerThreadsPerQueue: 4
+    NumWorkerThreadsPerQueue: 2
 
     # Size of the thread packet queue to use for worker threads
     # If not using VerdictAfterClassification this should be larger than if using 

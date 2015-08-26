@@ -2,7 +2,7 @@
 
     # Number of queues that are to be configured.
     # There will be between 1 and NumWorkerThreadsPerQueue threads per queue
-    NumQueues: 2
+    NumQueues: 1
 
     # The offset for the queue numbers. 
     # For example, 2 queues with an offset of 2000, would be queue 2000 and 2001

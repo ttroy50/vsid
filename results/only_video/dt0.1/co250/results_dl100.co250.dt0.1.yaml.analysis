@@ -1,0 +1,269 @@
+More than one result set in file
+Total flows in results file is 317
+Total results is 314
+DNS: !!python/object:__main__.ProtocolResult
+    expected: 0
+    false_negative: 0
+    false_negative_protocols: {}
+    false_positive: 0
+    false_positive_protocols: {}
+    max_divergence: 0.0
+    max_pkt_count: 0
+    min_divergence: 0.0
+    min_pkt_count: 0
+    name: DNS
+    not_classified: 0
+    true_negative: 314
+    true_positive: 0
+    under_defining_limit: 0
+HLS: !!python/object:__main__.ProtocolResult
+    expected: 96
+    false_negative: 0
+    false_negative_protocols: {}
+    false_positive: 0
+    false_positive_protocols: {}
+    max_divergence: 0.0166379
+    max_pkt_count: 100
+    min_divergence: 9.46956e-05
+    min_pkt_count: 100
+    name: HLS
+    not_classified: 0
+    true_negative: 218
+    true_positive: 96
+    under_defining_limit: 0
+HTTP: !!python/object:__main__.ProtocolResult
+    expected: 0
+    false_negative: 0
+    false_negative_protocols: {}
+    false_positive: 0
+    false_positive_protocols: {}
+    max_divergence: 0.0
+    max_pkt_count: 0
+    min_divergence: 0.0
+    min_pkt_count: 0
+    name: HTTP
+    not_classified: 0
+    true_negative: 314
+    true_positive: 0
+    under_defining_limit: 0
+HTTP-Progressive: !!python/object:__main__.ProtocolResult
+    expected: 28
+    false_negative: 0
+    false_negative_protocols: {}
+    false_positive: 43
+    false_positive_protocols:
+        RTP: 43
+    max_divergence: 0.0439041
+    max_pkt_count: 100
+    min_divergence: 0.0128212
+    min_pkt_count: 100
+    name: HTTP-Progressive
+    not_classified: 5
+    true_negative: 243
+    true_positive: 23
+    under_defining_limit: 2
+HTTPS: !!python/object:__main__.ProtocolResult
+    expected: 0
+    false_negative: 0
+    false_negative_protocols: {}
+    false_positive: 0
+    false_positive_protocols: {}
+    max_divergence: 0.0
+    max_pkt_count: 0
+    min_divergence: 0.0
+    min_pkt_count: 0
+    name: HTTPS
+    not_classified: 0
+    true_negative: 314
+    true_positive: 0
+    under_defining_limit: 0
+RTCP: !!python/object:__main__.ProtocolResult
+    expected: 48
+    false_negative: 40
+    false_negative_protocols:
+        RTSP: 40
+    false_positive: 0
+    false_positive_protocols: {}
+    max_divergence: 0.0701757
+    max_pkt_count: 100
+    min_divergence: 0.00751299
+    min_pkt_count: 100
+    name: RTCP
+    not_classified: 0
+    true_negative: 266
+    true_positive: 8
+    under_defining_limit: 0
+RTMP: !!python/object:__main__.ProtocolResult
+    expected: 40
+    false_negative: 0
+    false_negative_protocols: {}
+    false_positive: 0
+    false_positive_protocols: {}
+    max_divergence: 0.0679365
+    max_pkt_count: 100
+    min_divergence: 0.042866
+    min_pkt_count: 100
+    name: RTMP
+    not_classified: 5
+    true_negative: 274
+    true_positive: 35
+    under_defining_limit: 0
+RTP: !!python/object:__main__.ProtocolResult
+    expected: 48
+    false_negative: 43
+    false_negative_protocols:
+        HTTP-Progressive: 43
+    false_positive: 0
+    false_positive_protocols: {}
+    max_divergence: 0.0785494
+    max_pkt_count: 100
+    min_divergence: 0.0599495
+    min_pkt_count: 100
+    name: RTP
+    not_classified: 0
+    true_negative: 266
+    true_positive: 5
+    under_defining_limit: 0
+RTSP: !!python/object:__main__.ProtocolResult
+    expected: 24
+    false_negative: 0
+    false_negative_protocols: {}
+    false_positive: 40
+    false_positive_protocols:
+        RTCP: 40
+    max_divergence: 0.0
+    max_pkt_count: 0
+    min_divergence: 0.0
+    min_pkt_count: 0
+    name: RTSP
+    not_classified: 24
+    true_negative: 250
+    true_positive: 0
+    under_defining_limit: 24
+Youtube: !!python/object:__main__.ProtocolResult
+    expected: 30
+    false_negative: 0
+    false_negative_protocols: {}
+    false_positive: 0
+    false_positive_protocols: {}
+    max_divergence: 0.0365123
+    max_pkt_count: 100
+    min_divergence: 0.0214896
+    min_pkt_count: 100
+    name: Youtube
+    not_classified: 5
+    true_negative: 284
+    true_positive: 25
+    under_defining_limit: 5
+
+
+##################################
+
+DNS:
+    nc_fmeasure: 0.0
+    nc_precision: 0.0
+    nc_recall: 0.0
+    unclassified: 0.0
+    under_limit: 0.0
+    xxa_fmeasure: 0.0
+    xxa_precision: 0.0
+    xxa_recall: 0.0
+HLS:
+    nc_fmeasure: 100.0
+    nc_precision: 100.0
+    nc_recall: 100.0
+    unclassified: 0.0
+    under_limit: 0.0
+    xxa_fmeasure: 100.0
+    xxa_precision: 100.0
+    xxa_recall: 100.0
+HTTP:
+    nc_fmeasure: 0.0
+    nc_precision: 0.0
+    nc_recall: 0.0
+    unclassified: 0.0
+    under_limit: 0.0
+    xxa_fmeasure: 0.0
+    xxa_precision: 0.0
+    xxa_recall: 0.0
+HTTP-Progressive:
+    nc_fmeasure: 50.0
+    nc_precision: 34.85
+    nc_recall: 88.46
+    unclassified: 11.54
+    under_limit: 7.14
+    xxa_fmeasure: 51.69
+    xxa_precision: 34.85
+    xxa_recall: 100.0
+HTTPS:
+    nc_fmeasure: 0.0
+    nc_precision: 0.0
+    nc_recall: 0.0
+    unclassified: 0.0
+    under_limit: 0.0
+    xxa_fmeasure: 0.0
+    xxa_precision: 0.0
+    xxa_recall: 0.0
+RTCP:
+    nc_fmeasure: 28.57
+    nc_precision: 100.0
+    nc_recall: 16.67
+    unclassified: 0.0
+    under_limit: 0.0
+    xxa_fmeasure: 28.57
+    xxa_precision: 100.0
+    xxa_recall: 16.67
+RTMP:
+    nc_fmeasure: 93.33
+    nc_precision: 100.0
+    nc_recall: 87.5
+    unclassified: 12.5
+    under_limit: 0.0
+    xxa_fmeasure: 100.0
+    xxa_precision: 100.0
+    xxa_recall: 100.0
+RTP:
+    nc_fmeasure: 18.87
+    nc_precision: 100.0
+    nc_recall: 10.42
+    unclassified: 0.0
+    under_limit: 0.0
+    xxa_fmeasure: 18.87
+    xxa_precision: 100.0
+    xxa_recall: 10.42
+RTSP:
+    nc_fmeasure: 0.0
+    nc_precision: 0.0
+    nc_recall: 0.0
+    unclassified: 0.0
+    under_limit: 100.0
+    xxa_fmeasure: 0.0
+    xxa_precision: 0.0
+    xxa_recall: 0.0
+Youtube:
+    nc_fmeasure: 100.0
+    nc_precision: 100.0
+    nc_recall: 100.0
+    unclassified: 0.0
+    under_limit: 16.67
+    xxa_fmeasure: 100.0
+    xxa_precision: 100.0
+    xxa_recall: 100.0
+
+
+############
+
+Defining Limit: 100
+Cut-Off Limit: 250
+Divergence Threshold: 0.10
+Protocol	Precision	Recall	F-Measure	Under Defining Limit	Unclassified
+Youtube	100.00	100.00	100.00	16.67	0.00
+HTTP-Progressive	34.85	88.46	50.00	7.14	11.54
+HLS	100.00	100.00	100.00	0.00	0.00
+RTMP	100.00	87.50	93.33	0.00	12.50
+RTP	100.00	10.42	18.87	0.00	0.00
+RTCP	100.00	16.67	28.57	0.00	0.00
+RTSP	0.00	0.00	0.00	100.00	0.00
+HTTP	0.00	0.00	0.00	0.00	0.00
+HTTPS	0.00	0.00	0.00	0.00	0.00
+DNS	0.00	0.00	0.00	0.00	0.00

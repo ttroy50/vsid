@@ -18,5 +18,5 @@ iptables -I FORWARD -j NFQUEUE --queue-num 0 #--queue-balance 0:1
 #
 echo "Starting $1 with config $2"
 #$1 -c $2 &
-nice -n -10 src/netfilter/src/vsid_netfilter -c ../config/config_netfilter.yaml &
+nice -n -20 src/netfilter/src/vsid_netfilter -c ../config/config_netfilter.yaml &
 echo "Started"

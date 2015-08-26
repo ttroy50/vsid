@@ -7,15 +7,7 @@ fi
 
 echo "resetting iptables"
 
-#iptables -D INPUT -p tcp -j NFQUEUE --queue-balance 0:1
-#iptables -D OUTPUT -p tcp -j NFQUEUE --queue-balance 0:1
-
-iptables -D FORWARD -i eth1 -o vboxnet0 -j NFQUEUE --queue-num 0 #--queue-balance 0:1
-iptables -D FORWARD -i vboxnet0 -o eth1 -j NFQUEUE --queue-num 0 #--queue-balance 0:1
-
-
-#iptables -D INPUT -p tcp -j NFQUEUE --queue-num 0
-#iptables -D OUTPUT -p tcp -j NFQUEUE --queue-num 0
+iptables -F
 
 echo "Stopping process"
 
