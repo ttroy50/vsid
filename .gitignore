@@ -53,6 +53,8 @@ __pycache__/
 .Python
 env/
 build/
+cmake_build/
+am_build/
 develop-eggs/
 dist/
 downloads/

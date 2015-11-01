@@ -12,7 +12,7 @@ Thom Troy
 
 ### Requirements
 
-* autoconf
+* cmake or autoconf
 * libpcap
 * [YAML-cpp])(https://github.com/jbeder/yaml-cpp)
 * boost-dev
@@ -25,17 +25,18 @@ The steps to build are
 ```
  $ mkdir build
  $ cd build
- $ ../configure
+ $ ../cmake
  $ make
 ```
 
 ## Running 
+Note: Some of these steps are not updated for the cmake build version yet....
 
 ### VSID Netfilter Classifier
 
 Once build you can run the project from the build folder by running
 ```
- $ sudo ../tools/start_vsid_nf.sh
+ $ sudo ../tests/start_vsid_nf.sh
 ```
 
 This will run with the default protocol database from config/protocol_model.db.yaml with the default config from config/config_netfilter.yaml
@@ -50,18 +51,26 @@ To stop the process and unbind from iptables
 ### VSID Pcap Classifier
 
 ```
- $ src/pcap_classifier/src/vsid_pcap_classifier -c ../config/config_pcap_classifier.yaml -p /path/to/pcap
+ $ src/pcap_classifier/vsid_pcap_classifier -c ../config/config_pcap_classifier.yaml -p /path/to/pcap
 
 ```
 ### VSID Pcap Trainer
 
 ```
- $ src/training/src/vsid_training -c ../config/config_training.yaml -t /path/to/training_file.yaml
+ $ src/training/vsid_training -c ../config/config_training.yaml -t /path/to/training_file.yaml
 ```
 
 ## Documentation
 
 Doxygen documentation for the code may be found from [here](http://matrim.bitbucket.org/vsid/)
+
+To regenerated the documentation when using cmake do
+
+```
+make doc
+```
+
+The output from this will be in the <build>/doxygen folder.
 
 ## Related Projects
 

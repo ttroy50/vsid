@@ -14,5 +14,5 @@ iptables -A FORWARD -j NFQUEUE --queue-num 0
 #
 echo "Starting $1 with config $2"
 #$1 -c $2 &
-nice -n -10 vsid_nfqueue_test -c ../etc/vsid/config_nfqueue_test.yaml &
+nice -n -10 src/nfqueue_test/vsid_nfqueue_test -c ../config/config_nfqueue_test.yaml &
 echo "Started"
